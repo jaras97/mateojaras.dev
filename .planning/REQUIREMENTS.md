@@ -155,16 +155,92 @@ Diferidos. Se registran pero no entran al roadmap actual.
 
 ## Traceability
 
-Se completa al crear el roadmap.
+Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
+| IDEN-01 | Phase 1 | Pending |
+| IDEN-02 | Phase 1 | Pending |
+| IDEN-03 | Phase 1 | Pending |
+| IDEN-04 | Phase 1 | Pending |
+| IDEN-05 | Phase 1 | Pending |
+| IDEN-06 | Phase 1 | Pending |
+| IDEN-07 | Phase 1 | Pending |
+| BASE-01 | Phase 2 | Pending |
+| BASE-02 | Phase 2 | Pending |
+| BASE-03 | Phase 2 | Pending |
+| BASE-04 | Phase 2 | Pending |
+| BASE-05 | Phase 2 | Pending |
+| BASE-06 | Phase 2 | Pending |
+| BASE-07 | Phase 2 | Pending |
+| BASE-08 | Phase 2 | Pending |
+| BASE-09 | Phase 2 | Pending |
+| BASE-10 | Phase 2 | Pending |
+| BASE-11 | Phase 2 | Pending |
+| AUTH-01 | Phase 2 | Pending |
+| AUTH-02 | Phase 2 | Pending |
+| AUTH-03 | Phase 2 | Pending |
+| AUTH-04 | Phase 2 | Pending |
+| ADMN-01 | Phase 3 | Pending |
+| ADMN-02 | Phase 3 | Pending |
+| ADMN-03 | Phase 3 | Pending |
+| ADMN-04 | Phase 3 | Pending |
+| ADMN-05 | Phase 3 | Pending |
+| ADMN-06 | Phase 3 | Pending |
+| ADMN-07 | Phase 3 | Pending |
+| ADMN-08 | Phase 3 | Pending |
+| ADMN-09 | Phase 3 | Pending |
+| ADMN-10 | Phase 3 | Pending |
+| ADMN-11 | Phase 3 | Pending |
+| ADMN-12 | Phase 3 | Pending |
+| ADMN-13 | Phase 3 | Pending |
+| CV-01 | Phase 3 | Pending |
+| CV-02 | Phase 3 | Pending |
+| CV-03 | Phase 3 | Pending |
+| CV-04 | Phase 3 | Pending |
+| CV-05 | Phase 3 | Pending |
+| CASE-01 | Phase 4 | Pending |
+| CASE-02 | Phase 4 | Pending |
+| CASE-03 | Phase 4 | Pending |
+| CASE-04 | Phase 4 | Pending |
+| CASE-05 | Phase 4 | Pending |
+| CASE-06 | Phase 4 | Pending |
+| CASE-07 | Phase 4 | Pending |
+| SITE-01 | Phase 4 | Pending |
+| SITE-02 | Phase 4 | Pending |
+| SITE-03 | Phase 4 | Pending |
+| SITE-04 | Phase 4 | Pending |
+| SITE-05 | Phase 4 | Pending |
+| SITE-06 | Phase 4 | Pending |
+| SITE-07 | Phase 4 | Pending |
+| SITE-08 | Phase 5 | Pending |
+| CONT-01 | Phase 4 | Pending |
+| CONT-02 | Phase 4 | Pending |
+| CONT-03 | Phase 4 | Pending |
+| CONT-04 | Phase 4 | Pending |
+| CONT-05 | Phase 4 | Pending |
+| SEO-01 | Phase 4 | Pending |
+| SEO-02 | Phase 4 | Pending |
+| SEO-03 | Phase 4 | Pending |
+| MOTN-01 | Phase 4 | Pending |
+| MOTN-02 | Phase 4 | Pending |
+| MOTN-03 | Phase 4 | Pending |
+| MOTN-04 | Phase 4 | Pending |
+| QUAL-01 | Phase 4 | Pending |
+| QUAL-02 | Phase 4 | Pending |
+| QUAL-03 | Phase 5 | Pending |
+| QUAL-04 | Phase 4 | Pending |
+| QUAL-05 | Phase 5 | Pending |
+| QUAL-06 | Phase 5 | Pending |
+| QUAL-07 | Phase 5 | Pending |
+| QUAL-08 | Phase 5 | Pending |
+| QUAL-09 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 76 total
-- Mapped to phases: 0
-- Unmapped: 76 ⚠️
+- Mapped to phases: 76 (fase 1: 7, fase 2: 15, fase 3: 18, fase 4: 29, fase 5: 7)
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-10-29*
-*Last updated: 2026-10-29 after initial definition*
+*Last updated: 2026-10-29 after roadmap creation (traceability)*

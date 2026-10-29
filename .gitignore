@@ -43,3 +43,6 @@ next-env.d.ts
 
 # material original (capturas y logos de clientes; se suben a Blob desde el admin)
 /material/
+
+# GSD research-store cache
+.planning/research/.cache/

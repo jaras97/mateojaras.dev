@@ -3,16 +3,16 @@ gsd_state_version: "1.0"
 current_phase: 01
 current_phase_name: Identidad y contenido
 status: executing
-stopped_at: Completed 01-09-PLAN.md
-last_updated: "2026-10-30T23:06:55.495Z"
+stopped_at: Completed 01-10-PLAN.md
+last_updated: "2026-10-30T23:13:46.620Z"
 last_activity: 2026-10-30
 last_activity_desc: Phase 01 execution started
-state_head: dbd5e93d702d916caeb3bb340e564a3601c928fb
+state_head: b54f7249afdf7455d568a80bf4505c051cfe18b0
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 13
-  completed_plans: 9
+  completed_plans: 10
   percent: 0
 ---
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-10-29)
 ## Current Position
 
 Phase: 01 (Identidad y contenido) — EXECUTING
-Plan: 10 of 13
+Plan: 11 of 13
 Status: Ready to execute
 Last activity: 2026-10-30 — Phase 01 execution started
 
@@ -65,6 +65,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P08 | 9min | 2 tasks | 5 files |
 | Phase 01 P07 | 10min | 3 tasks | 6 files |
 | Phase 01 P09 | 97min | 3 tasks | 2 files |
+| Phase 01 P10 | 3min | 1 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -93,6 +94,9 @@ Recent decisions affecting current work:
 - [Phase 01]: G4 delegated to admin editing: docs/content carries only verifiable facts, narrative fields in pendingFields, IDEN-05 narrative open
 - [Phase 01]: Project slugs fixed: centro-estetico-manuj, ecoexport-costa-rica, sistema-gestion-inventario, finanzas-personales
 - [Phase 01]: 01-09 G3 (Teo): hero variant a; P1 keep light accent; P2 ES strings approved, CTA stays Let’s talk / Hablemos, short headline; P5 fix DESIGN.md §4 example; fix only the focusable contrast-table region now, rest to phase 4
+- [Phase 01]: 01-10: live-site views (ManuJ inicio/galeria/reservar; EcoExport inicio/nosotros/productos/inicio-en) chosen by Claude after Teo's G4 delegation; media and coverImage stay in pendingFields until G7
+- [Phase 01]: 01-10: provisional cover 01-inicio.webp for ManuJ and EcoExport, coverImage kept pending for Teo
+- [Phase 01]: 01-10: inventory and finance captures deferred (G5 open, permission unknown); IDEN-06 stays open
 
 ### Pending Todos
 
@@ -104,6 +108,7 @@ None yet.
 - [Phase 2]: Las aprobaciones de dependencias y de cambios en `docs/data-model.md` y CLAUDE.md se piden juntas al inicio, antes de escribir código que dependa de ellas.
 - [Phase 3]: `@react-pdf/renderer` 4.9 con React 19.3 sin verificar; spike el día 5. Pedir `BLOB_READ_WRITE_TOKEN` al inicio.
 - [Phase 4]: Arrancar la verificación DNS de Resend en Porkbun la primera mañana; pedir las claves de Resend, Upstash y la URL de Cal.com.
+- IDEN-06: inventory and finance captures need Teo's G5 (permission, local sample-data apps, URLs, views); ask at G7 or before
 
 ## Deferred Items
 
@@ -115,6 +120,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-10-30T23:06:55.474Z
-Stopped at: Completed 01-09-PLAN.md
+Last session: 2026-10-30T23:13:46.601Z
+Stopped at: Completed 01-10-PLAN.md
 Resume file: None

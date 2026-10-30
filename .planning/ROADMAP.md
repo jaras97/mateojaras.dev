@@ -30,7 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Cada uno de los 4 proyectos tiene en `docs/content/`, en en y es, tagline, problema, rol, solución, resultados, 2–3 decisiones técnicas, URLs, permiso del cliente y la fuente de cada métrica, y `material/` tiene al menos 3 capturas 16:10 por proyecto (las del inventario marcadas como datos ficticios)
   4. `docs/copy.md` no tiene ningún marcador `[Teo escribe]`: hero, about, now, experiencia y contacto están escritos por Teo en en y es, y él los aprobó
   5. `assets/fonts-pdf/` contiene los TTF estáticos de las tres familias, con glifos latin-ext, listos para el CV
-**Plans**: 9/13 plans executed en 9 olas (8 compuertas humanas `blocking-human`)
+**Plans**: 10/13 plans executed en 9 olas (8 compuertas humanas `blocking-human`)
 
 Plans:
 **Wave 1**
@@ -53,7 +53,7 @@ Plans:
 
 **Wave 6** *(blocked on Wave 5 completion)*
 - [x] 01-09-PLAN.md — Critique por variante y elección de variante (G3)
-- [ ] 01-10-PLAN.md — Capturas 16:10 en material/: webs en vivo y apps locales con datos de ejemplo (G5)
+- [x] 01-10-PLAN.md — Capturas 16:10 en material/: webs en vivo y apps locales con datos de ejemplo (G5)
 
 **Wave 7** *(blocked on Wave 6 completion)*
 - [ ] 01-11-PLAN.md — Decisiones de la revisión aplicadas, copy y frases del concepto de Teo (G6)
@@ -170,7 +170,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Identidad y contenido | 9/13 | In Progress | - |
+| 1. Identidad y contenido | 10/13 | In Progress | - |
 | 2. Base técnica | 0/TBD | Not started | - |
 | 3. Panel admin + CV | 0/TBD | Not started | - |
 | 4. Sitio público | 0/TBD | Not started | - |

@@ -3,16 +3,16 @@ gsd_state_version: "1.0"
 current_phase: 01
 current_phase_name: Identidad y contenido
 status: executing
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-10-30T18:52:37.525Z"
+stopped_at: Completed 01-03-PLAN.md
+last_updated: "2026-10-30T19:23:58.508Z"
 last_activity: 2026-10-30
 last_activity_desc: Phase 01 execution started
-state_head: 5fdbb109290e8fabd774f67fc30c05cf2e78672d
+state_head: aa70fdf3badd699e5f2590d9287b54774f75dbfe
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 13
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-10-29)
 ## Current Position
 
 Phase: 01 (Identidad y contenido) — EXECUTING
-Plan: 2 of 13
+Plan: 3 of 13
 Status: Ready to execute
 Last activity: 2026-10-30 — Phase 01 execution started
 
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 | Plan | Duration | Tasks | Files |
 |------|----------|-------|-------|
 | Phase 01 P01 | 3min | 2 tasks | 8 files |
+| Phase 01 P03 | 31min | 3 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,9 @@ Recent decisions affecting current work:
 - [Roadmap]: El CV público es la copia generada y guardada en Blob (CV-01/CV-02); se confirma con Teo en la fase 3.
 - [Phase 01]: Biome excludes .claude, .agents, .planning and .impeccable (local hook cache); vendored files are never edited to satisfy lint
 - [Phase 01]: The terracotta reaches components only through --color-signal (bg-signal/text-signal) and --ring; shadcn --color-accent stays a neutral hover surface
+- [Phase 01]: PDF fonts: six static TTFs from Google Fonts' official static/ folders (D-19); instancer fallback not needed; OFL shipped next to them
+- [Phase 01]: Teo approved yaml@2.9.1 and @axe-core/playwright@4.14.0 (exact devDeps) and verified axe on npm; install in 01-05 / 01-08
+- [Phase 01]: Teo (2026-10-30): ask him only about highly relevant matters
 
 ### Pending Todos
 
@@ -93,6 +97,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-10-30T18:52:37.507Z
-Stopped at: Completed 01-01-PLAN.md
+Last session: 2026-10-30T19:23:58.492Z
+Stopped at: Completed 01-03-PLAN.md
 Resume file: None

@@ -148,7 +148,7 @@ Diferidos. Se registran pero no entran al roadmap actual.
 |------------|------|
 | `yaml@2.9.1` como devDependency exacta (contrato de `docs/content` y, en la fase 2, el seed). Se pide en G1 (01-03); sin respuesta, no se instala | 1 |
 | `@axe-core/playwright@4.14.0`: se adelanta a la fase 1 (01-08) solo si Teo lo aprueba en G1 y lo verifica en npm (01-03); si no, sigue en el lote de la fase 2 | 1 / 2 |
-| Cómo llega al inglés la etiqueta de cada métrica: por D-11, `metrics` sigue siendo `{label, value}[]` y `docs/content` guarda `label` y `source` en español | 2 |
+| Cómo llegan a la base de datos la etiqueta y la fuente en inglés de cada métrica: `docs/content` las guarda en en y es (`labelEs`/`labelEn`, `sourceEs`/`sourceEn`; decidió Teo el 2026-10-30), mientras el esquema (`metrics: {label, value}[]`, D-11) y `docs/data-model.md` no cambian en la fase 1 | 2 |
 | React 19.3.0 → 19.3.1 y dependencias directas (`@tiptap/pm`, `@tiptap/static-renderer`, `@dnd-kit/utilities`, `server-only`, `@testing-library/dom`, `@testing-library/user-event`, `@axe-core/playwright` (solo si no se adelantó en G1 de la fase 1: ver la fila de arriba y `01-03-ANSWERS.md`), `tsx`, `@types/node@^24`) | 2 |
 | `site_settings.languages` en `docs/data-model.md` (aprobado 2026-10-29; falta editar el doc) | 2 |
 | Corregir el CLI de Better Auth en `docs/data-model.md` (`auth` en vez de `@better-auth/cli`) | 2 |

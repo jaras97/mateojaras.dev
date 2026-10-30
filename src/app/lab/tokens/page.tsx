@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { SectionNumber } from "@/components/site/section-number";
+import { Button } from "@/components/ui/button";
 import { labMessages } from "@/lib/messages";
 import {
   ContrastTable,
@@ -10,6 +11,17 @@ import {
 } from "../_components/specimens";
 
 const t = labMessages.tokens;
+
+// Section 04 data: every variant in every text size (labels are the variant
+// names), plus one disabled example.
+const BUTTON_VARIANTS = [
+  "default",
+  "outline",
+  "secondary",
+  "ghost",
+  "link",
+] as const;
+const BUTTON_SIZES = ["sm", "default", "lg"] as const;
 
 function Section({
   number,
@@ -57,6 +69,23 @@ export default function LabTokensPage() {
         <div className="mt-8">
           <RadiusSamples />
         </div>
+      </Section>
+
+      <Section number="04" title={t.sections.components}>
+        <ul className="flex flex-col gap-6">
+          {BUTTON_VARIANTS.map((variant) => (
+            <li key={variant} className="flex flex-wrap items-center gap-4">
+              {BUTTON_SIZES.map((size) => (
+                <Button key={size} variant={variant} size={size}>
+                  {variant}
+                </Button>
+              ))}
+            </li>
+          ))}
+          <li className="flex flex-wrap items-center gap-4">
+            <Button disabled>disabled</Button>
+          </li>
+        </ul>
       </Section>
     </main>
   );

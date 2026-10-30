@@ -10,7 +10,8 @@
       "sections": {
         "color": "Color",
         "typography": "Typography",
-        "spacing": "Spacing and radii"
+        "spacing": "Spacing and radii",
+        "components": "Components"
       },
       "color": {
         "light": "Light",

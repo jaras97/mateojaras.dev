@@ -10,7 +10,8 @@
       "sections": {
         "color": "Color",
         "typography": "Tipografía",
-        "spacing": "Espacio y radios"
+        "spacing": "Espacio y radios",
+        "components": "Componentes"
       },
       "color": {
         "light": "Claro",

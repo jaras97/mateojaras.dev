@@ -102,3 +102,31 @@ Decisión: para ManuJ y EcoExport (permiso del cliente sí, D-12), Claude eligi�
 Quién: el orquestador fijó cómo cumplir la delegación de Teo sin interrumpirlo; Claude Code eligió las vistas y capturó (01-10). Teo confirma, cambia o quita cada captura en G7 (01-12), y ninguna se publica sin su revisión (D-15).
 Por qué: capturar las páginas públicas no inventa contenido y deja material listo para revisar; elegir por Teo la portada o publicar sin su revisión sí sería decidir por él.
 Verificación: `node scripts/capture-material.ts <slug>`, `pendingFields` de los cuatro archivos de `docs/content/` y `CONTENT_MIN_FILES=4 pnpm content:check`.
+
+## 2026-10-30 · Variante del hero elegida
+Contexto: 01-08 y 01-09 presentaron las variantes A, B y C del hero en `/lab/hero` con capturas, auditoría y crítica neutral (01-LAB-REVIEW.md). La recomendación del orquestador llegó aparte porque Teo la pidió.
+Decisión: variante A. Respuesta de Teo, literal: "variante: a". No dio un motivo aparte.
+Quién: Teo.
+Por qué: es su elección en G3; la regla de lectura de la Task 3 de 01-09 encuentra una sola letra en su bloque.
+Verificación: `.planning/phases/01-identidad-y-contenido/01-09-ANSWERS.md`, `.planning/phases/01-identidad-y-contenido/01-LAB-REVIEW.md` y las capturas de 01-08.
+
+## 2026-10-30 · Respuestas P1, P2, P3 y P5 de UI-SPEC
+Contexto: el UI-SPEC ("Preguntas abiertas para Teo") dejó cinco preguntas para G3. Respuesta de Teo, literal: "P1 mantener · P2 apruebo las cadenas, CTA se queda, headline: la versión corta · P5 corregir".
+Decisión: P1 mantener: el acento claro sigue en `oklch(0.66 0.17 40)` y solo pinta el punto de estado y el foco; DESIGN.md, `globals.css` y la tabla de `/lab/tokens` no cambian. P2: aprueba las cadenas ES de la línea de estado y de los estados open/closed (ya están en `messages/es.json`, sin cambios); el CTA se queda "Let’s talk" / "Hablemos"; el headline pasa a la versión corta que vio en G3, propuesta por Claude y elegida por Teo: "Construyo frontends sólidos con React y Next.js, de la primera pantalla al panel de gestión." (ES) y "I build solid frontends with React and Next.js, from the first screen to the admin panel behind it." (EN, traducción de Claude elegida con ella), en `fixture.ts` y en `docs/copy.md`. `heroCopyMeta.status` y `headlineEsStatus` siguen en borrador y `headlineEnStatus` en `draft-translation`: el conjunto en y es se aprueba en G7 (01-12). P3: sin respuesta; no aplica porque solo existía para la fecha de la variante B. P5 corregir: el ejemplo de DESIGN.md §4 pasa a "01 Work", sin raya larga.
+Quién: Teo. El texto del headline corto lo redactó Claude; la elección es de Teo.
+Por qué: aplica sus respuestas solo donde viven y deja la aprobación final en G7.
+Verificación: `.planning/phases/01-identidad-y-contenido/01-09-ANSWERS.md` (notas de lectura), `src/features/site-settings/fixture.ts` (`headlineAuthorship`), `docs/copy.md` y DESIGN.md §4.
+
+## 2026-10-30 · /lab y variantes no elegidas se borran al empezar la fase 2
+Contexto: D-02 permite borrar `/lab` y las variantes B y C al cerrar la fase 1 o al empezar la fase 2. El criterio de éxito 1 necesita `/lab/tokens` renderizado cuando se verifique la fase 1, y la fase 2 reemplaza el layout raíz de todos modos (RESEARCH, Pitfall 10).
+Decisión: `/lab`, el namespace Lab de `messages/`, `hero-b.tsx`, `hero-c.tsx` y lo que solo usan ellas se borran en la primera tarea de la fase 2. La variante A se queda.
+Quién: Claude Code (autónomo, dentro de los límites de D-02).
+Por qué: borrar antes rompería la verificación de la fase 1; borrar después mantendría código muerto en la fase 2.
+Verificación: la verificación de la fase 1 con `/lab/tokens` en pie; la primera tarea de la fase 2 lo borra.
+
+## 2026-10-30 · Hallazgos de la revisión del lab
+Contexto: 01-LAB-REVIEW.md reportó hallazgos sin corregir nada. Respuesta de Teo, literal: "hallazgos: tabla de contraste enfocable; el resto a la fase 4".
+Decisión: se corrige ahora el contenedor con scroll de la tabla de contraste de `/lab/tokens` (axe `scrollable-region-focusable`, serious a 390 px): es una `<section>` con `tabIndex={0}` y `aria-label` (una `<section>` con nombre tiene rol `region`; Biome pide el elemento nativo en lugar de `role="region"`). El nombre reutiliza la leyenda "Contraste medido" de `messages/`. Todos los demás hallazgos de 01-LAB-REVIEW.md (auditoría de `/lab/tokens` y críticas de la variante A incluidos) quedan para la fase 4.
+Quién: Teo.
+Por qué: es el único hallazgo serious de axe; el resto es pulido.
+Verificación: `src/app/lab/_components/specimens.tsx` (`ContrastTable`) y axe a 390 px sobre `/lab/tokens`.

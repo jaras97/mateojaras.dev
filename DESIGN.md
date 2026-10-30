@@ -46,7 +46,7 @@ Reglas: el acento aparece como máximo en un elemento por vista (la línea de es
 - Grid de 12 columnas, gutter 24px, ancho máximo 1200px, márgenes laterales 24px (móvil) / 48px (desktop).
 - Escala de espacio en múltiplos de 8: 8, 16, 24, 32, 48, 64, 96, 128.
 - Layout editorial: el texto principal ocupa 7–8 columnas y se desplaza (empieza en la columna 2 o 3), dejando una columna libre para números de sección, fechas y notas al margen (`<Marginalia>`). En móvil las notas pasan debajo del párrafo en mono pequeño.
-- Secciones separadas por una regla de 1px (`--line`) y un número en mono ("01 — Work"), no por bloques de color.
+- Secciones separadas por una regla de 1px (`--line`) y un número en mono ("01 Work"), no por bloques de color.
 - Nada de cards con sombra. Los proyectos se listan como entradas: fecha en mono, título display, una línea de contexto, stack en mono; al hover la entrada completa se desplaza 4px y el título toma el acento.
 - Radios: 4px en controles, 8px en imágenes, 0 en contenedores. Bordes 1px.
 - Imágenes de proyectos: siempre con `alt` real, proporción fija (16:10), fondo `--bg-elev` mientras cargan.

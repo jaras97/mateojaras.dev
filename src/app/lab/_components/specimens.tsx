@@ -127,8 +127,16 @@ const CONTRAST_ROWS = [
 
 export function ContrastTable() {
   const cell = "border-b border-border py-2 pr-4 align-top";
+  // The table scrolls sideways below ~500px; tabIndex lets keyboard users in
+  // every browser scroll it (axe scrollable-region-focusable, 01-LAB-REVIEW).
   return (
-    <div className="overflow-x-auto">
+    // A labelled <section> is role="region".
+    <section
+      className="overflow-x-auto"
+      // biome-ignore lint/a11y/noNoninteractiveTabindex: a scrollable region must be focusable (WCAG 2.1.1)
+      tabIndex={0}
+      aria-label={t.color.contrastCaption}
+    >
       <table className="w-full border-collapse font-mono text-sm">
         <caption className="pb-2 text-left text-muted-foreground">
           {t.color.contrastCaption}
@@ -162,7 +170,7 @@ export function ContrastTable() {
           ))}
         </tbody>
       </table>
-    </div>
+    </section>
   );
 }
 

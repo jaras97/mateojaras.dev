@@ -165,3 +165,60 @@ Fuera de la compuerta, en la auditoría:
 - `/lab/tokens` a 390 px: 1 violación `scrollable-region-focusable` (serious). Es el P1 de la auditoría. La compuerta no la ve porque solo corre a 1440.
 
 **Sustituto manual (recorrido con teclado):** se hizo de todos modos. Está en "Lo que funciona" y en el P1 de la tabla.
+
+## Variante A
+
+`/impeccable critique` sobre `src/components/site/hero/hero-a.tsx` (con `hero-parts.tsx` y `status-line.tsx`). Solo se usó `critique`: no se ejecutaron `init` ni `document`, no se creó PRODUCT.md (el contexto de producto salió de PROJECT.md) y no se corrigió nada.
+
+Método: DEGRADED: single-context (esta sesión no tiene herramienta de subagentes, así que la revisión de diseño y el detector corrieron en el mismo contexto, en ese orden: primero la lectura de las capturas, después el detector). Detector: `impeccable detect` sobre los tres archivos (0 hallazgos) y sobre la página servida (`next start`, `capture=1`) a 390×844 y 1440×900 en en y es. No hubo overlay en una pestaña [Human]: no hay navegador interactivo en esta sesión. Medidas de posición con Playwright sobre el mismo build. El informe no se archivó en `.impeccable/critique/`: este archivo es el archivo.
+
+**Capturas (evidencia):**
+- a-light-en-390.png
+- a-light-en-768.png
+- a-light-en-1440.png
+- a-dark-en-390.png
+- a-dark-en-768.png
+- a-dark-en-1440.png
+- a-light-es-390.png
+- a-light-es-1440.png
+
+**Qué comunica la jerarquía.** Primero quién eres y qué haces (el headline, en display a 44.8 px en móvil y 72 px en escritorio), después el dato de bitácora (disponibilidad, lugar, huso, solapamiento, en mono 14 px) y al final la acción (CTA de 44 px relleno de tinta). Un solo foco, lectura de arriba abajo, sin nada que compita. El concepto "bitácora" vive solo en la línea de estado; el resto es un hero de texto clásico.
+
+**Líneas del headline a 390 px:** EN 10, ES 13. **Las dos pasan de 7.** (768 px: EN 5, ES 6. 1440 px: EN 8, ES 10.)
+
+**Puntuación (heurísticas aplicables).** 1 Estado del sistema 3 (la disponibilidad es lo primero que se ve después del headline) · 2 Lenguaje del usuario 3 · 4 Consistencia 4 · 6 Reconocer antes que recordar 3 · 8 Estética y minimalismo 3 (el largo del headline). 3, 5, 7, 9 y 10 son n/a en un hero sin flujo ni formulario. **Total 16/20 (80 %, Bien).**
+
+### Críticos
+
+Ninguno. Nada impide leer ni actuar, y axe no encontró ninguna violación a 390, 768 ni 1440.
+
+### Importantes
+
+**[P1] El headline ocupa casi toda la primera pantalla y en español empuja el CTA fuera de ella.**
+- Medido sobre el build: a 1440×900 en español la línea de estado empieza en y=888 y el CTA termina en y=1027, los dos por debajo del pliegue. A 390×844 en español el CTA termina en y=886, también fuera. En inglés el CTA queda dentro por poco (y=843 de 900 a 1440; y=712 de 844 a 390).
+- El detector lo marca como `oversized-h1` a 1440: 72 px, 143 caracteres, 70 % del alto en inglés; 165 caracteres, 88 % en español.
+- Por qué importa: un reclutador o cliente que entra en escritorio con el sitio en español ve solo el headline, sin la disponibilidad ni la acción.
+- Afecta igual a A, B y C (mismo tamaño y mismo texto). Es una cuestión de copy (ver P2 en "Preguntas abiertas") o de tamaño, no del layout de A.
+- Comando sugerido: `/impeccable typeset` o `/impeccable clarify`.
+
+**[P1] `text-wrap: balance` deja de actuar con más de 6 líneas, y aparecen huérfanas.**
+- En a-light-en-1440.png y a-dark-en-1440.png la línea 8 es solo "it.". En a-light-es-390.png quedan "desde la" y "primera" en líneas cortas seguidas. Chromium solo equilibra párrafos de hasta 6 líneas; por encima corta como un párrafo normal. A 768, con 5 y 6 líneas, el equilibrado sí funciona y el bloque se ve compacto (a-light-en-768.png).
+- Por qué importa: la palabra suelta al final del bloque más grande de la página es lo que más se nota en una composición tipográfica.
+- Se resuelve si el headline baja de 6 líneas en cada ancho; no hay arreglo de CSS que lo garantice con este largo.
+- Comando sugerido: `/impeccable typeset`.
+
+### Menores
+
+**[P2] La línea de estado se parte mal en español a 390.** En a-light-es-390.png ocupa 3 líneas y la segunda es solo "UTC-5 ·". A 1440 en español ocupa 2 líneas. En inglés cabe en 2 a 390 y en 1 desde 768. Comando sugerido: `/impeccable adapt`.
+
+**[P2] A 1440 las columnas 10 a 12 quedan vacías.** El texto va en las columnas 2 a 9 (DESIGN.md §4 reserva una columna de margen), pero en A no hay nada en el margen y la composición pesa a la izquierda (a-light-en-1440.png). Es coherente con el layout editorial; solo se nota más que en C, que usa ese espacio.
+
+**[P3] El remate de la "b" y la "d" de Funnel Display parece un punto suelto en móvil.** En a-light-en-390.png "I build" se lee casi como "I .build". Es el diseño de la fuente (DESIGN.md §2), no un error; vale mirarlo a tamaño real.
+
+**Detector:** `cream-palette` en todas las páginas (el `--bg` cálido de DESIGN.md §3, decisión tuya, no un desvío) y `oversized-h1` a 1440 (coincide con el primer P1). Nada más.
+
+### Lo que funciona
+
+- Un solo acento por vista: el punto de estado. El texto de la línea va en tinta, así que el contraste no depende de la terracota.
+- El tema oscuro es el mismo sistema con otros valores; no aparece ningún color nuevo ni se pierde jerarquía (a-dark-en-768.png).
+- El CTA es el único elemento relleno de la página: no hay duda sobre qué hacer después de leer.

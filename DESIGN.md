@@ -13,7 +13,7 @@ Referencias (estructura y actitud, nunca copiar estética): eduardbodak.com (fre
 - Display: **Funnel Display** (Google Fonts, variable). Títulos H1–H2, números de sección. Pesos 500–700. Tracking ligeramente negativo en tamaños grandes (-0.02em).
 - Texto: **Hanken Grotesk** (Google Fonts, variable). Cuerpo, UI, admin. Pesos 400–600.
 - Mono: **Geist Mono**. Fechas, estados, etiquetas de stack, código. Peso 400.
-- Self-hosted con `next/font/local` (descargar TTF/WOFF2 a `src/assets/fonts/`); `display: 'swap'`; subset latin + latin-ext (tildes y ñ).
+- Self-hosted con `next/font/google`: se descargan en el build y se sirven desde `/_next/static/media`, sin ninguna petición a Google en tiempo de ejecución; `display: 'swap'`; subsets latin + latin-ext (tildes y ñ).
 - Para el PDF del CV: TTF estáticos en `assets/fonts-pdf/` (react-pdf no acepta variables ni WOFF2).
 
 Escala (base 16px, ratio 1.25, fluida con `clamp`):
@@ -30,7 +30,7 @@ Escala (base 16px, ratio 1.25, fluida con `clamp`):
   --accent: oklch(0.66 0.17 40);      /* terracota: enlaces activos, estado, un solo elemento por vista */
   --accent-ink: oklch(0.99 0 0);      /* texto sobre acento */
 }
-:root[data-theme="dark"] {
+.dark {
   --bg: oklch(0.17 0.01 260);
   --bg-elev: oklch(0.21 0.012 260);
   --ink: oklch(0.94 0.01 80);
@@ -40,7 +40,7 @@ Escala (base 16px, ratio 1.25, fluida con `clamp`):
   --accent-ink: oklch(0.15 0.02 40);
 }
 ```
-Reglas: el acento aparece como máximo en un elemento por vista (la línea de estado, el enlace activo, el número de la sección actual). Nunca gradientes, nunca texto con gradiente, nunca sombras de color. Contraste AA mínimo; medir con APCA para texto pequeño. Tema claro por defecto; oscuro si `prefers-color-scheme: dark` o toggle (persistido en localStorage, aplicado antes del primer paint para evitar flash).
+Reglas: el acento aparece como máximo en un elemento por vista (la línea de estado, el enlace activo, el número de la sección actual). Nunca gradientes, nunca texto con gradiente, nunca sombras de color. Contraste AA mínimo; medir con APCA para texto pequeño. Tema claro por defecto; oscuro si `prefers-color-scheme: dark` o toggle (persistido en localStorage, aplicado antes del primer paint para evitar flash). El tema oscuro se activa con la clase `.dark` en `<html>`.
 
 ## 4. Espaciado y layout
 - Grid de 12 columnas, gutter 24px, ancho máximo 1200px, márgenes laterales 24px (móvil) / 48px (desktop).

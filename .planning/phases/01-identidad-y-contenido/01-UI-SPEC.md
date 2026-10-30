@@ -54,15 +54,30 @@ created: "2026-10-30"
 
 ## Component Inventory
 
+El inventario tiene tres slots, cada uno con su propia línea de procedencia. Ninguna tabla es una allowlist cerrada: son listas **no exhaustivas** de componentes conocidos, y comprobar un componente que no aparece es el camino esperado.
+
+### Slot 1: componentes shadcn instalados
+
 Enumerated by `ls src/components/ui/*.tsx | wc -l` — 1 components — shadcn@4.23.0 — 2026-10-30.
 Mismatch: `pnpm exec shadcn info` reported no installed components (its output has no components section), filesystem has 1.
-
-Primitivas disponibles para `shadcn add`: `node -p "Object.keys(require('@base-ui/react/package.json').exports||{}).length"` devuelve 80 entradas de exports en `@base-ui/react@1.9.0` (2026-10-30). Esta tabla es una lista **no exhaustiva** de componentes conocidos, no una allowlist cerrada.
 
 | Component | Import path | Notes |
 |-----------|-------------|-------|
 | Button | `@/components/ui/button` | Instalado. Se re-tematiza en esta fase (ver "Button: tema"). Variantes en la fase 1: `default`, `outline`, `secondary`, `ghost`, `link`. `destructive` no se muestra (no hay token destructivo, ver Color) |
-| Input, Textarea, Select, Dialog, Sheet, Tabs, Table, Badge, Toast, Form, Tooltip | `@/components/ui/<name>` tras `pnpm dlx shadcn@4.23.0 add <name>` | Permitidos por DESIGN.md §6, **no instalados y no necesarios en la fase 1**. Si `shadcn add` añade dependencias, se pregunta a Teo antes (CLAUDE.md) |
+
+### Slot 2: primitivas de Base UI disponibles
+
+Enumerated by `node -p "Object.keys(require('@base-ui/react/package.json').exports||{}).length"` — 80 exports — @base-ui/react@1.9.0 — 2026-10-30.
+
+Son las entradas de `exports` del paquete instalado (versión leída con `node -p "require('@base-ui/react/package.json').version"`), no componentes del repo. La fase 1 solo usa la que consume Button. Ninguna otra se importa directamente en esta fase.
+
+### Slot 3: permitidos por DESIGN.md, no instalados
+
+Enumerated by `grep -n 'Permitidos de shadcn/ui' DESIGN.md` — 11 components (13 listados, menos Button, ya en el slot 1, y Command, que es backlog) — DESIGN.md §6 allowlist, not installed — 2026-10-30.
+
+| Component | Import path | Notes |
+|-----------|-------------|-------|
+| Input, Textarea, Select, Dialog, Sheet, Tabs, Table, Badge, Toast, Form, Tooltip | `@/components/ui/<name>` tras `pnpm dlx shadcn@4.23.0 add <name>` | **No instalados y no necesarios en la fase 1.** Se listan para que las fases 3 y 4 sepan qué está permitido. Si `shadcn add` añade dependencias, se pregunta a Teo antes (CLAUDE.md) |
 
 ### Componentes propios de la fase 1
 
@@ -79,7 +94,9 @@ Primitivas disponibles para `shadcn add`: `node -p "Object.keys(require('@base-u
 
 ## Spacing Scale
 
-DESIGN.md §4: múltiplos de 8, más 4 para huecos mínimos. Tailwind v4 conserva `--spacing: 0.25rem`, así que cada token corresponde a una utilidad fija. **Solo se usan estas utilidades** (`1, 2, 4, 6, 8, 12, 16, 24, 32`); `3`, `5`, `7`, `10`, `14`, `20` y valores arbitrarios (`p-[13px]`) quedan prohibidos en el espaciado.
+Escala activa de la fase 1: **4, 8, 16, 24, 32, 48, 64**. Es un subconjunto de la escala de DESIGN.md §4 (múltiplos de 8, más 4 para huecos mínimos). Tailwind v4 conserva `--spacing: 0.25rem`, así que cada token corresponde a una utilidad fija. **Solo se usan estas utilidades** (`1, 2, 4, 6, 8, 12, 16`); `3`, `5`, `7`, `10`, `14`, `20`, `24`, `32` y valores arbitrarios (`p-[13px]`) quedan prohibidos en el espaciado.
+
+DESIGN.md §4 también lista 96 y 128. En la fase 1 **no se usan**: el hero cabe en la escala activa. DESIGN.md no se edita. Si una fase posterior los necesita, su UI-SPEC lo declara y el checker lo valida.
 
 | Token | Value | Tailwind | Usage |
 |-------|-------|----------|-------|
@@ -88,10 +105,10 @@ DESIGN.md §4: múltiplos de 8, más 4 para huecos mínimos. Tailwind v4 conserv
 | md | 16px | `4` | Padding horizontal de Button; separación StatusLine → regla en la variante B; entre ítems del índice C |
 | lg | 24px | `6` | Gutter del grid; margen lateral móvil (<768px); `pl` del índice C tras su regla vertical; padding superior de cada sección de `/lab/tokens` |
 | xl | 32px | `8` | Headline → StatusLine (variantes A y C) |
-| 2xl | 48px | `12` | Margen lateral ≥768px; StatusLine → CTA (A, C); regla → headline y headline → CTA (B); separación entre secciones de `/lab/tokens` |
-| 3xl | 64px | `16` | Padding superior e inferior del hero en <1024px |
-| 4xl | 96px | `24` | Padding inferior del hero en ≥1024px |
-| 5xl | 128px | `32` | Padding superior del hero en ≥1024px |
+| 2xl | 48px | `12` | Margen lateral ≥768px; padding superior e inferior del hero en <1024px (`py-12`); StatusLine → CTA (A, C); regla → headline y headline → CTA (B); separación entre secciones de `/lab/tokens` |
+| 3xl | 64px | `16` | Padding superior e inferior del hero en ≥1024px (`lg:py-16`) |
+
+Padding vertical del hero: 48px arriba y abajo (`py-12`) por debajo de 1024px, 64px arriba y abajo (`lg:py-16`) a partir de 1024px.
 
 Layout (DESIGN.md §4): grid de 12 columnas a partir de 1024px (`lg`), gutter 24px, ancho máximo 1200px centrado, márgenes laterales 24px (<768px) y 48px (≥768px). Por debajo de 1024px todo es una columna.
 
@@ -105,7 +122,7 @@ Exceptions:
 
 ## Typography
 
-DESIGN.md §2 define una escala de 8 pasos. Las superficies de la fase 1 (hero y la interfaz del lab) usan **solo 4 tamaños y 2 pesos**:
+DESIGN.md §2 define una escala de 8 pasos. Toda la **interfaz** de la fase 1 (el hero y la interfaz del lab: barra, encabezados, notas, mensajes, etiquetas de Button) usa **solo 4 tamaños y 2 pesos**:
 
 | Role | Size | Weight | Line Height | Familia y uso |
 |------|------|--------|-------------|---------------|
@@ -114,10 +131,15 @@ DESIGN.md §2 define una escala de 8 pasos. Las superficies de la fase 1 (hero y
 | Heading | 25px (`--text-xl` 1.563rem) | 600 | 1.1 | Funnel Display. Encabezados de sección de `/lab/tokens` (h2) |
 | Display | `clamp(2.8rem, 6vw, 4.5rem)` = 44.8px a 72px (`--text-4xl`) | 600 | 1.1 | Funnel Display, `letter-spacing: -0.02em`, `text-wrap: balance`. Headline del hero (h1) y h1 de las páginas del lab |
 
-- Pesos declarados: **400 y 600**. El `font-medium` (500) del Button de shadcn pasa a `font-semibold` (600). Funnel Display 500 y 700 solo aparecen como muestra en `/lab/tokens`.
+- Pesos de interfaz declarados: **400 y 600**, para todo texto de interfaz de la fase 1. El `font-medium` (500) del Button de shadcn pasa a `font-semibold` (600). Ningún elemento de interfaz usa 500 ni 700. Los únicos 500 y 700 de la fase están en las filas de muestra de la excepción siguiente.
 - Line-height: 1.1 para todo lo que va en Funnel Display, 1.55 para Hanken Grotesk y Geist Mono (DESIGN.md §2).
 - El headline no se trunca nunca ni baja de 44.8px. Sin guionado automático (`hyphens: manual`).
-- Exception (solo como contenido de muestra): `/lab/tokens` renderiza los 8 pasos de DESIGN.md (`--text-xs` a `--text-4xl`) y los pesos 500/600/700 de Funnel Display y 400/500/600 de Hanken Grotesk como filas de muestra. Esas filas son el objeto que se inspecciona, no interfaz. Cada fila lleva el nombre del token y su valor en Label mono.
+
+### Excepción de inspección de tokens (`/lab/tokens`, sección `02 Tipografía`)
+
+Esta excepción **no amplía la escala de interfaz**. Es contenido de muestra que existe para que Teo inspeccione los tokens de DESIGN.md §2, y se borra con `/lab`.
+- Las filas de muestra renderizan los 8 pasos de DESIGN.md (`--text-xs` a `--text-4xl`) y los pesos 500/600/700 de Funnel Display y 400/500/600 de Hanken Grotesk. Esas filas son el objeto que se inspecciona, no interfaz: ningún componente, mensaje ni etiqueta reutiliza esos tamaños o pesos fuera de ellas.
+- La etiqueta de cada fila (nombre del token y su valor) sí es interfaz y va en Label mono 14px/400.
 - Texto de muestra de las filas: el headline del fixture (texto real) y la cadena de verificación de glifos `Aa Bb Cc 0123456789 á é í ó ú ü ñ Ñ ¿ ¡`. Nada de lorem ipsum.
 
 ---
@@ -203,8 +225,8 @@ Datos comunes: `h1` con `localized(settings, 'headline', locale)` (helper local 
 
 ### A: headline arriba, estado debajo
 - **Foco visual:** el headline.
-- ≥1024px: headline en las columnas 2–9; StatusLine a 32px debajo, en las mismas columnas; CTA a 48px debajo de la StatusLine. Padding 128px arriba y 96px abajo.
-- <1024px: una columna, padding 64px arriba y abajo, mismos espaciados verticales.
+- ≥1024px: headline en las columnas 2–9; StatusLine a 32px debajo, en las mismas columnas; CTA a 48px debajo de la StatusLine. Padding 64px arriba y abajo (`lg:py-16`).
+- <1024px: una columna, padding 48px arriba y abajo (`py-12`), mismos espaciados verticales.
 
 ### B: la bitácora abre con la entrada de estado
 - **Foco visual:** el headline por tamaño; el orden de lectura empieza en la StatusLine.
@@ -245,8 +267,8 @@ Datos comunes: `h1` con `localized(settings, 'headline', locale)` (helper local 
 ### Contenido de `/lab/tokens`
 h1 `Tokens` en Display. Cinco secciones, cada una con regla superior de 1px, 24px de padding superior, 48px de separación, `SectionNumber` en mono y h2 en Heading:
 1. `01 Color`: los 7 tokens en dos columnas, `Claro` y `Oscuro`, siempre visibles a la vez (la columna oscura va envuelta en `.dark`). Cada muestra: bloque de 64px de alto, radio 0, borde 1px `--line`, nombre del token y valor OKLCH en Label mono. Debajo, la tabla "Contraste medido" de este contrato.
-2. `02 Tipografía`: las 3 familias en sus pesos de muestra y los 8 pasos de la escala (ver la excepción en Typography).
-3. `03 Espacio y radios`: barras de 4 a 128px con su token; muestras de radio 4px (control), 8px (imagen) y 0 (contenedor).
+2. `02 Tipografía`: las 3 familias en sus pesos de muestra y los 8 pasos de la escala (ver "Excepción de inspección de tokens" en Typography).
+3. `03 Espacio y radios`: barras de la escala activa (4, 8, 16, 24, 32, 48 y 64px) con su token, y debajo una nota en Label mono: `96 y 128 (DESIGN.md §4): sin uso en la fase 1`. Sin barras de 96 ni 128. Muestras de radio 4px (control), 8px (imagen) y 0 (contenedor).
 4. `04 Componentes`: Button en `default`, `outline`, `secondary`, `ghost` y `link`, en los tamaños `sm`, `default` y `lg`, más un ejemplo `disabled`. Etiquetas: el nombre de la variante. El foco se revisa con Tab.
 5. `05 Línea de estado`: StatusLine con el fixture en `open`, `from_date` y `closed`, en en y es, con y sin fecha.
 
@@ -258,7 +280,7 @@ Reglas: sin em-dashes, sin emojis, sin superlativos, sin frases de tres palabras
 
 | Element | Copy |
 |---------|------|
-| Primary CTA | EN `Let’s talk` · ES `Hablemos` (docs/copy.md; se pinta con apóstrofo tipográfico U+2019) |
+| Primary CTA | EN `Let’s talk` · ES `Hablemos` (docs/copy.md; se pinta con apóstrofo tipográfico U+2019). Es el valor por defecto y no se sustituye. Pendiente de aprobación de Teo porque no nombra un objeto: alternativa propuesta EN `Start a project` · ES `Empecemos tu proyecto` (ver P2) |
 | Headline | `headlineEn` / `headlineEs` del fixture. Hasta que Teo escriba los suyos: los ejemplos de `docs/copy.md`, marcados como borrador (D-03) |
 | Estado `from_date` | EN `Available from {Nov 2026}` (docs/copy.md) · ES `Disponible desde {nov 2026}` (propuesta) |
 | Estado `open` | EN `Available now` · ES `Disponible ahora` (propuesta) |
@@ -314,7 +336,7 @@ No hay registros de terceros: `components.json` tiene `"registries": {}`. Aceter
 El contrato tiene un valor por defecto para cada una, así que no bloquean el plan. Se resuelven en la revisión del lab y se registran en `docs/decisions.md`.
 
 - **P1. Contraste del acento en claro.** `--accent` claro sobre `--bg` da 3.19:1: vale para el punto y para el foco, pero no para texto de 14px. Por defecto, el acento va solo en el punto y el texto de la StatusLine va en tinta. Alternativa: oscurecer el acento claro a `oklch(0.56 0.17 40)` (#c2460d, 4.81:1 sobre `--bg`, dentro de gamut) para poder escribir la disponibilidad en acento. Eso cambia la paleta, así que lo decide Teo.
-- **P2. Copia propuesta.** Los estados `open` y `closed`, todas las cadenas ES de la StatusLine y las etiquetas ES del índice C son propuestas (ver Copywriting Contract).
+- **P2. Copia propuesta.** Los estados `open` y `closed`, todas las cadenas ES de la StatusLine y las etiquetas ES del índice C son propuestas (ver Copywriting Contract). También se somete a aprobación el CTA `Let’s talk` / `Hablemos` de `docs/copy.md`: es un verbo sin objeto y no dice qué pasa al hacer clic. Por defecto se mantiene tal cual. Alternativa: `Start a project` / `Empecemos tu proyecto`, que nombra lo que el visitante viene a hacer. Cambiarlo toca `docs/copy.md`, así que lo decide Teo.
 - **P3. Fecha de la variante B.** Por defecto es `updatedAt` de `site_settings` (la fecha en que Teo actualizó su estado), estática y compatible con el shell prerenderizado. Un reloj "hoy" en vivo necesitaría el script inline de la fase 4.
 - **P4. `location`.** El campo por defecto es `Medellín, Colombia`, y la StatusLine quedaría `Medellín, Colombia · UTC-5`. `docs/copy.md` muestra `Medellín, UTC-5`. Teo elige el valor del fixture; el componente no recorta el campo.
 - **P5. Em-dash en DESIGN.md §4.** El ejemplo `"01 — Work"` choca con la regla de no usar em-dashes en el copy. El contrato usa `01 Work`. Conviene corregirlo cuando DESIGN.md se ajuste por D-16 y D-17.

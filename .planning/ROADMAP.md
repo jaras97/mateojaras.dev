@@ -30,20 +30,22 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Cada uno de los 4 proyectos tiene en `docs/content/`, en en y es, tagline, problema, rol, solución, resultados, 2–3 decisiones técnicas, URLs, permiso del cliente y la fuente de cada métrica, y `material/` tiene al menos 3 capturas 16:10 por proyecto (las del inventario marcadas como datos ficticios)
   4. `docs/copy.md` no tiene ningún marcador `[Teo escribe]`: hero, about, now, experiencia y contacto están escritos por Teo en en y es, y él los aprobó
   5. `assets/fonts-pdf/` contiene los TTF estáticos de las tres familias, con glifos latin-ext, listos para el CV
-**Plans**: 11 plans en 7 olas (8 compuertas humanas `blocking-human`)
+**Plans**: 13 plans en 9 olas (8 compuertas humanas `blocking-human`)
 
 Plans:
-- [ ] 01-01-PLAN.md — Gate de calidad, tokens OKLCH y alias shadcn, tres fuentes con next/font, Button y /lab/tokens 01–04
-- [ ] 01-02-PLAN.md — TTF estáticos del PDF con OFL y verificación; aprobaciones de arranque (G1) y legitimidad de axe
-- [ ] 01-03-PLAN.md — Tipos de site_settings, fixture, StatusLine y /lab/tokens 05; headline y valores de Teo (G2)
-- [ ] 01-04-PLAN.md — Contrato de contenido (Zod + paridad de cifras, `pnpm content:check`), guía de entrevista, registro de decisiones y DESIGN.md §2/§3
-- [ ] 01-05-PLAN.md — Variantes A/B/C del hero en /lab/hero y harness de comprobación en navegador
-- [ ] 01-06-PLAN.md — Entrevistas de los 4 proyectos (G4) transcritas a docs/content/
-- [ ] 01-07-PLAN.md — Evidencia de la revisión del lab: 24 capturas, axe y audit de /lab/tokens
-- [ ] 01-08-PLAN.md — Critique por variante y elección de variante (G3)
-- [ ] 01-09-PLAN.md — Capturas 16:10 en material/: webs en vivo y apps locales con datos de ejemplo (G5)
-- [ ] 01-10-PLAN.md — Decisiones de la revisión aplicadas, copy y frases del concepto de Teo (G6)
-- [ ] 01-11-PLAN.md — Script de compuerta de la fase, aprobación final de Teo (G7) y DESIGN.md APROBADO
+- [ ] 01-01-PLAN.md — Gate de calidad, tokens OKLCH y alias shadcn, tres fuentes con next/font y tema del Button
+- [ ] 01-02-PLAN.md — /lab y /lab/tokens 01–04 (color claro y oscuro, tipografía, espacio, Button), con los textos del lab en messages/en.json y messages/es.json
+- [ ] 01-03-PLAN.md — TTF estáticos del PDF con OFL y verificación; aprobaciones de arranque (G1) y legitimidad de axe
+- [ ] 01-04-PLAN.md — Tipos de site_settings, fixture, StatusLine y /lab/tokens 05; headline y valores de Teo (G2)
+- [ ] 01-05-PLAN.md — Contrato de contenido (Zod + paridad de cifras, `pnpm content:check`), guía de entrevista, registro de decisiones y DESIGN.md §2/§3
+- [ ] 01-06-PLAN.md — Variantes A/B/C del hero en /lab/hero y harness de comprobación en navegador
+- [ ] 01-07-PLAN.md — Entrevistas de los 4 proyectos (G4) transcritas a docs/content/
+- [ ] 01-08-PLAN.md — Evidencia de la revisión del lab: 24 capturas, axe y audit de /lab/tokens
+- [ ] 01-09-PLAN.md — Critique por variante y elección de variante (G3)
+- [ ] 01-10-PLAN.md — Capturas 16:10 en material/: webs en vivo y apps locales con datos de ejemplo (G5)
+- [ ] 01-11-PLAN.md — Decisiones de la revisión aplicadas, copy y frases del concepto de Teo (G6)
+- [ ] 01-12-PLAN.md — Script de compuerta de la fase y aprobación final de Teo (G7), con liberación captura por captura
+- [ ] 01-13-PLAN.md — Aplicar G7: estados aprobados, DESIGN.md APROBADO y capturas WebP revisadas commiteadas (D-15)
 **UI hint**: yes
 **Window**: días 1–2
 **Gate**: concepto, `DESIGN.md`, copy y variante del hero aprobados por Teo; contenido real en `docs/content/` y `material/`

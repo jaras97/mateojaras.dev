@@ -81,3 +81,10 @@ Decisión: D-15 se mantiene. Después de la revisión de datos personales de Teo
 Quién: decidió Teo (D-15 en la discusión; reconfirmado el 2026-10-30, incluida la liberación archivo por archivo para proyectos sin permiso del cliente). Claude Code ejecuta.
 Por qué: el repo es público, así que publicar es irreversible e IDEN-06 tiene que cumplirse en el repositorio, no solo en el disco de Teo.
 Verificación: las compuertas pii-cleared, permission-cleared y material-committed de `scripts/check-phase-1.sh` (01-12) con `--final` en 01-13.
+
+## 2026-10-30 · Headline del hero completado por encargo de Teo (G2)
+Contexto: en G2 (01-04) Teo respondió el punto 1 con "Construyo ... termina el texto tu" y el punto 2 con "tradúcelo". La regla del proyecto es que el copy lo escribe Teo y Claude solo corrige gramática.
+Decisión: Claude terminó la frase a partir del inicio de Teo y del ejemplo de `docs/copy.md`: "Construyo aplicaciones web con React y Next.js para empresas y equipos que necesitan un frontend sólido, desde la primera pantalla hasta el panel que las administra." La versión en inglés es traducción de Claude. Las dos quedan como borrador hasta que Teo las apruebe o las cambie en G7 (01-12): `heroFixtureMeta.headlineEsStatus` es `draft`, `headlineEnStatus` es `draft-translation` y `headlineAuthorship` dice que es una propuesta de Claude por encargo. Disponibilidad (open) y ubicación (Medellín, Colombia) son palabras de Teo.
+Quién: decidió Teo (encargo explícito); Claude Code redactó.
+Por qué: Teo prefirió delegar el texto y no quiere que se le vuelva a preguntar antes de G7.
+Verificación: `.planning/phases/01-identidad-y-contenido/01-04-ANSWERS.md` y `src/features/site-settings/fixture.ts`.

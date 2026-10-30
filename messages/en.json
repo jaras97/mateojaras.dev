@@ -1,0 +1,34 @@
+{
+  "Lab": {
+    "index": {
+      "title": "Lab",
+      "tokensLink": "Token specimen",
+      "heroLink": "Hero variants"
+    },
+    "tokens": {
+      "title": "Tokens",
+      "sections": {
+        "color": "Color",
+        "typography": "Typography",
+        "spacing": "Spacing and radii"
+      },
+      "color": {
+        "light": "Light",
+        "dark": "Dark",
+        "contrastCaption": "Measured contrast",
+        "contrastPair": "Pair",
+        "contrastVerdict": "Verdict"
+      },
+      "typography": {
+        "families": "Families",
+        "scale": "Scale"
+      },
+      "spacing": {
+        "unusedNote": "96 and 128 (DESIGN.md §4): unused in phase 1",
+        "radiusControl": "Control",
+        "radiusImage": "Image",
+        "radiusContainer": "Container"
+      }
+    }
+  }
+}

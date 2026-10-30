@@ -132,7 +132,8 @@ export default function LabTokensPage() {
         <TypeSpecimen />
         <div className="mt-12 border-b border-border pb-4">
           <p className="font-mono text-sm text-muted-foreground">
-            {t.typography.fixtureHeadline} · {heroFixtureMeta.headlineSource}
+            {t.typography.fixtureHeadline} · {heroFixtureMeta.headlineSource} ·{" "}
+            {heroFixtureMeta.headlineAuthorship}
           </p>
           <p
             lang="en"

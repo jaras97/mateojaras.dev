@@ -19,7 +19,8 @@ export function formatUtcOffset(timeZone: string, at: Date): string {
     new Intl.DateTimeFormat("en", { timeZone, timeZoneName: "shortOffset" })
       .formatToParts(at)
       .find((part) => part.type === "timeZoneName")?.value ?? "GMT";
-  return name.replace(/^GMT/, "UTC");
+  // ICU prints a zero offset as "GMT" or "GMT+0" depending on the zone.
+  return name.replace(/^GMT(?:[+-]0)?$/, "UTC").replace(/^GMT/, "UTC");
 }
 
 // The 'YYYY-MM-DD' day of an instant in the given zone, not the UTC day.

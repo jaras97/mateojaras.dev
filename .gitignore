@@ -46,3 +46,6 @@ next-env.d.ts
 
 # GSD research-store cache
 .planning/research/.cache/
+
+# capturas de revisión del lab (fase 1), no se versionan
+/.lab-captures/

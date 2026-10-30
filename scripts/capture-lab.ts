@@ -1,12 +1,29 @@
-// Lab harness. Run: node scripts/capture-lab.ts check (after pnpm build).
-// Starts `next start` on port 3100, runs browser checks against /lab with
-// Playwright's Chromium, prints one PASS or FAIL line per check plus a
-// summary, stops the server and exits 1 if any check failed.
+// Lab harness, always against the production build (run pnpm build first;
+// never next dev, whose overlay pollutes the captures).
+//
+//   node scripts/capture-lab.ts check
+//     Starts `next start` on port 3100, runs browser checks against /lab with
+//     Playwright's Chromium, prints one PASS or FAIL line per check plus a
+//     summary and exits 1 if any check failed. When @axe-core/playwright is
+//     installed it also runs axe (WCAG 2.0/2.1 A and AA) on /lab/tokens and
+//     on /lab/hero for every variant in light and dark, and fails on any
+//     serious or critical violation; otherwise it prints "SKIP axe".
+//
+//   node scripts/capture-lab.ts capture
+//     Writes the D-05 review matrix (24 full-page PNGs) to .lab-captures/ at
+//     the root of the main checkout, named {variant}-{theme}-{lang}-{width}.png.
+//
 // Node 24 strips the types: erasable TypeScript only, no relative .ts imports.
-// 01-08 adds the capture mode and the axe gate.
 
-import { type ChildProcess, spawn } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { type ChildProcess, execFileSync, spawn } from "node:child_process";
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+} from "node:fs";
+import { dirname, join } from "node:path";
 import { type Browser, chromium, type Page } from "@playwright/test";
 
 const PORT = 3100;
@@ -18,8 +35,33 @@ const DESKTOP: Viewport = { width: 1440, height: 900 };
 // Variants registered in /lab/hero.
 const VARIANTS = ["a", "b", "c"] as const;
 const LANGS = ["en", "es"] as const;
+const THEMES = ["light", "dark"] as const;
+
+// D-05 capture widths. es is captured in light only, at 390 and 1440.
+const CAPTURE_VIEWPORTS: Viewport[] = [
+  { width: 390, height: 844 },
+  { width: 768, height: 1024 },
+  { width: 1440, height: 900 },
+];
+const ES_CAPTURE_WIDTHS = [390, 1440];
+
+const AXE_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
+const AXE_BLOCKING = new Set(["serious", "critical"]);
 
 type Viewport = { width: number; height: number };
+
+// The slice of @axe-core/playwright this script uses. Typed locally so the
+// script typechecks and runs whether or not the package is installed.
+type AxeViolation = {
+  id: string;
+  impact?: string | null;
+  nodes: { target: unknown[] }[];
+};
+type AxeBuilderLike = {
+  withTags(tags: string[]): AxeBuilderLike;
+  analyze(): Promise<{ violations: AxeViolation[] }>;
+};
+type AxeBuilderCtor = new (options: { page: Page }) => AxeBuilderLike;
 type Check = {
   name: string;
   viewport?: Viewport;
@@ -162,6 +204,66 @@ async function assertDarkCascade(page: Page): Promise<void> {
   if (colors.root === colors.lightProbe) {
     fail(`root background equals the light var(--bg) (${colors.lightProbe})`);
   }
+}
+
+async function loadAxe(): Promise<AxeBuilderCtor | null> {
+  // A variable specifier keeps tsc from resolving the module, so the script
+  // still typechecks when the package is not installed.
+  const specifier = "@axe-core/playwright";
+  try {
+    const mod = (await import(specifier)) as { default: AxeBuilderCtor };
+    return mod.default;
+  } catch {
+    return null;
+  }
+}
+
+async function assertAxe(page: Page, AxeBuilder: AxeBuilderCtor) {
+  const { violations } = await new AxeBuilder({ page })
+    .withTags(AXE_TAGS)
+    .analyze();
+  const blocking = violations.filter((v) => AXE_BLOCKING.has(v.impact ?? ""));
+  if (blocking.length > 0) {
+    fail(
+      blocking
+        .map((v) => {
+          const targets = v.nodes
+            .map((node) => node.target.map(String).join(" "))
+            .join(", ");
+          return `${v.id} (${v.impact}) at ${targets}`;
+        })
+        .join("; "),
+    );
+  }
+}
+
+function axeChecks(AxeBuilder: AxeBuilderCtor): Check[] {
+  const checks: Check[] = [
+    {
+      name: "axe /lab/tokens at 1440px: no serious or critical violation",
+      viewport: DESKTOP,
+      run: async (page) => {
+        await open(page, "/lab/tokens");
+        await assertAxe(page, AxeBuilder);
+      },
+    },
+  ];
+  for (const variant of VARIANTS) {
+    for (const theme of THEMES) {
+      checks.push({
+        name: `axe /lab/hero?variant=${variant}&theme=${theme} at 1440px: no serious or critical violation`,
+        viewport: DESKTOP,
+        run: async (page) => {
+          await open(
+            page,
+            `/lab/hero?variant=${variant}&theme=${theme}&capture=1`,
+          );
+          await assertAxe(page, AxeBuilder);
+        },
+      });
+    }
+  }
+  return checks;
 }
 
 function buildChecks(): Check[] {
@@ -364,7 +466,12 @@ async function runCheck(browser: Browser, check: Check): Promise<boolean> {
   }
 }
 
-async function check(): Promise<number> {
+// Starts next start on PORT, launches Chromium, runs the body and always
+// stops both. Returns the body's exit code, or 1 on a harness failure.
+async function withServer(
+  label: string,
+  body: (browser: Browser) => Promise<number>,
+): Promise<number> {
   if (!existsSync(".next/BUILD_ID")) {
     console.error(
       "No production build found (.next/BUILD_ID). Run pnpm build first.",
@@ -394,19 +501,11 @@ async function check(): Promise<number> {
     });
     await waitForServer(server);
     browser = await chromium.launch();
-
-    let passed = 0;
-    let failed = 0;
-    for (const item of buildChecks()) {
-      if (await runCheck(browser, item)) passed += 1;
-      else failed += 1;
-    }
-    console.log(`lab check: ${passed} passed, ${failed} failed`);
-    return failed > 0 ? 1 : 0;
+    return await body(browser);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.log(`FAIL harness: ${message}`);
-    console.log("lab check: 0 passed, 1 failed");
+    console.log(`${label}: harness failed`);
     return 1;
   } finally {
     await browser?.close();
@@ -414,10 +513,107 @@ async function check(): Promise<number> {
   }
 }
 
+async function check(): Promise<number> {
+  return withServer("lab check", async (browser) => {
+    const AxeBuilder = await loadAxe();
+    const checks = buildChecks();
+    if (AxeBuilder === null) {
+      console.log("SKIP axe: no instalado");
+    } else {
+      checks.push(...axeChecks(AxeBuilder));
+    }
+
+    let passed = 0;
+    let failed = 0;
+    for (const item of checks) {
+      if (await runCheck(browser, item)) passed += 1;
+      else failed += 1;
+    }
+    console.log(`lab check: ${passed} passed, ${failed} failed`);
+    return failed > 0 ? 1 : 0;
+  });
+}
+
+// The main checkout root: the parent of the shared .git directory. In a
+// normal checkout that is the repo root; from a linked worktree it is the
+// main tree, so the captures land where Teo looks.
+function mainCheckoutRoot(): string {
+  const commonDir = execFileSync(
+    "git",
+    ["rev-parse", "--path-format=absolute", "--git-common-dir"],
+    { encoding: "utf8" },
+  ).trim();
+  return dirname(commonDir);
+}
+
+type Capture = {
+  variant: (typeof VARIANTS)[number];
+  theme: (typeof THEMES)[number];
+  lang: (typeof LANGS)[number];
+  viewport: Viewport;
+};
+
+function captureMatrix(): Capture[] {
+  const matrix: Capture[] = [];
+  for (const variant of VARIANTS) {
+    for (const viewport of CAPTURE_VIEWPORTS) {
+      for (const theme of THEMES) {
+        matrix.push({ variant, theme, lang: "en", viewport });
+      }
+    }
+    for (const viewport of CAPTURE_VIEWPORTS) {
+      if (ES_CAPTURE_WIDTHS.includes(viewport.width)) {
+        matrix.push({ variant, theme: "light", lang: "es", viewport });
+      }
+    }
+  }
+  return matrix;
+}
+
+async function capture(): Promise<number> {
+  const outDir = join(mainCheckoutRoot(), ".lab-captures");
+  mkdirSync(outDir, { recursive: true });
+  // Drop earlier PNGs so the folder holds exactly this run's matrix.
+  for (const file of readdirSync(outDir)) {
+    if (file.endsWith(".png")) rmSync(join(outDir, file));
+  }
+
+  return withServer("lab capture", async (browser) => {
+    let written = 0;
+    let failed = 0;
+    for (const item of captureMatrix()) {
+      const file = `${item.variant}-${item.theme}-${item.lang}-${item.viewport.width}.png`;
+      const context = await browser.newContext({
+        viewport: item.viewport,
+        reducedMotion: "reduce",
+      });
+      const page = await context.newPage();
+      try {
+        await open(
+          page,
+          `/lab/hero?variant=${item.variant}&theme=${item.theme}&lang=${item.lang}&capture=1`,
+        );
+        await page.screenshot({ path: join(outDir, file), fullPage: true });
+        written += 1;
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.log(`FAIL capture ${file}: ${message}`);
+        failed += 1;
+      } finally {
+        await context.close();
+      }
+    }
+    console.log(`lab capture: ${written} written to ${outDir}`);
+    return failed > 0 ? 1 : 0;
+  });
+}
+
 const mode = process.argv[2];
 if (mode === "check") {
   process.exitCode = await check();
+} else if (mode === "capture") {
+  process.exitCode = await capture();
 } else {
-  console.error("Usage: node scripts/capture-lab.ts check");
+  console.error("Usage: node scripts/capture-lab.ts check|capture");
   process.exitCode = 1;
 }

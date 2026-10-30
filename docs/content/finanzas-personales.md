@@ -20,6 +20,8 @@ pendingFields:
   - repoUrl
   - startedAt
   - finishedAt
+  - coverImage
+  - media
 sampleData: true
 titleEs: "App de Finanzas Personales"
 titleEn: "Personal Finance App"

@@ -18,6 +18,8 @@ pendingFields:
   - repoUrl
   - startedAt
   - finishedAt
+  - coverImage
+  - media
 sampleData: true
 titleEs: "Sistema de Gestión de Inventario"
 titleEn: "Inventory Management System"

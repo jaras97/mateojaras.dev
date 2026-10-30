@@ -12,13 +12,19 @@ import { type Browser, chromium, type Page } from "@playwright/test";
 const PORT = 3100;
 const BASE = `http://localhost:${PORT}`;
 const READY_TIMEOUT_MS = 30_000;
-const VIEWPORT = { width: 390, height: 844 };
+const VIEWPORT: Viewport = { width: 390, height: 844 };
+const DESKTOP: Viewport = { width: 1440, height: 900 };
 
 // Variants registered in /lab/hero.
-const VARIANTS = ["a"] as const;
+const VARIANTS = ["a", "b", "c"] as const;
 const LANGS = ["en", "es"] as const;
 
-type Check = { name: string; run: (page: Page) => Promise<void> };
+type Viewport = { width: number; height: number };
+type Check = {
+  name: string;
+  viewport?: Viewport;
+  run: (page: Page) => Promise<void>;
+};
 
 function fail(message: string): never {
   throw new Error(message);
@@ -95,6 +101,32 @@ async function assertHero(page: Page, expected: string): Promise<void> {
   if ((await page.locator("[data-lab-bar]").count()) !== 0) {
     fail("the lab bar is visible with capture=1");
   }
+  await assertSingleAccent(page);
+}
+
+// The accent paints at most one element per view (the status dot).
+async function assertSingleAccent(page: Page): Promise<void> {
+  const painted = await page.evaluate(() => {
+    const root = document.querySelector("[data-lab-root]");
+    if (root === null) return -1;
+    const probe = document.createElement("div");
+    probe.style.background = "var(--accent)";
+    root.append(probe);
+    const accent = getComputedStyle(probe).backgroundColor;
+    probe.remove();
+    return Array.from(root.querySelectorAll("*")).filter((el) => {
+      const style = getComputedStyle(el);
+      return (
+        style.backgroundColor === accent ||
+        style.color === accent ||
+        style.borderTopColor === accent ||
+        style.borderLeftColor === accent
+      );
+    }).length;
+  });
+  if (painted < 0) fail("no [data-lab-root]");
+  if (painted > 1)
+    fail(`${painted} elements use the accent, expected 1 at most`);
 }
 
 // theme=dark: the lab root's background is var(--bg) resolved in dark, and
@@ -210,6 +242,46 @@ function buildChecks(): Check[] {
   }
 
   checks.push({
+    name: "/lab/hero?variant=c at 1440px puts the index in the right columns behind a 1px rule, top-aligned with the headline",
+    viewport: DESKTOP,
+    run: async (page) => {
+      await open(page, "/lab/hero?variant=c&capture=1");
+      const layout = await page.evaluate(() => {
+        const title = document.querySelector("#hero-title");
+        const list = document.querySelector("section ol");
+        if (title === null || list === null) return null;
+        const t = title.getBoundingClientRect();
+        const l = list.getBoundingClientRect();
+        const style = getComputedStyle(list);
+        return {
+          titleRight: t.right,
+          titleTop: t.top,
+          listLeft: l.left,
+          listTop: l.top,
+          items: list.querySelectorAll("li").length,
+          links: list.querySelectorAll("a").length,
+          borderLeft: style.borderLeftWidth,
+          borderTop: style.borderTopWidth,
+        };
+      });
+      if (layout === null) fail("no headline or index");
+      if (layout.listLeft <= layout.titleRight) {
+        fail("the index does not sit to the right of the headline");
+      }
+      if (Math.abs(layout.listTop - layout.titleTop) > 1) {
+        fail(`index top ${layout.listTop} != headline top ${layout.titleTop}`);
+      }
+      if (layout.items !== 3) fail(`${layout.items} index items`);
+      if (layout.links !== 0) fail("the index items are links");
+      if (layout.borderLeft !== "1px" || layout.borderTop !== "0px") {
+        fail(
+          `index borders left ${layout.borderLeft}, top ${layout.borderTop}`,
+        );
+      }
+    },
+  });
+
+  checks.push({
     name: "/lab/hero?variant=zz shows the unknown-variant message with links to A, B and C",
     run: async (page) => {
       await open(page, "/lab/hero?variant=zz");
@@ -274,7 +346,7 @@ function stopServer(server: ChildProcess | undefined): void {
 
 async function runCheck(browser: Browser, check: Check): Promise<boolean> {
   const context = await browser.newContext({
-    viewport: VIEWPORT,
+    viewport: check.viewport ?? VIEWPORT,
     reducedMotion: "reduce",
   });
   const page = await context.newPage();

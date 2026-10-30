@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { type ComponentType, type ReactNode, Suspense } from "react";
-import { HeroA, type HeroProps } from "@/components/site/hero/hero-a";
+import { HeroA } from "@/components/site/hero/hero-a";
+import { HeroB } from "@/components/site/hero/hero-b";
+import { HeroC } from "@/components/site/hero/hero-c";
+import type { HeroProps } from "@/components/site/hero/hero-parts";
 import { heroCopy } from "@/components/site/hero-copy";
 import { heroFixture, heroFixtureMeta } from "@/features/site-settings/fixture";
 import type { Locale } from "@/features/site-settings/types";
@@ -18,6 +21,8 @@ const t = labMessages.hero;
 
 const VARIANTS: Record<string, ComponentType<HeroProps>> = {
   a: HeroA,
+  b: HeroB,
+  c: HeroC,
 };
 
 type SearchParams = PageProps<"/lab/hero">["searchParams"];

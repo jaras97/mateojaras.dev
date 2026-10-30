@@ -45,6 +45,26 @@
           "openEnEntryDate": "Muestra de formato: open, en, con fecha de entrada"
         }
       }
+    },
+    "hero": {
+      "bar": {
+        "label": "Controles del lab",
+        "variant": "Variante",
+        "theme": "Tema",
+        "lang": "Idioma",
+        "light": "Claro",
+        "dark": "Oscuro"
+      },
+      "notes": {
+        "copyDraft": "Headline: borrador de docs/copy.md",
+        "esDraft": "Headline ES: borrador, {authorship}",
+        "enDraft": "Headline EN: traducción pendiente de aprobación"
+      },
+      "unknownVariant": "La variante «{value}» no existe. Elige A, B o C.",
+      "emptyHeadline": {
+        "heading": "Falta el headline en el fixture",
+        "body": "Escribe headlineEn y headlineEs en src/features/site-settings/fixture.ts. Mientras falten, el hero no se muestra."
+      }
     }
   },
   "Hero": {

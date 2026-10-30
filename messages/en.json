@@ -45,6 +45,26 @@
           "openEnEntryDate": "Format sample: open, en, with entry date"
         }
       }
+    },
+    "hero": {
+      "bar": {
+        "label": "Lab controls",
+        "variant": "Variant",
+        "theme": "Theme",
+        "lang": "Language",
+        "light": "Light",
+        "dark": "Dark"
+      },
+      "notes": {
+        "copyDraft": "Headline: draft from docs/copy.md",
+        "esDraft": "Headline ES: draft, {authorship}",
+        "enDraft": "Headline EN: translation pending approval"
+      },
+      "unknownVariant": "The variant “{value}” does not exist. Choose A, B or C.",
+      "emptyHeadline": {
+        "heading": "The fixture has no headline",
+        "body": "Write headlineEn and headlineEs in src/features/site-settings/fixture.ts. Until both exist, the hero is not shown."
+      }
     }
   },
   "Hero": {

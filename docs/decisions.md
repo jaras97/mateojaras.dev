@@ -88,3 +88,10 @@ Decisión: Claude terminó la frase a partir del inicio de Teo y del ejemplo de 
 Quién: decidió Teo (encargo explícito); Claude Code redactó.
 Por qué: Teo prefirió delegar el texto y no quiere que se le vuelva a preguntar antes de G7.
 Verificación: `.planning/phases/01-identidad-y-contenido/01-04-ANSWERS.md` y `src/features/site-settings/fixture.ts`.
+
+## 2026-10-30 · G4 delegado a la edición en el admin
+Contexto: en G4 (01-07) Teo respondió a la entrevista de los cuatro proyectos con "pero se supone que en el admin se pueden modificar toda esta info, rellena con info de prueba que luego desde admin actualizo todo". CLAUDE.md prohíbe proyectos inventados, lorem ipsum y métricas sin fuente, el repo es público y `docs/content/` alimenta el seed de la fase 2.
+Decisión: los cuatro archivos de `docs/content/` se escriben solo con datos verificables: nombres de PROJECT.md, stack del `package.json` o `requirements.txt` de cada repo (ManuJ sin Cloudinary, que su repo no usa), elementos de solución ya escritos en PROJECT.md y docs/copy.md, URLs de sitio y repo de ManuJ y EcoExport, `clientPermission: true` de ManuJ y EcoExport (D-12) y `sampleData: true` de inventario y finanzas (D-14). Problema, rol, resultados, decisiones técnicas, fechas y taglines van a `pendingFields`, igual que el permiso y las URLs del inventario y de finanzas. `metrics` queda vacío en los cuatro. Los slugs propuestos quedan fijos por delegación. "Info de prueba" no se lee como permiso para inventar texto ni cifras. La parte narrativa de IDEN-05 sigue abierta: Teo la completa desde el admin (fase 3) o en G7.
+Quién: decidió Teo (delegación explícita); el orquestador fijó cómo cumplirla sin inventar; Claude Code ejecuta (01-07).
+Por qué: un texto inventado en un repo público y en el seed se publicaría como si fuera de Teo; un campo vacío y marcado no.
+Verificación: `.planning/phases/01-identidad-y-contenido/01-07-ANSWERS.md`, `pendingFields` de cada archivo y `pnpm content:check`.

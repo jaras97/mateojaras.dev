@@ -11,7 +11,8 @@
         "color": "Color",
         "typography": "Tipografía",
         "spacing": "Espacio y radios",
-        "components": "Componentes"
+        "components": "Componentes",
+        "statusLine": "Línea de estado"
       },
       "color": {
         "light": "Claro",
@@ -22,14 +23,42 @@
       },
       "typography": {
         "families": "Familias",
-        "scale": "Escala"
+        "scale": "Escala",
+        "fixtureHeadline": "Headline del fixture"
       },
       "spacing": {
         "unusedNote": "96 y 128 (DESIGN.md §4): sin uso en la fase 1",
         "radiusControl": "Control",
         "radiusImage": "Imagen",
         "radiusContainer": "Contenedor"
+      },
+      "statusLine": {
+        "note": "Muestras de formato de cada estado. Ninguna fila es tu disponibilidad: la tuya sale de G2 y se ve en /lab/hero.",
+        "rows": {
+          "openEn": "Muestra de formato: open, en",
+          "openEs": "Muestra de formato: open, es",
+          "fromDateEn": "Muestra de formato: from_date, en (fecha de ejemplo de docs/copy.md)",
+          "fromDateEs": "Muestra de formato: from_date, es (fecha de ejemplo de docs/copy.md)",
+          "fromDateNoDate": "Muestra de formato: from_date sin fecha, el segmento no se muestra",
+          "closedEn": "Muestra de formato: closed, en",
+          "closedEs": "Muestra de formato: closed, es",
+          "openEnEntryDate": "Muestra de formato: open, en, con fecha de entrada"
+        }
       }
+    }
+  },
+  "Hero": {
+    "availability": {
+      "open": "Disponible ahora",
+      "fromDate": "Disponible desde {date}",
+      "closed": "Sin cupo para proyectos nuevos"
+    },
+    "overlap": "horario compatible con Toronto y Madrid",
+    "cta": "Hablemos",
+    "index": {
+      "work": "Trabajo",
+      "about": "Sobre mí",
+      "contact": "Contacto"
     }
   }
 }

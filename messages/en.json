@@ -11,7 +11,8 @@
         "color": "Color",
         "typography": "Typography",
         "spacing": "Spacing and radii",
-        "components": "Components"
+        "components": "Components",
+        "statusLine": "Status line"
       },
       "color": {
         "light": "Light",
@@ -22,14 +23,42 @@
       },
       "typography": {
         "families": "Families",
-        "scale": "Scale"
+        "scale": "Scale",
+        "fixtureHeadline": "Fixture headline"
       },
       "spacing": {
         "unusedNote": "96 and 128 (DESIGN.md §4): unused in phase 1",
         "radiusControl": "Control",
         "radiusImage": "Image",
         "radiusContainer": "Container"
+      },
+      "statusLine": {
+        "note": "Format samples of each state. No row is your availability: yours comes from G2 and shows on /lab/hero.",
+        "rows": {
+          "openEn": "Format sample: open, en",
+          "openEs": "Format sample: open, es",
+          "fromDateEn": "Format sample: from_date, en (example date from docs/copy.md)",
+          "fromDateEs": "Format sample: from_date, es (example date from docs/copy.md)",
+          "fromDateNoDate": "Format sample: from_date without a date, the segment is not shown",
+          "closedEn": "Format sample: closed, en",
+          "closedEs": "Format sample: closed, es",
+          "openEnEntryDate": "Format sample: open, en, with entry date"
+        }
       }
+    }
+  },
+  "Hero": {
+    "availability": {
+      "open": "Available now",
+      "fromDate": "Available from {date}",
+      "closed": "Not taking new projects"
+    },
+    "overlap": "overlaps with Toronto and Madrid",
+    "cta": "Let’s talk",
+    "index": {
+      "work": "Work",
+      "about": "About",
+      "contact": "Contact"
     }
   }
 }

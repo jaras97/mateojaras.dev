@@ -660,17 +660,25 @@ pnpm build && ! grep -rlE "fonts\.(googleapis|gstatic)\.com" .next/static .next/
 | A5 | `impeccable critique/audit` run fine without a `PRODUCT.md` (the project uses `PROJECT.md`) and don't force `init` | Pitfall 9 | Low. If it asks, answer from PROJECT.md. Don't let it write files without Teo |
 | A6 | `latin-ext` preload adds ~3 woff2 files (one per family) on routes using all three fonts | Pattern 3 | Low now, possibly relevant to the phase 4 Lighthouse ≥95 gate |
 
-## Open Questions (all need Teo; none blocks the Wave 1 code)
+## Open Questions (dispositions recorded 2026-10-30 by the planner; none blocks the Wave 1 code)
+
+Each question now carries an inline disposition: **RESOLVED** (decided by a locked decision or a plan, or deferred to a later phase), or **PENDING AT GATE G#** (the answer is Teo's; the plan fixes the owner, the blocking-human gate that asks it and the value that applies when he leaves it unanswered). A gate-pending question becomes RESOLVED only when Teo's answer is recorded in the named SUMMARY; the planner records no answer on his behalf.
 
 1. **`/material/` git-ignored vs. D-15 "commit after PII review".**
    - Known: `.gitignore:44-45` ignores it on purpose ("capturas y logos de clientes; se suben a Blob desde el admin"). The phase goal says content "vive en el repo".
    - Options: (a) keep ignored, so material stays local only and phase 3 uploads from Teo's machine (no backup, invisible to CI and verifier); (b) commit only `material/**/*.webp` after the PII review, keeping PNG originals and logos ignored; (c) commit everything.
    - Recommendation: **(b)**. It satisfies D-15 and the goal without publishing originals. Ask as a `checkpoint:decision` before the capture plan.
+   - **Disposition: PENDING AT GATE G1** (01-02 Task 2, blocking-human; answer recorded in 01-02-SUMMARY.md "Respuestas de Teo"). Unanswered = (a), the status quo: nothing under `material/` is published. 01-09 writes captures to the ignored folder and never commits; 01-11 Task 3 applies the recorded letter only after Teo's G7 approval and personal-data review.
 2. **Metric labels in two languages.** `metrics` is not localized (data-model.md:57), D-11 says "no se toca data-model.md", and the example label is Spanish. Recommendation: store `labelEs/labelEn/source` in `docs/content` now (lossless). Add "how metrics become bilingual" to the phase 2 approval batch, which already edits data-model.md for `languages`.
+   - **Disposition: RESOLVED for phase 1 by locked decisions D-08 and D-11** (the research recommendation above is superseded). `docs/content` stores each metric as `{ label, value, source }`, with `source` apart from `label` and joined by the phase 2 seed; `label` and `source` are written in Spanish, as Teo answers (D-07). The bilingual shape is used only if Teo explicitly overrides D-11 at G1 item 4 (01-02 Task 2); unanswered = the D-11 shape. How a metric label reaches the English site is deferred to phase 2 and listed in REQUIREMENTS.md "Aprobaciones pendientes".
 3. **Dependency approvals:** `yaml` 2.9.1 (content contract test, needed by the phase 2 seed anyway) and `@axe-core/playwright` 4.14.0 (UI-SPEC axe gate, already in the phase 2 batch). One `checkpoint:decision` at phase start. Fallbacks are documented above.
+   - **Disposition: PENDING AT GATE G1** (01-02 Task 2) plus the npm legitimacy check for the `[SUS]` package (01-02 Task 3), both blocking-human. Unanswered = not approved and nothing is installed. `yaml` is installed by 01-04 only when approved (otherwise the PyYAML fallback runs through `pnpm content:check`, outside `pnpm check`); `@axe-core/playwright` is installed by 01-07 only when approved AND "verificado" (otherwise the impeccable audit plus a keyboard walk is recorded as a deviation). Both rows are in REQUIREMENTS.md "Aprobaciones pendientes".
 4. **When `/lab` is deleted.** D-02 allows "antes de cerrar la fase o al principio de la fase 2". Success criterion 1 needs a rendered tokens page. Recommendation: delete at the start of phase 2. Record this in decisions.md.
+   - **Disposition: RESOLVED, decided by plan 01-10 Task 1** within the limits D-02 already gives: `/lab` and the variants Teo does not choose are deleted at the start of phase 2, and the entry is logged in `docs/decisions.md` (Quién: Claude Code, autónomo dentro de los límites de D-02).
 5. **UI-SPEC P1–P5** (accent contrast, CTA copy, variant B date, `location`, the DESIGN.md §4 em-dash) are answered in the same checkpoint as the variant pick.
+   - **Disposition: PENDING AT GATES G2 and G3.** P4 (`location`) is asked at G2 (01-03 Task 2, answer in 01-03-ANSWERS.md); P1, P2, P3 and P5 at G3 together with the variant pick (01-08 Task 2, answer in 01-08-SUMMARY.md). 01-10 Task 1 applies and logs them. Unanswered = no change: the current value stays (accent kept, proposed strings stay proposals, variant B date from `updatedAt`, `location` stays the data-model default, §4 example left). The variant itself has no default.
 6. **`latin-ext` preload** (perf, phase 4): D-16 is locked. Flag it only if the Lighthouse gate is tight later.
+   - **Disposition: RESOLVED, deferred to phase 4** (Lighthouse ≥ 95 gate). D-16 is locked; phase 1 takes no action.
 
 ## Environment Availability
 

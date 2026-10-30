@@ -146,6 +146,9 @@ Diferidos. Se registran pero no entran al roadmap actual.
 
 | Aprobación | Fase |
 |------------|------|
+| `yaml@2.9.1` como devDependency exacta (contrato de `docs/content` y, en la fase 2, el seed). Se pide en G1 (01-02); sin respuesta, no se instala | 1 |
+| `@axe-core/playwright@4.14.0`: se adelanta a la fase 1 (01-07) solo si Teo lo aprueba en G1 y lo verifica en npm (01-02); si no, sigue en el lote de la fase 2 | 1 / 2 |
+| Cómo llega al inglés la etiqueta de cada métrica: por D-11, `metrics` sigue siendo `{label, value}[]` y `docs/content` guarda `label` y `source` en español | 2 |
 | React 19.3.0 → 19.3.1 y dependencias directas (`@tiptap/pm`, `@tiptap/static-renderer`, `@dnd-kit/utilities`, `server-only`, `@testing-library/dom`, `@testing-library/user-event`, `@axe-core/playwright`, `tsx`, `@types/node@^24`) | 2 |
 | `site_settings.languages` en `docs/data-model.md` (aprobado 2026-10-29; falta editar el doc) | 2 |
 | Corregir el CLI de Better Auth en `docs/data-model.md` (`auth` en vez de `@better-auth/cli`) | 2 |

@@ -1,7 +1,8 @@
 ---
 phase: "01"
 slug: "identidad-y-contenido"
-status: draft
+status: approved
+reviewed_at: "2026-10-30"
 shadcn_initialized: true
 preset: "b2fA (base-nova, Base UI). Sus valores neutral/geist/radius se sustituyen por D-16 y D-18"
 created: "2026-10-30"
@@ -296,23 +297,25 @@ Reglas: sin em-dashes, sin emojis, sin superlativos, sin frases de tres palabras
 
 ## UI Considerations
 
-Applicable state considerations resolved: 9 covered, 3 backstop, 1 unresolved.
+Salida del sondeo de estados (10 elementos, 34 consideraciones aplicables), resuelta por Teo el 2026-10-30. La copia de vacío y error vive en el Copywriting Contract; aquí solo se referencia.
 
 | Category | Element(s) | Status | Resolution / Reason |
 |----------|------------|--------|---------------------|
-| empty | Headline vacío en el fixture | ✅ covered | El hero devuelve `null` y el lab muestra la copia de "Empty state" del Copywriting Contract |
-| partial | `availabilityStatus = from_date` con `availableFrom = null` | ✅ covered | El segmento de disponibilidad no se renderiza; el resto de la StatusLine sí |
-| zero-one-many | Estados `open` / `from_date` / `closed` | ✅ covered | Los tres se renderizan en `/lab/tokens` sección 05 con la copia del contrato; con `closed` el punto usa `--ink-2` |
-| populated | Variantes A, B y C con el fixture | ✅ covered | `/lab/hero?variant=a\|b\|c` renderiza cada variante con el fixture, que cumple `satisfies HeroSettings` |
-| error | Parámetro `variant` inválido | ✅ covered | Mensaje del Copywriting Contract con enlaces a A, B y C |
-| error | Fixture que no cumple el tipo | ✅ covered | `satisfies HeroSettings` hace fallar `pnpm check` (typecheck) |
-| theme | Claro y oscuro | ✅ covered | `?theme=dark` aplica `.dark` al contenedor; `/lab/tokens` muestra ambas columnas de tokens a la vez |
-| locale | en / es | ✅ covered | `?lang=es` usa `headlineEs`, el formato `es` de fechas y la copia ES; el contenedor lleva `lang` |
-| loading | Carga de fuentes | ✅ covered | `next/font` con `display: 'swap'` y fallback ajustado por métricas (por defecto); ninguna petición a un CDN de fuentes |
-| long-text | Headline ES a 390px | 🧪 backstop | Capturas a 390px en es (claro): el headline envuelve con `text-wrap: balance`, sin truncar ni encoger por debajo de 44.8px. Si pasa de 7 líneas se reporta a Teo como hallazgo |
-| overflow | StatusLine a 390px (B, con fecha) | 🧪 backstop | Capturas a 390px: envuelve entre segmentos, ninguna línea empieza con `·`, sin scroll horizontal |
-| focus | CTA y enlaces de la barra del lab | 🧪 backstop | Recorrido con Tab en claro y oscuro: anillo sólido de acento de 2px con offset de 2px, visible sobre `--bg` |
-| contrast | Acento claro sobre `--bg` (3.19:1) | ⚠ unresolved | El contrato aplica la regla "acento solo en el punto y en el foco". Teo decide si la mantiene o ajusta el acento claro (P1). El planner lo trata como supuesto |
+| loading | `/lab`, barra del lab, variantes A/B/C, CTA, `/lab/tokens` | dismissed | Prerender estático con fixture síncrono: no hay datos remotos que esperar |
+| loading | `<Suspense>` de `/lab/hero` (lectura de `searchParams`) | ✅ resolved (explicit) | El fallback es el contenedor vacío con `bg-background` y `min-h-dvh`, sin spinner ni skeleton |
+| loading | Carga de fuentes | ✅ resolved (explicit) | `next/font` con `display: 'swap'` y fallback ajustado por métricas; ninguna petición a un CDN de fuentes |
+| error | Parámetro `variant` desconocido | ✅ resolved (explicit) | Mensaje "Error state" del Copywriting Contract con enlaces a A, B y C |
+| error | Fixture que no cumple el tipo | ✅ resolved (explicit) | `satisfies HeroSettings` hace fallar `pnpm check` (typecheck) |
+| error | Clic en el CTA (`/contact`, `/es/contacto`) | ✅ resolved (explicit) | Da 404 en la fase 1; aceptado, las rutas llegan en la fase 4 |
+| error | Resto de superficies (estáticas) | dismissed | Sin entradas ni datos externos, no hay ruta de error |
+| empty | Headline vacío en el fixture | ✅ resolved (explicit) | El hero devuelve `null`; el lab muestra el "Empty state" del Copywriting Contract |
+| partial | `from_date` con `availableFrom = null` | ✅ resolved (explicit) | El segmento de disponibilidad no se renderiza; el resto de la StatusLine sí |
+| zero-one-many | Estados `open` / `from_date` / `closed` | ✅ resolved (explicit) | Los tres en `/lab/tokens` sección 05; con `closed` el punto usa `--ink-2` |
+| empty / partial / zero-one-many | Índice de la variante C | dismissed | Lista fija de 3 etiquetas estáticas; nunca está vacía ni varía |
+| populated | Variantes A, B y C | ✅ resolved (explicit) | `/lab/hero?variant=a\|b\|c` renderiza cada variante con el fixture |
+| overflow / long-text | Variantes A/B/C (headline ES), StatusLine, barra del lab, `/lab/tokens`, etiqueta del CTA | ✅ resolved (backstop) | `{ statement: "A 390px en es: sin scroll horizontal, headline con text-wrap: balance sin bajar de 44.8px, StatusLine envuelve entre segmentos y ninguna línea empieza con ·", verification: backstop }`. Más de 7 líneas de headline se reporta a Teo |
+| focus | CTA y enlaces de la barra del lab | ✅ resolved (backstop) | `{ statement: "Recorrido con Tab en claro y oscuro: anillo sólido de acento de 2px con offset de 2px visible sobre --bg", verification: backstop }` |
+| contrast | Acento claro sobre `--bg` (3.19:1) | ⚠ unresolved — planner must treat as assumption | Supuesto: acento solo en el punto y en el foco. Teo decide en la revisión del lab (P1) |
 
 ### Revisión antes de la elección (D-05)
 - Capturas con Playwright, página completa: cada variante a 390×844, 768×1024 y 1440×900, en claro y oscuro, en en (18 capturas), más es en claro a 390 y 1440 (6 capturas). URL con `capture=1`.
@@ -345,12 +348,12 @@ El contrato tiene un valor por defecto para cada una, así que no bloquean el pl
 
 ## Checker Sign-Off
 
-- [ ] Dimension 1 Copywriting: PASS
-- [ ] Dimension 2 Visuals: PASS
-- [ ] Dimension 3 Color: PASS
-- [ ] Dimension 4 Typography: PASS
-- [ ] Dimension 5 Spacing: PASS
-- [ ] Dimension 6 Registry Safety: PASS
-- [ ] Dimension 7 Inventory Provenance: PASS
+- [x] Dimension 1 Copywriting: FLAG (CTA sin objeto, P2)
+- [x] Dimension 2 Visuals: PASS
+- [x] Dimension 3 Color: PASS
+- [x] Dimension 4 Typography: PASS
+- [x] Dimension 5 Spacing: PASS
+- [x] Dimension 6 Registry Safety: PASS
+- [x] Dimension 7 Inventory Provenance: FLAG (slot 3 sin versión de documento)
 
-**Approval:** pending
+**Approval:** approved 2026-10-30 (revisión 1; 2 FLAGs no bloqueantes)

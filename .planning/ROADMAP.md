@@ -33,18 +33,35 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 13 plans en 9 olas (8 compuertas humanas `blocking-human`)
 
 Plans:
+**Wave 1**
 - [ ] 01-01-PLAN.md — Gate de calidad, tokens OKLCH y alias shadcn, tres fuentes con next/font y tema del Button
-- [ ] 01-02-PLAN.md — /lab y /lab/tokens 01–04 (color claro y oscuro, tipografía, espacio, Button), con los textos del lab en messages/en.json y messages/es.json
 - [ ] 01-03-PLAN.md — TTF estáticos del PDF con OFL y verificación; aprobaciones de arranque (G1) y legitimidad de axe
-- [ ] 01-04-PLAN.md — Tipos de site_settings, fixture, StatusLine y /lab/tokens 05; headline y valores de Teo (G2)
+
+**Wave 2** *(blocked on Wave 1 completion)*
+- [ ] 01-02-PLAN.md — /lab y /lab/tokens 01–04 (color claro y oscuro, tipografía, espacio, Button), con los textos del lab en messages/en.json y messages/es.json
 - [ ] 01-05-PLAN.md — Contrato de contenido (Zod + paridad de cifras, métricas con etiqueta y fuente en en y es, `pnpm content:check`), guía de entrevista, registro de decisiones y DESIGN.md §2/§3
+
+**Wave 3** *(blocked on Wave 2 completion)*
+- [ ] 01-04-PLAN.md — Tipos de site_settings, fixture, StatusLine y /lab/tokens 05; headline y valores de Teo (G2)
+
+**Wave 4** *(blocked on Wave 3 completion)*
 - [ ] 01-06-PLAN.md — Variantes A/B/C del hero en /lab/hero y harness de comprobación en navegador
+
+**Wave 5** *(blocked on Wave 4 completion)*
 - [ ] 01-07-PLAN.md — Entrevistas de los 4 proyectos (G4) transcritas a docs/content/
 - [ ] 01-08-PLAN.md — Evidencia de la revisión del lab: 24 capturas, axe y audit de /lab/tokens
+
+**Wave 6** *(blocked on Wave 5 completion)*
 - [ ] 01-09-PLAN.md — Critique por variante y elección de variante (G3)
 - [ ] 01-10-PLAN.md — Capturas 16:10 en material/: webs en vivo y apps locales con datos de ejemplo (G5)
+
+**Wave 7** *(blocked on Wave 6 completion)*
 - [ ] 01-11-PLAN.md — Decisiones de la revisión aplicadas, copy y frases del concepto de Teo (G6)
+
+**Wave 8** *(blocked on Wave 7 completion)*
 - [ ] 01-12-PLAN.md — Script de compuerta de la fase y aprobación final de Teo (G7), con su revisión declarada de todas las capturas y liberación de las marcadas
+
+**Wave 9** *(blocked on Wave 8 completion)*
 - [ ] 01-13-PLAN.md — Aplicar G7: estados aprobados, DESIGN.md APROBADO y capturas WebP revisadas commiteadas (D-15)
 **UI hint**: yes
 **Window**: días 1–2

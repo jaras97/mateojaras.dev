@@ -30,7 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Cada uno de los 4 proyectos tiene en `docs/content/`, en en y es, tagline, problema, rol, solución, resultados, 2–3 decisiones técnicas, URLs, permiso del cliente y la fuente de cada métrica, y `material/` tiene al menos 3 capturas 16:10 por proyecto (las del inventario marcadas como datos ficticios)
   4. `docs/copy.md` no tiene ningún marcador `[Teo escribe]`: hero, about, now, experiencia y contacto están escritos por Teo en en y es, y él los aprobó
   5. `assets/fonts-pdf/` contiene los TTF estáticos de las tres familias, con glifos latin-ext, listos para el CV
-**Plans**: 3/13 plans executed en 9 olas (8 compuertas humanas `blocking-human`)
+**Plans**: 4/13 plans executed en 9 olas (8 compuertas humanas `blocking-human`)
 
 Plans:
 **Wave 1**
@@ -39,7 +39,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 - [x] 01-02-PLAN.md — /lab y /lab/tokens 01–04 (color claro y oscuro, tipografía, espacio, Button), con los textos del lab en messages/en.json y messages/es.json
-- [ ] 01-05-PLAN.md — Contrato de contenido (Zod + paridad de cifras, métricas con etiqueta y fuente en en y es, `pnpm content:check`), guía de entrevista, registro de decisiones y DESIGN.md §2/§3
+- [x] 01-05-PLAN.md — Contrato de contenido (Zod + paridad de cifras, métricas con etiqueta y fuente en en y es, `pnpm content:check`), guía de entrevista, registro de decisiones y DESIGN.md §2/§3
 
 **Wave 3** *(blocked on Wave 2 completion)*
 - [ ] 01-04-PLAN.md — Tipos de site_settings, fixture, StatusLine y /lab/tokens 05; headline y valores de Teo (G2)
@@ -170,7 +170,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Identidad y contenido | 3/13 | In Progress | - |
+| 1. Identidad y contenido | 4/13 | In Progress | - |
 | 2. Base técnica | 0/TBD | Not started | - |
 | 3. Panel admin + CV | 0/TBD | Not started | - |
 | 4. Sitio público | 0/TBD | Not started | - |

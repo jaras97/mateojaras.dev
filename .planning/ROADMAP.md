@@ -12,7 +12,7 @@ El camino va de la identidad y el contenido real (sin material no hay casos de e
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Identidad y contenido** - Identidad aprobada por Teo y base de contenido verificable en el repo; el contenido final pasa al admin (fase 3) (días 1–2)
+- [x] **Phase 1: Identidad y contenido** - Identidad aprobada por Teo y base de contenido verificable en el repo; el contenido final pasa al admin (fase 3) (días 1–2) (completed 2026-11-01)
 - [ ] **Phase 2: Base técnica** - Esqueleto andante desplegado: login admin, Preview en verde, seed real y decisión del plan B (días 3–4)
 - [ ] **Phase 3: Panel admin + CV** - Teo publica todo el contenido desde `/admin` y genera el CV en PDF en/es (días 5–7)
 - [ ] **Phase 4: Sitio público** - Casos de estudio, home, about y contacto en en/es, con SEO y movimiento; entrega el valor central (días 8–10)
@@ -30,7 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. *(Movido a la fase 3 el 2026-11-01, ver `docs/decisions.md`.)* Cada uno de los 4 proyectos tiene en `docs/content/`, en en y es, tagline, problema, rol, solución, resultados, 2–3 decisiones técnicas, URLs, permiso del cliente y la fuente de cada métrica, y `material/` tiene al menos 3 capturas 16:10 por proyecto (las del inventario marcadas como datos ficticios)
   4. *(Movido a la fase 3 el 2026-11-01, ver `docs/decisions.md`.)* `docs/copy.md` no tiene ningún marcador `[Teo escribe]`: hero, about, now, experiencia y contacto están escritos por Teo en en y es, y él los aprobó
   5. `assets/fonts-pdf/` contiene los TTF estáticos de las tres familias, con glifos latin-ext, listos para el CV
-**Plans**: 12/13 plans executed en 9 olas (8 compuertas humanas `blocking-human`)
+**Plans**: 13/13 plans complete en 9 olas (8 compuertas humanas `blocking-human`)
 
 Plans:
 **Wave 1**
@@ -171,7 +171,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Identidad y contenido | 12/13 | In Progress | - |
+| 1. Identidad y contenido | 13/13 | Complete    | 2026-11-01 |
 | 2. Base técnica | 0/TBD | Not started | - |
 | 3. Panel admin + CV | 0/TBD | Not started | - |
 | 4. Sitio público | 0/TBD | Not started | - |

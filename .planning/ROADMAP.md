@@ -12,7 +12,7 @@ El camino va de la identidad y el contenido real (sin material no hay casos de e
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Identidad y contenido** - Identidad aprobada por Teo y contenido real de los 4 proyectos en el repo (días 1–2)
+- [ ] **Phase 1: Identidad y contenido** - Identidad aprobada por Teo y base de contenido verificable en el repo; el contenido final pasa al admin (fase 3) (días 1–2)
 - [ ] **Phase 2: Base técnica** - Esqueleto andante desplegado: login admin, Preview en verde, seed real y decisión del plan B (días 3–4)
 - [ ] **Phase 3: Panel admin + CV** - Teo publica todo el contenido desde `/admin` y genera el CV en PDF en/es (días 5–7)
 - [ ] **Phase 4: Sitio público** - Casos de estudio, home, about y contacto en en/es, con SEO y movimiento; entrega el valor central (días 8–10)
@@ -21,14 +21,14 @@ Decimal phases appear between their surrounding integers in numeric order.
 ## Phase Details
 
 ### Phase 1: Identidad y contenido
-**Goal**: Teo aprueba la identidad del sitio y el contenido real de los 4 proyectos vive en el repo, de modo que ninguna fase posterior trabaja sobre marcadores ni datos inventados
+**Goal**: Teo aprueba la identidad del sitio (DESIGN.md, tokens, fuentes, variante del hero) y el repo tiene la base de contenido verificable de los 4 proyectos, sin marcadores ni datos inventados; el contenido narrativo, las capturas y el copy final los carga Teo desde el admin en la fase 3 (re-alcance del 2026-11-01)
 **Depends on**: Nothing (first phase)
-**Requirements**: IDEN-01, IDEN-02, IDEN-03, IDEN-04, IDEN-05, IDEN-06, IDEN-07
+**Requirements**: IDEN-01, IDEN-02, IDEN-03, IDEN-04 (IDEN-05, IDEN-06 e IDEN-07 pasaron a la fase 3 el 2026-11-01: Teo carga el contenido desde el admin)
 **Success Criteria** (what must be TRUE):
   1. `DESIGN.md` dice APROBADO con las dos frases del concepto escritas por Teo, y una página de muestra renderiza los tokens OKLCH (claro y oscuro), la escala tipográfica y el tema shadcn propio con Funnel Display, Hanken Grotesk y Geist Mono servidas desde el propio dominio (ninguna petición a un CDN de fuentes)
   2. Teo ve las 3 variantes del hero renderizadas en código con datos de un fixture que cumple el contrato de `site_settings`, eligió una y la elección consta en `docs/decisions.md`
-  3. Cada uno de los 4 proyectos tiene en `docs/content/`, en en y es, tagline, problema, rol, solución, resultados, 2–3 decisiones técnicas, URLs, permiso del cliente y la fuente de cada métrica, y `material/` tiene al menos 3 capturas 16:10 por proyecto (las del inventario marcadas como datos ficticios)
-  4. `docs/copy.md` no tiene ningún marcador `[Teo escribe]`: hero, about, now, experiencia y contacto están escritos por Teo en en y es, y él los aprobó
+  3. *(Movido a la fase 3 el 2026-11-01, ver `docs/decisions.md`.)* Cada uno de los 4 proyectos tiene en `docs/content/`, en en y es, tagline, problema, rol, solución, resultados, 2–3 decisiones técnicas, URLs, permiso del cliente y la fuente de cada métrica, y `material/` tiene al menos 3 capturas 16:10 por proyecto (las del inventario marcadas como datos ficticios)
+  4. *(Movido a la fase 3 el 2026-11-01, ver `docs/decisions.md`.)* `docs/copy.md` no tiene ningún marcador `[Teo escribe]`: hero, about, now, experiencia y contacto están escritos por Teo en en y es, y él los aprobó
   5. `assets/fonts-pdf/` contiene los TTF estáticos de las tres familias, con glifos latin-ext, listos para el CV
 **Plans**: 12/13 plans executed en 9 olas (8 compuertas humanas `blocking-human`)
 
@@ -62,7 +62,7 @@ Plans:
 - [x] 01-12-PLAN.md — Script de compuerta de la fase y aprobación final de Teo (G7), con su revisión declarada de todas las capturas y liberación de las marcadas
 
 **Wave 9** *(blocked on Wave 8 completion)*
-- [ ] 01-13-PLAN.md — Aplicar G7: estados aprobados, DESIGN.md APROBADO y capturas WebP revisadas commiteadas (D-15)
+- [x] 01-13-PLAN.md — *Omitido*: Teo aplazó al admin todo lo que este plan publicaba (G7, 2026-11-01); DESIGN.md ya se aprobó en 01-12
 **UI hint**: yes
 **Window**: días 1–2
 **Gate**: concepto, `DESIGN.md`, copy y variante del hero aprobados por Teo; contenido real en `docs/content/` y `material/`
@@ -92,13 +92,14 @@ Plans:
 ### Phase 3: Panel admin + CV
 **Goal**: Teo administra todo el contenido del sitio desde `/admin` sin tocar código ni redeploy, y genera desde esos mismos datos un CV en PDF correcto en inglés y español
 **Depends on**: Phase 2
-**Requirements**: ADMN-01, ADMN-02, ADMN-03, ADMN-04, ADMN-05, ADMN-06, ADMN-07, ADMN-08, ADMN-09, ADMN-10, ADMN-11, ADMN-12, ADMN-13, CV-01, CV-02, CV-03, CV-04, CV-05
+**Requirements**: ADMN-01, ADMN-02, ADMN-03, ADMN-04, ADMN-05, ADMN-06, ADMN-07, ADMN-08, ADMN-09, ADMN-10, ADMN-11, ADMN-12, ADMN-13, CV-01, CV-02, CV-03, CV-04, CV-05, IDEN-05, IDEN-06, IDEN-07
 **Success Criteria** (what must be TRUE):
   1. En un admin en español, Teo carga desde formularios (no desde el seed) el contenido real de los 4 proyectos con sus decisiones técnicas y métricas con fuente, la experiencia, las skills, la educación y SiteSettings, con los campos en/es lado a lado, los vacíos en español marcados e imágenes subidas a Blob con alt en/es
   2. Teo guarda un borrador, lo previsualiza en su ruta pública real con Draft Mode, lo publica y ve el cambio en el sitio desplegado sin redeploy; el interruptor de visible lo retira del sitio y el slug de un proyecto publicado ya no se puede editar
   3. Teo reordena proyectos, experiencias y skills arrastrando o solo con el teclado; Cmd+S guarda el formulario actual y salir con cambios sin guardar pide confirmación
   4. Teo genera el CV desde el admin; `/cv/en.pdf` y `/cv/es.pdf` sirven la última copia, de una columna, sin foto y con capa de texto en la que un test de extracción encuentra á, é, í, ó, ú y ñ intactas; el historial lista las copias anteriores y cualquiera se descarga
   5. `/resume.json` y `/resume.es.json` devuelven JSON Resume válido generado en vivo desde los mismos datos, y Teo tiene en el admin una bandeja de mensajes de contacto (vacía hasta que el formulario de la fase 4 reciba el primero)
+  6. *(Desde la fase 1.)* El contenido de los 4 proyectos (IDEN-05), al menos 3 capturas 16:10 por proyecto revisadas por Teo (IDEN-06) y el copy en en/es sin marcadores ni borradores, incluidos los bullets de Sofka (IDEN-07), están cargados y aprobados por Teo desde el admin
 **Plans**: TBD
 **UI hint**: yes
 **Window**: días 5–7
@@ -151,9 +152,9 @@ Plans:
 
 | Phase | Requirements | Count |
 |-------|--------------|-------|
-| 1. Identidad y contenido | IDEN-01 a IDEN-07 | 7 |
+| 1. Identidad y contenido | IDEN-01 a IDEN-04 | 4 |
 | 2. Base técnica | BASE-01 a BASE-11, AUTH-01 a AUTH-04 | 15 |
-| 3. Panel admin + CV | ADMN-01 a ADMN-13, CV-01 a CV-05 | 18 |
+| 3. Panel admin + CV | ADMN-01 a ADMN-13, CV-01 a CV-05, IDEN-05 a IDEN-07 | 21 |
 | 4. Sitio público | CASE-01 a CASE-07, SITE-01 a SITE-07, CONT-01 a CONT-05, SEO-01 a SEO-03, MOTN-01 a MOTN-04, QUAL-01, QUAL-02, QUAL-04 | 29 |
 | 5. Pulido y lanzamiento | SITE-08, QUAL-03, QUAL-05, QUAL-06, QUAL-07, QUAL-08, QUAL-09 | 7 |
 

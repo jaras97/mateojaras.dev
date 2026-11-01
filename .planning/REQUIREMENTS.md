@@ -166,9 +166,9 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | IDEN-02 | Phase 1 | Complete |
 | IDEN-03 | Phase 1 | Complete |
 | IDEN-04 | Phase 1 | Complete |
-| IDEN-05 | Phase 1 | Pending |
-| IDEN-06 | Phase 1 | Pending |
-| IDEN-07 | Phase 1 | Pending |
+| IDEN-05 | Phase 3 | Pending |
+| IDEN-06 | Phase 3 | Pending |
+| IDEN-07 | Phase 3 | Pending |
 | BASE-01 | Phase 2 | Pending |
 | BASE-02 | Phase 2 | Pending |
 | BASE-03 | Phase 2 | Pending |

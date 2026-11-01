@@ -144,3 +144,9 @@ Decisión: DESIGN.md pasa a "Estado: APROBADO el 2026-11-01" con la variante A. 
 Quién: decidió Teo (aprobó DESIGN.md y aplazó el resto); el orquestador hizo la pregunta de sí o no; Claude Code cambia el estado de DESIGN.md y registra.
 Por qué: la aprobación de DESIGN.md es una respuesta explícita de Teo a una pregunta cerrada. El resto lo va a editar él en el admin (fase 3), y marcarlo aprobado o publicar capturas sin sus palabras sería decidir por él en un repo público.
 Verificación: `.planning/phases/01-identidad-y-contenido/01-12-ANSWERS.md`, el gate `design-approved` de `bash scripts/check-phase-1.sh --final` (PASS) y los gates de contenido y publicación del mismo modo (FAIL, pendientes de Teo).
+
+## 2026-11-01 · IDEN-05, IDEN-06 e IDEN-07 pasan de la fase 1 a la fase 3
+Contexto: en G7 Teo aplazó al admin todo el contenido ("todo eso lo subo desde admin") y aprobó solo DESIGN.md ("si"). El plan 01-13 publicaba capturas y marcaba como aprobados textos que Teo no aprobó, así que no podía ejecutarse, y `check-phase-1.sh --final` queda en 14 PASS y 10 FAIL, todos por contenido aplazado.
+Decisión: la fase 1 cierra con IDEN-01 a IDEN-04. IDEN-05 (contenido de los 4 proyectos), IDEN-06 (capturas revisadas) e IDEN-07 (copy final en/es, incluidos los bullets de Sofka) pasan a la fase 3 como criterio de éxito 6: Teo los carga y aprueba desde el admin. El plan 01-13 se omite. Nada de `material/` se commitea y las dos capturas de ManuJ con caras siguen fuera.
+Quién: Teo eligió la opción 1 ("mover a la fase 3"); Claude la propuso.
+Por qué: el admin es donde Teo va a escribir ese contenido; mantenerlo en la fase 1 la dejaría abierta y bloquearía la fase 2 sin que haya nada que hacer en el repo.

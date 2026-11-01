@@ -3,16 +3,16 @@ gsd_state_version: "1.0"
 current_phase: 01
 current_phase_name: Identidad y contenido
 status: executing
-stopped_at: Completed 01-11-PLAN.md
-last_updated: "2026-11-01T19:36:18.866Z"
+stopped_at: Completed 01-12-PLAN.md
+last_updated: "2026-11-01T19:58:26.739Z"
 last_activity: 2026-10-30
 last_activity_desc: Phase 01 execution started
-state_head: 8ba89e63e2eb1c6e783232115829baa9713439e6
+state_head: 9eb1f5bc9fdd26ba44a420de9899eabab9a9df5f
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 13
-  completed_plans: 11
+  completed_plans: 12
   percent: 0
 ---
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-10-29)
 ## Current Position
 
 Phase: 01 (Identidad y contenido) — EXECUTING
-Plan: 12 of 13
+Plan: 13 of 13
 Status: Ready to execute
 Last activity: 2026-10-30 — Phase 01 execution started
 
@@ -67,6 +67,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P09 | 97min | 3 tasks | 2 files |
 | Phase 01 P10 | 3min | 1 tasks | 6 files |
 | Phase 01 P11 | 10min | 3 tasks | 6 files |
+| Phase 01 P12 | 16min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -100,6 +101,9 @@ Recent decisions affecting current work:
 - [Phase 01]: 01-10: inventory and finance captures deferred (G5 open, permission unknown); IDEN-06 stays open
 - [Phase 01]: 01-11: G6 copy (about, now, freelance bullets, contact intro) and the DESIGN.md §1 concept are Claude proposals Teo asked for and accepted item by item; authorship disclosed inline and in docs/decisions.md; English is draft-translation until G7
 - [Phase 01]: 01-11: Sofka bullets stay pending (Teo: 'Sofka pendiente'); Teo writes them from the admin; nothing invented
+- [Phase 01]: DESIGN.md approved by Teo at G7 ('si' to a closed yes/no question): Estado APROBADO, variant A
+- [Phase 01]: G7: Teo deferred all content, captures, covers, alt texts, Sofka bullets, English translations, client permissions and open facts to the admin ('todo eso lo subo desde admin'); nothing under material/ is committed
+- [Phase 01]: G7: no option or aplazar line written for Teo; --parse-g7 reads pendiente and the deferred gates stay FAIL under --final (never PASS); 01-13 must be replanned
 
 ### Pending Todos
 
@@ -112,6 +116,7 @@ None yet.
 - [Phase 3]: `@react-pdf/renderer` 4.9 con React 19.3 sin verificar; spike el día 5. Pedir `BLOB_READ_WRITE_TOKEN` al inicio.
 - [Phase 4]: Arrancar la verificación DNS de Resend en Porkbun la primera mañana; pedir las claves de Resend, Upstash y la URL de Cal.com.
 - IDEN-06: inventory and finance captures need Teo's G5 (permission, local sample-data apps, URLs, views); ask at G7 or before
+- 01-13 cannot run as written: G7 option reads pendiente and Teo deferred content, captures and translations to the admin; IDEN-05/06/07 need a replan or gap closure (see 01-12-SUMMARY 'Ajustes que necesita 01-13')
 
 ## Deferred Items
 
@@ -123,6 +128,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-01T19:36:18.847Z
-Stopped at: Completed 01-11-PLAN.md
+Last session: 2026-11-01T19:58:19.160Z
+Stopped at: Completed 01-12-PLAN.md
 Resume file: None

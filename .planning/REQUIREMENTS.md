@@ -12,7 +12,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [ ] **IDEN-01**: DESIGN.md pasa a APROBADO con las dos frases del concepto escritas por Teo
 - [x] **IDEN-02**: Tokens OKLCH (claro y oscuro), escala tipográfica y tema shadcn propio viven en `globals.css`
 - [x] **IDEN-03**: Funnel Display, Hanken Grotesk y Geist Mono se sirven self-hosted con `next/font` (latin + latin-ext) y TTF estáticos para el PDF en `assets/fonts-pdf/`
-- [ ] **IDEN-04**: Existen 3 variantes del hero en código como componentes presentacionales tipados contra el contrato de `site_settings`, y Teo elige una
+- [x] **IDEN-04**: Existen 3 variantes del hero en código como componentes presentacionales tipados contra el contrato de `site_settings`, y Teo elige una
 - [ ] **IDEN-05**: `docs/content/` tiene, por cada uno de los 4 proyectos, tagline, problema, rol, solución, resultados, 2–3 decisiones técnicas, URLs, permiso del cliente y la fuente de cada métrica (en/es)
 - [ ] **IDEN-06**: `material/` tiene al menos 3 capturas 16:10 por proyecto (el inventario con datos ficticios, marcado como tal)
 - [ ] **IDEN-07**: `docs/copy.md` no tiene marcadores: hero, about, now, experiencia y contacto escritos por Teo en en/es
@@ -165,7 +165,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | IDEN-01 | Phase 1 | Pending |
 | IDEN-02 | Phase 1 | Complete |
 | IDEN-03 | Phase 1 | Complete |
-| IDEN-04 | Phase 1 | Pending |
+| IDEN-04 | Phase 1 | Complete |
 | IDEN-05 | Phase 1 | Pending |
 | IDEN-06 | Phase 1 | Pending |
 | IDEN-07 | Phase 1 | Pending |

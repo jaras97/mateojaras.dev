@@ -3,16 +3,16 @@ gsd_state_version: "1.0"
 current_phase: 01
 current_phase_name: Identidad y contenido
 status: executing
-stopped_at: Completed 01-10-PLAN.md
-last_updated: "2026-10-30T23:13:46.620Z"
+stopped_at: Completed 01-11-PLAN.md
+last_updated: "2026-11-01T19:36:18.866Z"
 last_activity: 2026-10-30
 last_activity_desc: Phase 01 execution started
-state_head: b54f7249afdf7455d568a80bf4505c051cfe18b0
+state_head: 8ba89e63e2eb1c6e783232115829baa9713439e6
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 13
-  completed_plans: 10
+  completed_plans: 11
   percent: 0
 ---
 
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-10-29)
 ## Current Position
 
 Phase: 01 (Identidad y contenido) — EXECUTING
-Plan: 11 of 13
+Plan: 12 of 13
 Status: Ready to execute
 Last activity: 2026-10-30 — Phase 01 execution started
 
@@ -66,6 +66,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01 P07 | 10min | 3 tasks | 6 files |
 | Phase 01 P09 | 97min | 3 tasks | 2 files |
 | Phase 01 P10 | 3min | 1 tasks | 6 files |
+| Phase 01 P11 | 10min | 3 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -97,6 +98,8 @@ Recent decisions affecting current work:
 - [Phase 01]: 01-10: live-site views (ManuJ inicio/galeria/reservar; EcoExport inicio/nosotros/productos/inicio-en) chosen by Claude after Teo's G4 delegation; media and coverImage stay in pendingFields until G7
 - [Phase 01]: 01-10: provisional cover 01-inicio.webp for ManuJ and EcoExport, coverImage kept pending for Teo
 - [Phase 01]: 01-10: inventory and finance captures deferred (G5 open, permission unknown); IDEN-06 stays open
+- [Phase 01]: 01-11: G6 copy (about, now, freelance bullets, contact intro) and the DESIGN.md §1 concept are Claude proposals Teo asked for and accepted item by item; authorship disclosed inline and in docs/decisions.md; English is draft-translation until G7
+- [Phase 01]: 01-11: Sofka bullets stay pending (Teo: 'Sofka pendiente'); Teo writes them from the admin; nothing invented
 
 ### Pending Todos
 
@@ -120,6 +123,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-10-30T23:13:46.601Z
-Stopped at: Completed 01-10-PLAN.md
+Last session: 2026-11-01T19:36:18.847Z
+Stopped at: Completed 01-11-PLAN.md
 Resume file: None

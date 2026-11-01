@@ -1,6 +1,6 @@
 # DESIGN.md — dirección de arte de mateojaras.dev
 
-Estado: PROPUESTA. Se convierte en APROBADO cuando Teo escriba las dos frases del concepto y elija la variante del hero (día 2). Nada de este archivo se cambia sin preguntar a Teo.
+Estado: APROBADO el 2026-11-01 por Teo en G7 (concepto propuesto por Claude y aceptado por Teo en G6; variante A del hero). Nada de este archivo se cambia sin preguntar a Teo.
 
 ## 1. Concepto: la bitácora de un taller
 > Quien entra debería sentir que lee el cuaderno de trabajo de alguien que construye con cuidado, donde cada cosa tiene fecha, razón y lugar. Nada grita: lo que convence es la precisión y la calma con que está hecho.

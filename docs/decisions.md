@@ -130,3 +130,10 @@ Decisión: se corrige ahora el contenedor con scroll de la tabla de contraste de
 Quién: Teo.
 Por qué: es el único hallazgo serious de axe; el resto es pulido.
 Verificación: `src/app/lab/_components/specimens.tsx` (`ContrastTable`) y axe a 390 px sobre `/lab/tokens`.
+
+## 2026-11-01 · Copy del sitio y concepto de DESIGN.md: propuestas de Claude aceptadas por Teo (G6)
+Contexto: en G6 (01-11) el plan pedía que Teo escribiera About, Now, Experiencia, Contacto, Footer y las dos frases del concepto, y que Claude no propusiera redacción. Teo pidió recomendaciones en lugar de escribirlas. El orquestador le mostró una propuesta de Claude por bloque, numerada de 1 a 6, con la Experiencia de Sofka sin texto.
+Decisión: respuesta de Teo, literal: "1 ok · 2 ok · 3 freelance ok, el inventario sí fue freelance; Sofka pendiente · 4 ok · 5 ok · 6 ok". Cada bloque es una propuesta de Claude, aceptada por Teo: About (1, incluye "contratista independiente", D-12), Now (2), los tres bullets freelance de ManuJ, EcoExport e inventario (3; Teo confirmó que el inventario fue un trabajo freelance), la intro de Contacto (4), el Footer sin cambios (5) y las dos frases del concepto de DESIGN.md §1 (6). Los bullets de Sofka quedan pendientes: Teo los escribe desde el admin, y en `docs/copy.md` hay una línea "Pendiente" en su lugar, sin texto inventado. El inglés de todos los bloques es traducción de Claude y lleva `<!-- enStatus: draft-translation -->`. Todo el conjunto, en y es, se aprueba en G7 (01-12). El estado de DESIGN.md sigue en PROPUESTA hasta 01-13.
+Quién: decidió Teo (pidió propuestas y aceptó cada una); Claude Code redactó las propuestas y la traducción.
+Por qué: Teo prefirió elegir entre propuestas a escribir desde cero. La regla de IDEN-01 de que Claude no propone redacción se sustituye por esta elección explícita de Teo, que queda registrada en lugar de presentarse como texto suyo.
+Verificación: `.planning/phases/01-identidad-y-contenido/01-11-ANSWERS.md` (respuesta literal y contexto mostrado), los comentarios de autoría de `docs/copy.md` y de DESIGN.md §1.

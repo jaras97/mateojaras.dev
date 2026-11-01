@@ -13,26 +13,46 @@ Reglas: primera persona, concreto, con lugar y oficio. Sin em-dashes, sin superl
 - CTA EN: `Let’s talk` → /contact · CTA ES: `Hablemos` → /es/contacto
 
 ## About (120–180 palabras)
+<!-- autoría: propuesta de Claude, aceptada por Teo en G6 (2026-11-01, "1 ok"); el inglés es traducción de Claude. Se aprueba en G7 (01-12). -->
 EN:
-> [Teo escribe. Pistas: 5+ años, Sofka 2021–2025 en células ágiles, freelance desde 2025, por qué te gusta el frontend, cómo usas la IA (como herramienta, con tests y revisión), qué tipo de proyectos quieres, que trabajas en inglés y español.]
+> I’m Mateo Jaramillo, a frontend developer in Medellín, Colombia. I’ve spent more than five years building interfaces with React, Next.js and TypeScript. From 2021 to 2025 I worked at Sofka Technologies, in agile teams. Since September 2025 I’ve worked as an independent contractor, building complete applications, from the first screen to the panel the client uses to manage their content. I like frontend because that’s where a technical decision is felt in the hands of the person using the product. I use AI as a tool: it helps me make progress, but nothing ships without tests and without my review. I’m looking for projects with a clear problem and someone on the other side who makes the decisions. I work in English and Spanish, in UTC-5.
+<!-- enStatus: draft-translation -->
 
 ES:
-> [Teo escribe.]
+> Soy Mateo Jaramillo, desarrollador frontend en Medellín, Colombia. Llevo más de cinco años construyendo interfaces con React, Next.js y TypeScript. De 2021 a 2025 trabajé en Sofka Technologies, en células ágiles. Desde septiembre de 2025 trabajo como contratista independiente y hago aplicaciones completas, de la primera pantalla al panel con el que el cliente administra su contenido. Me gusta el frontend porque ahí una decisión técnica se nota en las manos de quien usa el producto. Uso la IA como herramienta: me ayuda a avanzar, pero nada se entrega sin tests y sin mi revisión. Busco proyectos con un problema claro y alguien que decida del otro lado. Trabajo en español y en inglés, en UTC-5.
 
 ## Now (se edita desde el admin; primera versión aquí)
-EN: > [en qué estás trabajando este mes, qué estás aprendiendo, qué buscas]
-ES: > [...]
+<!-- autoría: propuesta de Claude, aceptada por Teo en G6 (2026-11-01, "2 ok"); el inglés es traducción de Claude. Se aprueba en G7 (01-12). -->
+EN:
+> This month I’m finishing mateojaras.dev, this portfolio, with its own admin panel. I’m learning Next.js 16 Cache Components in depth. I’m looking for freelance frontend projects with teams in Canada and Europe.
+<!-- enStatus: draft-translation -->
+
+ES:
+> Este mes termino mateojaras.dev, este portafolio, con su propio panel de administración. Estoy aprendiendo a fondo Cache Components de Next.js 16. Busco proyectos freelance de frontend con equipos de Canadá y Europa.
 
 ## Experiencia (bullets cuantificados donde se pueda)
 ### Freelance · Frontend Developer · Sep 2025 – present · Remote
-- EN/ES bullets (3)
+<!-- autoría: propuesta de Claude, aceptada por Teo en G6 (2026-11-01, "3 freelance ok, el inventario sí fue freelance"); el inglés es traducción de Claude. Se aprueba en G7 (01-12). -->
+- EN: I built the website for Centro Estético ManuJ with Next.js and Supabase: service catalog, filterable gallery, three-step appointment booking and WhatsApp contact.
+<!-- enStatus: draft-translation -->
+  ES: Construí el sitio de Centro Estético ManuJ con Next.js y Supabase: catálogo de servicios, galería filtrable, reserva de citas en tres pasos y contacto por WhatsApp.
+- EN: I built the bilingual website for EcoExport Costa Rica with Next.js and next-intl: product catalog with PDF spec sheets and technical SEO.
+<!-- enStatus: draft-translation -->
+  ES: Construí el sitio bilingüe de EcoExport Costa Rica con Next.js y next-intl: catálogo de productos con fichas en PDF y SEO técnico.
+- EN: I developed an inventory management system with roles and reports, in Next.js and PostgreSQL.
+<!-- enStatus: draft-translation -->
+  ES: Desarrollé un sistema de gestión de inventario con roles y reportes, en Next.js y PostgreSQL.
+
 ### Sofka Technologies · Mid-Senior Frontend Developer · Aug 2021 – Aug 2025 · Remote
-- EN/ES bullets (4–5; usa los del CV pero con un número por bullet cuando sea honesto)
+- Pendiente: Teo escribe estos bullets desde el admin. En G6 (2026-11-01) respondió "Sofka pendiente"; no hay texto propuesto ni inventado.
 
 ## Contact
-- Intro EN (una frase): > [ej.] Tell me what you're building. I reply within a day, in English or Spanish.
-- Intro ES: > [...]
+<!-- autoría: intro propuesta por Claude, aceptada por Teo en G6 (2026-11-01, "4 ok"); el inglés es traducción de Claude. Campos, botón y mensaje de éxito sin cambios, confirmados en el mismo punto. Se aprueba en G7 (01-12). -->
+- Intro EN (una frase): > Tell me what you’re building. I reply within a day, in English or Spanish.
+<!-- enStatus: draft-translation -->
+- Intro ES: > Cuéntame qué estás construyendo. Te respondo en menos de un día, en español o en inglés.
 - Campos: name, email, message. Botón: `Send` / `Enviar`. Éxito: `Thanks, I'll get back to you soon.` / `Gracias, te respondo pronto.`
 
 ## Footer
+<!-- confirmado sin cambios por Teo en G6 (2026-11-01, "5 ok"). -->
 - `Mateo Jaramillo · Medellín, Colombia · GitHub · LinkedIn · Resume (PDF)`

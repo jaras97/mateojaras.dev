@@ -3,7 +3,9 @@
 Estado: PROPUESTA. Se convierte en APROBADO cuando Teo escriba las dos frases del concepto y elija la variante del hero (día 2). Nada de este archivo se cambia sin preguntar a Teo.
 
 ## 1. Concepto: la bitácora de un taller
-> [Teo escribe aquí dos frases con sus palabras sobre qué debe sentir alguien al entrar al sitio.]
+> Quien entra debería sentir que lee el cuaderno de trabajo de alguien que construye con cuidado, donde cada cosa tiene fecha, razón y lugar. Nada grita: lo que convence es la precisión y la calma con que está hecho.
+
+<!-- autoría: propuesta de Claude, aceptada por Teo en G6 (2026-11-01, "6 ok"). Se aprueba con el resto de DESIGN.md en G7 (01-12). -->
 
 El sitio se lee como el registro de trabajo de alguien que construye productos web: secciones numeradas (01, 02, 03), entradas con fecha, una línea de estado viva en el hero que sale del admin ("Available from Nov 2026 · Medellín, UTC-5 · overlaps with Toronto and Madrid"), y notas al margen en los casos de estudio con decisiones técnicas. El panel admin es el cuaderno donde se escribe esa bitácora. Tono: preciso, sereno, cálido. Nada grita.
 

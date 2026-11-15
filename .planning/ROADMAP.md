@@ -83,14 +83,31 @@ Plans:
   5. `docs/decisions.md` registra al final del día 3 el go/no-go entre `cacheComponents` e ISR, y el ciclo `exportContent()` a `content/*.json` y de vuelta por el seed restaura la base en local (en producción se omite con un aviso visible hasta que exista el token de Blob)
 **Plans**: 9 plans
 Plans:
+**Wave 1**
 - [ ] 02-01-PLAN.md — Aprobaciones de arranque en un mensaje, dependencias, borrado de /lab, D-02/D-03 en docs
+
+**Wave 2** *(blocked on Wave 1 completion)*
 - [ ] 02-02-PLAN.md — .env.local de Neon dev, esquema completo + migración 0000 aplicada en Neon dev, migrate con lock
+
+**Wave 3** *(blocked on Wave 2 completion)*
 - [ ] 02-03-PLAN.md — Tracer: seed de proyectos, queries cacheadas, /en y /es prerenderizados
+
+**Wave 4** *(blocked on Wave 3 completion)*
 - [ ] 02-04-PLAN.md — Seed completo (site_settings, experiencia, educación) y ciclo exportContent / --from-content
+
+**Wave 5** *(blocked on Wave 4 completion)*
 - [ ] 02-05-PLAN.md — next-intl + proxy.ts: /, /es, /projects/[slug], /es/proyectos/[slug]
+
+**Wave 6** *(blocked on Wave 5 completion)*
 - [ ] 02-06-PLAN.md — Better Auth: admin sembrado, migración 0001, /api/auth, requireSession / requireSessionForRequest
+
+**Wave 7** *(blocked on Wave 6 completion)*
 - [ ] 02-07-PLAN.md — Admin: login, cáscara con AuthGate, logout, e2e del ciclo de sesión
+
+**Wave 8** *(blocked on Wave 7 completion)*
 - [ ] 02-08-PLAN.md — Go/no-go del plan B al final del día 3
+
+**Wave 9** *(blocked on Wave 8 completion)*
 - [ ] 02-09-PLAN.md — CSP Report-Only, CI, Vercel Preview/Production, Neon main migrado y sembrado
 **Window**: días 3–4
 **Gate**: login admin + Vercel Preview en verde + seed cargado + walking skeleton público + decisión del plan B al día 3

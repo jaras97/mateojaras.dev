@@ -574,7 +574,14 @@ Add `"packageManager": "pnpm@12.16.1"` and `"engines": { "node": "24.x" }` to pa
 | A5 | Root params count as prerender-known in pages under `[locale]` with `generateStaticParams` (no Suspense needed) | Pattern 4 | Medium. Signal 1 of the go/no-go verifies it on day 3 |
 | A6 | Next's builtin 404 layout lets `next build` pass without `app/layout.tsx` | Pitfall 10 | Low. If the build errors, add a minimal `global-not-found` (needs a route decision) |
 
-## Open Questions
+## Open Questions (RESOLVED)
+
+Each question is owned by a plan:
+- Q1 RESOLVED → 02-01 approval checkpoint, item A (D-02 doc line follows Teo's answer).
+- Q2 RESOLVED → 02-01 approval checkpoint, item B; implemented in 02-06.
+- Q3 RESOLVED → Claude's decision, logged in 02-04 (exportContent).
+- Q4 RESOLVED → 02-01 item E (bio and freelance bullets); seed scope in 02-03/02-04 (skills not seeded, logged).
+- Q5 RESOLVED → 02-01 item F; dashboard checkpoint in 02-09.
 
 1. **Security bumps (Next 16.4.6, better-auth 1.7.25 + `auth` CLI at the same version).**
    - Known: both fix advisories that touch this exact setup.

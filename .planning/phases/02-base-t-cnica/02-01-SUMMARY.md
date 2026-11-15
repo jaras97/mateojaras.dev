@@ -21,7 +21,7 @@ key-decisions:
   - "C: languages jsonb { code, level }[]"
   - "D b: metrics_en / metrics_es"
   - "E sí: seed bio and freelance bullets"
-requirements-completed: [BASE-01, BASE-03, BASE-10]
+requirements-completed: []  # BASE-01, BASE-03, BASE-10 prepared only; closed by 02-02, 02-05, 02-09
 duration: 15min
 completed: 2026-11-15
 ---

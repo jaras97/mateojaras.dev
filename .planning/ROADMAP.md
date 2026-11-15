@@ -81,15 +81,17 @@ Plans:
   3. Tras `pnpm seed`, `/`, `/es`, `/projects/[slug]` y `/es/proyectos/[slug]` muestran en el Preview títulos reales desde Neon en el idioma correcto, servidos prerenderizados, y `/` sale en inglés sin importar el idioma del navegador
   4. Cada push corre `pnpm check` en CI en verde; el build del Preview aplica las migraciones contra Neon `dev` y despliega en verde, y sus respuestas llevan la CSP en Report-Only y las cabeceras de seguridad
   5. `docs/decisions.md` registra al final del día 3 el go/no-go entre `cacheComponents` e ISR, y el ciclo `exportContent()` a `content/*.json` y de vuelta por el seed restaura la base en local (en producción se omite con un aviso visible hasta que exista el token de Blob)
-**Plans**: 7 plans
+**Plans**: 9 plans
 Plans:
 - [ ] 02-01-PLAN.md — Aprobaciones de arranque en un mensaje, dependencias, borrado de /lab, D-02/D-03 en docs
-- [ ] 02-02-PLAN.md — Tracer: esquema + migración en Neon dev, seed de proyectos, /en y /es prerenderizados
-- [ ] 02-03-PLAN.md — Seed completo (site_settings, experiencia, educación) y ciclo exportContent / --from-content
-- [ ] 02-04-PLAN.md — next-intl + proxy.ts: /, /es, /projects/[slug], /es/proyectos/[slug]
-- [ ] 02-05-PLAN.md — Better Auth: login, sesión, logout, AuthGate + requireSession, e2e
-- [ ] 02-06-PLAN.md — Go/no-go del plan B al final del día 3
-- [ ] 02-07-PLAN.md — CSP Report-Only, CI, Vercel Preview/Production, Neon main migrado y sembrado
+- [ ] 02-02-PLAN.md — .env.local de Neon dev, esquema completo + migración 0000 aplicada en Neon dev, migrate con lock
+- [ ] 02-03-PLAN.md — Tracer: seed de proyectos, queries cacheadas, /en y /es prerenderizados
+- [ ] 02-04-PLAN.md — Seed completo (site_settings, experiencia, educación) y ciclo exportContent / --from-content
+- [ ] 02-05-PLAN.md — next-intl + proxy.ts: /, /es, /projects/[slug], /es/proyectos/[slug]
+- [ ] 02-06-PLAN.md — Better Auth: admin sembrado, migración 0001, /api/auth, requireSession / requireSessionForRequest
+- [ ] 02-07-PLAN.md — Admin: login, cáscara con AuthGate, logout, e2e del ciclo de sesión
+- [ ] 02-08-PLAN.md — Go/no-go del plan B al final del día 3
+- [ ] 02-09-PLAN.md — CSP Report-Only, CI, Vercel Preview/Production, Neon main migrado y sembrado
 **Window**: días 3–4
 **Gate**: login admin + Vercel Preview en verde + seed cargado + walking skeleton público + decisión del plan B al día 3
 **Approvals**: todas en una sola petición al inicio de la fase: React 19.3.0 a 19.3.1 y las dependencias directas (`@tiptap/pm`, `@tiptap/static-renderer`, `@dnd-kit/utilities`, `server-only`, `@testing-library/dom`, `@testing-library/user-event`, `@axe-core/playwright`, `tsx`, `@types/node@^24`); editar `docs/data-model.md` para añadir `site_settings.languages` en CEFR (aprobado el 2026-10-29, falta el doc) y corregir el CLI de Better Auth (`auth` en vez de `@better-auth/cli`); enmendar CLAUDE.md (`proxy.ts` también aplica las reescrituras de next-intl; la sesión se valida con AuthGate en `<Suspense>` + `requireSession()`). Opcional: Biome 2.4 a 2.6

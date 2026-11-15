@@ -7,6 +7,7 @@ El camino va de la identidad y el contenido real (sin material no hay casos de e
 ## Phases
 
 **Phase Numbering:**
+
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
@@ -21,48 +22,61 @@ Decimal phases appear between their surrounding integers in numeric order.
 ## Phase Details
 
 ### Phase 1: Identidad y contenido
+
 **Goal**: Teo aprueba la identidad del sitio (DESIGN.md, tokens, fuentes, variante del hero) y el repo tiene la base de contenido verificable de los 4 proyectos, sin marcadores ni datos inventados; el contenido narrativo, las capturas y el copy final los carga Teo desde el admin en la fase 3 (re-alcance del 2026-11-01)
 **Depends on**: Nothing (first phase)
 **Requirements**: IDEN-01, IDEN-02, IDEN-03, IDEN-04 (IDEN-05, IDEN-06 e IDEN-07 pasaron a la fase 3 el 2026-11-01: Teo carga el contenido desde el admin)
 **Success Criteria** (what must be TRUE):
+
   1. `DESIGN.md` dice APROBADO con las dos frases del concepto escritas por Teo, y una página de muestra renderiza los tokens OKLCH (claro y oscuro), la escala tipográfica y el tema shadcn propio con Funnel Display, Hanken Grotesk y Geist Mono servidas desde el propio dominio (ninguna petición a un CDN de fuentes)
   2. Teo ve las 3 variantes del hero renderizadas en código con datos de un fixture que cumple el contrato de `site_settings`, eligió una y la elección consta en `docs/decisions.md`
   3. *(Movido a la fase 3 el 2026-11-01, ver `docs/decisions.md`.)* Cada uno de los 4 proyectos tiene en `docs/content/`, en en y es, tagline, problema, rol, solución, resultados, 2–3 decisiones técnicas, URLs, permiso del cliente y la fuente de cada métrica, y `material/` tiene al menos 3 capturas 16:10 por proyecto (las del inventario marcadas como datos ficticios)
   4. *(Movido a la fase 3 el 2026-11-01, ver `docs/decisions.md`.)* `docs/copy.md` no tiene ningún marcador `[Teo escribe]`: hero, about, now, experiencia y contacto están escritos por Teo en en y es, y él los aprobó
   5. `assets/fonts-pdf/` contiene los TTF estáticos de las tres familias, con glifos latin-ext, listos para el CV
+
 **Plans**: 13/13 plans complete en 9 olas (8 compuertas humanas `blocking-human`)
 
 Plans:
 **Wave 1**
+
 - [x] 01-01-PLAN.md — Gate de calidad, tokens OKLCH y alias shadcn, tres fuentes con next/font y tema del Button
 - [x] 01-03-PLAN.md — TTF estáticos del PDF con OFL y verificación; aprobaciones de arranque (G1) y legitimidad de axe
 
 **Wave 2** *(blocked on Wave 1 completion)*
+
 - [x] 01-02-PLAN.md — /lab y /lab/tokens 01–04 (color claro y oscuro, tipografía, espacio, Button), con los textos del lab en messages/en.json y messages/es.json
 - [x] 01-05-PLAN.md — Contrato de contenido (Zod + paridad de cifras, métricas con etiqueta y fuente en en y es, `pnpm content:check`), guía de entrevista, registro de decisiones y DESIGN.md §2/§3
 
 **Wave 3** *(blocked on Wave 2 completion)*
+
 - [x] 01-04-PLAN.md — Tipos de site_settings, fixture, StatusLine y /lab/tokens 05; headline y valores de Teo (G2)
 
 **Wave 4** *(blocked on Wave 3 completion)*
+
 - [x] 01-06-PLAN.md — Variantes A/B/C del hero en /lab/hero y harness de comprobación en navegador
 
 **Wave 5** *(blocked on Wave 4 completion)*
+
 - [x] 01-07-PLAN.md — Entrevistas de los 4 proyectos (G4) transcritas a docs/content/
 - [x] 01-08-PLAN.md — Evidencia de la revisión del lab: 24 capturas, axe y audit de /lab/tokens
 
 **Wave 6** *(blocked on Wave 5 completion)*
+
 - [x] 01-09-PLAN.md — Critique por variante y elección de variante (G3)
 - [x] 01-10-PLAN.md — Capturas 16:10 en material/: webs en vivo y apps locales con datos de ejemplo (G5)
 
 **Wave 7** *(blocked on Wave 6 completion)*
+
 - [x] 01-11-PLAN.md — Decisiones de la revisión aplicadas, copy y frases del concepto de Teo (G6)
 
 **Wave 8** *(blocked on Wave 7 completion)*
+
 - [x] 01-12-PLAN.md — Script de compuerta de la fase y aprobación final de Teo (G7), con su revisión declarada de todas las capturas y liberación de las marcadas
 
 **Wave 9** *(blocked on Wave 8 completion)*
+
 - [x] 01-13-PLAN.md — *Omitido*: Teo aplazó al admin todo lo que este plan publicaba (G7, 2026-11-01); DESIGN.md ya se aprobó en 01-12
+
 **UI hint**: yes
 **Window**: días 1–2
 **Gate**: concepto, `DESIGN.md`, copy y variante del hero aprobados por Teo; contenido real en `docs/content/` y `material/`
@@ -72,43 +86,56 @@ Plans:
 **Notes**: Las variantes del hero son componentes presentacionales puros alimentados por un fixture, sin base de datos, para no adelantar trabajo de la fase 2. Riesgo de calendario ALTO: hoy `docs/content/` y `material/` están vacíos y `docs/copy.md` tiene marcadores. Si el contenido se retrasa, las fases 2 y 3 avanzan con lo que exista (el seed necesita al menos un proyecto completo) y solo se bloquean el gate de la fase 3 y las páginas de caso de estudio de la fase 4.
 
 ### Phase 2: Base técnica
+
 **Goal**: Existe un esqueleto andante desplegado: Teo entra a `/admin` en un Preview de Vercel y las rutas públicas de ambos idiomas muestran contenido real de Neon, prerenderizado, con la estrategia de caché decidida
 **Depends on**: Phase 1
 **Requirements**: BASE-01, BASE-02, BASE-03, BASE-04, BASE-05, BASE-06, BASE-07, BASE-08, BASE-09, BASE-10, BASE-11, AUTH-01, AUTH-02, AUTH-03, AUTH-04
 **Success Criteria** (what must be TRUE):
+
   1. En una URL de Vercel Preview (y en local), Teo inicia sesión en `/admin` con email y contraseña, sigue dentro tras recargar y puede cerrar sesión; no existe ningún camino de registro
   2. Una petición sin sesión válida a cualquier ruta, loader, Server Action o endpoint de subida del admin recibe un rechazo del servidor aunque se salte `proxy.ts`
   3. Tras `pnpm seed`, `/`, `/es`, `/projects/[slug]` y `/es/proyectos/[slug]` muestran en el Preview títulos reales desde Neon en el idioma correcto, servidos prerenderizados, y `/` sale en inglés sin importar el idioma del navegador
   4. Cada push corre `pnpm check` en CI en verde; el build del Preview aplica las migraciones contra Neon `dev` y despliega en verde, y sus respuestas llevan la CSP en Report-Only y las cabeceras de seguridad
   5. `docs/decisions.md` registra al final del día 3 el go/no-go entre `cacheComponents` e ISR, y el ciclo `exportContent()` a `content/*.json` y de vuelta por el seed restaura la base en local (en producción se omite con un aviso visible hasta que exista el token de Blob)
+
 **Plans**: 9 plans
 Plans:
 **Wave 1**
-- [ ] 02-01-PLAN.md — Aprobaciones de arranque en un mensaje, dependencias, borrado de /lab, D-02/D-03 en docs
+
+- [x] 02-01-PLAN.md — Aprobaciones de arranque en un mensaje, dependencias, borrado de /lab, D-02/D-03 en docs
 
 **Wave 2** *(blocked on Wave 1 completion)*
+
 - [ ] 02-02-PLAN.md — .env.local de Neon dev, esquema completo + migración 0000 aplicada en Neon dev, migrate con lock
 
 **Wave 3** *(blocked on Wave 2 completion)*
+
 - [ ] 02-03-PLAN.md — Tracer: seed de proyectos, queries cacheadas, /en y /es prerenderizados
 
 **Wave 4** *(blocked on Wave 3 completion)*
+
 - [ ] 02-04-PLAN.md — Seed completo (site_settings, experiencia, educación) y ciclo exportContent / --from-content
 
 **Wave 5** *(blocked on Wave 4 completion)*
+
 - [ ] 02-05-PLAN.md — next-intl + proxy.ts: /, /es, /projects/[slug], /es/proyectos/[slug]
 
 **Wave 6** *(blocked on Wave 5 completion)*
+
 - [ ] 02-06-PLAN.md — Better Auth: admin sembrado, migración 0001, /api/auth, requireSession / requireSessionForRequest
 
 **Wave 7** *(blocked on Wave 6 completion)*
+
 - [ ] 02-07-PLAN.md — Admin: login, cáscara con AuthGate, logout, e2e del ciclo de sesión
 
 **Wave 8** *(blocked on Wave 7 completion)*
+
 - [ ] 02-08-PLAN.md — Go/no-go del plan B al final del día 3
 
 **Wave 9** *(blocked on Wave 8 completion)*
+
 - [ ] 02-09-PLAN.md — CSP Report-Only, CI, Vercel Preview/Production, Neon main migrado y sembrado
+
 **Window**: días 3–4
 **Gate**: login admin + Vercel Preview en verde + seed cargado + walking skeleton público + decisión del plan B al día 3
 **Approvals**: todas en una sola petición al inicio de la fase: React 19.3.0 a 19.3.1 y las dependencias directas (`@tiptap/pm`, `@tiptap/static-renderer`, `@dnd-kit/utilities`, `server-only`, `@testing-library/dom`, `@testing-library/user-event`, `@axe-core/playwright`, `tsx`, `@types/node@^24`); editar `docs/data-model.md` para añadir `site_settings.languages` en CEFR (aprobado el 2026-10-29, falta el doc) y corregir el CLI de Better Auth (`auth` en vez de `@better-auth/cli`); enmendar CLAUDE.md (`proxy.ts` también aplica las reescrituras de next-intl; la sesión se valida con AuthGate en `<Suspense>` + `requireSession()`). Opcional: Biome 2.4 a 2.6
@@ -117,16 +144,19 @@ Plans:
 **Notes**: El plan B (`cacheComponents: false` + ISR) ya está pre-aprobado; las consultas se escriben como núcleo sin caché más envoltorio cacheado para que el cambio solo toque los envoltorios. `generateStaticParams` necesita la base sembrada en CI, Preview y Production. Nunca `push` contra la rama `main` de Neon.
 
 ### Phase 3: Panel admin + CV
+
 **Goal**: Teo administra todo el contenido del sitio desde `/admin` sin tocar código ni redeploy, y genera desde esos mismos datos un CV en PDF correcto en inglés y español
 **Depends on**: Phase 2
 **Requirements**: ADMN-01, ADMN-02, ADMN-03, ADMN-04, ADMN-05, ADMN-06, ADMN-07, ADMN-08, ADMN-09, ADMN-10, ADMN-11, ADMN-12, ADMN-13, CV-01, CV-02, CV-03, CV-04, CV-05, IDEN-05, IDEN-06, IDEN-07
 **Success Criteria** (what must be TRUE):
+
   1. En un admin en español, Teo carga desde formularios (no desde el seed) el contenido real de los 4 proyectos con sus decisiones técnicas y métricas con fuente, la experiencia, las skills, la educación y SiteSettings, con los campos en/es lado a lado, los vacíos en español marcados e imágenes subidas a Blob con alt en/es
   2. Teo guarda un borrador, lo previsualiza en su ruta pública real con Draft Mode, lo publica y ve el cambio en el sitio desplegado sin redeploy; el interruptor de visible lo retira del sitio y el slug de un proyecto publicado ya no se puede editar
   3. Teo reordena proyectos, experiencias y skills arrastrando o solo con el teclado; Cmd+S guarda el formulario actual y salir con cambios sin guardar pide confirmación
   4. Teo genera el CV desde el admin; `/cv/en.pdf` y `/cv/es.pdf` sirven la última copia, de una columna, sin foto y con capa de texto en la que un test de extracción encuentra á, é, í, ó, ú y ñ intactas; el historial lista las copias anteriores y cualquiera se descarga
   5. `/resume.json` y `/resume.es.json` devuelven JSON Resume válido generado en vivo desde los mismos datos, y Teo tiene en el admin una bandeja de mensajes de contacto (vacía hasta que el formulario de la fase 4 reciba el primero)
   6. *(Desde la fase 1.)* El contenido de los 4 proyectos (IDEN-05), al menos 3 capturas 16:10 por proyecto revisadas por Teo (IDEN-06) y el copy en en/es sin marcadores ni borradores, incluidos los bullets de Sofka (IDEN-07), están cargados y aprobados por Teo desde el admin
+
 **Plans**: TBD
 **UI hint**: yes
 **Window**: días 5–7
@@ -137,15 +167,18 @@ Plans:
 **Notes**: El gate depende de que el contenido de la fase 1 esté completo. Las subidas de imágenes son de cliente por el límite de 4.5 MB de las funciones. El PDF usa los TTF estáticos de `assets/fonts-pdf/` con `outputFileTracingIncludes` y sin guionado inglés sobre texto en español.
 
 ### Phase 4: Sitio público
+
 **Goal**: Un cliente o reclutador lee en inglés o español un caso de estudio que le muestra qué problema había, qué hizo Teo, qué resultado tuvo y qué decidió técnicamente y por qué, y desde ahí puede contactarlo; aquí se entrega el valor central
 **Depends on**: Phase 3
 **Requirements**: CASE-01, CASE-02, CASE-03, CASE-04, CASE-05, CASE-06, CASE-07, SITE-01, SITE-02, SITE-03, SITE-04, SITE-05, SITE-06, SITE-07, CONT-01, CONT-02, CONT-03, CONT-04, CONT-05, SEO-01, SEO-02, SEO-03, MOTN-01, MOTN-02, MOTN-03, MOTN-04, QUAL-01, QUAL-02, QUAL-04
 **Success Criteria** (what must be TRUE):
+
   1. En `/projects/[slug]` y `/es/proyectos/[slug]` el visitante lee cabecera con fila meta en mono, resumen con hasta 3 métricas con su fuente, portada, secciones 01 a 05 (las vacías no aparecen) y las decisiones técnicas como notas al margen (debajo del párrafo en móvil); el inventario se presenta como "Herramienta interna, datos de ejemplo" con demostración por contacto; cada caso cierra con anterior/siguiente y llamada a contacto, y un proyecto publicado después del deploy se abre sin redeploy
   2. En `/` el visitante ve el hero elegido, la línea de estado (disponibilidad, Medellín, UTC-5, hora local en vivo y solapamiento con Toronto y Madrid correcto en horario de verano) y los proyectos como entradas fechadas; en `/about` ve bio, Now fechada, stack con años, experiencia, educación e idiomas; cambia de idioma sin perder la página, cambia de tema con View Transitions sin destello al cargar y la preferencia persiste; el footer enlaza GitHub, LinkedIn, el CV y el código fuente
   3. Desde `/contact` o `/es/contacto` el visitante envía nombre, email y mensaje y ve la confirmación en su idioma; el mensaje queda guardado y llega a Teo por Resend con el `replyTo` del visitante; un honeypot lleno o un envío en menos de ~3 s se descarta en silencio, pasar el límite por IP se rechaza y, si Upstash no responde, también; el botón copia el email y el enlace abre Cal.com
   4. Cada página pública tiene título, descripción, OG y hreflang (`en`, `es`, `x-default`) en su idioma, y `sitemap.xml` y `robots.txt` listan ambos idiomas sin `/admin`; el movimiento se limita a un reveal escalonado, el H1 del hero partido por palabras sin CLS y como máximo una escena scrubbed por página, y con `prefers-reduced-motion: reduce` todo aparece sin animación
   5. `/impeccable:audit` no reporta hallazgos críticos en ninguna vista pública, y Lighthouse móvil da ≥ 95 con LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en `/`, `/projects/[slug]`, `/about` y `/contact` en ambos idiomas, medido en el Preview de Vercel
+
 **Plans**: TBD
 **UI hint**: yes
 **Window**: días 8–10
@@ -156,15 +189,18 @@ Plans:
 **Notes**: Después de cada vista: capturas con Playwright en 390, 768 y 1440 px en claro y oscuro, `/impeccable:audit` y `/impeccable:critique`, con hallazgos reportados antes de seguir. La hora en vivo es una hoja de cliente; el shell prerenderizado solo usa datos guardados. Los casos de estudio van primero: si el tiempo aprieta, el resto queda sobrio.
 
 ### Phase 5: Pulido y lanzamiento
+
 **Goal**: El sitio es accesible, está medido, lo revisaron tres personas reales y está en producción en mateojaras.dev
 **Depends on**: Phase 4
 **Requirements**: SITE-08, QUAL-03, QUAL-05, QUAL-06, QUAL-07, QUAL-08, QUAL-09
 **Success Criteria** (what must be TRUE):
+
   1. Solo con teclado, y con `prefers-reduced-motion` activo, un visitante recorre todas las rutas públicas en ambos idiomas con foco visible, axe no reporta problemas `serious` ni `critical` (WCAG AA), y una URL inexistente muestra la página 404 en el idioma del visitante
   2. Los tests e2e de Playwright de login, CRUD de proyecto y contacto pasan en CI
   3. La CSP está en modo de bloqueo sin violaciones en las rutas públicas y analytics registra visitas con esa CSP activa, sin que los resultados de Lighthouse de la fase 4 bajen de 95
   4. Tres personas revisaron el sitio, y sus hallazgos están registrados y resueltos
   5. mateojaras.dev sirve el sitio de producción en ambos idiomas contra la rama `main` de Neon
+
 **Plans**: TBD
 **Window**: días 11–12 pulido; días 13–14 margen y lanzamiento
 **Gate**: revisión por 3 personas hecha + sitio en producción
@@ -186,6 +222,7 @@ Plans:
 | 5. Pulido y lanzamiento | SITE-08, QUAL-03, QUAL-05, QUAL-06, QUAL-07, QUAL-08, QUAL-09 | 7 |
 
 Ubicaciones que se apartan de la agrupación por categoría:
+
 - QUAL-01, QUAL-02 y QUAL-04 (Lighthouse, Web Vitals, impeccable) van en la fase 4 porque son literalmente su compuerta; la fase 5 solo comprueba que no retrocedan tras activar analytics y la CSP en bloqueo.
 - SITE-08 (404) va en la fase 5 porque `PROJECT.md` raíz lo pone en Pulido.
 - ADMN-13 (bandeja de mensajes) se construye en la fase 3 con el resto del admin; se ve con datos reales cuando el formulario de la fase 4 recibe el primer mensaje.

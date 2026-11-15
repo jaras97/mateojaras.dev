@@ -150,3 +150,38 @@ Contexto: en G7 Teo aplazó al admin todo el contenido ("todo eso lo subo desde 
 Decisión: la fase 1 cierra con IDEN-01 a IDEN-04. IDEN-05 (contenido de los 4 proyectos), IDEN-06 (capturas revisadas) e IDEN-07 (copy final en/es, incluidos los bullets de Sofka) pasan a la fase 3 como criterio de éxito 6: Teo los carga y aprueba desde el admin. El plan 01-13 se omite. Nada de `material/` se commitea y las dos capturas de ManuJ con caras siguen fuera.
 Quién: Teo eligió la opción 1 ("mover a la fase 3"); Claude la propuso.
 Por qué: el admin es donde Teo va a escribir ese contenido; mantenerlo en la fase 1 la dejaría abierta y bloquearía la fase 2 sin que haya nada que hacer en el repo.
+
+## 2026-11-15 · Aprobaciones de arranque de la fase 2
+Contexto: CLAUDE.md exige aprobación de Teo para dependencias, docs/data-model.md y CLAUDE.md. D-01..D-04 de 02-CONTEXT ya estaban aprobadas; faltaban los puntos A..F. Respuesta literal de Teo: "A sí, B memoria, C sí, D b, E sí, F no".
+Decisión: A) next 16.4.3 a 16.4.6 y better-auth 1.7.14 a 1.7.25; el CLI de Better Auth es `pnpm dlx auth@1.7.25 generate`. B) rate limit del login en memoria (límite por defecto de Better Auth) hasta Upstash en la fase 4; sin tabla `rateLimit`. C) `site_settings.languages` jsonb `{ code, level }[]` con level native|A1..C2, en la primera migración. D) métricas en dos columnas `metrics_en` y `metrics_es` con `{ label, value }[]` y la fuente unida a la etiqueta. E) sembrar bio y bullets freelance de docs/copy.md. F) el proyecto de Vercel aún no existe. Se instalaron además react/react-dom 19.3.1, @tiptap/pm y @tiptap/static-renderer (3.32.0 exacto, igual que el resto de @tiptap), @dnd-kit/utilities, server-only, tsx, @types/node ^24, @testing-library/dom y user-event; Biome sigue en 2.4.2 (D-04).
+Quién: decidió Teo (respuesta literal en `.planning/phases/02-base-t-cnica/02-01-ANSWERS.md`); Claude Code aplicó.
+Por qué: los parches cubren avisos que afectan a cacheComponents con root params y a sesiones revocadas; C y D fijan columnas de una migración de un solo sentido.
+Verificación: 02-01-ANSWERS.md, `pnpm check` en verde, edición mínima de docs/data-model.md.
+
+## 2026-11-15 · Admin en español con locale explícito
+Contexto: el admin vive fuera de `[locale]` (D-08).
+Decisión: la interfaz del admin se muestra en español con `locale: 'es'` explícito en next-intl; los textos siguen en messages/es.json.
+Quién: Claude Code decidió; Teo lo aceptó en 02-CONTEXT.
+Por qué: Teo es el único usuario y trabaja en español; evita depender de root params fuera de `[locale]`.
+Verificación: 02-CONTEXT D-08; se comprueba en el plan del admin.
+
+## 2026-11-15 · /lab borrado
+Contexto: D-10 pedía borrar /lab y las variantes no elegidas al empezar la fase 2.
+Decisión: se borraron `src/app/lab`, hero B y C, el namespace `Lab`, `scripts/capture-lab.ts` y `scripts/check-phase-1.sh`. El arnés de e2e pasa a `playwright.config.ts` y `e2e/axe.ts` (mismas etiquetas WCAG y conjunto serious/critical).
+Quién: decidió Teo (D-10); Claude Code ejecutó.
+Por qué: DESIGN.md está aprobado con la variante A; el resto es código muerto.
+Verificación: `pnpm check` en verde tras el borrado.
+
+## 2026-11-15 · Ruta /api/auth/[...all]
+Contexto: AUTH-01 implica una ruta HTTP para Better Auth; es una ruta nueva.
+Decisión: el login publica contra el router HTTP de Better Auth en `/api/auth/[...all]`, de modo que se aplican su rate limit y su comprobación de origen.
+Quién: Claude Code, dentro de los límites (la ruta es necesaria para AUTH-01 y no añade superficie pública más allá del login).
+Por qué: llamar a la API solo desde una Server Action saltaría el rate limit del router.
+Verificación: e2e de login en el plan 02-06/02-07.
+
+## 2026-11-15 · Textos sembrados
+Contexto: `bio_en`/`bio_es` son obligatorias y docs/content no cubre todo.
+Decisión: el seed incluye el About y los 3 bullets freelance de docs/copy.md aceptados en G6 (el inglés es traducción en borrador). Los bullets de Sofka quedan vacíos; skills no se siembran (docs/content no trae categoría); Sofka U no se siembra porque falta el nombre del programa. Teo los añade desde el admin en la fase 3.
+Quién: decidió Teo (E: sí); Claude Code registra.
+Por qué: evita inventar contenido, regla de CLAUDE.md.
+Verificación: 02-01-ANSWERS.md y el seed del plan 02-02.

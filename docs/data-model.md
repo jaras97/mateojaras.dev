@@ -35,6 +35,7 @@ export const siteSettings = pgTable('site_settings', {
   availableFrom: date('available_from'),
   timezone: text('timezone').notNull().default('America/Bogota'),
   location: text('location').notNull().default('Medellín, Colombia'),
+  languages: jsonb('languages').$type<{ code: string; level: 'native' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' }[]>().notNull().default([]), // CEFR; nombres visibles desde messages
   email: text('email').notNull(),
   calendarUrl: text('calendar_url'),
   githubUrl: text('github_url'), linkedinUrl: text('linkedin_url'),
@@ -54,7 +55,8 @@ export const projects = pgTable('projects', {
   solutionEn: text('solution_en'),           solutionEs: text('solution_es'),
   caseStudyEn: jsonb('case_study_en'),       caseStudyEs: jsonb('case_study_es'),   // Tiptap JSON
   resultsEn: text('results_en').array(),     resultsEs: text('results_es').array(),
-  metrics: jsonb('metrics').$type<{ label: string; value: string }[]>(),
+  metricsEn: jsonb('metrics_en').$type<{ label: string; value: string }[]>(),  // fuente unida a la etiqueta
+  metricsEs: jsonb('metrics_es').$type<{ label: string; value: string }[]>(),
   techDecisionsEn: jsonb('tech_decisions_en').$type<TechDecisions>(),
   techDecisionsEs: jsonb('tech_decisions_es').$type<TechDecisions>(),
   liveUrl: text('live_url'), repoUrl: text('repo_url'),
@@ -141,7 +143,7 @@ export const contactMessages = pgTable('contact_messages', {
   readAt: timestamp('read_at', { withTimezone: true }),
 });
 
-// ---------- Better Auth: user, session, account, verification (generadas con `npx @better-auth/cli generate`)
+// ---------- Better Auth: user, session, account, verification (generadas con `pnpm dlx auth@1.7.25 generate --config scripts/auth-cli.ts --output src/db/auth-schema.ts`)
 ```
 
 ## Helpers

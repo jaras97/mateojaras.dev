@@ -118,7 +118,7 @@ Plans:
 
 **Wave 5** *(blocked on Wave 4 completion)*
 
-- [ ] 02-05-PLAN.md — next-intl + proxy.ts: /, /es, /projects/[slug], /es/proyectos/[slug]
+- [x] 02-05-PLAN.md — next-intl + proxy.ts: /, /es, /projects/[slug], /es/proyectos/[slug]
 
 **Wave 6** *(blocked on Wave 5 completion)*
 

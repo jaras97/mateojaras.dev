@@ -21,8 +21,8 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 - [ ] **BASE-01**: Esquema Drizzle de `docs/data-model.md` (más `site_settings.languages` en CEFR) aplicado por migración en Neon `dev` y `main`
 - [x] **BASE-02**: Dos root layouts (`app/[locale]` y `app/admin`) y el layout del scaffold eliminado
-- [ ] **BASE-03**: `proxy.ts` aplica las reescrituras de next-intl (rutas localizadas en `/es`) y la comprobación de la cookie en `/admin`
-- [ ] **BASE-04**: El idioma se lee con `next/root-params` en RSC y se pasa explícito a Server Actions y Route Handlers; `/` siempre es inglés (sin detección)
+- [x] **BASE-03**: `proxy.ts` aplica las reescrituras de next-intl (rutas localizadas en `/es`) y la comprobación de la cookie en `/admin`
+- [x] **BASE-04**: El idioma se lee con `next/root-params` en RSC y se pasa explícito a Server Actions y Route Handlers; `/` siempre es inglés (sin detección)
 - [x] **BASE-05**: Las consultas públicas usan `'use cache'` + `cacheTag` por entidad, escritas como núcleo sin caché más envoltorio cacheado, y respetan Draft Mode
 - [x] **BASE-06**: `pnpm seed` carga el contenido real de `docs/content/` (al menos un proyecto publicado) y crea el único usuario admin desde variables de entorno
 - [x] **BASE-07**: `exportContent()` escribe `content/*.json` en local y en Blob en producción (se omite con aviso hasta que exista el token), y el seed puede restaurar desde esos archivos
@@ -171,8 +171,8 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | IDEN-07 | Phase 3 | Complete |
 | BASE-01 | Phase 2 | Pending |
 | BASE-02 | Phase 2 | Complete |
-| BASE-03 | Phase 2 | Pending |
-| BASE-04 | Phase 2 | Pending |
+| BASE-03 | Phase 2 | Complete |
+| BASE-04 | Phase 2 | Complete |
 | BASE-05 | Phase 2 | Complete |
 | BASE-06 | Phase 2 | Complete |
 | BASE-07 | Phase 2 | Complete |

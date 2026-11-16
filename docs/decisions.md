@@ -199,3 +199,17 @@ Decisión: el seed guarda el día 1 de cada mes (2021-08-01, 2025-08-01, 2025-09
 Quién: Claude Code; Teo puede corregirlas desde el admin en la fase 3.
 Por qué: no hay día verificado y no se inventa uno.
 Verificación: scripts/lib/seed-facts.ts cita la fuente de cada fecha.
+
+## 2026-11-16 · Go/no-go del plan B (cacheComponents)
+Contexto: chequeo del día 3 del ROADMAP (BASE-09) sobre `pnpm build && pnpm start`, rama `dev` sembrada, Next 16.4.6. Se ejecutó `bash scripts/go-no-go.sh`.
+Decisión: GO. Se mantiene `cacheComponents: true`; no se aplica el plan B. Plan B no aplicado.
+Quién: Teo (eligió la opción a tras el informe de Claude Code, que operaba bajo la pre-aprobación del plan B).
+Por qué: señal 1 PASS (rutas prerenderizadas, 5 rutas de proyecto, sin errores de build); señal 2 PASS (lang en/es, títulos de Neon, Accept-Language ignorado); señal 3 PASS (/es/proyectos/<slug> 200, /projects/<slug> 200, /es/projects/<slug> redirige); señal 4 PASS con el criterio reajustado: UI de not-found + noindex + sin contenido de borradores, sin exigir el status HTTP; señal 5 PASS (AuthGate en Suspense, login, recarga y logout); señal 6 PASS (sin cadenas cruzadas tras 5 peticiones calientes); señal 7 omitida (verificado en la fase 3). El criterio original de la señal 4 (404 real) no es alcanzable con Cache Components: el shell se envía antes del `notFound()` de tiempo de petición (Next 16.4, loading.md "Status codes" y not-found.md), así que un slug desconocido o borrador responde 200 en servidor frío y 404 cuando la caché ya está caliente. Un intento con una consulta cacheada de slugs publicados y `notFound()` al inicio de la página no cambió el resultado. Coste aceptado: posibles reportes de soft 404 en Search Console para URLs con noindex que nadie enlaza. Si Search Console se queja, se puede revisar un 404 desde `proxy.ts` (con comprobación de slug), que la documentación señala como la vía para un status garantizado.
+Verificación: salida de `bash scripts/go-no-go.sh` (señales 1 a 6 PASS, veredicto GO); e2e de public.spec.ts agnóstico al status (200 o 404), válido en servidor frío y caliente.
+
+## 2026-11-16 · La rama Neon `dev` no existía
+Contexto: CLAUDE.md daba por hecho que la base Neon tenía ramas `main` y `dev`, pero `dev` no existía.
+Decisión: Teo creó la rama `dev` a partir de `main` el 2026-11-15; Preview y desarrollo local usan `dev`, solo Production usa `main`.
+Quién: Teo.
+Por qué: evitar que seeds, migraciones y e2e toquen los datos de producción.
+Verificación: seed y e2e corren contra `dev`.

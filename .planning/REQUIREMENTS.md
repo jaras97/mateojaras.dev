@@ -33,9 +33,9 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 ### Autenticación (AUTH)
 
-- [ ] **AUTH-01**: Teo inicia sesión en `/admin` con email y contraseña; el registro está deshabilitado
-- [ ] **AUTH-02**: La sesión persiste entre recargas y Teo puede cerrarla
-- [ ] **AUTH-03**: Cualquier ruta, loader, Server Action o endpoint de subida del admin rechaza peticiones sin sesión válida (verificado en servidor, no solo en el proxy)
+- [x] **AUTH-01**: Teo inicia sesión en `/admin` con email y contraseña; el registro está deshabilitado
+- [x] **AUTH-02**: La sesión persiste entre recargas y Teo puede cerrarla
+- [x] **AUTH-03**: Cualquier ruta, loader, Server Action o endpoint de subida del admin rechaza peticiones sin sesión válida (verificado en servidor, no solo en el proxy)
 - [ ] **AUTH-04**: El login funciona en las URLs de Vercel Preview y en producción
 
 ### Panel admin (ADMN)
@@ -180,9 +180,9 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | BASE-09 | Phase 2 | Pending |
 | BASE-10 | Phase 2 | Pending |
 | BASE-11 | Phase 2 | Pending |
-| AUTH-01 | Phase 2 | Pending |
-| AUTH-02 | Phase 2 | Pending |
-| AUTH-03 | Phase 2 | Pending |
+| AUTH-01 | Phase 2 | Complete |
+| AUTH-02 | Phase 2 | Complete |
+| AUTH-03 | Phase 2 | Complete |
 | AUTH-04 | Phase 2 | Pending |
 | ADMN-01 | Phase 3 | Pending |
 | ADMN-02 | Phase 3 | Pending |

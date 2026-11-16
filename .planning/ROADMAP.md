@@ -126,7 +126,7 @@ Plans:
 
 **Wave 7** *(blocked on Wave 6 completion)*
 
-- [ ] 02-07-PLAN.md — Admin: login, cáscara con AuthGate, logout, e2e del ciclo de sesión
+- [x] 02-07-PLAN.md — Admin: login, cáscara con AuthGate, logout, e2e del ciclo de sesión
 
 **Wave 8** *(blocked on Wave 7 completion)*
 

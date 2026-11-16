@@ -4,16 +4,16 @@ milestone: v1.0
 current_phase: 03
 current_phase_name: Panel admin + CV
 status: executing
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-11-16T22:59:14.178Z"
+stopped_at: Completed 03-04-PLAN.md
+last_updated: "2026-11-16T23:22:05.837Z"
 last_activity: 2026-11-16
 last_activity_desc: Phase 03 execution started
-state_head: 66a024644e908dec849258506b6f0ff5792954ec
+state_head: e38fb587fb40b4a7484071ca9a716e62396eb7ad
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 36
-  completed_plans: 25
+  completed_plans: 26
 milestone_name: milestone
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-10-29)
 ## Current Position
 
 Phase: 03 (Panel admin + CV) — EXECUTING
-Plan: 4 of 14
+Plan: 5 of 14
 Status: Ready to execute
 Last activity: 2026-11-16 — Phase 03 execution started
 
@@ -77,6 +77,7 @@ Progress: [████░░░░░░] 40%
 | Phase 02 P04 | 25min | 2 tasks | 26 files |
 | Phase 03 P01 | 25min | 3 tasks | 40 files |
 | Phase 03 P03 | 30min | 3 tasks | 30 files |
+| Phase 03 P04 | 90m | 3 tasks | 30 files |
 
 ## Accumulated Context
 
@@ -117,6 +118,7 @@ Recent decisions affecting current work:
 - [Phase ?]: Phase 2 start: next 16.4.6, better-auth 1.7.25, languages jsonb, metrics_en/es, login rate limit in memory
 - [Phase 03]: Phase 3 start: Teo delegated all recommended options (draft jsonb, structural fields live, content/ untracked, cover from media, Blob suffix, tokens, Blob token luego, production load)
 - [Phase 03]: 03-03: draft jsonb column per row; publish copies to columns; saves never call updateTag
+- [Phase 03]: 03-04: projects list uses a bare table; shadcn Table overflow wrapper breaks dnd-kit keyboard coordinates
 
 ### Pending Todos
 
@@ -141,6 +143,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-16T22:59:14.070Z
-Stopped at: Completed 03-03-PLAN.md
+Last session: 2026-11-16T23:22:05.732Z
+Stopped at: Completed 03-04-PLAN.md
 Resume file: None

@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-03-PLAN.md
+stopped_at: Completed 02-04-PLAN.md
 last_updated: "2026-11-16T00:38:07.196Z"
 last_activity: 2026-11-16
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 22
-  completed_plans: 16
+  completed_plans: 17
   percent: 20
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-10-29)
 ## Current Position
 
 Phase: 02 (Base técnica) — EXECUTING
-Plan: 4 of 9
+Plan: 5 of 9
 Status: Ready to execute
 Last activity: 2026-11-16
 
@@ -70,6 +70,7 @@ Progress: [██░░░░░░░░] 20%
 | Phase 01 P12 | 16min | 2 tasks | 4 files |
 | Phase 02 P02 | 15min | 3 tasks | 25 files |
 | Phase 02 P03 | 25min | 2 tasks | 20 files |
+| Phase 02 P04 | 25min | 2 tasks | 26 files |
 
 ## Accumulated Context
 
@@ -106,6 +107,7 @@ Recent decisions affecting current work:
 - [Phase 01]: DESIGN.md approved by Teo at G7 ('si' to a closed yes/no question): Estado APROBADO, variant A
 - [Phase 01]: G7: Teo deferred all content, captures, covers, alt texts, Sofka bullets, English translations, client permissions and open facts to the admin ('todo eso lo subo desde admin'); nothing under material/ is committed
 - [Phase 01]: G7: no option or aplazar line written for Teo; --parse-g7 reads pendiente and the deferred gates stay FAIL under --final (never PASS); 01-13 must be replanned
+- [Phase 02]: 02-04: content/*.json committed (9 allowlisted tables only); seed dates use the first of the month
 - [Phase ?]: Phase 2 start: next 16.4.6, better-auth 1.7.25, languages jsonb, metrics_en/es, login rate limit in memory
 
 ### Pending Todos
@@ -132,5 +134,5 @@ Items acknowledged and deferred at milestone close, most recent first:
 ## Session Continuity
 
 Last session: 2026-11-16T00:38:07.194Z
-Stopped at: Completed 02-03-PLAN.md
+Stopped at: Completed 02-04-PLAN.md
 Resume file: None

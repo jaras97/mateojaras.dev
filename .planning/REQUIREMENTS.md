@@ -25,7 +25,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [ ] **BASE-04**: El idioma se lee con `next/root-params` en RSC y se pasa explícito a Server Actions y Route Handlers; `/` siempre es inglés (sin detección)
 - [x] **BASE-05**: Las consultas públicas usan `'use cache'` + `cacheTag` por entidad, escritas como núcleo sin caché más envoltorio cacheado, y respetan Draft Mode
 - [x] **BASE-06**: `pnpm seed` carga el contenido real de `docs/content/` (al menos un proyecto publicado) y crea el único usuario admin desde variables de entorno
-- [ ] **BASE-07**: `exportContent()` escribe `content/*.json` en local y en Blob en producción (se omite con aviso hasta que exista el token), y el seed puede restaurar desde esos archivos
+- [x] **BASE-07**: `exportContent()` escribe `content/*.json` en local y en Blob en producción (se omite con aviso hasta que exista el token), y el seed puede restaurar desde esos archivos
 - [x] **BASE-08**: Esqueleto público: `/`, `/es`, `/projects/[slug]` y `/es/proyectos/[slug]` muestran títulos reales desde la base, prerenderizados
 - [ ] **BASE-09**: Decisión go/no-go del plan B (`cacheComponents` vs ISR) al final del día 3, registrada en `docs/decisions.md`
 - [ ] **BASE-10**: CI corre `pnpm check` en cada push; Vercel Preview despliega contra Neon `dev` con migraciones en el build
@@ -175,7 +175,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | BASE-04 | Phase 2 | Pending |
 | BASE-05 | Phase 2 | Complete |
 | BASE-06 | Phase 2 | Complete |
-| BASE-07 | Phase 2 | Pending |
+| BASE-07 | Phase 2 | Complete |
 | BASE-08 | Phase 2 | Complete |
 | BASE-09 | Phase 2 | Pending |
 | BASE-10 | Phase 2 | Pending |

@@ -114,7 +114,7 @@ Plans:
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 02-04-PLAN.md — Seed completo (site_settings, experiencia, educación) y ciclo exportContent / --from-content
+- [x] 02-04-PLAN.md — Seed completo (site_settings, experiencia, educación) y ciclo exportContent / --from-content
 
 **Wave 5** *(blocked on Wave 4 completion)*
 

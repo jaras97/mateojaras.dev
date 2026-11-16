@@ -213,3 +213,10 @@ Decisión: Teo creó la rama `dev` a partir de `main` el 2026-11-15; Preview y d
 Quién: Teo.
 Por qué: evitar que seeds, migraciones y e2e toquen los datos de producción.
 Verificación: seed y e2e corren contra `dev`.
+
+## 2026-11-16 · Entornos de Vercel y Neon configurados
+Contexto: el plan 02-09 cierra la fase 2 en Vercel. El proyecto de Vercel no existía (02-01-ANSWERS, F: no).
+Decisión: Preview usa la rama Neon `dev` y Production usa `main`. La integración de Neon inyecta solo en Production (Preview se desconectó porque recibía las mismas variables que Production) y no crea ramas por despliegue. En Preview, `DATABASE_URL` y `DATABASE_URL_UNPOOLED` de `dev` se pusieron a mano. `BETTER_AUTH_SECRET` es distinto en local, CI, Preview y Production. `BETTER_AUTH_URL` solo en Production (`https://mateojaras-dev.vercel.app`). `ADMIN_EMAIL` y `ADMIN_PASSWORD` no están en Vercel. `main` se migró (0000, 0001) y se sembró una sola vez a mano el 2026-11-16, sin `--force` (4 proyectos, 2 publicados; admin creado). `mateojaras.dev` no se asigna al proyecto todavía (D-07).
+Quién: Teo hizo los paneles de Vercel y Neon y ejecutó los scripts que leen `.env.local` y las URLs de `main`; Claude Code enlazó el proyecto, generó y cargó los secretos aleatorios, y abrió el PR.
+Por qué: que ningún build de Preview migre `main` (T-02-30) y que un secreto filtrado de un entorno no sirva en otro (T-02-36).
+Verificación: `vercel env ls` muestra `DATABASE_URL*` en Production (integración) y en Preview (a mano, `dev`); la salida de migrate y seed en `main` mostró el host `ep-billowing-union-…`, distinto del de `dev` (`ep-floral-queen-…`); CI y el Preview del PR #1 en verde.

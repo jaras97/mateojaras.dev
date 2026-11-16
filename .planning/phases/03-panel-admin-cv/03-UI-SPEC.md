@@ -1,7 +1,8 @@
 ---
 phase: "03"
 slug: "panel-admin-cv"
-status: draft
+status: approved
+reviewed_at: "2026-11-16"
 shadcn_initialized: true
 preset: "base-nova (components.json, baseColor neutral, cssVariables, custom theme in src/app/globals.css)"
 created: "2026-11-16"
@@ -373,7 +374,9 @@ Language level names come from `messages` (existing rule), e.g. "Native" / "Nati
 
 ## UI Considerations
 
-Applicable state considerations resolved: 22 covered, 4 backstop, 2 unresolved.
+Probe run 2026-11-16 (post-verification) over 12 surfaces: shell, Panel, entity lists, entity forms, repeaters, rich text, image uploader, delete confirm, CV page, messages inbox, Draft Mode banner, slug. It raised 80 applicable considerations, and 1 surface was unclassified (the Draft Mode banner, which is static and has no data states). The rows below cover all of them. Where one row resolves the same state for several surfaces, it is listed once. Empty-state and error copy lives in the Copywriting Contract and is only referenced here.
+
+Applicable state considerations resolved: 29 covered, 4 backstop, 2 unresolved.
 
 | Category | Element(s) | Status | Resolution / Reason |
 |----------|------------|--------|---------------------|
@@ -399,6 +402,13 @@ Applicable state considerations resolved: 22 covered, 4 backstop, 2 unresolved.
 | zero-one-many | Reorder controls | ✅ covered | With one row, handle and up/down are disabled; "Subir" disabled on first, "Bajar" on last |
 | long-text | Textareas and rich text | ✅ covered | `field-sizing: content`, 68ch max, no truncation of user content |
 | long-text | Delete confirmation with long names | ✅ covered | Dialog title wraps; the typed name must match the full name |
+| loading | Entity edit form (server load) | ✅ covered | Static skeleton: the sticky header block plus three section blocks (a 1px rule, a mono number and a 14px label line), with no shimmer or pulse. The editor area is a static 192px bordered box until Tiptap mounts |
+| empty / zero-one-many | Panel status lines | ✅ covered | Counts of zero use ICU zero forms ("Sin proyectos todavía", "Sin mensajes", "CV sin generar"), and each row still links to its section. On load failure the row shows the "Load failed (list)" copy |
+| empty | Repeaters with zero rows | ✅ covered | Only the "Añadir {cosa}" button is shown. If publish needs at least one row, the publish schema error appears under the repeater label with the "Field required (publish)" copy |
+| zero-one-many | Image list | ✅ covered | The first uploaded image becomes the cover automatically, shown by the "Portada" badge. Removing the cover moves it to the next image. With one image, "Subir" and "Bajar" are disabled |
+| error | Rich text link | ✅ covered | "Enlace" opens a Popover with a URL input labelled "URL del enlace", plus "Aplicar" and "Quitar enlace" buttons. Validation uses the "Invalid URL" copy. Pressing Esc closes it and returns focus to the editor |
+| long-text | Shell session name, nav labels | ✅ covered | The session name truncates to one line with a `title` attribute. Nav labels are fixed strings and need no truncation |
+| error | Message reader actions | ✅ covered | A failed mark-read or delete shows the "Save failed" pattern adapted as "No se pudo actualizar el mensaje. Vuelve a intentarlo.", and the Sheet stays open |
 | long-text | CV PDF exceeding 2 pages | 🧪 backstop | A test renders the PDF from the seeded data and asserts `numPages <= 2`; Teo checks the real-content PDF in the loading session |
 | loading | Keyboard reorder | 🧪 backstop | E2e moves a row with keyboard only and asserts the new order persists after reload (ADMN-06) |
 | error | Unsaved-changes guard | 🧪 backstop | E2e edits a field, clicks a nav link, sees the Dialog; Cmd+S saves and clears the dirty state (ADMN-10) |
@@ -444,12 +454,12 @@ These touch palette or theme aliases, which CLAUDE.md says to ask about. None ch
 
 ## Checker Sign-Off
 
-- [ ] Dimension 1 Copywriting: PASS
-- [ ] Dimension 2 Visuals: PASS
-- [ ] Dimension 3 Color: PASS
-- [ ] Dimension 4 Typography: PASS
-- [ ] Dimension 5 Spacing: PASS
-- [ ] Dimension 6 Registry Safety: PASS
-- [ ] Dimension 7 Inventory Provenance: PASS
+- [x] Dimension 1 Copywriting: PASS (FLAG: "Publicar" and "Cancelar" are verb-only; non-blocking)
+- [x] Dimension 2 Visuals: PASS
+- [x] Dimension 3 Color: PASS
+- [x] Dimension 4 Typography: PASS
+- [x] Dimension 5 Spacing: PASS
+- [x] Dimension 6 Registry Safety: PASS
+- [x] Dimension 7 Inventory Provenance: PASS
 
 **Approval:** pending

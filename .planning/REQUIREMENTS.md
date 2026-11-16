@@ -19,7 +19,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 ### Base técnica (BASE)
 
-- [ ] **BASE-01**: Esquema Drizzle de `docs/data-model.md` (más `site_settings.languages` en CEFR) aplicado por migración en Neon `dev` y `main`
+- [x] **BASE-01**: Esquema Drizzle de `docs/data-model.md` (más `site_settings.languages` en CEFR) aplicado por migración en Neon `dev` y `main`
 - [x] **BASE-02**: Dos root layouts (`app/[locale]` y `app/admin`) y el layout del scaffold eliminado
 - [x] **BASE-03**: `proxy.ts` aplica las reescrituras de next-intl (rutas localizadas en `/es`) y la comprobación de la cookie en `/admin`
 - [x] **BASE-04**: El idioma se lee con `next/root-params` en RSC y se pasa explícito a Server Actions y Route Handlers; `/` siempre es inglés (sin detección)
@@ -28,15 +28,15 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **BASE-07**: `exportContent()` escribe `content/*.json` en local y en Blob en producción (se omite con aviso hasta que exista el token), y el seed puede restaurar desde esos archivos
 - [x] **BASE-08**: Esqueleto público: `/`, `/es`, `/projects/[slug]` y `/es/proyectos/[slug]` muestran títulos reales desde la base, prerenderizados
 - [x] **BASE-09**: Decisión go/no-go del plan B (`cacheComponents` vs ISR) al final del día 3, registrada en `docs/decisions.md`
-- [ ] **BASE-10**: CI corre `pnpm check` en cada push; Vercel Preview despliega contra Neon `dev` con migraciones en el build
-- [ ] **BASE-11**: CSP y cabeceras de seguridad estáticas en `next.config.ts` (sin nonce), primero en modo Report-Only
+- [x] **BASE-10**: CI corre `pnpm check` en cada push; Vercel Preview despliega contra Neon `dev` con migraciones en el build
+- [x] **BASE-11**: CSP y cabeceras de seguridad estáticas en `next.config.ts` (sin nonce), primero en modo Report-Only
 
 ### Autenticación (AUTH)
 
 - [x] **AUTH-01**: Teo inicia sesión en `/admin` con email y contraseña; el registro está deshabilitado
 - [x] **AUTH-02**: La sesión persiste entre recargas y Teo puede cerrarla
 - [x] **AUTH-03**: Cualquier ruta, loader, Server Action o endpoint de subida del admin rechaza peticiones sin sesión válida (verificado en servidor, no solo en el proxy)
-- [ ] **AUTH-04**: El login funciona en las URLs de Vercel Preview y en producción
+- [x] **AUTH-04**: El login funciona en las URLs de Vercel Preview y en producción
 
 ### Panel admin (ADMN)
 
@@ -169,7 +169,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | IDEN-05 | Phase 3 | Pending |
 | IDEN-06 | Phase 3 | Complete |
 | IDEN-07 | Phase 3 | Complete |
-| BASE-01 | Phase 2 | Pending |
+| BASE-01 | Phase 2 | Complete |
 | BASE-02 | Phase 2 | Complete |
 | BASE-03 | Phase 2 | Complete |
 | BASE-04 | Phase 2 | Complete |
@@ -178,12 +178,12 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | BASE-07 | Phase 2 | Complete |
 | BASE-08 | Phase 2 | Complete |
 | BASE-09 | Phase 2 | Complete |
-| BASE-10 | Phase 2 | Pending |
-| BASE-11 | Phase 2 | Pending |
+| BASE-10 | Phase 2 | Complete |
+| BASE-11 | Phase 2 | Complete |
 | AUTH-01 | Phase 2 | Complete |
 | AUTH-02 | Phase 2 | Complete |
 | AUTH-03 | Phase 2 | Complete |
-| AUTH-04 | Phase 2 | Pending |
+| AUTH-04 | Phase 2 | Complete |
 | ADMN-01 | Phase 3 | Pending |
 | ADMN-02 | Phase 3 | Pending |
 | ADMN-03 | Phase 3 | Pending |

@@ -14,7 +14,7 @@ El camino va de la identidad y el contenido real (sin material no hay casos de e
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Identidad y contenido** - Identidad aprobada por Teo y base de contenido verificable en el repo; el contenido final pasa al admin (fase 3) (días 1–2) (completed 2026-11-01)
-- [ ] **Phase 2: Base técnica** - Esqueleto andante desplegado: login admin, Preview en verde, seed real y decisión del plan B (días 3–4)
+- [x] **Phase 2: Base técnica** - Esqueleto andante desplegado: login admin, Preview en verde, seed real y decisión del plan B (días 3–4) (completed 2026-11-16)
 - [ ] **Phase 3: Panel admin + CV** - Teo publica todo el contenido desde `/admin` y genera el CV en PDF en/es (días 5–7)
 - [ ] **Phase 4: Sitio público** - Casos de estudio, home, about y contacto en en/es, con SEO y movimiento; entrega el valor central (días 8–10)
 - [ ] **Phase 5: Pulido y lanzamiento** - Accesibilidad, 404, CSP en bloqueo, analytics, revisión por 3 personas y producción (días 11–14)
@@ -98,7 +98,7 @@ Plans:
   4. Cada push corre `pnpm check` en CI en verde; el build del Preview aplica las migraciones contra Neon `dev` y despliega en verde, y sus respuestas llevan la CSP en Report-Only y las cabeceras de seguridad
   5. `docs/decisions.md` registra al final del día 3 el go/no-go entre `cacheComponents` e ISR, y el ciclo `exportContent()` a `content/*.json` y de vuelta por el seed restaura la base en local (en producción se omite con un aviso visible hasta que exista el token de Blob)
 
-**Plans**: 9 plans
+**Plans**: 9/9 plans complete
 Plans:
 **Wave 1**
 
@@ -134,7 +134,7 @@ Plans:
 
 **Wave 9** *(blocked on Wave 8 completion)*
 
-- [ ] 02-09-PLAN.md — CSP Report-Only, CI, Vercel Preview/Production, Neon main migrado y sembrado
+- [x] 02-09-PLAN.md — CSP Report-Only, CI, Vercel Preview/Production, Neon main migrado y sembrado
 
 **Window**: días 3–4
 **Gate**: login admin + Vercel Preview en verde + seed cargado + walking skeleton público + decisión del plan B al día 3
@@ -236,7 +236,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Identidad y contenido | 13/13 | Complete    | 2026-11-01 |
-| 2. Base técnica | 0/TBD | Not started | - |
+| 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
 | 3. Panel admin + CV | 0/TBD | Not started | - |
 | 4. Sitio público | 0/TBD | Not started | - |
 | 5. Pulido y lanzamiento | 0/TBD | Not started | - |

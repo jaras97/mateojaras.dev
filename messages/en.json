@@ -1,72 +1,4 @@
 {
-  "Lab": {
-    "index": {
-      "title": "Lab",
-      "tokensLink": "Token specimen",
-      "heroLink": "Hero variants"
-    },
-    "tokens": {
-      "title": "Tokens",
-      "sections": {
-        "color": "Color",
-        "typography": "Typography",
-        "spacing": "Spacing and radii",
-        "components": "Components",
-        "statusLine": "Status line"
-      },
-      "color": {
-        "light": "Light",
-        "dark": "Dark",
-        "contrastCaption": "Measured contrast",
-        "contrastPair": "Pair",
-        "contrastVerdict": "Verdict"
-      },
-      "typography": {
-        "families": "Families",
-        "scale": "Scale",
-        "fixtureHeadline": "Fixture headline"
-      },
-      "spacing": {
-        "unusedNote": "96 and 128 (DESIGN.md §4): unused in phase 1",
-        "radiusControl": "Control",
-        "radiusImage": "Image",
-        "radiusContainer": "Container"
-      },
-      "statusLine": {
-        "note": "Format samples of each state. No row is your availability: yours comes from G2 and shows on /lab/hero.",
-        "rows": {
-          "openEn": "Format sample: open, en",
-          "openEs": "Format sample: open, es",
-          "fromDateEn": "Format sample: from_date, en (example date from docs/copy.md)",
-          "fromDateEs": "Format sample: from_date, es (example date from docs/copy.md)",
-          "fromDateNoDate": "Format sample: from_date without a date, the segment is not shown",
-          "closedEn": "Format sample: closed, en",
-          "closedEs": "Format sample: closed, es",
-          "openEnEntryDate": "Format sample: open, en, with entry date"
-        }
-      }
-    },
-    "hero": {
-      "bar": {
-        "label": "Lab controls",
-        "variant": "Variant",
-        "theme": "Theme",
-        "lang": "Language",
-        "light": "Light",
-        "dark": "Dark"
-      },
-      "notes": {
-        "copyDraft": "Headline: draft from docs/copy.md",
-        "esDraft": "Headline ES: draft, {authorship}",
-        "enDraft": "Headline EN: translation pending approval"
-      },
-      "unknownVariant": "The variant “{value}” does not exist. Choose A, B or C.",
-      "emptyHeadline": {
-        "heading": "The fixture has no headline",
-        "body": "Write headlineEn and headlineEs in src/features/site-settings/fixture.ts. Until both exist, the hero is not shown."
-      }
-    }
-  },
   "Hero": {
     "availability": {
       "open": "Available now",
@@ -79,6 +11,39 @@
       "work": "Work",
       "about": "About",
       "contact": "Contact"
+    }
+  },
+  "Site": {
+    "home": {
+      "projectsHeading": "Projects"
+    },
+    "project": {
+      "backHome": "All projects"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "body": "This page does not exist.",
+      "home": "Back to home"
+    }
+  },
+  "Admin": {
+    "meta": {
+      "title": "Admin"
+    },
+    "login": {
+      "title": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "invalid": "Incorrect email or password.",
+      "required": "This field is required."
+    },
+    "panel": {
+      "title": "Admin"
+    },
+    "shell": {
+      "signOut": "Sign out",
+      "exportSkipped": "Content backups are not being saved: BLOB_READ_WRITE_TOKEN is missing in this environment."
     }
   }
 }

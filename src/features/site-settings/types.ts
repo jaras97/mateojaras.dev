@@ -1,34 +1,12 @@
-// Hand-written from docs/data-model.md (availability enum and site_settings).
-// Phase 2 replaces SiteSettings with typeof siteSettings.$inferSelect.
+// SiteSettings is the Drizzle row type (docs/data-model.md, site_settings).
 // Drizzle defaults: date() reads as a 'YYYY-MM-DD' string, timestamp() as a Date.
+import type { siteSettings } from "./schema";
 
 export type Locale = "en" | "es";
 
 export type AvailabilityStatus = "open" | "from_date" | "closed";
 
-export type SiteSettings = {
-  id: string;
-  name: string;
-  headlineEn: string;
-  headlineEs: string;
-  bioEn: string;
-  bioEs: string;
-  nowEn: unknown | null;
-  nowEs: unknown | null;
-  availabilityStatus: AvailabilityStatus;
-  availableFrom: string | null;
-  timezone: string;
-  location: string;
-  email: string;
-  calendarUrl: string | null;
-  githubUrl: string | null;
-  linkedinUrl: string | null;
-  seoTitleEn: string | null;
-  seoTitleEs: string | null;
-  seoDescriptionEn: string | null;
-  seoDescriptionEs: string | null;
-  updatedAt: Date;
-};
+export type SiteSettings = typeof siteSettings.$inferSelect;
 
 // What the hero variants and StatusLine accept.
 export type HeroSettings = Pick<

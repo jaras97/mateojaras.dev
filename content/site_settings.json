@@ -1,0 +1,38 @@
+{
+  "table": "site_settings",
+  "rows": [
+    {
+      "id": "00000000-0000-0000-0000-000000000001",
+      "name": "Mateo Jaramillo",
+      "headlineEn": "I build solid frontends with React and Next.js, from the first screen to the admin panel behind it.",
+      "headlineEs": "Construyo frontends sólidos con React y Next.js, de la primera pantalla al panel de gestión.",
+      "bioEn": "I’m Mateo Jaramillo, a frontend developer in Medellín, Colombia. I’ve spent more than five years building interfaces with React, Next.js and TypeScript. From 2021 to 2025 I worked at Sofka Technologies, in agile teams. Since September 2025 I’ve worked as an independent contractor, building complete applications, from the first screen to the panel the client uses to manage their content. I like frontend because that’s where a technical decision is felt in the hands of the person using the product. I use AI as a tool: it helps me make progress, but nothing ships without tests and without my review. I’m looking for projects with a clear problem and someone on the other side who makes the decisions. I work in English and Spanish, in UTC-5.",
+      "bioEs": "Soy Mateo Jaramillo, desarrollador frontend en Medellín, Colombia. Llevo más de cinco años construyendo interfaces con React, Next.js y TypeScript. De 2021 a 2025 trabajé en Sofka Technologies, en células ágiles. Desde septiembre de 2025 trabajo como contratista independiente y hago aplicaciones completas, de la primera pantalla al panel con el que el cliente administra su contenido. Me gusta el frontend porque ahí una decisión técnica se nota en las manos de quien usa el producto. Uso la IA como herramienta: me ayuda a avanzar, pero nada se entrega sin tests y sin mi revisión. Busco proyectos con un problema claro y alguien que decida del otro lado. Trabajo en español y en inglés, en UTC-5.",
+      "nowEn": null,
+      "nowEs": null,
+      "availabilityStatus": "open",
+      "availableFrom": null,
+      "timezone": "America/Bogota",
+      "location": "Medellín, Colombia",
+      "languages": [
+        {
+          "code": "es",
+          "level": "native"
+        },
+        {
+          "code": "en",
+          "level": "B2"
+        }
+      ],
+      "email": "mateojaras@gmail.com",
+      "calendarUrl": null,
+      "githubUrl": "https://github.com/jaras97",
+      "linkedinUrl": "https://www.linkedin.com/in/mateo-jaramilloquiroga",
+      "seoTitleEn": null,
+      "seoTitleEs": null,
+      "seoDescriptionEn": null,
+      "seoDescriptionEs": null,
+      "updatedAt": "2026-11-16T00:40:21.647Z"
+    }
+  ]
+}

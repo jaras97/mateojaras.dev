@@ -18,7 +18,7 @@ Next.js 16.4 (App Router, `cacheComponents: true`, React Compiler, Turbopack) ·
 - `pnpm db:generate` · `pnpm db:migrate` · `pnpm db:studio` · `pnpm seed` · `pnpm export:content`
 
 ## Next 16: cosas que cambiaron (consulta context7 ante la duda)
-- `proxy.ts` reemplaza a `middleware.ts`; ahí solo se comprueba la cookie de sesión y se redirige. La validación real es `auth.api.getSession()` en `src/app/admin/layout.tsx` y en cada Server Action.
+- `proxy.ts` reemplaza a `middleware.ts`. `src/proxy.ts` aplica los rewrites de next-intl (rutas localizadas bajo /es) y la comprobación optimista de la cookie en /admin. La validación real es un AuthGate dentro de `<Suspense>` en `src/app/admin/(panel)/layout.tsx` más `requireSession()` en cada loader, Server Action y endpoint de subida del admin.
 - `params`, `searchParams`, `cookies()`, `headers()` son async.
 - `revalidateTag(tag, 'max')` lleva perfil; en Server Actions usa `updateTag(tag)` para read-your-writes.
 - Con `cacheComponents`, lo que lleva `'use cache'` no puede leer `headers()`: el locale llega por `next/root-params`.

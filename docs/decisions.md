@@ -150,3 +150,73 @@ Contexto: en G7 Teo aplazó al admin todo el contenido ("todo eso lo subo desde 
 Decisión: la fase 1 cierra con IDEN-01 a IDEN-04. IDEN-05 (contenido de los 4 proyectos), IDEN-06 (capturas revisadas) e IDEN-07 (copy final en/es, incluidos los bullets de Sofka) pasan a la fase 3 como criterio de éxito 6: Teo los carga y aprueba desde el admin. El plan 01-13 se omite. Nada de `material/` se commitea y las dos capturas de ManuJ con caras siguen fuera.
 Quién: Teo eligió la opción 1 ("mover a la fase 3"); Claude la propuso.
 Por qué: el admin es donde Teo va a escribir ese contenido; mantenerlo en la fase 1 la dejaría abierta y bloquearía la fase 2 sin que haya nada que hacer en el repo.
+
+## 2026-11-15 · Aprobaciones de arranque de la fase 2
+Contexto: CLAUDE.md exige aprobación de Teo para dependencias, docs/data-model.md y CLAUDE.md. D-01..D-04 de 02-CONTEXT ya estaban aprobadas; faltaban los puntos A..F. Respuesta literal de Teo: "A sí, B memoria, C sí, D b, E sí, F no".
+Decisión: A) next 16.4.3 a 16.4.6 y better-auth 1.7.14 a 1.7.25; el CLI de Better Auth es `pnpm dlx auth@1.7.25 generate`. B) rate limit del login en memoria (límite por defecto de Better Auth) hasta Upstash en la fase 4; sin tabla `rateLimit`. C) `site_settings.languages` jsonb `{ code, level }[]` con level native|A1..C2, en la primera migración. D) métricas en dos columnas `metrics_en` y `metrics_es` con `{ label, value }[]` y la fuente unida a la etiqueta. E) sembrar bio y bullets freelance de docs/copy.md. F) el proyecto de Vercel aún no existe. Se instalaron además react/react-dom 19.3.1, @tiptap/pm y @tiptap/static-renderer (3.32.0 exacto, igual que el resto de @tiptap), @dnd-kit/utilities, server-only, tsx, @types/node ^24, @testing-library/dom y user-event; Biome sigue en 2.4.2 (D-04).
+Quién: decidió Teo (respuesta literal en `.planning/phases/02-base-t-cnica/02-01-ANSWERS.md`); Claude Code aplicó.
+Por qué: los parches cubren avisos que afectan a cacheComponents con root params y a sesiones revocadas; C y D fijan columnas de una migración de un solo sentido.
+Verificación: 02-01-ANSWERS.md, `pnpm check` en verde, edición mínima de docs/data-model.md.
+
+## 2026-11-15 · Admin en español con locale explícito
+Contexto: el admin vive fuera de `[locale]` (D-08).
+Decisión: la interfaz del admin se muestra en español con `locale: 'es'` explícito en next-intl; los textos siguen en messages/es.json.
+Quién: Claude Code decidió; Teo lo aceptó en 02-CONTEXT.
+Por qué: Teo es el único usuario y trabaja en español; evita depender de root params fuera de `[locale]`.
+Verificación: 02-CONTEXT D-08; se comprueba en el plan del admin.
+
+## 2026-11-15 · /lab borrado
+Contexto: D-10 pedía borrar /lab y las variantes no elegidas al empezar la fase 2.
+Decisión: se borraron `src/app/lab`, hero B y C, el namespace `Lab`, `scripts/capture-lab.ts` y `scripts/check-phase-1.sh`. El arnés de e2e pasa a `playwright.config.ts` y `e2e/axe.ts` (mismas etiquetas WCAG y conjunto serious/critical).
+Quién: decidió Teo (D-10); Claude Code ejecutó.
+Por qué: DESIGN.md está aprobado con la variante A; el resto es código muerto.
+Verificación: `pnpm check` en verde tras el borrado.
+
+## 2026-11-15 · Ruta /api/auth/[...all]
+Contexto: AUTH-01 implica una ruta HTTP para Better Auth; es una ruta nueva.
+Decisión: el login publica contra el router HTTP de Better Auth en `/api/auth/[...all]`, de modo que se aplican su rate limit y su comprobación de origen.
+Quién: Claude Code, dentro de los límites (la ruta es necesaria para AUTH-01 y no añade superficie pública más allá del login).
+Por qué: llamar a la API solo desde una Server Action saltaría el rate limit del router.
+Verificación: e2e de login en el plan 02-06/02-07.
+
+## 2026-11-15 · Textos sembrados
+Contexto: `bio_en`/`bio_es` son obligatorias y docs/content no cubre todo.
+Decisión: el seed incluye el About y los 3 bullets freelance de docs/copy.md aceptados en G6 (el inglés es traducción en borrador). Los bullets de Sofka quedan vacíos; skills no se siembran (docs/content no trae categoría); Sofka U no se siembra porque falta el nombre del programa. Teo los añade desde el admin en la fase 3.
+Quién: decidió Teo (E: sí); Claude Code registra.
+Por qué: evita inventar contenido, regla de CLAUDE.md.
+Verificación: 02-01-ANSWERS.md y el seed del plan 02-02.
+
+## 2026-11-15 · content/*.json se versiona
+Contexto: `exportContent()` escribe un archivo por tabla de contenido y el repo es público.
+Decisión: `content/*.json` se commitea. Solo salen las 9 tablas de la lista permitida (site_settings, skills, projects, experiences, education, resume_versions y las tres de unión); user, session, account, verification, rateLimit y contact_messages nunca se exportan.
+Quién: Claude Code, dentro de los límites.
+Por qué: es la copia de seguridad local mientras Vercel Blob no existe, y los proyectos ya son públicos en docs/content.
+Verificación: test de la lista permitida en `src/lib/content-export.test.ts`; `pnpm export:content` tras `pnpm seed --from-content --force` no cambia un byte.
+
+## 2026-11-15 · Fechas con precisión de mes en el seed
+Contexto: las fuentes dan mes y año (ago 2021, ago 2025, sep 2025), pero `start_date` y `end_date` son `date`.
+Decisión: el seed guarda el día 1 de cada mes (2021-08-01, 2025-08-01, 2025-09-01).
+Quién: Claude Code; Teo puede corregirlas desde el admin en la fase 3.
+Por qué: no hay día verificado y no se inventa uno.
+Verificación: scripts/lib/seed-facts.ts cita la fuente de cada fecha.
+
+## 2026-11-16 · Go/no-go del plan B (cacheComponents)
+Contexto: chequeo del día 3 del ROADMAP (BASE-09) sobre `pnpm build && pnpm start`, rama `dev` sembrada, Next 16.4.6. Se ejecutó `bash scripts/go-no-go.sh`.
+Decisión: GO. Se mantiene `cacheComponents: true`; no se aplica el plan B. Plan B no aplicado.
+Quién: Teo (eligió la opción a tras el informe de Claude Code, que operaba bajo la pre-aprobación del plan B).
+Por qué: señal 1 PASS (rutas prerenderizadas, 5 rutas de proyecto, sin errores de build); señal 2 PASS (lang en/es, títulos de Neon, Accept-Language ignorado); señal 3 PASS (/es/proyectos/<slug> 200, /projects/<slug> 200, /es/projects/<slug> redirige); señal 4 PASS con el criterio reajustado: UI de not-found + noindex + sin contenido de borradores, sin exigir el status HTTP; señal 5 PASS (AuthGate en Suspense, login, recarga y logout); señal 6 PASS (sin cadenas cruzadas tras 5 peticiones calientes); señal 7 omitida (verificado en la fase 3). El criterio original de la señal 4 (404 real) no es alcanzable con Cache Components: el shell se envía antes del `notFound()` de tiempo de petición (Next 16.4, loading.md "Status codes" y not-found.md), así que un slug desconocido o borrador responde 200 en servidor frío y 404 cuando la caché ya está caliente. Un intento con una consulta cacheada de slugs publicados y `notFound()` al inicio de la página no cambió el resultado. Coste aceptado: posibles reportes de soft 404 en Search Console para URLs con noindex que nadie enlaza. Si Search Console se queja, se puede revisar un 404 desde `proxy.ts` (con comprobación de slug), que la documentación señala como la vía para un status garantizado.
+Verificación: salida de `bash scripts/go-no-go.sh` (señales 1 a 6 PASS, veredicto GO); e2e de public.spec.ts agnóstico al status (200 o 404), válido en servidor frío y caliente.
+
+## 2026-11-16 · La rama Neon `dev` no existía
+Contexto: CLAUDE.md daba por hecho que la base Neon tenía ramas `main` y `dev`, pero `dev` no existía.
+Decisión: Teo creó la rama `dev` a partir de `main` el 2026-11-15; Preview y desarrollo local usan `dev`, solo Production usa `main`.
+Quién: Teo.
+Por qué: evitar que seeds, migraciones y e2e toquen los datos de producción.
+Verificación: seed y e2e corren contra `dev`.
+
+## 2026-11-16 · Entornos de Vercel y Neon configurados
+Contexto: el plan 02-09 cierra la fase 2 en Vercel. El proyecto de Vercel no existía (02-01-ANSWERS, F: no).
+Decisión: Preview usa la rama Neon `dev` y Production usa `main`. La integración de Neon inyecta solo en Production (Preview se desconectó porque recibía las mismas variables que Production) y no crea ramas por despliegue. En Preview, `DATABASE_URL` y `DATABASE_URL_UNPOOLED` de `dev` se pusieron a mano. `BETTER_AUTH_SECRET` es distinto en local, CI, Preview y Production. `BETTER_AUTH_URL` solo en Production (`https://mateojaras-dev.vercel.app`). `ADMIN_EMAIL` y `ADMIN_PASSWORD` no están en Vercel. `main` se migró (0000, 0001) y se sembró una sola vez a mano el 2026-11-16, sin `--force` (4 proyectos, 2 publicados; admin creado). `mateojaras.dev` no se asigna al proyecto todavía (D-07).
+Quién: Teo hizo los paneles de Vercel y Neon y ejecutó los scripts que leen `.env.local` y las URLs de `main`; Claude Code enlazó el proyecto, generó y cargó los secretos aleatorios, y abrió el PR.
+Por qué: que ningún build de Preview migre `main` (T-02-30) y que un secreto filtrado de un entorno no sirva en otro (T-02-36).
+Verificación: `vercel env ls` muestra `DATABASE_URL*` en Production (integración) y en Preview (a mano, `dev`); la salida de migrate y seed en `main` mostró el host `ep-billowing-union-…`, distinto del de `dev` (`ep-floral-queen-…`); CI y el Preview del PR #1 en verde.

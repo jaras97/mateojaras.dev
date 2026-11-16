@@ -1,0 +1,47 @@
+{
+  "table": "experiences",
+  "rows": [
+    {
+      "id": "4a4efe5b-51b2-42fa-bd32-48cb17708c9b",
+      "status": "published",
+      "visible": true,
+      "order": 1,
+      "createdAt": "2026-11-16T00:40:21.647Z",
+      "updatedAt": "2026-11-16T00:40:21.647Z",
+      "company": "Sofka Technologies",
+      "roleEn": "Mid-Senior Frontend Developer",
+      "roleEs": "Mid-Senior Frontend Developer",
+      "type": "employment",
+      "location": "Remote",
+      "startDate": "2021-08-01",
+      "endDate": "2025-08-01",
+      "bulletsEn": [],
+      "bulletsEs": []
+    },
+    {
+      "id": "b7cc8b3d-6512-4368-a662-c0d8361b29b5",
+      "status": "published",
+      "visible": true,
+      "order": 0,
+      "createdAt": "2026-11-16T00:40:21.647Z",
+      "updatedAt": "2026-11-16T00:40:21.647Z",
+      "company": "Freelance",
+      "roleEn": "Frontend Developer",
+      "roleEs": "Frontend Developer",
+      "type": "freelance",
+      "location": "Remote",
+      "startDate": "2025-09-01",
+      "endDate": null,
+      "bulletsEn": [
+        "I built the website for Centro Estético ManuJ with Next.js and Supabase: service catalog, filterable gallery, three-step appointment booking and WhatsApp contact.",
+        "I built the bilingual website for EcoExport Costa Rica with Next.js and next-intl: product catalog with PDF spec sheets and technical SEO.",
+        "I developed an inventory management system with roles and reports, in Next.js and PostgreSQL."
+      ],
+      "bulletsEs": [
+        "Construí el sitio de Centro Estético ManuJ con Next.js y Supabase: catálogo de servicios, galería filtrable, reserva de citas en tres pasos y contacto por WhatsApp.",
+        "Construí el sitio bilingüe de EcoExport Costa Rica con Next.js y next-intl: catálogo de productos con fichas en PDF y SEO técnico.",
+        "Desarrollé un sistema de gestión de inventario con roles y reportes, en Next.js y PostgreSQL."
+      ]
+    }
+  ]
+}

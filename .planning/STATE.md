@@ -1,18 +1,16 @@
 ---
-gsd_state_version: "1.0"
-current_phase: 2
-current_phase_name: Base técnica
-status: planning
-stopped_at: Phase 01 complete, ready to plan Phase 2
-last_updated: "2026-11-01T20:12:07.754Z"
-last_activity: 2026-11-01
-last_activity_desc: Phase 01 complete, transitioned to Phase 2
-state_head: 0297075fbc24764132707268ec6f723e4eaf0112
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Completed 02-08-PLAN.md
+last_updated: "2026-11-16T01:00:43.572Z"
+last_activity: 2026-11-16
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 13
-  completed_plans: 13
+  total_plans: 22
+  completed_plans: 20
   percent: 20
 ---
 
@@ -23,20 +21,21 @@ progress:
 See: .planning/PROJECT.md (updated 2026-10-29)
 
 **Core value:** Los casos de estudio (`/projects/[slug]`) convencen a un cliente o reclutador de que Teo sabe decidir y entregar.
-**Current focus:** Phase 01 — Identidad y contenido
+**Current focus:** Phase 02 — Base técnica
 
 ## Current Position
 
-Phase: 2 — Base técnica
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-11-01 — Phase 01 complete, transitioned to Phase 2
+Phase: 02 (Base técnica) — EXECUTING
+Plan: 8 of 9
+Status: Ready to execute
+Last activity: 2026-11-16
 
 Progress: [██░░░░░░░░] 20%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 13
 - Average duration: -
 - Total execution time: 0.0 hours
@@ -48,6 +47,7 @@ Progress: [██░░░░░░░░] 20%
 | 01 | 13 | - | - |
 
 **Recent Trend:**
+
 - Last 5 plans: -
 - Trend: -
 
@@ -68,6 +68,9 @@ Progress: [██░░░░░░░░] 20%
 | Phase 01 P10 | 3min | 1 tasks | 6 files |
 | Phase 01 P11 | 10min | 3 tasks | 6 files |
 | Phase 01 P12 | 16min | 2 tasks | 4 files |
+| Phase 02 P02 | 15min | 3 tasks | 25 files |
+| Phase 02 P03 | 25min | 2 tasks | 20 files |
+| Phase 02 P04 | 25min | 2 tasks | 26 files |
 
 ## Accumulated Context
 
@@ -104,6 +107,8 @@ Recent decisions affecting current work:
 - [Phase 01]: DESIGN.md approved by Teo at G7 ('si' to a closed yes/no question): Estado APROBADO, variant A
 - [Phase 01]: G7: Teo deferred all content, captures, covers, alt texts, Sofka bullets, English translations, client permissions and open facts to the admin ('todo eso lo subo desde admin'); nothing under material/ is committed
 - [Phase 01]: G7: no option or aplazar line written for Teo; --parse-g7 reads pendiente and the deferred gates stay FAIL under --final (never PASS); 01-13 must be replanned
+- [Phase 02]: 02-04: content/*.json committed (9 allowlisted tables only); seed dates use the first of the month
+- [Phase ?]: Phase 2 start: next 16.4.6, better-auth 1.7.25, languages jsonb, metrics_en/es, login rate limit in memory
 
 ### Pending Todos
 
@@ -128,6 +133,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-01T19:58:19.160Z
-Stopped at: Phase 01 complete, ready to plan Phase 2
+Last session: 2026-11-16T00:38:07.194Z
+Stopped at: Completed 02-04-PLAN.md
 Resume file: None

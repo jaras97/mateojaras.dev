@@ -1,0 +1,20 @@
+{
+  "table": "education",
+  "rows": [
+    {
+      "id": "39f716e2-8898-4d15-ab74-0f26195e51bc",
+      "status": "published",
+      "visible": true,
+      "order": 0,
+      "createdAt": "2026-11-16T00:40:21.647Z",
+      "updatedAt": "2026-11-16T00:40:21.647Z",
+      "institution": "Universidad de Antioquia",
+      "programEn": "Telecommunications Engineering",
+      "programEs": "Ingeniería de Telecomunicaciones",
+      "startDate": null,
+      "endDate": null,
+      "statusEn": "Completed through 8th semester",
+      "statusEs": "Cursado hasta 8.º semestre"
+    }
+  ]
+}

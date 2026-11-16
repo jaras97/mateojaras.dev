@@ -10,6 +10,7 @@ import { validateProjectContent } from "@/features/projects/content-schema";
 import { projectRowFromContent } from "@/features/projects/seed-map";
 import { describeDbTarget } from "@/lib/db-target";
 import { requireEnv } from "@/lib/env";
+import { assertSeedable } from "@/lib/seed-guard";
 import { loadLocalEnv } from "./lib/env";
 
 async function main() {
@@ -29,6 +30,12 @@ async function main() {
       "Ningún proyecto publicado: generateStaticParams lo necesita",
     );
   }
+
+  const [{ n }] = await db.select({ n: count() }).from(projects);
+  assertSeedable({
+    nonEmptyTables: n > 0 ? ["projects"] : [],
+    force: process.argv.includes("--force"),
+  });
 
   const [first, ...rest] = rows.map((row) =>
     db

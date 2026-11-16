@@ -52,7 +52,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **ADMN-10**: Cmd+S guarda el formulario actual y salir con cambios sin guardar pide confirmación
 - [ ] **ADMN-11**: Teo previsualiza un borrador en su ruta pública real (Draft Mode) antes de publicarlo
 - [x] **ADMN-12**: Cada guardado invalida con `updateTag` solo las etiquetas afectadas y el cambio se ve en el sitio sin redeploy
-- [ ] **ADMN-13**: Teo ve en el admin los mensajes recibidos por el formulario de contacto
+- [x] **ADMN-13**: Teo ve en el admin los mensajes recibidos por el formulario de contacto
 
 ### CV y JSON Resume (CV)
 
@@ -196,7 +196,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | ADMN-10 | Phase 3 | Complete |
 | ADMN-11 | Phase 3 | Pending |
 | ADMN-12 | Phase 3 | Complete |
-| ADMN-13 | Phase 3 | Pending |
+| ADMN-13 | Phase 3 | Complete |
 | CV-01 | Phase 3 | Pending |
 | CV-02 | Phase 3 | Pending |
 | CV-03 | Phase 3 | Pending |

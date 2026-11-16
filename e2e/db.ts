@@ -14,3 +14,10 @@ export async function firstPublishedProject() {
   `) as { id: string; slug: string; titleEs: string }[];
   return rows[0];
 }
+
+export async function countProjects() {
+  const rows = (await sql`select count(*)::int as n from projects`) as {
+    n: number;
+  }[];
+  return rows[0].n;
+}

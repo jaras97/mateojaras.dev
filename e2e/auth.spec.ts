@@ -32,11 +32,17 @@ async function freshPage(browser: Browser) {
 test("signs in, survives a reload and signs out", async ({ page }) => {
   await signIn(page);
   await expect(page).toHaveURL(/\/admin$/);
-  await expect(page.locator("header")).toContainText(adminName);
+  await expect(
+    page.getByRole("navigation", { name: "Navegación del panel" }),
+  ).toBeVisible();
+  await expect(page.getByText(adminName).first()).toBeVisible();
 
   await page.reload();
   await expect(page).toHaveURL(/\/admin$/);
-  await expect(page.locator("header")).toContainText(adminName);
+  await expect(
+    page.getByRole("navigation", { name: "Navegación del panel" }),
+  ).toBeVisible();
+  await expect(page.getByText(adminName).first()).toBeVisible();
 
   await expectNoBlockingViolations(page);
 

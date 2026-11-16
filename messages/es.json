@@ -12,5 +12,10 @@
       "about": "Sobre mí",
       "contact": "Contacto"
     }
+  },
+  "Site": {
+    "home": {
+      "projectsHeading": "Proyectos"
+    }
   }
 }

@@ -12,5 +12,10 @@
       "about": "About",
       "contact": "Contact"
     }
+  },
+  "Site": {
+    "home": {
+      "projectsHeading": "Projects"
+    }
   }
 }

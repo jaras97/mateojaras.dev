@@ -16,6 +16,14 @@
   "Site": {
     "home": {
       "projectsHeading": "Projects"
+    },
+    "project": {
+      "backHome": "All projects"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "body": "This page does not exist.",
+      "home": "Back to home"
     }
   }
 }

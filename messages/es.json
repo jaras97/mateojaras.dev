@@ -16,6 +16,14 @@
   "Site": {
     "home": {
       "projectsHeading": "Proyectos"
+    },
+    "project": {
+      "backHome": "Todos los proyectos"
+    },
+    "notFound": {
+      "title": "Página no encontrada",
+      "body": "Esta página no existe.",
+      "home": "Volver al inicio"
     }
   }
 }

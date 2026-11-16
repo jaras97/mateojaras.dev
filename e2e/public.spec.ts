@@ -3,7 +3,12 @@ import { expect, test } from "@playwright/test";
 import { loadContentDir } from "../src/features/projects/content-file";
 import { expectNoBlockingViolations } from "./axe";
 
-type Fm = { clientPermission?: boolean; titleEn: string; titleEs: string };
+type Fm = {
+  slug: string;
+  clientPermission?: boolean;
+  titleEn: string;
+  titleEs: string;
+};
 const projects = loadContentDir("docs/content").map(
   ({ content }) => content.frontMatter as Fm,
 );
@@ -73,3 +78,54 @@ test("the stored title reaches the HTML as the exact NFC string", async ({
   const html = await (await request.get("/")).text();
   expect(html).toContain(title);
 });
+
+for (const p of published) {
+  const slug = p.slug;
+  test(`case study ${slug} is localized in both locales`, async ({ page }) => {
+    await page.goto(`/projects/${slug}`);
+    await expect(page.locator("h1")).toHaveText(p.titleEn);
+    await expectNoBlockingViolations(page);
+    await page.goto(`/es/proyectos/${slug}`);
+    await expect(page.locator("h1")).toHaveText(p.titleEs);
+    await expectNoBlockingViolations(page);
+    await page.goto(`/es/projects/${slug}`);
+    expect(new URL(page.url()).pathname).toBe(`/es/proyectos/${slug}`);
+  });
+
+  test(`home links to the localized URL of ${slug}`, async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("link", { name: p.titleEn })).toHaveAttribute(
+      "href",
+      `/projects/${slug}`,
+    );
+    await page.goto("/es");
+    await expect(page.getByRole("link", { name: p.titleEs })).toHaveAttribute(
+      "href",
+      `/es/proyectos/${slug}`,
+    );
+  });
+}
+
+// With Cache Components the shell is sent before the request-time notFound()
+// runs, so the status stays 200 (Next docs: loading.md "Status codes"). The
+// not-found UI renders and Next injects noindex; the draft content never does.
+for (const slug of [...drafts.map((d) => d.slug), "no-existe"]) {
+  test(`${slug} renders the not-found page in both locales`, async ({
+    page,
+  }) => {
+    for (const [path, heading] of [
+      [`/projects/${slug}`, "Page not found"],
+      [`/es/proyectos/${slug}`, "Página no encontrada"],
+    ] as const) {
+      await page.goto(path);
+      await expect(page.locator("h1")).toHaveText(heading);
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+        "content",
+        "noindex",
+      );
+    }
+    const titles = drafts.flatMap((d) => [d.titleEn, d.titleEs]);
+    const body = await page.locator("body").innerText();
+    for (const t of titles) expect(body).not.toContain(t);
+  });
+}

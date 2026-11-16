@@ -35,7 +35,6 @@ export default async function Home() {
                     pathname: "/projects/[slug]",
                     params: { slug: row.slug },
                   }}
-                  locale={param}
                   className="underline underline-offset-4"
                 >
                   {localized(row, "title", param) as string}

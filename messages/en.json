@@ -485,6 +485,7 @@
       "toolbar": "Text formatting"
     },
     "dnd": {
+      "roleDescription": "reorderable row",
       "instructions": "Press Space to pick up the row, arrow keys to move it, Space to drop it and Escape to cancel.",
       "pickedUp": "You picked up {nombre}. Use the arrow keys to move it and Space to drop it.",
       "over": "{nombre} is at position {n} of {total}.",

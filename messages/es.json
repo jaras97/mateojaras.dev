@@ -485,6 +485,7 @@
       "toolbar": "Formato del texto"
     },
     "dnd": {
+      "roleDescription": "fila reordenable",
       "instructions": "Usa Espacio para tomar la fila, las flechas para moverla, Espacio para soltarla y Escape para cancelar.",
       "pickedUp": "Tomaste {nombre}. Usa las flechas para moverlo y Espacio para soltarlo.",
       "over": "{nombre} está en la posición {n} de {total}.",

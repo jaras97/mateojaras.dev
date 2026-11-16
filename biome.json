@@ -16,7 +16,8 @@
       "!.claude",
       "!.agents",
       "!.planning",
-      "!.impeccable"
+      "!.impeccable",
+      "!drizzle"
     ]
   },
   "formatter": {

@@ -42,16 +42,16 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 - [x] **ADMN-01**: La interfaz del admin está en español (locale fijo `es`)
 - [ ] **ADMN-02**: Teo edita SiteSettings: titular, bio, Now (Tiptap), disponibilidad y fecha, ciudad, zona horaria, idiomas, enlaces, URL de Cal.com y SEO, en/es
-- [ ] **ADMN-03**: Teo crea, edita y elimina proyectos con todos los campos del caso de estudio, incluidas las decisiones técnicas y las métricas con su fuente en la etiqueta
+- [x] **ADMN-03**: Teo crea, edita y elimina proyectos con todos los campos del caso de estudio, incluidas las decisiones técnicas y las métricas con su fuente en la etiqueta
 - [ ] **ADMN-04**: Teo crea, edita y elimina experiencias, skills y educación
-- [ ] **ADMN-05**: Cada entidad de contenido tiene acciones separadas de Guardar borrador y Publicar, y un interruptor de visible
+- [x] **ADMN-05**: Cada entidad de contenido tiene acciones separadas de Guardar borrador y Publicar, y un interruptor de visible
 - [ ] **ADMN-06**: Teo reordena proyectos, experiencias y skills arrastrando (dnd-kit), con alternativa de teclado
 - [ ] **ADMN-07**: Los campos en/es se editan lado a lado y los que faltan en español se marcan como vacíos
 - [ ] **ADMN-08**: Teo sube imágenes a Vercel Blob desde el navegador (subida de cliente) y cada imagen exige alt en/es
-- [ ] **ADMN-09**: El slug de un proyecto queda fijo una vez publicado
+- [x] **ADMN-09**: El slug de un proyecto queda fijo una vez publicado
 - [ ] **ADMN-10**: Cmd+S guarda el formulario actual y salir con cambios sin guardar pide confirmación
 - [ ] **ADMN-11**: Teo previsualiza un borrador en su ruta pública real (Draft Mode) antes de publicarlo
-- [ ] **ADMN-12**: Cada guardado invalida con `updateTag` solo las etiquetas afectadas y el cambio se ve en el sitio sin redeploy
+- [x] **ADMN-12**: Cada guardado invalida con `updateTag` solo las etiquetas afectadas y el cambio se ve en el sitio sin redeploy
 - [ ] **ADMN-13**: Teo ve en el admin los mensajes recibidos por el formulario de contacto
 
 ### CV y JSON Resume (CV)
@@ -186,16 +186,16 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | AUTH-04 | Phase 2 | Complete |
 | ADMN-01 | Phase 3 | Complete |
 | ADMN-02 | Phase 3 | Pending |
-| ADMN-03 | Phase 3 | Pending |
+| ADMN-03 | Phase 3 | Complete |
 | ADMN-04 | Phase 3 | Pending |
-| ADMN-05 | Phase 3 | Pending |
+| ADMN-05 | Phase 3 | Complete |
 | ADMN-06 | Phase 3 | Pending |
 | ADMN-07 | Phase 3 | Pending |
 | ADMN-08 | Phase 3 | Pending |
-| ADMN-09 | Phase 3 | Pending |
+| ADMN-09 | Phase 3 | Complete |
 | ADMN-10 | Phase 3 | Pending |
 | ADMN-11 | Phase 3 | Pending |
-| ADMN-12 | Phase 3 | Pending |
+| ADMN-12 | Phase 3 | Complete |
 | ADMN-13 | Phase 3 | Pending |
 | CV-01 | Phase 3 | Pending |
 | CV-02 | Phase 3 | Pending |

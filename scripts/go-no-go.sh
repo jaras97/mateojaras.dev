@@ -76,15 +76,20 @@ LOC=$(curl -s -o /dev/null -w "%{http_code} %{redirect_url}" "$BASE/es/projects/
 if [ "$C1" = 200 ] && [ "$C2" = 200 ] && echo "$LOC" | grep -qE "^30[0-9] .*/es/proyectos/$FIRST$"; then
   pass 3; else fail 3 "es=$C1 en=$C2 redirect='$LOC'"; fi
 
-# Signal 4: draft and unknown slugs return 404.
+# Signal 4 (re-scoped by Teo, decisions.md): draft and unknown slugs show the
+# not-found UI with noindex and never leak draft content. Status 200 or 404 is
+# accepted: Cache Components sends the shell first (loading.md "Status codes").
 BAD=""
 for s in ${DRAFTS//,/ } no-existe; do
   [ "$s" = "-" ] && continue
   for p in "/projects/$s" "/es/proyectos/$s"; do
-    c=$(code "$BASE$p"); [ "$c" = 404 ] || BAD="$BAD $p=$c"
+    c=$(code "$BASE$p"); B=$(curl -s "$BASE$p")
+    case "$c" in 200|404) ;; *) BAD="$BAD $p=$c" ;; esac
+    echo "$B" | grep -q 'name="robots" content="noindex"' || BAD="$BAD $p:no-noindex"
+    echo "$B" | grep -qE "Page not found|Página no encontrada" || BAD="$BAD $p:no-not-found-ui"
   done
 done
-if [ -z "$BAD" ]; then pass 4; else fail 4 "expected 404:$BAD"; fi
+if [ -z "$BAD" ]; then pass 4 "not-found UI + noindex (status 200 or 404)"; else fail 4 "$BAD"; fi
 
 # Signal 5: admin login, reload, logout via the auth e2e specs on this server.
 pnpm exec playwright test e2e/auth.spec.ts e2e/auth-api.spec.ts >"$E2E_LOG" 2>&1

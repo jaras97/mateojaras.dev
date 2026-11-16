@@ -107,8 +107,9 @@ for (const p of published) {
 }
 
 // With Cache Components the shell is sent before the request-time notFound()
-// runs, so the status stays 200 (Next docs: loading.md "Status codes"). The
-// not-found UI renders and Next injects noindex; the draft content never does.
+// runs: the status is 200 on a cold server and 404 once the cache is warm
+// (Next docs: loading.md "Status codes"). Accepted by decision (decisions.md),
+// so these specs assert the UI, noindex and absent draft content, not the status.
 for (const slug of [...drafts.map((d) => d.slug), "no-existe"]) {
   test(`${slug} renders the not-found page in both locales`, async ({
     page,
@@ -117,7 +118,8 @@ for (const slug of [...drafts.map((d) => d.slug), "no-existe"]) {
       [`/projects/${slug}`, "Page not found"],
       [`/es/proyectos/${slug}`, "Página no encontrada"],
     ] as const) {
-      await page.goto(path);
+      const res = await page.goto(path);
+      expect([200, 404]).toContain(res?.status());
       await expect(page.locator("h1")).toHaveText(heading);
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
         "content",

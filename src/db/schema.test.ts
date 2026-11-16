@@ -1,0 +1,53 @@
+import { readFileSync } from "node:fs";
+import { getTableConfig, PgTable } from "drizzle-orm/pg-core";
+import { describe, expect, it } from "vitest";
+import * as schema from "@/db/schema";
+
+// Synthetic inputs: reads the contract from docs/data-model.md, no network.
+const tables = (Object.values(schema) as unknown[]).filter(
+  (v): v is PgTable => v instanceof PgTable,
+);
+const byName = (name: string) => {
+  const t = tables.find((x) => getTableConfig(x).name === name);
+  if (!t) throw new Error(`missing table ${name}`);
+  return getTableConfig(t);
+};
+
+describe("schema contract", () => {
+  it("has exactly the tables named in docs/data-model.md", () => {
+    const doc = readFileSync("docs/data-model.md", "utf8");
+    const expected = [...doc.matchAll(/pgTable\('([a-z_]+)'/g)].map(
+      (m) => m[1],
+    );
+    const actual = tables.map((t) => getTableConfig(t).name);
+    expect(expected).toHaveLength(10);
+    expect([...actual].sort()).toEqual([...expected].sort());
+  });
+
+  it("makes site_settings.languages jsonb NOT NULL default []", () => {
+    const col = byName("site_settings").columns.find(
+      (c) => c.name === "languages",
+    );
+    expect(col?.columnType).toBe("PgJsonb");
+    expect(col?.notNull).toBe(true);
+    expect(col?.default).toEqual([]);
+  });
+
+  it("makes projects.slug unique", () => {
+    const cfg = byName("projects");
+    const unique = cfg.indexes.some(
+      (i) =>
+        i.config.unique &&
+        i.config.columns.some((c) => "name" in c && c.name === "slug"),
+    );
+    expect(unique).toBe(true);
+  });
+
+  it("uses snake_case for every column name", () => {
+    for (const t of tables) {
+      for (const c of getTableConfig(t).columns) {
+        expect(c.name).toMatch(/^[a-z][a-z0-9_]*$/);
+      }
+    }
+  });
+});

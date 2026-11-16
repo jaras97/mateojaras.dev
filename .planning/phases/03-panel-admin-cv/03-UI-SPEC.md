@@ -138,14 +138,22 @@ Rules:
 
 ### CV PDF typography (react-pdf, `assets/fonts-pdf/` static TTFs)
 
-The PDF has its own contract because react-pdf only has the static instances on disk: Funnel Display SemiBold, Hanken Grotesk Regular/Bold/Italic, Geist Mono Regular.
+The PDF has its own contract because react-pdf only reads the static instances on disk. Exactly 2 weights in the PDF: 400 and 700. Geist Mono is always 400.
 
-| Role | Size | Font | Line height |
-|------|------|------|-------------|
-| Name | 20pt | Funnel Display SemiBold | 1.1 |
-| Section heading ("Experience" / "Experiencia") | 11pt | Funnel Display SemiBold | 1.2 |
-| Body, bullets, job titles | 9.5pt (titles in Hanken Bold) | Hanken Grotesk Regular / Bold | 1.4 |
-| Meta (dates, contact line, stack) | 8.5pt | Geist Mono Regular | 1.4 |
+| Role | Size | Font / weight | Line height |
+|------|------|---------------|-------------|
+| Name | 20pt | Funnel Display Bold (700) | 1.1 |
+| Section heading ("Experience" / "Experiencia") | 11pt | Funnel Display Bold (700) | 1.2 |
+| Body, bullets | 9.5pt | Hanken Grotesk Regular (400) | 1.4 |
+| Job titles, project names | 9.5pt | Hanken Grotesk Bold (700) | 1.4 |
+| Meta (dates, contact line, stack) | 8.5pt | Geist Mono Regular (400) | 1.4 |
+
+`Font.register` list (exactly these files, all verified present in `assets/fonts-pdf/`):
+- `Funnel Display`: `FunnelDisplay-Bold.ttf` at `fontWeight: 700`
+- `Hanken Grotesk`: `HankenGrotesk-Regular.ttf` at `fontWeight: 400`, `HankenGrotesk-Bold.ttf` at `fontWeight: 700`
+- `Geist Mono`: `GeistMono-Regular.ttf` at `fontWeight: 400`
+
+`FunnelDisplay-SemiBold.ttf` and `HankenGrotesk-Italic.ttf` stay on disk but are not registered or used in the CV (no 600 weight, no italic).
 
 Page: A4 (210 × 297 mm), margins 18mm top/bottom, 20mm sides, one column, no photo, max 2 pages (D-04). Colors: ink `#171f2e` for text, ink-2 `#575e69` for meta, line `#dbd7d0` for 0.5pt section rules. No accent in the PDF (prints and ATS parsers read it as plain text). Hyphenation off (`Font.registerHyphenationCallback((w) => [w])`). Links (email, GitHub, LinkedIn, live URLs) are real PDF links, shown as plain text with the domain only.
 

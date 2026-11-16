@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { locale } from "next/root-params";
 import { NextIntlClientProvider } from "next-intl";
 import { fontVariables } from "@/app/fonts";
+import { DraftBanner } from "@/components/site/draft-banner";
 import { getSiteSettings } from "@/features/site-settings/queries";
 import { isLocale, locales } from "@/lib/locale";
 import "@/app/globals.css";
@@ -26,6 +27,7 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         {/* Client Links need the locale; UI strings stay server-side. */}
         <NextIntlClientProvider locale={param} messages={null}>
+          <DraftBanner locale={param} />
           {children}
         </NextIntlClientProvider>
       </body>

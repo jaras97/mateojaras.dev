@@ -83,6 +83,7 @@ export default async function ProjectsPage() {
             },
             moreActions: c("moreActions", { nombre: "{nombre}" }),
             edit: c("edit"),
+            preview: c("preview"),
             discard: c("discard"),
             delete: c("delete"),
             visibleOn: toasts("visibleOn"),

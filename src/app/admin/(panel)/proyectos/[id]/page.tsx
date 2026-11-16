@@ -9,6 +9,7 @@ import { ProjectForm } from "@/features/projects/components/project-form";
 import { projectFormValues } from "@/features/projects/validation";
 import { hasBlobToken } from "@/lib/blob";
 import { requireSession } from "@/lib/dal";
+import { draftPreviewHref } from "@/lib/draft-preview";
 import { adminMessages } from "@/lib/messages";
 
 export default async function EditProjectPage({
@@ -38,7 +39,7 @@ export default async function EditProjectPage({
         hasPendingDraft={hasPendingDraft}
         featured={row.featured}
         skillOptions={skillOptions}
-        previewHref={null}
+        previewHref={draftPreviewHref({ kind: "project", id })}
         uploadsEnabled={hasBlobToken()}
       />
     </FormLabelsProvider>

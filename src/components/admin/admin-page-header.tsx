@@ -96,6 +96,10 @@ export function AdminPageHeader(props: Props) {
     if (/Mac|iPhone|iPad/.test(navigator.platform)) setShortcut(common.kbdMac);
   }, [common.kbdMac]);
 
+  // Unsaved edits never reach the preview: disable it while the form is dirty.
+  const previewHref =
+    props.previewHref !== undefined && props.isDirty ? null : props.previewHref;
+
   const indicator = props.isDirty
     ? common.dirty
     : props.savedAt
@@ -136,6 +140,7 @@ export function AdminPageHeader(props: Props) {
         </div>
         <Actions
           {...props}
+          previewHref={previewHref}
           shortcut={shortcut}
           className="hidden items-center gap-3 md:flex"
         />
@@ -143,6 +148,7 @@ export function AdminPageHeader(props: Props) {
       <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-background p-3 md:hidden">
         <Actions
           {...props}
+          previewHref={previewHref}
           shortcut={shortcut}
           className="grid grid-cols-3 gap-2 [&>*]:w-full [&_button]:w-full [&_a]:w-full [&_a]:justify-center"
         />

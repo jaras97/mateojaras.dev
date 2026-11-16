@@ -53,6 +53,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { draftPreviewHref } from "@/lib/draft-preview";
 import { discardProjectDraft } from "../actions";
 import {
   deleteProject,
@@ -87,6 +88,7 @@ export type ProjectsTableLabels = {
   sortable: SortableLabels;
   moreActions: string; // {nombre}
   edit: string;
+  preview: string;
   discard: string;
   delete: string;
   visibleOn: string;
@@ -251,6 +253,17 @@ function MenuCell({ row }: { row: ProjectRow }) {
         >
           {labels.edit}
         </DropdownMenuItem>
+        <DropdownMenuItem
+          render={
+            <a
+              href={draftPreviewHref({ kind: "project", id: row.id })}
+              target="_blank"
+              rel="noopener"
+            >
+              {labels.preview}
+            </a>
+          }
+        />
         {row.hasPendingDraft ? (
           <DropdownMenuItem onClick={() => askDiscard(row)}>
             {labels.discard}

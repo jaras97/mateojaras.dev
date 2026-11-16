@@ -39,11 +39,594 @@
       "required": "Este campo es obligatorio."
     },
     "panel": {
-      "title": "Panel"
+      "title": "Panel",
+      "status": {
+        "projects": "{total, plural, =0 {Sin proyectos} one {# proyecto} other {# proyectos}} · {drafts, plural, =0 {0 borradores} one {# borrador} other {# borradores}} · {missing, plural, =0 {0 campos sin ES} one {# campo sin ES} other {# campos sin ES}}",
+        "settings": "{missing, plural, =0 {Sin campos pendientes} one {# campo sin ES} other {# campos sin ES}}",
+        "experience": "{total, plural, =0 {Sin experiencia} one {# puesto} other {# puestos}} · {drafts, plural, =0 {0 borradores} one {# borrador} other {# borradores}}",
+        "skills": "{total, plural, =0 {Sin skills} one {# skill} other {# skills}} · {drafts, plural, =0 {0 borradores} one {# borrador} other {# borradores}}",
+        "education": "{total, plural, =0 {Sin formación} one {# programa} other {# programas}} · {drafts, plural, =0 {0 borradores} one {# borrador} other {# borradores}}",
+        "cv": "CV en v{version} · generado {date}",
+        "cvNone": "CV sin generar",
+        "messages": "{n, plural, =0 {Sin mensajes sin leer} one {# mensaje sin leer} other {# mensajes sin leer}}"
+      }
     },
     "shell": {
       "signOut": "Cerrar sesión",
       "exportSkipped": "Los respaldos del contenido no se están guardando: falta BLOB_READ_WRITE_TOKEN en este entorno."
+    },
+    "nav": {
+      "panel": "Panel",
+      "settings": "Ajustes",
+      "projects": "Proyectos",
+      "experience": "Experiencia",
+      "skills": "Skills",
+      "education": "Educación",
+      "cv": "CV",
+      "messages": "Mensajes",
+      "menu": "Menú",
+      "unread": "{n, plural, one {# mensaje sin leer} other {# mensajes sin leer}}",
+      "label": "Navegación del panel"
+    },
+    "common": {
+      "status": {
+        "draft": "Borrador",
+        "published": "Publicado",
+        "pending": "Cambios sin publicar",
+        "hidden": "Oculto",
+        "missingEs": "Falta ES",
+        "cover": "Portada",
+        "current": "Actual",
+        "new": "Nuevo"
+      },
+      "saveDraft": "Guardar borrador",
+      "publish": "Publicar",
+      "publishChanges": "Publicar cambios",
+      "preview": "Previsualizar",
+      "previewDisabled": "Guarda el borrador para poder previsualizarlo.",
+      "discard": "Descartar cambios",
+      "moreActions": "Más acciones para {nombre}",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "moveUp": "Subir",
+      "moveDown": "Bajar",
+      "moveItem": "Mover {nombre}",
+      "moveUpItem": "Subir {nombre}",
+      "moveDownItem": "Bajar {nombre}",
+      "remove": "Quitar",
+      "cancel": "Cancelar",
+      "dirty": "Cambios sin guardar",
+      "saved": "Guardado {hora}",
+      "es": "ES",
+      "en": "EN",
+      "kbdMac": "⌘S",
+      "kbdOther": "Ctrl S",
+      "visible": "Visible",
+      "featured": "Destacado",
+      "updated": "Actualizado",
+      "actions": "Acciones",
+      "name": "Nombre",
+      "statusLabel": "Estado",
+      "add": "Añadir",
+      "back": "Volver",
+      "loading": "Cargando",
+      "lock": "Bloqueado",
+      "present": "Actualidad",
+      "empty": "Sin dato",
+      "retry": "Reintentar"
+    },
+    "form": {
+      "sectionIndex": "Secciones del formulario",
+      "missingCount": "{n} sin ES",
+      "slugLocked": "El slug quedó fijo al publicar. Cambiarlo rompería los enlaces que ya existen.",
+      "metricsHelper": "Escribe la fuente dentro de la etiqueta. El caso muestra hasta 3.",
+      "altHelper": "Describe lo que muestra la captura para quien no puede verla.",
+      "requiredPublish": "Este campo es obligatorio para publicar.",
+      "publishBlocked": "No se pudo publicar: faltan {n} campos. Están marcados en el formulario.",
+      "invalidUrl": "Escribe una URL completa, que empiece por https://.",
+      "slugTaken": "Ya hay un proyecto con este slug. Elige otro.",
+      "slugFormat": "Usa solo minúsculas, números y guiones.",
+      "altMissing": "Falta el texto alternativo en {idioma}. Sin él no se puede publicar.",
+      "counter": "{n} de {max}",
+      "bilingualRepeaterAdd": "Añadir"
+    },
+    "projects": {
+      "title": "Proyectos",
+      "count": "{n, plural, =0 {Sin proyectos} one {# proyecto} other {# proyectos}}",
+      "new": "Nuevo proyecto",
+      "newTitle": "Nuevo proyecto",
+      "empty": {
+        "heading": "Todavía no hay proyectos",
+        "body": "Crea el primero y guárdalo como borrador. No sale en el sitio hasta que lo publiques."
+      },
+      "columns": {
+        "title": "Título",
+        "slug": "Slug",
+        "status": "Estado",
+        "visible": "Visible",
+        "featured": "Destacado",
+        "updated": "Actualizado",
+        "actions": "Más acciones"
+      },
+      "sections": {
+        "basic": "Básico",
+        "case": "Caso",
+        "decisions": "Decisiones",
+        "metrics": "Métricas",
+        "images": "Imágenes"
+      },
+      "add": {
+        "result": "Añadir resultado",
+        "decision": "Añadir decisión",
+        "metric": "Añadir métrica"
+      },
+      "fields": {
+        "title": {
+          "label": "Título"
+        },
+        "slug": {
+          "label": "Slug"
+        },
+        "tagline": {
+          "label": "Frase corta"
+        },
+        "startedAt": {
+          "label": "Inicio"
+        },
+        "finishedAt": {
+          "label": "Fin"
+        },
+        "featured": {
+          "label": "Destacado"
+        },
+        "liveUrl": {
+          "label": "URL en vivo"
+        },
+        "repoUrl": {
+          "label": "Repositorio"
+        },
+        "skills": {
+          "label": "Skills"
+        },
+        "problem": {
+          "label": "Problema"
+        },
+        "role": {
+          "label": "Mi papel"
+        },
+        "solution": {
+          "label": "Solución"
+        },
+        "caseStudy": {
+          "label": "Caso de estudio"
+        },
+        "results": {
+          "label": "Resultados"
+        },
+        "decisions": {
+          "label": "Decisiones"
+        },
+        "decisionTitle": {
+          "label": "Título de la decisión"
+        },
+        "decisionBody": {
+          "label": "Qué decidí y por qué"
+        },
+        "tradeoffs": {
+          "label": "Compromisos"
+        },
+        "validation": {
+          "label": "Cómo lo validé"
+        },
+        "aiTools": {
+          "label": "Herramientas de IA",
+          "helper": "Una por línea, como una herramienta más."
+        },
+        "metrics": {
+          "label": "Métricas"
+        },
+        "metricValue": {
+          "label": "Valor"
+        },
+        "metricLabel": {
+          "label": "Etiqueta"
+        },
+        "images": {
+          "label": "Imágenes"
+        },
+        "cover": {
+          "label": "Portada"
+        }
+      }
+    },
+    "settings": {
+      "title": "Ajustes",
+      "sections": {
+        "identity": "Identidad",
+        "now": "Ahora",
+        "availability": "Disponibilidad",
+        "languages": "Idiomas",
+        "links": "Enlaces",
+        "seo": "SEO"
+      },
+      "add": {
+        "language": "Añadir idioma"
+      },
+      "fields": {
+        "name": {
+          "label": "Nombre"
+        },
+        "headline": {
+          "label": "Titular"
+        },
+        "bio": {
+          "label": "Bio"
+        },
+        "now": {
+          "label": "Qué estoy haciendo ahora"
+        },
+        "availabilityStatus": {
+          "label": "Estado"
+        },
+        "availableFrom": {
+          "label": "Disponible desde"
+        },
+        "location": {
+          "label": "Ciudad"
+        },
+        "timezone": {
+          "label": "Zona horaria"
+        },
+        "languageCode": {
+          "label": "Idioma"
+        },
+        "languageLevel": {
+          "label": "Nivel MCER"
+        },
+        "email": {
+          "label": "Correo"
+        },
+        "githubUrl": {
+          "label": "GitHub"
+        },
+        "linkedinUrl": {
+          "label": "LinkedIn"
+        },
+        "calendarUrl": {
+          "label": "Cal.com"
+        },
+        "seoTitle": {
+          "label": "Título SEO",
+          "helper": "Hasta 60 caracteres."
+        },
+        "seoDescription": {
+          "label": "Descripción SEO",
+          "helper": "Hasta 160 caracteres."
+        }
+      },
+      "availability": {
+        "open": "Disponible",
+        "from_date": "Disponible desde una fecha",
+        "closed": "Sin cupo"
+      }
+    },
+    "experience": {
+      "title": "Experiencia",
+      "count": "{n, plural, =0 {Sin puestos} one {# puesto} other {# puestos}}",
+      "new": "Nueva experiencia",
+      "newTitle": "Nueva experiencia",
+      "empty": {
+        "heading": "Todavía no hay experiencia",
+        "body": "Añade cada puesto con sus fechas y logros."
+      },
+      "columns": {
+        "company": "Empresa",
+        "role": "Puesto",
+        "type": "Tipo",
+        "dates": "Fechas",
+        "status": "Estado",
+        "visible": "Visible"
+      },
+      "sections": {
+        "position": "Puesto",
+        "achievements": "Logros",
+        "relations": "Relaciones"
+      },
+      "add": {
+        "bullet": "Añadir logro"
+      },
+      "fields": {
+        "company": {
+          "label": "Empresa"
+        },
+        "role": {
+          "label": "Puesto"
+        },
+        "type": {
+          "label": "Tipo"
+        },
+        "location": {
+          "label": "Ubicación"
+        },
+        "startDate": {
+          "label": "Inicio"
+        },
+        "endDate": {
+          "label": "Fin"
+        },
+        "current": {
+          "label": "Puesto actual"
+        },
+        "bullets": {
+          "label": "Logros"
+        },
+        "skills": {
+          "label": "Skills"
+        },
+        "projects": {
+          "label": "Proyectos"
+        }
+      },
+      "types": {
+        "employment": "Empleo",
+        "freelance": "Freelance"
+      }
+    },
+    "skills": {
+      "title": "Skills",
+      "count": "{n, plural, =0 {Sin skills} one {# skill} other {# skills}}",
+      "new": "Nueva skill",
+      "newTitle": "Nueva skill",
+      "empty": {
+        "heading": "Todavía no hay skills",
+        "body": "Añade las tecnologías que usas, con su categoría y años de uso."
+      },
+      "columns": {
+        "name": "Nombre",
+        "category": "Categoría",
+        "years": "Años",
+        "featured": "Destacado",
+        "status": "Estado",
+        "visible": "Visible"
+      },
+      "sections": {
+        "skill": "Skill"
+      },
+      "fields": {
+        "name": {
+          "label": "Nombre"
+        },
+        "category": {
+          "label": "Categoría"
+        },
+        "yearsUsed": {
+          "label": "Años de uso"
+        },
+        "featured": {
+          "label": "Destacado"
+        },
+        "icon": {
+          "label": "Icono",
+          "helper": "Nombre del icono en simple-icons. Déjalo vacío si no hay."
+        }
+      },
+      "categories": {
+        "frontend": "Frontend",
+        "state": "Estado",
+        "testing": "Pruebas",
+        "backend": "Backend",
+        "ai": "IA",
+        "tools": "Herramientas"
+      }
+    },
+    "education": {
+      "title": "Educación",
+      "count": "{n, plural, =0 {Sin formación} one {# programa} other {# programas}}",
+      "new": "Nueva formación",
+      "newTitle": "Nueva formación",
+      "empty": {
+        "heading": "Todavía no hay formación",
+        "body": "Añade la institución y el programa."
+      },
+      "columns": {
+        "institution": "Institución",
+        "program": "Programa",
+        "dates": "Fechas",
+        "status": "Estado",
+        "visible": "Visible"
+      },
+      "sections": {
+        "program": "Programa"
+      },
+      "fields": {
+        "institution": {
+          "label": "Institución"
+        },
+        "program": {
+          "label": "Programa"
+        },
+        "startDate": {
+          "label": "Inicio"
+        },
+        "endDate": {
+          "label": "Fin"
+        },
+        "status": {
+          "label": "Estado del programa",
+          "helper": "Por ejemplo, completado hasta el octavo semestre."
+        }
+      }
+    },
+    "images": {
+      "dropzone": "Arrastra una imagen o elige un archivo",
+      "formats": "AVIF, WebP, JPEG o PNG · máx. 8 MB · ideal 2400 × 1500",
+      "ratioWarning": "La imagen mide {ancho} × {alto} y no es 16:10. En el sitio se recortará al centro.",
+      "wrongType": "Este formato no se admite. Usa AVIF, WebP, JPEG o PNG.",
+      "tooBig": "La imagen pesa {tamaño} y el máximo es 8 MB.",
+      "failed": "No se pudo subir la imagen. Revisa la conexión y vuelve a intentarlo.",
+      "tokenMissing": "La subida de archivos no está disponible: falta BLOB_READ_WRITE_TOKEN en este entorno.",
+      "alt": "Texto alternativo",
+      "useAsCover": "Usar como portada",
+      "uploading": "Subiendo {percent} %",
+      "previewAlt": "Vista previa de la imagen"
+    },
+    "richText": {
+      "bold": "Negrita",
+      "italic": "Cursiva",
+      "heading": "Subtítulo",
+      "bulletList": "Lista",
+      "orderedList": "Lista numerada",
+      "quote": "Cita",
+      "code": "Código",
+      "link": "Enlace",
+      "linkUrl": "URL del enlace",
+      "apply": "Aplicar",
+      "removeLink": "Quitar enlace",
+      "toolbar": "Formato del texto"
+    },
+    "dnd": {
+      "instructions": "Usa Espacio para tomar la fila, las flechas para moverla, Espacio para soltarla y Escape para cancelar.",
+      "pickedUp": "Tomaste {nombre}. Usa las flechas para moverlo y Espacio para soltarlo.",
+      "over": "{nombre} está en la posición {n} de {total}.",
+      "dropped": "Soltaste {nombre} en la posición {n} de {total}.",
+      "cancelled": "Cancelaste el movimiento. {nombre} vuelve a la posición {n}."
+    },
+    "toasts": {
+      "draftSaved": "Borrador guardado. El sitio sigue mostrando la versión publicada.",
+      "draftSavedNew": "Borrador guardado.",
+      "published": "Publicado. Ya se ve en el sitio.",
+      "visibleOn": "Visible en el sitio.",
+      "visibleOff": "Oculto del sitio.",
+      "orderSaved": "Orden guardado.",
+      "deleted": "{nombre} eliminado.",
+      "discarded": "Cambios descartados. Queda la versión publicada.",
+      "cvGenerated": "CV generado: v{n} en inglés y en español.",
+      "messageRead": "Marcado como leído.",
+      "messageUnread": "Marcado como no leído.",
+      "messageDeleted": "Mensaje eliminado.",
+      "linkCopied": "Enlace copiado",
+      "retry": "Reintentar"
+    },
+    "errors": {
+      "saveFailed": "No se pudo guardar. Tus cambios siguen en el formulario; vuelve a intentarlo.",
+      "sessionExpired": "Tu sesión expiró. Entra de nuevo; los cambios sin guardar se perderán si sales de esta página.",
+      "signIn": "Entrar",
+      "cvFailed": "No se pudo generar el CV: {motivo}. No se publicó ninguna versión nueva; revisa los datos y vuelve a intentarlo.",
+      "reorderFailed": "No se pudo guardar el orden. Se restauró el anterior.",
+      "loadFailed": "No se pudo cargar la lista. Recarga la página.",
+      "messageUpdateFailed": "No se pudo actualizar el mensaje. Vuelve a intentarlo.",
+      "tokenMissing": "La subida de archivos no está disponible: falta BLOB_READ_WRITE_TOKEN en este entorno.",
+      "generic": "Algo salió mal. Vuelve a intentarlo."
+    },
+    "confirm": {
+      "delete": {
+        "title": "Eliminar {nombre}",
+        "body": "Se borra de forma definitiva, junto con sus relaciones. No se puede deshacer desde el panel; la última copia queda en el respaldo de contenido.",
+        "inputLabel": "Escribe {nombre} para confirmar",
+        "cancel": "Cancelar",
+        "confirm": "Eliminar definitivamente"
+      },
+      "deleteMessage": {
+        "title": "¿Eliminar este mensaje?",
+        "body": "El mensaje de {nombre} se borra de forma definitiva.",
+        "cancel": "Cancelar",
+        "confirm": "Eliminar mensaje"
+      },
+      "discard": {
+        "title": "¿Descartar los cambios sin publicar?",
+        "body": "Vuelves a la versión publicada. Lo que guardaste como borrador se pierde.",
+        "cancel": "Cancelar",
+        "confirm": "Descartar cambios"
+      },
+      "unsaved": {
+        "title": "Tienes cambios sin guardar",
+        "body": "Si sales ahora, se pierden.",
+        "stay": "Seguir editando",
+        "leave": "Salir sin guardar"
+      }
+    },
+    "cv": {
+      "title": "CV",
+      "sections": {
+        "generate": "Generar",
+        "links": "Enlaces públicos",
+        "history": "Historial"
+      },
+      "helper": "Crea una versión nueva en inglés y en español con el contenido publicado. Las anteriores se conservan.",
+      "generate": "Generar CV",
+      "generating": "Generando CV…",
+      "preflightEmpty": "Todo listo: no falta ningún campo en los datos del CV.",
+      "preflightLabel": "Revisión previa",
+      "notGenerated": "Sin generar",
+      "open": "Abrir",
+      "copyLink": "Copiar enlace",
+      "linkCopied": "Enlace copiado",
+      "columns": {
+        "version": "Versión",
+        "locale": "Idioma",
+        "generated": "Generado",
+        "status": "Estado",
+        "download": "Descargar"
+      },
+      "download": "Descargar",
+      "empty": {
+        "heading": "Todavía no has generado el CV",
+        "body": "Genera la primera versión para publicar /cv/en.pdf y /cv/es.pdf."
+      },
+      "tokenMissing": "La subida de archivos no está disponible: falta BLOB_READ_WRITE_TOKEN en este entorno."
+    },
+    "messages": {
+      "title": "Mensajes",
+      "unread": "{n, plural, =0 {Ninguno sin leer} one {# sin leer} other {# sin leer}}",
+      "columns": {
+        "name": "Nombre",
+        "email": "Correo",
+        "message": "Mensaje",
+        "locale": "Idioma",
+        "received": "Recibido"
+      },
+      "empty": {
+        "heading": "Todavía no hay mensajes",
+        "body": "Los mensajes del formulario de contacto aparecen aquí, el más reciente arriba."
+      },
+      "reply": "Responder por correo",
+      "markRead": "Marcar como leído",
+      "markUnread": "Marcar como no leído",
+      "delete": "Eliminar",
+      "replyPrefix": "Re: ",
+      "close": "Cerrar",
+      "reader": "Mensaje de {nombre}"
+    }
+  },
+  "DraftMode": {
+    "text": "Vista previa · contenido en borrador, no es público",
+    "exit": "Salir de la vista previa",
+    "label": "Vista previa de borradores"
+  },
+  "Cv": {
+    "summary": "Perfil",
+    "experience": "Experiencia",
+    "projects": "Proyectos destacados",
+    "skills": "Habilidades",
+    "education": "Educación",
+    "languages": "Idiomas",
+    "present": "Actualidad",
+    "levels": {
+      "native": "Nativo",
+      "A1": "A1",
+      "A2": "A2",
+      "B1": "B1",
+      "B2": "B2",
+      "C1": "C1",
+      "C2": "C2"
+    },
+    "skillCategories": {
+      "frontend": "Frontend",
+      "state": "Estado",
+      "testing": "Pruebas",
+      "backend": "Backend",
+      "ai": "IA",
+      "tools": "Herramientas"
     }
   }
 }

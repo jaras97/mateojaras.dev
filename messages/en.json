@@ -39,11 +39,594 @@
       "required": "This field is required."
     },
     "panel": {
-      "title": "Admin"
+      "title": "Admin",
+      "status": {
+        "projects": "{total, plural, =0 {No projects} one {# project} other {# projects}} · {drafts, plural, =0 {0 drafts} one {# draft} other {# drafts}} · {missing, plural, =0 {0 fields missing ES} one {# field missing ES} other {# fields missing ES}}",
+        "settings": "{missing, plural, =0 {No pending fields} one {# field missing ES} other {# fields missing ES}}",
+        "experience": "{total, plural, =0 {No experience} one {# position} other {# positions}} · {drafts, plural, =0 {0 drafts} one {# draft} other {# drafts}}",
+        "skills": "{total, plural, =0 {No skills} one {# skill} other {# skills}} · {drafts, plural, =0 {0 drafts} one {# draft} other {# drafts}}",
+        "education": "{total, plural, =0 {No education} one {# program} other {# programs}} · {drafts, plural, =0 {0 drafts} one {# draft} other {# drafts}}",
+        "cv": "CV at v{version} · generated {date}",
+        "cvNone": "CV not generated",
+        "messages": "{n, plural, =0 {No unread messages} one {# unread message} other {# unread messages}}"
+      }
     },
     "shell": {
       "signOut": "Sign out",
       "exportSkipped": "Content backups are not being saved: BLOB_READ_WRITE_TOKEN is missing in this environment."
+    },
+    "nav": {
+      "panel": "Dashboard",
+      "settings": "Settings",
+      "projects": "Projects",
+      "experience": "Experience",
+      "skills": "Skills",
+      "education": "Education",
+      "cv": "CV",
+      "messages": "Messages",
+      "menu": "Menu",
+      "unread": "{n, plural, one {# unread message} other {# unread messages}}",
+      "label": "Admin navigation"
+    },
+    "common": {
+      "status": {
+        "draft": "Draft",
+        "published": "Published",
+        "pending": "Unpublished changes",
+        "hidden": "Hidden",
+        "missingEs": "ES missing",
+        "cover": "Cover",
+        "current": "Current",
+        "new": "New"
+      },
+      "saveDraft": "Save draft",
+      "publish": "Publish",
+      "publishChanges": "Publish changes",
+      "preview": "Preview",
+      "previewDisabled": "Save the draft to preview it.",
+      "discard": "Discard changes",
+      "moreActions": "More actions for {nombre}",
+      "edit": "Edit",
+      "delete": "Delete",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "moveItem": "Move {nombre}",
+      "moveUpItem": "Move {nombre} up",
+      "moveDownItem": "Move {nombre} down",
+      "remove": "Remove",
+      "cancel": "Cancel",
+      "dirty": "Unsaved changes",
+      "saved": "Saved {hora}",
+      "es": "ES",
+      "en": "EN",
+      "kbdMac": "⌘S",
+      "kbdOther": "Ctrl S",
+      "visible": "Visible",
+      "featured": "Featured",
+      "updated": "Updated",
+      "actions": "Actions",
+      "name": "Name",
+      "statusLabel": "Status",
+      "add": "Add",
+      "back": "Back",
+      "loading": "Loading",
+      "lock": "Locked",
+      "present": "Present",
+      "empty": "No data",
+      "retry": "Retry"
+    },
+    "form": {
+      "sectionIndex": "Form sections",
+      "missingCount": "{n} missing ES",
+      "slugLocked": "The slug is fixed once published. Changing it would break existing links.",
+      "metricsHelper": "Write the source inside the label. The case study shows up to 3.",
+      "altHelper": "Describe what the screenshot shows for someone who cannot see it.",
+      "requiredPublish": "This field is required to publish.",
+      "publishBlocked": "Could not publish: {n} fields are missing. They are marked in the form.",
+      "invalidUrl": "Enter a full URL starting with https://.",
+      "slugTaken": "A project with this slug already exists. Pick another one.",
+      "slugFormat": "Use only lowercase letters, numbers and hyphens.",
+      "altMissing": "The alt text is missing in {idioma}. It cannot be published without it.",
+      "counter": "{n} of {max}",
+      "bilingualRepeaterAdd": "Add"
+    },
+    "projects": {
+      "title": "Projects",
+      "count": "{n, plural, =0 {No projects} one {# project} other {# projects}}",
+      "new": "New project",
+      "newTitle": "New project",
+      "empty": {
+        "heading": "No projects yet",
+        "body": "Create the first one and save it as a draft. It does not show on the site until you publish it."
+      },
+      "columns": {
+        "title": "Title",
+        "slug": "Slug",
+        "status": "Status",
+        "visible": "Visible",
+        "featured": "Featured",
+        "updated": "Updated",
+        "actions": "More actions"
+      },
+      "sections": {
+        "basic": "Basics",
+        "case": "Case",
+        "decisions": "Decisions",
+        "metrics": "Metrics",
+        "images": "Images"
+      },
+      "add": {
+        "result": "Add result",
+        "decision": "Add decision",
+        "metric": "Add metric"
+      },
+      "fields": {
+        "title": {
+          "label": "Title"
+        },
+        "slug": {
+          "label": "Slug"
+        },
+        "tagline": {
+          "label": "Tagline"
+        },
+        "startedAt": {
+          "label": "Start"
+        },
+        "finishedAt": {
+          "label": "End"
+        },
+        "featured": {
+          "label": "Featured"
+        },
+        "liveUrl": {
+          "label": "Live URL"
+        },
+        "repoUrl": {
+          "label": "Repository"
+        },
+        "skills": {
+          "label": "Skills"
+        },
+        "problem": {
+          "label": "Problem"
+        },
+        "role": {
+          "label": "My role"
+        },
+        "solution": {
+          "label": "Solution"
+        },
+        "caseStudy": {
+          "label": "Case study"
+        },
+        "results": {
+          "label": "Results"
+        },
+        "decisions": {
+          "label": "Decisions"
+        },
+        "decisionTitle": {
+          "label": "Decision title"
+        },
+        "decisionBody": {
+          "label": "What I decided and why"
+        },
+        "tradeoffs": {
+          "label": "Tradeoffs"
+        },
+        "validation": {
+          "label": "How I validated it"
+        },
+        "aiTools": {
+          "label": "AI tools",
+          "helper": "One per line, as one more tool."
+        },
+        "metrics": {
+          "label": "Metrics"
+        },
+        "metricValue": {
+          "label": "Value"
+        },
+        "metricLabel": {
+          "label": "Label"
+        },
+        "images": {
+          "label": "Images"
+        },
+        "cover": {
+          "label": "Cover"
+        }
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "sections": {
+        "identity": "Identity",
+        "now": "Now",
+        "availability": "Availability",
+        "languages": "Languages",
+        "links": "Links",
+        "seo": "SEO"
+      },
+      "add": {
+        "language": "Add language"
+      },
+      "fields": {
+        "name": {
+          "label": "Name"
+        },
+        "headline": {
+          "label": "Headline"
+        },
+        "bio": {
+          "label": "Bio"
+        },
+        "now": {
+          "label": "What I am doing now"
+        },
+        "availabilityStatus": {
+          "label": "Status"
+        },
+        "availableFrom": {
+          "label": "Available from"
+        },
+        "location": {
+          "label": "City"
+        },
+        "timezone": {
+          "label": "Time zone"
+        },
+        "languageCode": {
+          "label": "Language"
+        },
+        "languageLevel": {
+          "label": "CEFR level"
+        },
+        "email": {
+          "label": "Email"
+        },
+        "githubUrl": {
+          "label": "GitHub"
+        },
+        "linkedinUrl": {
+          "label": "LinkedIn"
+        },
+        "calendarUrl": {
+          "label": "Cal.com"
+        },
+        "seoTitle": {
+          "label": "SEO title",
+          "helper": "Up to 60 characters."
+        },
+        "seoDescription": {
+          "label": "SEO description",
+          "helper": "Up to 160 characters."
+        }
+      },
+      "availability": {
+        "open": "Available",
+        "from_date": "Available from a date",
+        "closed": "Fully booked"
+      }
+    },
+    "experience": {
+      "title": "Experience",
+      "count": "{n, plural, =0 {No positions} one {# position} other {# positions}}",
+      "new": "New experience",
+      "newTitle": "New experience",
+      "empty": {
+        "heading": "No experience yet",
+        "body": "Add each position with its dates and achievements."
+      },
+      "columns": {
+        "company": "Company",
+        "role": "Role",
+        "type": "Type",
+        "dates": "Dates",
+        "status": "Status",
+        "visible": "Visible"
+      },
+      "sections": {
+        "position": "Position",
+        "achievements": "Achievements",
+        "relations": "Relations"
+      },
+      "add": {
+        "bullet": "Add achievement"
+      },
+      "fields": {
+        "company": {
+          "label": "Company"
+        },
+        "role": {
+          "label": "Role"
+        },
+        "type": {
+          "label": "Type"
+        },
+        "location": {
+          "label": "Location"
+        },
+        "startDate": {
+          "label": "Start"
+        },
+        "endDate": {
+          "label": "End"
+        },
+        "current": {
+          "label": "Current position"
+        },
+        "bullets": {
+          "label": "Achievements"
+        },
+        "skills": {
+          "label": "Skills"
+        },
+        "projects": {
+          "label": "Projects"
+        }
+      },
+      "types": {
+        "employment": "Employment",
+        "freelance": "Freelance"
+      }
+    },
+    "skills": {
+      "title": "Skills",
+      "count": "{n, plural, =0 {No skills} one {# skill} other {# skills}}",
+      "new": "New skill",
+      "newTitle": "New skill",
+      "empty": {
+        "heading": "No skills yet",
+        "body": "Add the technologies you use, with their category and years of use."
+      },
+      "columns": {
+        "name": "Name",
+        "category": "Category",
+        "years": "Years",
+        "featured": "Featured",
+        "status": "Status",
+        "visible": "Visible"
+      },
+      "sections": {
+        "skill": "Skill"
+      },
+      "fields": {
+        "name": {
+          "label": "Name"
+        },
+        "category": {
+          "label": "Category"
+        },
+        "yearsUsed": {
+          "label": "Years of use"
+        },
+        "featured": {
+          "label": "Featured"
+        },
+        "icon": {
+          "label": "Icon",
+          "helper": "Icon name from simple-icons. Leave empty if there is none."
+        }
+      },
+      "categories": {
+        "frontend": "Frontend",
+        "state": "State",
+        "testing": "Testing",
+        "backend": "Backend",
+        "ai": "AI",
+        "tools": "Tools"
+      }
+    },
+    "education": {
+      "title": "Education",
+      "count": "{n, plural, =0 {No education} one {# program} other {# programs}}",
+      "new": "New education",
+      "newTitle": "New education",
+      "empty": {
+        "heading": "No education yet",
+        "body": "Add the institution and the program."
+      },
+      "columns": {
+        "institution": "Institution",
+        "program": "Program",
+        "dates": "Dates",
+        "status": "Status",
+        "visible": "Visible"
+      },
+      "sections": {
+        "program": "Program"
+      },
+      "fields": {
+        "institution": {
+          "label": "Institution"
+        },
+        "program": {
+          "label": "Program"
+        },
+        "startDate": {
+          "label": "Start"
+        },
+        "endDate": {
+          "label": "End"
+        },
+        "status": {
+          "label": "Program status",
+          "helper": "For example, completed through the eighth semester."
+        }
+      }
+    },
+    "images": {
+      "dropzone": "Drag an image or choose a file",
+      "formats": "AVIF, WebP, JPEG or PNG · max. 8 MB · ideal 2400 × 1500",
+      "ratioWarning": "The image is {ancho} × {alto} and is not 16:10. It will be cropped to the center on the site.",
+      "wrongType": "This format is not supported. Use AVIF, WebP, JPEG or PNG.",
+      "tooBig": "The image is {tamaño} and the maximum is 8 MB.",
+      "failed": "The image could not be uploaded. Check your connection and try again.",
+      "tokenMissing": "File upload is not available: BLOB_READ_WRITE_TOKEN is missing in this environment.",
+      "alt": "Alt text",
+      "useAsCover": "Use as cover",
+      "uploading": "Uploading {percent} %",
+      "previewAlt": "Image preview"
+    },
+    "richText": {
+      "bold": "Bold",
+      "italic": "Italic",
+      "heading": "Subheading",
+      "bulletList": "List",
+      "orderedList": "Numbered list",
+      "quote": "Quote",
+      "code": "Code",
+      "link": "Link",
+      "linkUrl": "Link URL",
+      "apply": "Apply",
+      "removeLink": "Remove link",
+      "toolbar": "Text formatting"
+    },
+    "dnd": {
+      "instructions": "Press Space to pick up the row, arrow keys to move it, Space to drop it and Escape to cancel.",
+      "pickedUp": "You picked up {nombre}. Use the arrow keys to move it and Space to drop it.",
+      "over": "{nombre} is at position {n} of {total}.",
+      "dropped": "You dropped {nombre} at position {n} of {total}.",
+      "cancelled": "You cancelled the move. {nombre} returns to position {n}."
+    },
+    "toasts": {
+      "draftSaved": "Draft saved. The site still shows the published version.",
+      "draftSavedNew": "Draft saved.",
+      "published": "Published. It is now live on the site.",
+      "visibleOn": "Visible on the site.",
+      "visibleOff": "Hidden from the site.",
+      "orderSaved": "Order saved.",
+      "deleted": "{nombre} deleted.",
+      "discarded": "Changes discarded. The published version remains.",
+      "cvGenerated": "CV generated: v{n} in English and Spanish.",
+      "messageRead": "Marked as read.",
+      "messageUnread": "Marked as unread.",
+      "messageDeleted": "Message deleted.",
+      "linkCopied": "Link copied",
+      "retry": "Retry"
+    },
+    "errors": {
+      "saveFailed": "Could not save. Your changes are still in the form; try again.",
+      "sessionExpired": "Your session expired. Sign in again; unsaved changes are lost if you leave this page.",
+      "signIn": "Sign in",
+      "cvFailed": "Could not generate the CV: {motivo}. No new version was published; check the data and try again.",
+      "reorderFailed": "Could not save the order. The previous one was restored.",
+      "loadFailed": "Could not load the list. Reload the page.",
+      "messageUpdateFailed": "Could not update the message. Try again.",
+      "tokenMissing": "File upload is not available: BLOB_READ_WRITE_TOKEN is missing in this environment.",
+      "generic": "Something went wrong. Try again."
+    },
+    "confirm": {
+      "delete": {
+        "title": "Delete {nombre}",
+        "body": "It is deleted permanently, together with its relations. It cannot be undone from the panel; the last copy stays in the content backup.",
+        "inputLabel": "Type {nombre} to confirm",
+        "cancel": "Cancel",
+        "confirm": "Delete permanently"
+      },
+      "deleteMessage": {
+        "title": "Delete this message?",
+        "body": "The message from {nombre} is deleted permanently.",
+        "cancel": "Cancel",
+        "confirm": "Delete message"
+      },
+      "discard": {
+        "title": "Discard the unpublished changes?",
+        "body": "You go back to the published version. What you saved as a draft is lost.",
+        "cancel": "Cancel",
+        "confirm": "Discard changes"
+      },
+      "unsaved": {
+        "title": "You have unsaved changes",
+        "body": "If you leave now, they are lost.",
+        "stay": "Keep editing",
+        "leave": "Leave without saving"
+      }
+    },
+    "cv": {
+      "title": "CV",
+      "sections": {
+        "generate": "Generate",
+        "links": "Public links",
+        "history": "History"
+      },
+      "helper": "Creates a new version in English and Spanish from the published content. Previous ones are kept.",
+      "generate": "Generate CV",
+      "generating": "Generating CV…",
+      "preflightEmpty": "All set: no field is missing in the CV data.",
+      "preflightLabel": "Pre-flight check",
+      "notGenerated": "Not generated",
+      "open": "Open",
+      "copyLink": "Copy link",
+      "linkCopied": "Link copied",
+      "columns": {
+        "version": "Version",
+        "locale": "Language",
+        "generated": "Generated",
+        "status": "Status",
+        "download": "Download"
+      },
+      "download": "Download",
+      "empty": {
+        "heading": "You have not generated the CV yet",
+        "body": "Generate the first version to publish /cv/en.pdf and /cv/es.pdf."
+      },
+      "tokenMissing": "File upload is not available: BLOB_READ_WRITE_TOKEN is missing in this environment."
+    },
+    "messages": {
+      "title": "Messages",
+      "unread": "{n, plural, =0 {None unread} one {# unread} other {# unread}}",
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "message": "Message",
+        "locale": "Language",
+        "received": "Received"
+      },
+      "empty": {
+        "heading": "No messages yet",
+        "body": "Messages from the contact form show up here, newest first."
+      },
+      "reply": "Reply by email",
+      "markRead": "Mark as read",
+      "markUnread": "Mark as unread",
+      "delete": "Delete",
+      "replyPrefix": "Re: ",
+      "close": "Close",
+      "reader": "Message from {nombre}"
+    }
+  },
+  "DraftMode": {
+    "text": "Preview · draft content, not public",
+    "exit": "Exit preview",
+    "label": "Draft preview"
+  },
+  "Cv": {
+    "summary": "Summary",
+    "experience": "Experience",
+    "projects": "Selected projects",
+    "skills": "Skills",
+    "education": "Education",
+    "languages": "Languages",
+    "present": "Present",
+    "levels": {
+      "native": "Native",
+      "A1": "A1",
+      "A2": "A2",
+      "B1": "B1",
+      "B2": "B2",
+      "C1": "C1",
+      "C2": "C2"
+    },
+    "skillCategories": {
+      "frontend": "Frontend",
+      "state": "State",
+      "testing": "Testing",
+      "backend": "Backend",
+      "ai": "AI",
+      "tools": "Tools"
     }
   }
 }

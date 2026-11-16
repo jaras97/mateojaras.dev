@@ -1,12 +1,13 @@
 // Seeds docs/content into the database in DATABASE_URL.
 // Usage: pnpm seed                         (refuses when a content table already has rows)
-//        pnpm seed --force                 (upserts by slug; idempotent)
-//        pnpm seed --from-content --force  (restores content/*.json, replacing the content tables)
+//        pnpm seed --force                 (inserts only missing rows, never updates; idempotent)
+//        pnpm seed --from-content --force  (full restore of the 9 content tables from content/*.json)
+//        --allow-production                (required when the target is Neon main or VERCEL_ENV=production)
 // Every mode ends by creating or re-hashing the single admin (ADMIN_EMAIL/ADMIN_PASSWORD).
 // Never deletes or exports auth tables, never runs in the build.
 import { readFileSync } from "node:fs";
 import { betterAuth } from "better-auth";
-import { count, eq, sql } from "drizzle-orm";
+import { count, eq } from "drizzle-orm";
 import { createDb, type Db } from "@/db/client";
 import {
   education,
@@ -23,7 +24,7 @@ import { authOptions } from "@/lib/auth-options";
 import { CONTENT_TABLES, restoreContent } from "@/lib/content-export";
 import { describeDbTarget } from "@/lib/db-target";
 import { requireEnv } from "@/lib/env";
-import { assertSeedable } from "@/lib/seed-guard";
+import { assertNotProduction, assertSeedable } from "@/lib/seed-guard";
 import { ensureAdmin } from "./lib/admin";
 import { loadLocalEnv } from "./lib/env";
 import {
@@ -72,7 +73,13 @@ async function seedAdmin(db: Db) {
 async function main() {
   loadLocalEnv();
   const url = requireEnv("DATABASE_URL");
-  console.log(`seed target: ${describeDbTarget(url)}`);
+  const target = describeDbTarget(url);
+  console.log(`seed target: ${target}`);
+  assertNotProduction({
+    target,
+    vercelEnv: process.env.VERCEL_ENV,
+    allow: process.argv.includes("--allow-production"),
+  });
   const db = createDb(url);
 
   if (process.argv.includes("--from-content")) {
@@ -113,48 +120,45 @@ async function main() {
     location: heroFixture.location,
   };
 
-  // No unique index on experiences or education: match the natural key.
-  const existingExperiences = await db.select().from(experiences);
-  const existingEducation = await db.select().from(education);
-  const experienceStatements = experienceFacts(freelance).map((fact) => {
-    const match = existingExperiences.find(
-      (e) => e.company === fact.company && e.startDate === fact.startDate,
+  // No unique index on experiences or education: when the table has any row
+  // (possibly edited in the admin) its facts are not seeded at all.
+  const [{ n: experienceCount }] = await db
+    .select({ n: count() })
+    .from(experiences);
+  const [{ n: educationCount }] = await db
+    .select({ n: count() })
+    .from(education);
+  const experienceStatements =
+    experienceCount > 0
+      ? []
+      : experienceFacts(freelance).map((fact) =>
+          db.insert(experiences).values({ ...fact, status: "published" }),
+        );
+  const educationStatements =
+    educationCount > 0
+      ? []
+      : educationFacts.map((fact) =>
+          db.insert(education).values({ ...fact, status: "published" }),
+        );
+  if (experienceCount > 0)
+    console.log(
+      `experiences: ${experienceCount} filas existentes, no se siembran hechos`,
     );
-    return match
-      ? db
-          .update(experiences)
-          .set({ ...fact, updatedAt: sql`now()` })
-          .where(eq(experiences.id, match.id))
-      : db.insert(experiences).values({ ...fact, status: "published" });
-  });
-  const educationStatements = educationFacts.map((fact) => {
-    const match = existingEducation.find(
-      (e) => e.institution === fact.institution,
+  if (educationCount > 0)
+    console.log(
+      `education: ${educationCount} filas existentes, no se siembran hechos`,
     );
-    return match
-      ? db
-          .update(education)
-          .set({ ...fact, updatedAt: sql`now()` })
-          .where(eq(education.id, match.id))
-      : db.insert(education).values({ ...fact, status: "published" });
-  });
 
   const [first, ...rest] = [
     db
       .insert(siteSettings)
       .values(settingsRow)
-      .onConflictDoUpdate({
-        target: siteSettings.id,
-        set: { ...settingsRow, updatedAt: sql`now()` },
-      }),
+      .onConflictDoNothing({ target: siteSettings.id }),
     ...rows.map((row) =>
       db
         .insert(projects)
         .values(row)
-        .onConflictDoUpdate({
-          target: projects.slug,
-          set: { ...row, updatedAt: sql`now()` },
-        }),
+        .onConflictDoNothing({ target: projects.slug }),
     ),
     ...experienceStatements,
     ...educationStatements,
@@ -167,7 +171,11 @@ async function main() {
     .where(eq(projects.status, "published"));
   if (published === 0)
     throw new Error("La siembra dejó cero proyectos publicados");
-  console.log(`seeded projects: ${rows.length} (${published} published)`);
+  const [{ total }] = await db.select({ total: count() }).from(projects);
+  const inserted = total - n;
+  console.log(
+    `seeded projects: ${inserted} inserted, ${rows.length - inserted} kept (${published} published)`,
+  );
   await seedAdmin(db);
 }
 

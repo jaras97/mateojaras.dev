@@ -16,6 +16,15 @@ describe("draftPreviewHref", () => {
 });
 
 describe("safeReturnPath", () => {
+  it.each([
+    "/",
+    "/es",
+    "/projects/foo",
+    "/es/proyectos/foo",
+  ])("keeps the known public route %s", (path) => {
+    expect(safeReturnPath(path)).toBe(path);
+  });
+
   it("keeps a single-slash relative path", () => {
     expect(safeReturnPath("/es/proyectos/x")).toBe("/es/proyectos/x");
   });
@@ -26,6 +35,13 @@ describe("safeReturnPath", () => {
     ["backslash", "/\\evil"],
     ["non-string", 42],
     ["empty", ""],
+    ["encoded backslash", "/%5Cevil.com"],
+    ["tab char", "/\tevil"],
+    ["backslash host", "/\\evil.com"],
+    ["javascript scheme", "javascript:alert(1)"],
+    ["encoded double slash", "/%2F%2Fevil.com"],
+    ["unknown route", "/admin/proyectos"],
+    ["whitespace", "/es /x"],
   ])("falls back to / for %s", (_name, value) => {
     expect(safeReturnPath(value)).toBe("/");
   });

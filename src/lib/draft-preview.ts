@@ -16,10 +16,30 @@ export function draftPreviewHref({
   return `/api/draft?${params.toString()}`;
 }
 
-// Only a single-slash relative path may be redirected to (no open redirect).
+const UNSAFE = /[\x00-\x1f\x7f\\\s]/;
+// Public routes the exit form can come from: /, /es, /projects/<slug>,
+// /es/proyectos/<slug>.
+const PUBLIC_ROUTE = /^\/(?:es)?$|^\/projects\/[^/]+$|^\/es\/proyectos\/[^/]+$/;
+
+// The exit path must be a same-origin path to a known public route (no open
+// redirect). Anything else goes to "/".
 export function safeReturnPath(value: unknown): string {
-  if (typeof value !== "string") return "/";
-  if (!value.startsWith("/")) return "/";
-  if (value.startsWith("//") || value.startsWith("/\\")) return "/";
-  return value;
+  if (typeof value !== "string" || !value.startsWith("/")) return "/";
+  if (UNSAFE.test(value)) return "/";
+  let url: URL;
+  try {
+    url = new URL(value, "http://x");
+  } catch {
+    return "/";
+  }
+  if (url.origin !== "http://x") return "/";
+  let decoded: string;
+  try {
+    decoded = decodeURIComponent(url.pathname);
+  } catch {
+    return "/";
+  }
+  if (UNSAFE.test(decoded) || decoded.startsWith("//")) return "/";
+  if (!PUBLIC_ROUTE.test(url.pathname)) return "/";
+  return url.pathname + url.search;
 }

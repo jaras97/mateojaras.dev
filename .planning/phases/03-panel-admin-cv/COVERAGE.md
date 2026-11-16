@@ -14,7 +14,3 @@
 | copy | OPT-OUT | not needed: files are never moved or renamed |
 | multipart upload | OPT-OUT | not needed: uploads are capped at 8 MB and upload() handles them |
 | getDownloadUrl | OPT-OUT | not needed: the history links use the public URL with the download attribute |
-</content>
-</invoke>
-<invoke name="Bash">
-<parameter name="command">cd /Users/mateojaramillo/projects/mateojaras.dev && f=.planning/phases/03-panel-admin-cv/03-03-PLAN.md && perl -0pi -e 's/(<flagged_assumptions>\nEdge probe: ADMN-09 empty)/<assumption_delta_decision>\nDetector fired (pluralization) because published values and pending edits now live side by side. Primary noun: the content row (its id and its columns are the published identity). Decision: no-change to the identity model; `draft` is a single pending overlay per row, never a second record, cleared on publish or discard. An invariant is already encoded by the Task 2 action tests (publish leaves columns equal to the submitted values and draft null); 03-08 and 03-09 repeat it per entity.\n<\/assumption_delta_decision>\n\n$1/' $f && grep -c assumption_delta_decision $f

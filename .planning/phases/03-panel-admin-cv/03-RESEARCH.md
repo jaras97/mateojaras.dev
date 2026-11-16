@@ -519,19 +519,26 @@ const iso8601 = /^([1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9]|[1-2][0-9]{3}-[0-1][0-9]|
 | A7 | `pdf-parse` unmaintained | Alternatives | None (not chosen) |
 | A8 | Minimum to create a never-published row is one title + slug (NOT NULL columns get `''`) | Pattern 1 | UX detail; planner confirms with UI-SPEC "Guardar borrador accepts incomplete content" |
 
-## Open Questions
+## Open Questions (RESOLVED)
+
+Each question is routed to Teo in the single phase-start message of 03-01 Task 1 (letters A..I). The default below applies when his answer for that letter is `pendiente`; the pendiente rules live in 03-01 Task 1 acceptance criteria.
 
 1. **Do `featured` (and the inline list switches) go through draft/publish?**
    - What we know: UI-SPEC puts the Visible and Destacado switches in the list and assumes they apply live. D-01 covers content edits. Success criterion 2 says visible removes from the site directly.
    - Recommendation: treat `visible`, `order` and `featured` as structural/live. Log the decision in decisions.md (the UI-SPEC "unresolved" row).
+   - RESOLVED: routed to Teo in 03-01 item C; default = sí (structural fields live, logged as an assumption). Consumed by 03-03 (docs/data-model.md Reglas) and 03-04 (live switches).
 2. **What happens to committed `content/*.json` once drafts exist (WR-06)?**
    - What we know: the repo is public. Phase 2 decided to commit `content/`. D-10 keeps Inventario/Finanzas as drafts, and D-14's recovery relies on the export.
    - Options: (a) gitignore `content/` from now on and rely on Blob backups (random-suffix paths) plus a local untracked copy; (b) keep committing, accept that drafts are public. (a) changes a phase 2 decision, so **ask Teo** (high relevance: privacy of unpublished client content).
+   - RESOLVED: routed to Teo in 03-01 item D; default = (a) (stop versioning content/, the privacy-safe and reversible option), logged in docs/decisions.md as Claude's default pending Teo's confirmation. Applied by 03-02 Task 2.
 3. **Cover image source.**
    - Recommendation: `cover_image` stores the URL of one `media` item (so it always has alt en/es). Publish fails if `cover_image` is not in `media`.
+   - RESOLVED: routed to Teo in 03-01 item E; default = sí. Enforced by 03-03 Task 3 (publish refine) and 03-07 (ImageUploader cover).
 4. **unpdf version: 2.1.0 vs 2.2.1.**
    - Recommendation: 2.1.0 (older than 2 weeks, same API). Teo confirms at the install checkpoint.
+   - RESOLVED: routed to Teo in 03-01 item A (the executor fills the real version from `npm view` before asking); default = install nothing until Teo answers `verificado` (no package install without approval). Installed by 03-01 Task 2.
 5. **CV PDF filename/path vs D-08's literal `v<n>.pdf`.** With `addRandomSuffix` the path is `resume/<l>/v<n>-<rand>.pdf`. Recommend accepting and recording it; the public URL stays `/cv/<l>.pdf`.
+   - RESOLVED: routed to Teo in 03-01 item F; default = sí (random-suffix path, recorded in docs/decisions.md with D-08). Implemented by 03-11.
 
 ## Environment Availability
 

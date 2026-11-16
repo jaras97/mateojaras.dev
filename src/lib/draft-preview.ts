@@ -16,7 +16,17 @@ export function draftPreviewHref({
   return `/api/draft?${params.toString()}`;
 }
 
-const UNSAFE = /[\x00-\x1f\x7f\\\s]/;
+const UNSAFE_CHARS = /[\\\s]/;
+
+// Control characters (C0 and DEL), backslash and whitespace are never valid.
+function isUnsafe(value: string): boolean {
+  if (UNSAFE_CHARS.test(value)) return true;
+  for (let i = 0; i < value.length; i++) {
+    const code = value.charCodeAt(i);
+    if (code < 0x20 || code === 0x7f) return true;
+  }
+  return false;
+}
 // Public routes the exit form can come from: /, /es, /projects/<slug>,
 // /es/proyectos/<slug>.
 const PUBLIC_ROUTE = /^\/(?:es)?$|^\/projects\/[^/]+$|^\/es\/proyectos\/[^/]+$/;
@@ -25,7 +35,7 @@ const PUBLIC_ROUTE = /^\/(?:es)?$|^\/projects\/[^/]+$|^\/es\/proyectos\/[^/]+$/;
 // redirect). Anything else goes to "/".
 export function safeReturnPath(value: unknown): string {
   if (typeof value !== "string" || !value.startsWith("/")) return "/";
-  if (UNSAFE.test(value)) return "/";
+  if (isUnsafe(value)) return "/";
   let url: URL;
   try {
     url = new URL(value, "http://x");
@@ -39,7 +49,7 @@ export function safeReturnPath(value: unknown): string {
   } catch {
     return "/";
   }
-  if (UNSAFE.test(decoded) || decoded.startsWith("//")) return "/";
+  if (isUnsafe(decoded) || decoded.startsWith("//")) return "/";
   if (!PUBLIC_ROUTE.test(url.pathname)) return "/";
   return url.pathname + url.search;
 }

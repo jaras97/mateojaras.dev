@@ -6,11 +6,11 @@ import { usePathname } from "next/navigation";
 export function DraftExitForm({ label }: { label: string }) {
   const pathname = usePathname();
   return (
-    <form method="post" action="/api/draft">
+    <form method="post" action="/api/draft" className="shrink-0">
       <input type="hidden" name="path" value={pathname} />
       <button
         type="submit"
-        className="text-sm font-semibold underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background"
+        className="whitespace-nowrap text-sm font-semibold underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-background"
       >
         {label}
       </button>

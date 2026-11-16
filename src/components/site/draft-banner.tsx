@@ -14,7 +14,9 @@ export async function DraftBanner({ locale }: { locale: Locale }) {
       aria-label={t("label")}
       className="sticky top-0 z-50 flex h-10 items-center justify-between gap-4 bg-foreground px-6 text-background md:px-12"
     >
-      <p className="truncate font-mono text-xs">{t("text")}</p>
+      <p className="min-w-0 truncate font-mono text-xs" title={t("text")}>
+        {t("text")}
+      </p>
       <DraftExitForm label={t("exit")} />
     </section>
   );

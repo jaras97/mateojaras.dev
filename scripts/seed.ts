@@ -1,23 +1,52 @@
 // Seeds docs/content into the database in DATABASE_URL.
-// Usage: pnpm seed            (refuses when a content table already has rows)
-//        pnpm seed --force    (upserts by slug; idempotent)
-// Projects only for now. Never touches auth tables, never runs in the build.
+// Usage: pnpm seed                         (refuses when a content table already has rows)
+//        pnpm seed --force                 (upserts by slug; idempotent)
+//        pnpm seed --from-content --force  (restores content/*.json, replacing the content tables)
+// Never touches auth tables, never runs in the build.
+import { readFileSync } from "node:fs";
 import { count, eq, sql } from "drizzle-orm";
-import { createDb } from "@/db/client";
+import { createDb, type Db } from "@/db/client";
 import { projects } from "@/db/schema";
 import { loadContentDir } from "@/features/projects/content-file";
 import { validateProjectContent } from "@/features/projects/content-schema";
 import { projectRowFromContent } from "@/features/projects/seed-map";
+import { CONTENT_TABLES, restoreContent } from "@/lib/content-export";
 import { describeDbTarget } from "@/lib/db-target";
 import { requireEnv } from "@/lib/env";
 import { assertSeedable } from "@/lib/seed-guard";
 import { loadLocalEnv } from "./lib/env";
+
+async function seedFromContent(db: Db) {
+  const filesByName: Record<string, string> = {};
+  for (const { name } of CONTENT_TABLES) {
+    const path = `content/${name}.json`;
+    try {
+      filesByName[name] = readFileSync(path, "utf8");
+    } catch (error) {
+      throw new Error(`${path}: file is missing or unreadable`, {
+        cause: error,
+      });
+    }
+  }
+  const [{ n }] = await db.select({ n: count() }).from(projects);
+  assertSeedable({
+    nonEmptyTables: n > 0 ? ["projects"] : [],
+    force: process.argv.includes("--force"),
+  });
+  await restoreContent(db, filesByName);
+  console.log(`restored ${CONTENT_TABLES.length} tables from content/`);
+}
 
 async function main() {
   loadLocalEnv();
   const url = requireEnv("DATABASE_URL");
   console.log(`seed target: ${describeDbTarget(url)}`);
   const db = createDb(url);
+
+  if (process.argv.includes("--from-content")) {
+    await seedFromContent(db);
+    return;
+  }
 
   const files = loadContentDir("docs/content");
   const rows = files.map(({ file, content }, index) => {

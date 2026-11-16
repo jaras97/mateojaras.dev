@@ -1,7 +1,7 @@
 import "server-only";
 import { asc, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { projectSkills, projects } from "@/db/schema";
+import { projectSkills, projects, skills } from "@/db/schema";
 import { requireSession } from "@/lib/dal";
 import { applyDraft } from "@/lib/draft";
 
@@ -51,4 +51,13 @@ export async function listProjectsForAdmin() {
     ...row,
     hasPendingDraft: row.status === "published" && draft !== null,
   }));
+}
+
+// Skill checkboxes of the project form, grouped by category in the UI.
+export async function listSkillOptionsForAdmin() {
+  await requireSession();
+  return db
+    .select({ id: skills.id, name: skills.name, category: skills.category })
+    .from(skills)
+    .orderBy(asc(skills.category), asc(skills.order));
 }

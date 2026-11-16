@@ -4,16 +4,16 @@ milestone: v1.0
 current_phase: 03
 current_phase_name: Panel admin + CV
 status: executing
-stopped_at: Completed 03-04-PLAN.md
-last_updated: "2026-11-16T23:22:05.837Z"
+stopped_at: Completed 03-05-PLAN.md
+last_updated: "2026-11-16T23:37:25.756Z"
 last_activity: 2026-11-16
 last_activity_desc: Phase 03 execution started
-state_head: e38fb587fb40b4a7484071ca9a716e62396eb7ad
+state_head: 31fdae9db9f7560c7597436c1624c89dd32a7bfa
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 36
-  completed_plans: 26
+  completed_plans: 27
 milestone_name: milestone
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-10-29)
 ## Current Position
 
 Phase: 03 (Panel admin + CV) — EXECUTING
-Plan: 5 of 14
+Plan: 6 of 14
 Status: Ready to execute
 Last activity: 2026-11-16 — Phase 03 execution started
 
@@ -78,6 +78,7 @@ Progress: [████░░░░░░] 40%
 | Phase 03 P01 | 25min | 3 tasks | 40 files |
 | Phase 03 P03 | 30min | 3 tasks | 30 files |
 | Phase 03 P04 | 90m | 3 tasks | 30 files |
+| Phase 03 P05 | 75min | 3 tasks | 30 files |
 
 ## Accumulated Context
 
@@ -119,6 +120,7 @@ Recent decisions affecting current work:
 - [Phase 03]: Phase 3 start: Teo delegated all recommended options (draft jsonb, structural fields live, content/ untracked, cover from media, Blob suffix, tokens, Blob token luego, production load)
 - [Phase 03]: 03-03: draft jsonb column per row; publish copies to columns; saves never call updateTag
 - [Phase 03]: 03-04: projects list uses a bare table; shadcn Table overflow wrapper breaks dnd-kit keyboard coordinates
+- [Phase 03]: 03-05: project form works on paired {es,en} rows via form-model.ts; schemas validated manually, no RHF resolver
 
 ### Pending Todos
 
@@ -143,6 +145,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-16T23:22:05.732Z
-Stopped at: Completed 03-04-PLAN.md
+Last session: 2026-11-16T23:37:25.643Z
+Stopped at: Completed 03-05-PLAN.md
 Resume file: None

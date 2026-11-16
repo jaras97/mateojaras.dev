@@ -1,6 +1,6 @@
 "use client";
 
-import "./zod-jitless";
+import "@/lib/zod-jitless";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

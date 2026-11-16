@@ -23,6 +23,13 @@ export const requireSession = cache(async (): Promise<AdminSession> => {
   return session;
 });
 
+// Server Actions call this first: null instead of a redirect, so the action
+// can answer { ok: false, error: "session" } and the form can show the copy.
+export const requireActionSession = cache(
+  async (): Promise<AdminSession | null> =>
+    toAdminSession(await auth.api.getSession({ headers: await headers() })),
+);
+
 // Route Handlers (phase 3 Blob upload, AUTH-03) call this first: a Response, never a redirect.
 export async function requireSessionForRequest(
   request: Request,

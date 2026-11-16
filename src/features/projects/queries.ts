@@ -8,6 +8,7 @@ import { db } from "@/db";
 import type { Db } from "@/db/client";
 import { projects } from "@/db/schema";
 import { tags } from "@/lib/cache-tags";
+import { applyDraft, stripDraft } from "@/lib/draft";
 
 type Opts = { includeDrafts: boolean };
 
@@ -22,8 +23,14 @@ export function projectsQuery(handle: Db, { includeDrafts }: Opts) {
   ).orderBy(asc(projects.order));
 }
 
-export function getProjectsCore(opts: Opts) {
-  return projectsQuery(db, opts);
+// Public reads never carry `draft`; Draft Mode overlays it on the columns.
+function mapRow<T extends { draft?: unknown }>(row: T, opts: Opts) {
+  return opts.includeDrafts ? applyDraft(row) : stripDraft(row);
+}
+
+export async function getProjectsCore(opts: Opts) {
+  const rows = await projectsQuery(db, opts);
+  return rows.map((row) => mapRow(row, opts));
 }
 
 export async function getPublishedSlugsCore() {
@@ -49,7 +56,7 @@ export async function getProjectBySlugCore(slug: string, opts: Opts) {
           ),
     )
     .limit(1);
-  return rows[0] ?? null;
+  return rows[0] ? mapRow(rows[0], opts) : null;
 }
 
 export async function getProjects() {

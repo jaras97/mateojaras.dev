@@ -39,6 +39,25 @@ describe("requireSession", () => {
   });
 });
 
+describe("requireActionSession", () => {
+  it("returns null without a session and never redirects", async () => {
+    getSession.mockResolvedValue(null);
+    const { requireActionSession } = await import("@/lib/dal");
+    await expect(requireActionSession()).resolves.toBeNull();
+    expect(redirect).not.toHaveBeenCalled();
+  });
+
+  it("returns the user fields for a valid session", async () => {
+    getSession.mockResolvedValue(session);
+    const { requireActionSession } = await import("@/lib/dal");
+    await expect(requireActionSession()).resolves.toEqual({
+      userId: "u1",
+      name: "Admin",
+      email: "a@example.com",
+    });
+  });
+});
+
 describe("requireSessionForRequest", () => {
   it("returns a 401 JSON response without a session and never redirects", async () => {
     getSession.mockResolvedValue(null);

@@ -2,8 +2,10 @@
 // Usage: pnpm seed                         (refuses when a content table already has rows)
 //        pnpm seed --force                 (upserts by slug; idempotent)
 //        pnpm seed --from-content --force  (restores content/*.json, replacing the content tables)
-// Never touches auth tables, never runs in the build.
+// Every mode ends by creating or re-hashing the single admin (ADMIN_EMAIL/ADMIN_PASSWORD).
+// Never deletes or exports auth tables, never runs in the build.
 import { readFileSync } from "node:fs";
+import { betterAuth } from "better-auth";
 import { count, eq, sql } from "drizzle-orm";
 import { createDb, type Db } from "@/db/client";
 import {
@@ -17,10 +19,12 @@ import { loadContentDir } from "@/features/projects/content-file";
 import { validateProjectContent } from "@/features/projects/content-schema";
 import { projectRowFromContent } from "@/features/projects/seed-map";
 import { heroFixture } from "@/features/site-settings/fixture";
+import { authOptions } from "@/lib/auth-options";
 import { CONTENT_TABLES, restoreContent } from "@/lib/content-export";
 import { describeDbTarget } from "@/lib/db-target";
 import { requireEnv } from "@/lib/env";
 import { assertSeedable } from "@/lib/seed-guard";
+import { ensureAdmin } from "./lib/admin";
 import { loadLocalEnv } from "./lib/env";
 import {
   copyFacts,
@@ -50,6 +54,21 @@ async function seedFromContent(db: Db) {
   console.log(`restored ${CONTENT_TABLES.length} tables from content/`);
 }
 
+async function seedAdmin(db: Db) {
+  const email = requireEnv("ADMIN_EMAIL");
+  const password = requireEnv("ADMIN_PASSWORD");
+  if (password.length < 12) {
+    console.error("ADMIN_PASSWORD debe tener al menos 12 caracteres");
+    process.exit(1);
+  }
+  const result = await ensureAdmin(betterAuth(authOptions(db)), {
+    email,
+    password,
+    name: siteFacts.name,
+  });
+  console.log(`admin ${result}`);
+}
+
 async function main() {
   loadLocalEnv();
   const url = requireEnv("DATABASE_URL");
@@ -58,6 +77,7 @@ async function main() {
 
   if (process.argv.includes("--from-content")) {
     await seedFromContent(db);
+    await seedAdmin(db);
     return;
   }
 
@@ -148,6 +168,7 @@ async function main() {
   if (published === 0)
     throw new Error("La siembra dejó cero proyectos publicados");
   console.log(`seeded projects: ${rows.length} (${published} published)`);
+  await seedAdmin(db);
 }
 
 main().catch((error) => {

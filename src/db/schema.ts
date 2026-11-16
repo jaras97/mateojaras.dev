@@ -1,4 +1,5 @@
-// Re-exports every table and enum (docs/data-model.md). Better Auth tables are added in 02-04.
+// Re-exports every table and enum (docs/data-model.md). Better Auth tables come from the generated auth-schema.
+export * from "@/db/auth-schema";
 export * from "@/db/columns";
 export * from "@/features/contact/schema";
 export * from "@/features/education/schema";

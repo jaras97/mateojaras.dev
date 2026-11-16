@@ -20,6 +20,7 @@ const base = {
   status: statusEnum('status').notNull().default('draft'),
   visible: boolean('visible').notNull().default(true),
   order: integer('order').notNull().default(0),
+  draft: jsonb('draft').$type<Record<string, unknown>>(),   // ediciones pendientes de una fila publicada; null = ninguna
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow().$onUpdate(() => new Date()),
 };
@@ -41,6 +42,8 @@ export const siteSettings = pgTable('site_settings', {
   githubUrl: text('github_url'), linkedinUrl: text('linkedin_url'),
   seoTitleEn: text('seo_title_en'), seoTitleEs: text('seo_title_es'),
   seoDescriptionEn: text('seo_description_en'), seoDescriptionEs: text('seo_description_es'),
+  status: statusEnum('status').notNull().default('published'),
+  draft: base.draft,
   updatedAt: base.updatedAt,
 });
 
@@ -161,13 +164,17 @@ export const tags = {
   project: (slug: string) => `project:${slug}`,
   experience: 'experience',
   skills: 'skills',
+  education: 'education',
   resume: 'resume',
 } as const;
 ```
 
 ## Reglas
-- `queries.ts` públicas: `'use cache'` + `cacheTag(tags.x)` + `cacheLife('max')`. Nunca leen drafts.
-- `actions.ts`: `requireSession()` → Zod → Drizzle → `updateTag(tags.x)` → `exportContent('projects')`.
+- `queries.ts` públicas: `'use cache'` + `cacheTag(tags.x)` + `cacheLife('max')`. Quitan `draft` de cada fila (`stripDraft`); solo los cores en Draft Mode lo aplican (`applyDraft`).
+- Borradores: una fila nunca publicada (`status = 'draft'`) se edita directamente en sus columnas. Una fila publicada guarda las ediciones pendientes en `draft` (payload editable completo, incluidos ids de relaciones como `skillIds`). Publicar copia el payload a las columnas con `db.batch`, deja `status = 'published'` y `draft = null`. Descartar pone `draft = null`.
+- `visible`, `order` y `featured` son estructurales: se escriben en vivo, nunca pasan por `draft`.
+- `site_settings` tiene `status` (default `published`) y `draft` como las demás entidades editables.
+- `actions.ts`: `requireActionSession()` → Zod → Drizzle → `updateTag` (solo las etiquetas afectadas, y solo al publicar o en cambios estructurales) → `after(exportContent)`.
 - Slugs inmutables una vez publicados (si cambian, crear redirect en `next.config.ts`).
-- Export: `scripts/export-content.ts` escribe `content/<tabla>.json` (local) o `backup/<fecha>/<tabla>.json` en Blob (producción). `pnpm seed --from-content` restaura.
+- Export: `scripts/export-content.ts` escribe `content/<tabla>.json` (local, o `CONTENT_EXPORT_DIR`) o `backup/<fecha>/<tabla>.json` en Blob con sufijo aleatorio (producción). `pnpm seed --from-content` restaura.
 - Backlog (no crear en v1, pero no bloquear): `courses`, `services`, `testimonials`, `posts`, `pages`, `guestbook_entries`, `reactions`, `page_views`, `changelog_entries`.

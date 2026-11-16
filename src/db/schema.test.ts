@@ -37,6 +37,28 @@ describe("schema contract", () => {
     expect(col?.default).toEqual([]);
   });
 
+  it("has a nullable jsonb draft column on the five editable tables", () => {
+    for (const name of [
+      "projects",
+      "experiences",
+      "skills",
+      "education",
+      "site_settings",
+    ]) {
+      const col = byName(name).columns.find((c) => c.name === "draft");
+      expect(col?.columnType, name).toBe("PgJsonb");
+      expect(col?.notNull, name).toBe(false);
+    }
+  });
+
+  it('defaults site_settings.status to "published"', () => {
+    const col = byName("site_settings").columns.find(
+      (c) => c.name === "status",
+    );
+    expect(col?.notNull).toBe(true);
+    expect(col?.default).toBe("published");
+  });
+
   it("makes projects.slug unique", () => {
     const cfg = byName("projects");
     const unique = cfg.indexes.some(

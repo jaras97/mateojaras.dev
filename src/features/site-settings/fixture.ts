@@ -31,6 +31,8 @@ export const heroFixture = {
   seoTitleEs: null,
   seoDescriptionEn: null,
   seoDescriptionEs: null,
+  status: "published",
+  draft: null,
   updatedAt: new Date("2026-10-30T12:00:00-05:00"),
 } satisfies SiteSettings;
 

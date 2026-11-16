@@ -1,5 +1,12 @@
 // Enums and shared columns. Source: docs/data-model.md, sections "Enums" and "Esquema".
-import { boolean, integer, pgEnum, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  integer,
+  jsonb,
+  pgEnum,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 
 export const statusEnum = pgEnum("status", ["draft", "published"]);
 export const availabilityEnum = pgEnum("availability", [
@@ -26,6 +33,8 @@ export const base = {
   status: statusEnum("status").notNull().default("draft"),
   visible: boolean("visible").notNull().default(true),
   order: integer("order").notNull().default(0),
+  // Pending edits of a published row (docs/data-model.md, Reglas). Null = none.
+  draft: jsonb("draft").$type<Record<string, unknown>>(),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),

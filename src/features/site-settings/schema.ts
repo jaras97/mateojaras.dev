@@ -1,6 +1,6 @@
 // Source: docs/data-model.md, section "site_settings".
 import { date, jsonb, pgTable, text, uuid } from "drizzle-orm/pg-core";
-import { availabilityEnum, base } from "@/db/columns";
+import { availabilityEnum, base, statusEnum } from "@/db/columns";
 
 export const SITE_SETTINGS_ID = "00000000-0000-0000-0000-000000000001";
 
@@ -36,5 +36,7 @@ export const siteSettings = pgTable("site_settings", {
   seoTitleEs: text("seo_title_es"),
   seoDescriptionEn: text("seo_description_en"),
   seoDescriptionEs: text("seo_description_es"),
+  status: statusEnum("status").notNull().default("published"),
+  draft: base.draft,
   updatedAt: base.updatedAt,
 });

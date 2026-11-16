@@ -130,7 +130,7 @@ Plans:
 
 **Wave 8** *(blocked on Wave 7 completion)*
 
-- [ ] 02-08-PLAN.md — Go/no-go del plan B al final del día 3
+- [x] 02-08-PLAN.md — Go/no-go del plan B al final del día 3
 
 **Wave 9** *(blocked on Wave 8 completion)*
 

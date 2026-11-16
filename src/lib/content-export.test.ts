@@ -131,6 +131,7 @@ describe("exportContent", () => {
     expect(options).toMatchObject({
       access: "public",
       contentType: "application/json",
+      addRandomSuffix: true,
     });
   });
 
@@ -144,5 +145,13 @@ describe("exportContent", () => {
     });
     expect(readdirSync(dir).sort()).toEqual(["projects.json", "skills.json"]);
     expect(put).not.toHaveBeenCalled();
+  });
+
+  it("writes to CONTENT_EXPORT_DIR when no dir is given", async () => {
+    vi.stubEnv("VERCEL", "");
+    const dir = mkdtempSync(join(tmpdir(), "content-export-env-"));
+    vi.stubEnv("CONTENT_EXPORT_DIR", dir);
+    await exportContent({ db: fakeDb([]), tables: ["skills"] });
+    expect(readdirSync(dir)).toEqual(["skills.json"]);
   });
 });

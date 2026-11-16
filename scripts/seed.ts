@@ -36,8 +36,9 @@ import {
 
 async function seedFromContent(db: Db) {
   const filesByName: Record<string, string> = {};
+  const dir = process.env.CONTENT_EXPORT_DIR ?? "content";
   for (const { name } of CONTENT_TABLES) {
-    const path = `content/${name}.json`;
+    const path = `${dir}/${name}.json`;
     try {
       filesByName[name] = readFileSync(path, "utf8");
     } catch (error) {
@@ -52,7 +53,7 @@ async function seedFromContent(db: Db) {
     force: process.argv.includes("--force"),
   });
   await restoreContent(db, filesByName);
-  console.log(`restored ${CONTENT_TABLES.length} tables from content/`);
+  console.log(`restored ${CONTENT_TABLES.length} tables from ${dir}/`);
 }
 
 async function seedAdmin(db: Db) {

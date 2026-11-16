@@ -22,7 +22,8 @@ describe("assertSeedable", () => {
 });
 
 describe("assertNotProduction", () => {
-  const main = "ep-billowing-union-abc123 (ep-billowing-union-abc123.neon.tech)";
+  const main =
+    "ep-billowing-union-abc123 (ep-billowing-union-abc123.neon.tech)";
   const dev = "ep-floral-queen-xyz (ep-floral-queen-xyz.neon.tech)";
 
   it("throws naming the endpoint and the flag for the main endpoint", () => {

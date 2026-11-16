@@ -1,4 +1,6 @@
 import { existsSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { defineConfig, devices } from "@playwright/test";
 
 // Specs see ADMIN_EMAIL / ADMIN_PASSWORD from .env.local when it exists.
@@ -23,5 +25,7 @@ export default defineConfig({
     url: `http://localhost:${PORT}/`,
     reuseExistingServer: !process.env.CI,
     timeout: 300_000,
+    // e2e saves write their backup here, never into the repo.
+    env: { CONTENT_EXPORT_DIR: join(tmpdir(), "mateojaras-e2e-content") },
   },
 });

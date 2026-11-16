@@ -311,3 +311,10 @@ Decisión: `seed --force` inserta solo filas ausentes y tiene una guarda contra 
 Quién: Claude Code.
 Por qué: evitar perder contenido editado en el admin.
 Verificación: tests de 03-02.
+
+## 2026-11-16 · `content/` fuera de git y backups con sufijo aleatorio
+Contexto: borradores y filas sin publicar (Inventario, Finanzas) llegarían al repo público y a rutas de Blob adivinables.
+Decisión: `/content/` en `.gitignore` y fuera del índice (los archivos siguen en disco); `exportContent` usa `addRandomSuffix: true` y `CONTENT_EXPORT_DIR` (los e2e escriben en un directorio temporal). Teo respondió D: a en 03-01.
+Quién: Teo eligió (D: a); Claude Code implementó en 03-02.
+Por qué: no publicar contenido sin aprobar.
+Verificación: ciclo export, restore y export sin diferencias.

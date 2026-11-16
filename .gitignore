@@ -51,3 +51,6 @@ next-env.d.ts
 /.lab-captures/
 test-results/
 playwright-report/
+
+# respaldo local de la base; no se versiona desde la fase 3, ver docs/decisions.md
+/content/

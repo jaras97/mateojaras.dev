@@ -116,7 +116,7 @@ export async function exportContent({
   db,
   tables = CONTENT_TABLES.map((t) => t.name),
   now = new Date(),
-  dir = "content",
+  dir = process.env.CONTENT_EXPORT_DIR ?? "content",
 }: {
   db: Db;
   tables?: string[];
@@ -154,7 +154,7 @@ export async function exportContent({
       await put(path, text, {
         access: "public",
         contentType: "application/json",
-        addRandomSuffix: false,
+        addRandomSuffix: true,
       });
       results.push({
         table: name,

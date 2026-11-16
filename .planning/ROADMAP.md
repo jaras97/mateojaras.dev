@@ -157,7 +157,49 @@ Plans:
   5. `/resume.json` y `/resume.es.json` devuelven JSON Resume válido generado en vivo desde los mismos datos, y Teo tiene en el admin una bandeja de mensajes de contacto (vacía hasta que el formulario de la fase 4 reciba el primero)
   6. *(Desde la fase 1.)* El contenido de los 4 proyectos (IDEN-05), al menos 3 capturas 16:10 por proyecto revisadas por Teo (IDEN-06) y el copy en en/es sin marcadores ni borradores, incluidos los bullets de Sofka (IDEN-07), están cargados y aprobados por Teo desde el admin
 
-**Plans**: TBD
+**Plans**: 13 plans en 9 olas (2 compuertas humanas `blocking-human`)
+
+Plans:
+**Wave 1**
+
+- [ ] 03-01-PLAN.md — Aprobaciones de arranque (una petición), sonner/unpdf y primitivas shadcn, tokens, todos los textos del admin, registro de decisiones
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 03-02-PLAN.md — Hallazgos de la fase 2: seed que no pisa contenido, guarda de producción, respaldos no adivinables, CONTENT_EXPORT_DIR, política de content/
+- [ ] 03-03-PLAN.md — Tracer: columna draft + migración 0002, borrador/publicar de un proyecto hasta la página pública, slug fijo, capa de datos de proyectos
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 03-04-PLAN.md — Shell en español con nav numerada y checklist, lista de proyectos con reorden por teclado, visible/destacado en vivo y borrado con confirmación
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
+- [ ] 03-05-PLAN.md — Formulario completo de proyecto: kit bilingüe, repetidores, Tiptap + renderer, Cmd+S y aviso de cambios sin guardar, página de creación
+- [ ] 03-10-PLAN.md — Bandeja de mensajes de contacto con lector, leído/no leído y contador
+
+**Wave 5** *(blocked on Wave 4 completion)*
+
+- [ ] 03-06-PLAN.md — Draft Mode: /api/draft, banda pública, ajustes con borrador, capturas e impeccable de la banda
+- [ ] 03-07-PLAN.md — Subida de imágenes a Blob con alt en/es y portada, /api/blob/upload, cambios de next.config (CSP, imágenes, trazado, rewrites)
+
+**Wave 6** *(blocked on Wave 5 completion)*
+
+- [ ] 03-08-PLAN.md — SiteSettings con borrador y vista previa de la home, CRUD de educación
+- [ ] 03-09-PLAN.md — CRUD de experiencia (bullets, relaciones) y skills por categoría con reorden
+
+**Wave 7** *(blocked on Wave 6 completion)*
+
+- [ ] 03-11-PLAN.md — CV: CvData, react-pdf con fuentes estáticas, generar en/es a Blob, /cv/{en,es}.pdf, historial y spike en Preview
+
+**Wave 8** *(blocked on Wave 7 completion)*
+
+- [ ] 03-12-PLAN.md — JSON Resume en vivo en /resume.json y /resume.es.json
+
+**Wave 9** *(blocked on Wave 8 completion)*
+
+- [ ] 03-13-PLAN.md — Despliegue a producción y sesión de carga de Teo (D-09), compuerta en producción
+
 **UI hint**: yes
 **Window**: días 5–7
 **Gate**: contenido real cargado desde el admin + PDF con tildes y ñ correctas en ambos idiomas
@@ -237,6 +279,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Identidad y contenido | 13/13 | Complete    | 2026-11-01 |
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
-| 3. Panel admin + CV | 0/TBD | Not started | - |
+| 3. Panel admin + CV | 0/13 | Planned | - |
 | 4. Sitio público | 0/TBD | Not started | - |
 | 5. Pulido y lanzamiento | 0/TBD | Not started | - |

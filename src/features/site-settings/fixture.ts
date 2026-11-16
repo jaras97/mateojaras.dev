@@ -1,5 +1,6 @@
 import type { SiteSettings } from "./types";
 
+// The type comes from the schema (typeof siteSettings.$inferSelect).
 // The whole site_settings row the hero variants render in phase 1 (D-03).
 // Availability and location are Teo's G2 answers (01-04-ANSWERS.md, read by
 // the scripted G2 rule). The headline is the short version Claude proposed and
@@ -21,6 +22,7 @@ export const heroFixture = {
   availableFrom: null,
   timezone: "America/Bogota",
   location: "Medellín, Colombia",
+  languages: [],
   email: "",
   calendarUrl: null,
   githubUrl: null,

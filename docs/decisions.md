@@ -185,3 +185,17 @@ Decisión: el seed incluye el About y los 3 bullets freelance de docs/copy.md ac
 Quién: decidió Teo (E: sí); Claude Code registra.
 Por qué: evita inventar contenido, regla de CLAUDE.md.
 Verificación: 02-01-ANSWERS.md y el seed del plan 02-02.
+
+## 2026-11-15 · content/*.json se versiona
+Contexto: `exportContent()` escribe un archivo por tabla de contenido y el repo es público.
+Decisión: `content/*.json` se commitea. Solo salen las 9 tablas de la lista permitida (site_settings, skills, projects, experiences, education, resume_versions y las tres de unión); user, session, account, verification, rateLimit y contact_messages nunca se exportan.
+Quién: Claude Code, dentro de los límites.
+Por qué: es la copia de seguridad local mientras Vercel Blob no existe, y los proyectos ya son públicos en docs/content.
+Verificación: test de la lista permitida en `src/lib/content-export.test.ts`; `pnpm export:content` tras `pnpm seed --from-content --force` no cambia un byte.
+
+## 2026-11-15 · Fechas con precisión de mes en el seed
+Contexto: las fuentes dan mes y año (ago 2021, ago 2025, sep 2025), pero `start_date` y `end_date` son `date`.
+Decisión: el seed guarda el día 1 de cada mes (2021-08-01, 2025-08-01, 2025-09-01).
+Quién: Claude Code; Teo puede corregirlas desde el admin en la fase 3.
+Por qué: no hay día verificado y no se inventa uno.
+Verificación: scripts/lib/seed-facts.ts cita la fuente de cada fecha.

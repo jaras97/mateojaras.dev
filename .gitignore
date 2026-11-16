@@ -49,3 +49,5 @@ next-env.d.ts
 
 # capturas de revisión del lab (fase 1), no se versionan
 /.lab-captures/
+test-results/
+playwright-report/

@@ -20,7 +20,8 @@ export default defineConfig({
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
     command: `pnpm build && pnpm start -p ${PORT}`,
-    url: `http://localhost:${PORT}`,
+    // `/` has no route (only /en and /es), so wait on a prerendered page.
+    url: `http://localhost:${PORT}/en`,
     reuseExistingServer: !process.env.CI,
     timeout: 300_000,
   },

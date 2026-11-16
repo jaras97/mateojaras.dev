@@ -25,5 +25,25 @@
       "body": "Esta página no existe.",
       "home": "Volver al inicio"
     }
+  },
+  "Admin": {
+    "meta": {
+      "title": "Panel"
+    },
+    "login": {
+      "title": "Iniciar sesión",
+      "email": "Correo",
+      "password": "Contraseña",
+      "submit": "Entrar",
+      "invalid": "Correo o contraseña incorrectos.",
+      "required": "Este campo es obligatorio."
+    },
+    "panel": {
+      "title": "Panel"
+    },
+    "shell": {
+      "signOut": "Cerrar sesión",
+      "exportSkipped": "Los respaldos del contenido no se están guardando: falta BLOB_READ_WRITE_TOKEN en este entorno."
+    }
   }
 }

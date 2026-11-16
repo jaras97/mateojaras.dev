@@ -106,7 +106,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 02-02-PLAN.md — .env.local de Neon dev, esquema completo + migración 0000 aplicada en Neon dev, migrate con lock
+- [x] 02-02-PLAN.md — .env.local de Neon dev, esquema completo + migración 0000 aplicada en Neon dev, migrate con lock
 
 **Wave 3** *(blocked on Wave 2 completion)*
 

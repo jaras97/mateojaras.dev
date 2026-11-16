@@ -318,3 +318,17 @@ Decisión: `/content/` en `.gitignore` y fuera del índice (los archivos siguen 
 Quién: Teo eligió (D: a); Claude Code implementó en 03-02.
 Por qué: no publicar contenido sin aprobar.
 Verificación: ciclo export, restore y export sin diferencias.
+
+## 2026-11-16 · Borradores en una columna `draft` y publicación explícita (03-03)
+Contexto: editar un proyecto publicado no debe cambiar el sitio hasta que Teo publique.
+Decisión: columna `draft jsonb` nullable en projects, experiences, skills, education y site_settings (migración 0002, aplicada a dev; main se migra con el build de producción). Las filas nunca publicadas se editan en sus columnas; las publicadas guardan el payload completo en `draft` y Publicar lo copia con `db.batch`. Guardar un borrador no invalida ninguna etiqueta pública. `visible`, `order` y `featured` se escriben en vivo.
+Quién: Teo aprobó (03-01, B: sí); Claude Code implementó.
+Por qué: ningún borrador llega al sitio público ni al payload RSC.
+Verificación: e2e `admin-projects.spec.ts` (el borrador no sale, la publicación sí) y tests de acciones.
+
+## 2026-11-16 · El e2e del tracer usa su propio proyecto (03-03)
+Contexto: los proyectos sembrados no tienen eslogan, problema ni rol, así que la regla de publicación los rechaza, y D-10 prohíbe tocarlos desde tests.
+Decisión: el e2e inserta un proyecto de prueba completo (`e2e-tracer-project`) y lo borra al terminar.
+Quién: Claude Code.
+Por qué: probar publicar sin modificar contenido real.
+Verificación: `pnpm test:e2e e2e/admin-projects.spec.ts`.

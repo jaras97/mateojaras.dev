@@ -110,7 +110,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 02-03-PLAN.md — Tracer: seed de proyectos, queries cacheadas, /en y /es prerenderizados
+- [x] 02-03-PLAN.md — Tracer: seed de proyectos, queries cacheadas, /en y /es prerenderizados
 
 **Wave 4** *(blocked on Wave 3 completion)*
 

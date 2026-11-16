@@ -20,13 +20,13 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 ### Base técnica (BASE)
 
 - [ ] **BASE-01**: Esquema Drizzle de `docs/data-model.md` (más `site_settings.languages` en CEFR) aplicado por migración en Neon `dev` y `main`
-- [ ] **BASE-02**: Dos root layouts (`app/[locale]` y `app/admin`) y el layout del scaffold eliminado
+- [x] **BASE-02**: Dos root layouts (`app/[locale]` y `app/admin`) y el layout del scaffold eliminado
 - [ ] **BASE-03**: `proxy.ts` aplica las reescrituras de next-intl (rutas localizadas en `/es`) y la comprobación de la cookie en `/admin`
 - [ ] **BASE-04**: El idioma se lee con `next/root-params` en RSC y se pasa explícito a Server Actions y Route Handlers; `/` siempre es inglés (sin detección)
-- [ ] **BASE-05**: Las consultas públicas usan `'use cache'` + `cacheTag` por entidad, escritas como núcleo sin caché más envoltorio cacheado, y respetan Draft Mode
-- [ ] **BASE-06**: `pnpm seed` carga el contenido real de `docs/content/` (al menos un proyecto publicado) y crea el único usuario admin desde variables de entorno
+- [x] **BASE-05**: Las consultas públicas usan `'use cache'` + `cacheTag` por entidad, escritas como núcleo sin caché más envoltorio cacheado, y respetan Draft Mode
+- [x] **BASE-06**: `pnpm seed` carga el contenido real de `docs/content/` (al menos un proyecto publicado) y crea el único usuario admin desde variables de entorno
 - [ ] **BASE-07**: `exportContent()` escribe `content/*.json` en local y en Blob en producción (se omite con aviso hasta que exista el token), y el seed puede restaurar desde esos archivos
-- [ ] **BASE-08**: Esqueleto público: `/`, `/es`, `/projects/[slug]` y `/es/proyectos/[slug]` muestran títulos reales desde la base, prerenderizados
+- [x] **BASE-08**: Esqueleto público: `/`, `/es`, `/projects/[slug]` y `/es/proyectos/[slug]` muestran títulos reales desde la base, prerenderizados
 - [ ] **BASE-09**: Decisión go/no-go del plan B (`cacheComponents` vs ISR) al final del día 3, registrada en `docs/decisions.md`
 - [ ] **BASE-10**: CI corre `pnpm check` en cada push; Vercel Preview despliega contra Neon `dev` con migraciones en el build
 - [ ] **BASE-11**: CSP y cabeceras de seguridad estáticas en `next.config.ts` (sin nonce), primero en modo Report-Only
@@ -170,13 +170,13 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | IDEN-06 | Phase 3 | Complete |
 | IDEN-07 | Phase 3 | Complete |
 | BASE-01 | Phase 2 | Pending |
-| BASE-02 | Phase 2 | Pending |
+| BASE-02 | Phase 2 | Complete |
 | BASE-03 | Phase 2 | Pending |
 | BASE-04 | Phase 2 | Pending |
-| BASE-05 | Phase 2 | Pending |
-| BASE-06 | Phase 2 | Pending |
+| BASE-05 | Phase 2 | Complete |
+| BASE-06 | Phase 2 | Complete |
 | BASE-07 | Phase 2 | Pending |
-| BASE-08 | Phase 2 | Pending |
+| BASE-08 | Phase 2 | Complete |
 | BASE-09 | Phase 2 | Pending |
 | BASE-10 | Phase 2 | Pending |
 | BASE-11 | Phase 2 | Pending |
@@ -240,6 +240,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | QUAL-09 | Phase 5 | Pending |
 
 **Coverage:**
+
 - v1 requirements: 76 total
 - Mapped to phases: 76 (fase 1: 7, fase 2: 15, fase 3: 18, fase 4: 29, fase 5: 7)
 - Unmapped: 0

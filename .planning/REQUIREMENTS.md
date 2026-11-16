@@ -40,7 +40,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 ### Panel admin (ADMN)
 
-- [ ] **ADMN-01**: La interfaz del admin está en español (locale fijo `es`)
+- [x] **ADMN-01**: La interfaz del admin está en español (locale fijo `es`)
 - [ ] **ADMN-02**: Teo edita SiteSettings: titular, bio, Now (Tiptap), disponibilidad y fecha, ciudad, zona horaria, idiomas, enlaces, URL de Cal.com y SEO, en/es
 - [ ] **ADMN-03**: Teo crea, edita y elimina proyectos con todos los campos del caso de estudio, incluidas las decisiones técnicas y las métricas con su fuente en la etiqueta
 - [ ] **ADMN-04**: Teo crea, edita y elimina experiencias, skills y educación
@@ -184,7 +184,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | AUTH-02 | Phase 2 | Complete |
 | AUTH-03 | Phase 2 | Complete |
 | AUTH-04 | Phase 2 | Complete |
-| ADMN-01 | Phase 3 | Pending |
+| ADMN-01 | Phase 3 | Complete |
 | ADMN-02 | Phase 3 | Pending |
 | ADMN-03 | Phase 3 | Pending |
 | ADMN-04 | Phase 3 | Pending |

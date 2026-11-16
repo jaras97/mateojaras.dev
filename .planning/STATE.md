@@ -4,16 +4,16 @@ milestone: v1.0
 current_phase: 03
 current_phase_name: Panel admin + CV
 status: executing
-stopped_at: Phase 3 UI-SPEC approved
-last_updated: "2026-11-16T21:52:48.483Z"
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-11-16T22:46:23.624Z"
 last_activity: 2026-11-16
-last_activity_desc: Phase 2 complete, transitioned to Phase 3
-state_head: 220d7211d58499333ee7201006e7cc13d6b1afe7
+last_activity_desc: Phase 03 execution started
+state_head: f09e60b4c60448bf8ab1b8705541da9661c906f6
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 36
-  completed_plans: 22
+  completed_plans: 23
 milestone_name: milestone
 ---
 
@@ -24,14 +24,14 @@ milestone_name: milestone
 See: .planning/PROJECT.md (updated 2026-10-29)
 
 **Core value:** Los casos de estudio (`/projects/[slug]`) convencen a un cliente o reclutador de que Teo sabe decidir y entregar.
-**Current focus:** Phase 02 — Base técnica
+**Current focus:** Phase 03 — Panel admin + CV
 
 ## Current Position
 
-Phase: 03 (Panel admin + CV) — READY TO EXECUTE
-Plan: Not started
+Phase: 03 (Panel admin + CV) — EXECUTING
+Plan: 2 of 14
 Status: Ready to execute
-Last activity: 2026-11-16 — Phase 2 complete, transitioned to Phase 3
+Last activity: 2026-11-16 — Phase 03 execution started
 
 Progress: [████░░░░░░] 40%
 
@@ -75,6 +75,7 @@ Progress: [████░░░░░░] 40%
 | Phase 02 P02 | 15min | 3 tasks | 25 files |
 | Phase 02 P03 | 25min | 2 tasks | 20 files |
 | Phase 02 P04 | 25min | 2 tasks | 26 files |
+| Phase 03 P01 | 25min | 3 tasks | 40 files |
 
 ## Accumulated Context
 
@@ -113,6 +114,7 @@ Recent decisions affecting current work:
 - [Phase 01]: G7: no option or aplazar line written for Teo; --parse-g7 reads pendiente and the deferred gates stay FAIL under --final (never PASS); 01-13 must be replanned
 - [Phase 02]: 02-04: content/*.json committed (9 allowlisted tables only); seed dates use the first of the month
 - [Phase ?]: Phase 2 start: next 16.4.6, better-auth 1.7.25, languages jsonb, metrics_en/es, login rate limit in memory
+- [Phase 03]: Phase 3 start: Teo delegated all recommended options (draft jsonb, structural fields live, content/ untracked, cover from media, Blob suffix, tokens, Blob token luego, production load)
 
 ### Pending Todos
 
@@ -137,6 +139,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-16T20:50:15.103Z
-Stopped at: Phase 3 UI-SPEC approved
+Last session: 2026-11-16T22:46:23.528Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: .planning/phases/03-panel-admin-cv/03-UI-SPEC.md

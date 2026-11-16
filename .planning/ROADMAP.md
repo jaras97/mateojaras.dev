@@ -122,7 +122,7 @@ Plans:
 
 **Wave 6** *(blocked on Wave 5 completion)*
 
-- [ ] 02-06-PLAN.md — Better Auth: admin sembrado, migración 0001, /api/auth, requireSession / requireSessionForRequest
+- [x] 02-06-PLAN.md — Better Auth: admin sembrado, migración 0001, /api/auth, requireSession / requireSessionForRequest
 
 **Wave 7** *(blocked on Wave 6 completion)*
 

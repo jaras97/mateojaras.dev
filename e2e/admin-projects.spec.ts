@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { RATE_WINDOW_MS, signIn } from "./admin-session";
 import { expectNoBlockingViolations } from "./axe";
-import { sql } from "./db";
+import { deleteTempProjects, sql, TEMP_TITLE } from "./db";
 
 test.skip(
   !process.env.ADMIN_EMAIL ||
@@ -39,6 +39,7 @@ async function createFixture() {
 }
 
 test.afterEach(removeFixture);
+test.afterAll(deleteTempProjects);
 
 test("a draft stays off the site and a publish shows without redeploy", async ({
   page,
@@ -76,4 +77,45 @@ test("a draft stays off the site and a publish shows without redeploy", async ({
 
   await page.goto(publicUrl);
   await expect(heading(`${FIXTURE_TITLE} editado`)).toBeVisible();
+});
+
+test("create a draft, publish is blocked on missing fields, then delete", async ({
+  page,
+}) => {
+  test.setTimeout(120_000);
+  await deleteTempProjects();
+  const slug = `e2e-temp-${Date.now()}`;
+  await signIn(page);
+  await expect(page).toHaveURL(/\/admin$/);
+
+  await page.goto("/admin/proyectos/nuevo");
+  await expectNoBlockingViolations(page);
+  await page.getByLabel("Título ES").fill(TEMP_TITLE);
+  await page.getByLabel("Título EN").fill("Temporary e2e project");
+  await page.getByLabel("Slug").fill(slug);
+  await page.getByRole("button", { name: "Guardar borrador" }).click();
+  await expect(page).toHaveURL(/\/admin\/proyectos\/[0-9a-f-]{36}$/);
+  await expect(page.getByText("Borrador", { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: "Publicar" }).click();
+  await expect(
+    page.getByRole("alert").filter({ hasText: "No se pudo publicar: faltan" }),
+  ).toBeVisible();
+  await expect(page.getByLabel("Frase corta EN")).toBeFocused();
+
+  await page.goto("/admin/proyectos");
+  await page
+    .getByRole("button", { name: `Más acciones para ${TEMP_TITLE}` })
+    .click();
+  await page.getByRole("menuitem", { name: "Eliminar" }).click();
+  await page
+    .getByLabel(`Escribe ${TEMP_TITLE} para confirmar`)
+    .fill(TEMP_TITLE);
+  await page.getByRole("button", { name: "Eliminar definitivamente" }).click();
+  await expect(page.getByText(`${TEMP_TITLE} eliminado.`)).toBeVisible();
+
+  const left = (await sql`
+    select count(*)::int as n from projects where slug like 'e2e-temp-%'
+  `) as { n: number }[];
+  expect(left[0].n).toBe(0);
 });

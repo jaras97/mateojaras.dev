@@ -1,5 +1,5 @@
 import "server-only";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { projectSkills, projects } from "@/db/schema";
 import { requireSession } from "@/lib/dal";
@@ -28,4 +28,27 @@ export async function getProjectForAdmin(id: string) {
       ? (draftSkills as string[])
       : links.map((l) => l.skillId);
   return { row: applyDraft(stored), skillIds, hasPendingDraft };
+}
+
+// Rows for the 03-04 list. The draft body never leaves the server: only a flag.
+export async function listProjectsForAdmin() {
+  await requireSession();
+  const rows = await db
+    .select({
+      id: projects.id,
+      slug: projects.slug,
+      titleEs: projects.titleEs,
+      titleEn: projects.titleEn,
+      status: projects.status,
+      visible: projects.visible,
+      featured: projects.featured,
+      updatedAt: projects.updatedAt,
+      draft: projects.draft,
+    })
+    .from(projects)
+    .orderBy(asc(projects.order));
+  return rows.map(({ draft, ...row }) => ({
+    ...row,
+    hasPendingDraft: row.status === "published" && draft !== null,
+  }));
 }

@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest";
+import es from "../../../messages/es.json";
 import {
   type ProjectDraftInput,
   projectDraftSchema,
   projectPublishSchema,
+  SLUG_FORMAT_MESSAGE,
+  SLUG_LOCKED_MESSAGE,
+  SLUG_TAKEN_MESSAGE,
 } from "./validation";
 
 const complete: ProjectDraftInput = {
@@ -100,5 +104,13 @@ describe("projectPublishSchema", () => {
     });
     expect(bad.success).toBe(false);
     expect(good.success).toBe(true);
+  });
+});
+
+describe("slug messages", () => {
+  it("match messages/es.json", () => {
+    expect(SLUG_FORMAT_MESSAGE).toBe(es.Admin.form.slugFormat);
+    expect(SLUG_LOCKED_MESSAGE).toBe(es.Admin.form.slugLocked);
+    expect(SLUG_TAKEN_MESSAGE).toBe(es.Admin.form.slugTaken);
   });
 });

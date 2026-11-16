@@ -191,7 +191,7 @@ describe("publishProject", () => {
   it("returns conflict when another project owns the slug", async () => {
     selects.push([unpublished], [{ id: "another" }]);
     const { publishProject } = await import("./actions");
-    const result = await publishProject(ID, input);
+    const result = await publishProject(ID, { ...input, slug: "otro-slug" });
     expect(result).toMatchObject({ ok: false, error: "conflict" });
     expect(result.ok === false && result.fieldErrors?.slug?.length).toBe(1);
     expect(calls.batch).not.toHaveBeenCalled();
@@ -201,7 +201,7 @@ describe("publishProject", () => {
 
 describe("createProject", () => {
   it("returns the new id as a draft and calls no updateTag", async () => {
-    selects.push([], [{ max: 3 }]);
+    selects.push([], [{ value: 3 }]);
     const { createProject } = await import("./actions");
     const result = await createProject({
       titleEn: "New",

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { projects } from "@/db/schema";
+import { richTextDocSchema } from "@/lib/rich-text-schema";
 
 // Shared by the admin form (zodResolver) and the Server Actions (safeParse).
 // Mirrors docs/data-model.md "projects". The draft payload is the full
@@ -7,8 +8,25 @@ import type { projects } from "@/db/schema";
 
 export const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
+// Same copy as messages/es.json Admin.form (validation.test.ts keeps them equal).
+// Kept here so the client form does not bundle the whole messages file.
+export const SLUG_FORMAT_MESSAGE = "Usa solo minúsculas, números y guiones.";
+export const SLUG_LOCKED_MESSAGE =
+  "El slug quedó fijo al publicar. Cambiarlo rompería los enlaces que ya existen.";
+export const SLUG_TAKEN_MESSAGE =
+  "Ya hay un proyecto con este slug. Elige otro.";
+const INVALID_URL_MESSAGE =
+  "Escribe una URL completa, que empiece por https://.";
+
 const text = z.string();
 const nullableText = z.string().nullable();
+const slug = z.string().regex(SLUG_PATTERN, SLUG_FORMAT_MESSAGE);
+const httpsUrl = z
+  .union([
+    z.literal(""),
+    z.url({ protocol: /^https$/, message: INVALID_URL_MESSAGE }),
+  ])
+  .nullable();
 const metric = z.strictObject({ label: text, value: text });
 const techDecisions = z.strictObject({
   decisions: z.array(z.strictObject({ title: text, body: text })),
@@ -24,7 +42,7 @@ const mediaItem = z.strictObject({
 });
 
 export const projectDraftSchema = z.strictObject({
-  slug: z.string().min(1),
+  slug,
   titleEn: text,
   titleEs: text,
   taglineEn: nullableText,
@@ -35,16 +53,16 @@ export const projectDraftSchema = z.strictObject({
   roleEs: nullableText,
   solutionEn: nullableText,
   solutionEs: nullableText,
-  caseStudyEn: z.unknown().nullable(),
-  caseStudyEs: z.unknown().nullable(),
+  caseStudyEn: richTextDocSchema.nullable(),
+  caseStudyEs: richTextDocSchema.nullable(),
   resultsEn: z.array(text).nullable(),
   resultsEs: z.array(text).nullable(),
   metricsEn: z.array(metric).nullable(),
   metricsEs: z.array(metric).nullable(),
   techDecisionsEn: techDecisions.nullable(),
   techDecisionsEs: techDecisions.nullable(),
-  liveUrl: nullableText,
-  repoUrl: nullableText,
+  liveUrl: httpsUrl,
+  repoUrl: httpsUrl,
   coverImage: nullableText,
   media: z.array(mediaItem).nullable(),
   startedAt: nullableText,
@@ -65,12 +83,29 @@ const REQUIRED_TO_PUBLISH = [
   "solutionEs",
 ] as const;
 
+export const createProjectSchema = z.strictObject({
+  titleEn: z.string().trim().min(1),
+  titleEs: z.string().trim().min(1),
+  slug,
+});
+
 export const projectPublishSchema = projectDraftSchema.superRefine(
   (value, ctx) => {
     for (const key of REQUIRED_TO_PUBLISH) {
       if (!value[key]?.trim()) {
         ctx.addIssue({ code: "custom", path: [key], message: "required" });
       }
+    }
+    // Portada rule (03-01 Lectura E): the cover is one of the project images.
+    if (
+      value.coverImage &&
+      !value.media?.some((item) => item.url === value.coverImage)
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["coverImage"],
+        message: "cover must be one of the images",
+      });
     }
     value.media?.forEach((item, index) => {
       for (const key of ["altEn", "altEs"] as const) {
@@ -108,8 +143,8 @@ export function projectFormValues(
     roleEs: row.roleEs ?? "",
     solutionEn: row.solutionEn ?? "",
     solutionEs: row.solutionEs ?? "",
-    caseStudyEn: row.caseStudyEn ?? null,
-    caseStudyEs: row.caseStudyEs ?? null,
+    caseStudyEn: (row.caseStudyEn ?? null) as ProjectDraftInput["caseStudyEn"],
+    caseStudyEs: (row.caseStudyEs ?? null) as ProjectDraftInput["caseStudyEs"],
     resultsEn: row.resultsEn ?? [],
     resultsEs: row.resultsEs ?? [],
     metricsEn: row.metricsEn ?? [],

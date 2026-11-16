@@ -15,8 +15,10 @@ import {
 import { toast } from "sonner";
 import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { BilingualField } from "@/components/admin/bilingual-field";
+import { BilingualRepeater } from "@/components/admin/bilingual-repeater";
 import { useFormLabels } from "@/components/admin/form-labels";
 import { FormSection } from "@/components/admin/form-section";
+import { RichTextField } from "@/components/admin/rich-text-field";
 import { SectionIndex } from "@/components/admin/section-index";
 import { UnsavedGuard } from "@/components/admin/unsaved-guard";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -26,6 +28,7 @@ import { Switch } from "@/components/ui/switch";
 import { isEmptyText } from "@/lib/bilingual";
 import { fieldMessage } from "@/lib/form-errors";
 import { fill } from "@/lib/messages";
+import { docHasText } from "@/lib/rich-text";
 import { slugify } from "@/lib/slug";
 import { publishProject, saveProjectDraft } from "../actions";
 import {
@@ -202,12 +205,26 @@ function ProjectFormBody({
   }
 
   const missing = useMissingEs(control);
+  const names = labels.projects.sections;
   const sections = [
     {
       id: "basico",
       number: "01",
-      title: labels.projects.sections.basic,
+      title: names.basic,
       missingEs: missing.basic,
+    },
+    { id: "caso", number: "02", title: names.case, missingEs: missing.case },
+    {
+      id: "decisiones",
+      number: "03",
+      title: names.decisions,
+      missingEs: missing.decisions,
+    },
+    {
+      id: "metricas",
+      number: "04",
+      title: names.metrics,
+      missingEs: missing.metrics,
     },
   ];
 
@@ -268,6 +285,15 @@ function ProjectFormBody({
               skillOptions={skillOptions}
             />
           </FormSection>
+          <FormSection id="caso" number="02" title={names.case}>
+            <CaseSection />
+          </FormSection>
+          <FormSection id="decisiones" number="03" title={names.decisions}>
+            <DecisionsSection />
+          </FormSection>
+          <FormSection id="metricas" number="04" title={names.metrics}>
+            <MetricsSection />
+          </FormSection>
         </form>
         <SectionIndex sections={sections} />
       </div>
@@ -275,16 +301,38 @@ function ProjectFormBody({
   );
 }
 
-// ES values still empty, per section (the index shows "{n} sin ES").
+// ES values still empty, per section (the index shows "{n} sin ES"). A field
+// counts when ES is empty and it is required to publish or EN has content.
 function useMissingEs(
   control: ReturnType<typeof useForm<ProjectFormValues>>["control"],
 ) {
   const v = useWatch({ control });
   const gap = (es: unknown, en: unknown, required = false) =>
     isEmptyText(es) && (required || !isEmptyText(en)) ? 1 : 0;
+  const rows = <T,>(list: T[] | undefined, count: (row: T) => number) =>
+    (list ?? []).reduce((sum, row) => sum + count(row), 0);
   return {
     basic:
       gap(v.titleEs, v.titleEn, true) + gap(v.taglineEs, v.taglineEn, true),
+    case:
+      gap(v.problemEs, v.problemEn, true) +
+      gap(v.roleEs, v.roleEn, true) +
+      gap(v.solutionEs, v.solutionEn, true) +
+      (docHasText(v.caseStudyEs) || !docHasText(v.caseStudyEn) ? 0 : 1) +
+      rows(v.results, (row) => gap(row?.es, row?.en)),
+    decisions:
+      rows(
+        v.decisions,
+        (row) =>
+          gap(row?.titleEs, row?.titleEn) + gap(row?.bodyEs, row?.bodyEn),
+      ) +
+      gap(v.tradeoffsEs, v.tradeoffsEn) +
+      gap(v.validationEs, v.validationEn),
+    metrics: rows(
+      v.metrics,
+      (row) =>
+        gap(row?.valueEs, row?.valueEn) + gap(row?.labelEs, row?.labelEn),
+    ),
   };
 }
 
@@ -453,5 +501,120 @@ function BasicSection({
         </fieldset>
       ) : null}
     </>
+  );
+}
+
+function CaseSection() {
+  const { projects } = useFormLabels();
+  const f = projects.fields;
+  return (
+    <>
+      <BilingualField
+        name="problem"
+        label={f.problem.label}
+        control="textarea"
+      />
+      <BilingualField name="role" label={f.role.label} control="textarea" />
+      <BilingualField
+        name="solution"
+        label={f.solution.label}
+        control="textarea"
+      />
+      <RichTextField name="caseStudy" label={f.caseStudy.label} />
+      <BilingualRepeater
+        name="results"
+        label={f.results.label}
+        addLabel={projects.add.result}
+        emptyRow={{ es: "", en: "" }}
+        columns={[
+          {
+            kind: "bilingual",
+            label: f.results.label,
+            esKey: "es",
+            enKey: "en",
+            control: "textarea",
+          },
+        ]}
+      />
+    </>
+  );
+}
+
+function DecisionsSection() {
+  const { projects } = useFormLabels();
+  const f = projects.fields;
+  return (
+    <>
+      <BilingualRepeater
+        name="decisions"
+        label={f.decisions.label}
+        addLabel={projects.add.decision}
+        emptyRow={{ titleEs: "", titleEn: "", bodyEs: "", bodyEn: "" }}
+        columns={[
+          {
+            kind: "bilingual",
+            label: f.decisionTitle.label,
+            esKey: "titleEs",
+            enKey: "titleEn",
+          },
+          {
+            kind: "bilingual",
+            label: f.decisionBody.label,
+            esKey: "bodyEs",
+            enKey: "bodyEn",
+            control: "textarea",
+          },
+        ]}
+      />
+      <BilingualField
+        name="tradeoffs"
+        label={f.tradeoffs.label}
+        control="textarea"
+      />
+      <BilingualField
+        name="validation"
+        label={f.validation.label}
+        control="textarea"
+      />
+      <BilingualRepeater
+        name="aiTools"
+        label={f.aiTools.label}
+        helper={f.aiTools.helper}
+        addLabel={projects.add.aiTool}
+        emptyRow={{ value: "" }}
+        columns={[
+          { kind: "single", label: f.aiTools.label, key: "value", mono: true },
+        ]}
+      />
+    </>
+  );
+}
+
+function MetricsSection() {
+  const { projects, form } = useFormLabels();
+  const f = projects.fields;
+  return (
+    <BilingualRepeater
+      name="metrics"
+      label={f.metrics.label}
+      helper={form.metricsHelper}
+      addLabel={projects.add.metric}
+      emptyRow={{ valueEs: "", labelEs: "", valueEn: "", labelEn: "" }}
+      columns={[
+        {
+          kind: "bilingual",
+          label: f.metricValue.label,
+          esKey: "valueEs",
+          enKey: "valueEn",
+          mono: true,
+        },
+        {
+          kind: "bilingual",
+          label: f.metricLabel.label,
+          esKey: "labelEs",
+          enKey: "labelEn",
+        },
+      ]}
+    />
   );
 }

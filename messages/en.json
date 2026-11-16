@@ -158,7 +158,8 @@
       "add": {
         "result": "Add result",
         "decision": "Add decision",
-        "metric": "Add metric"
+        "metric": "Add metric",
+        "aiTool": "Add tool"
       },
       "fields": {
         "title": {

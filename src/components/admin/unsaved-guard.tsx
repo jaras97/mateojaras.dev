@@ -3,6 +3,8 @@
 import { useEffect, useEffectEvent } from "react";
 import { useNavigationBlocker } from "./navigation-blocker";
 
+const CAPTURE = { capture: true };
+
 // Wires one form into the shell: navigation blocker, beforeunload and
 // Cmd/Ctrl+S. Listeners live in effects so Activity-preserved routes release
 // them. Browser back/forward is not intercepted (no App Router API for it).
@@ -45,9 +47,8 @@ export function UnsavedGuard({
       event.preventDefault();
       if (!busy) save();
     };
-    document.addEventListener("keydown", handler, { capture: true });
-    return () =>
-      document.removeEventListener("keydown", handler, { capture: true });
+    document.addEventListener("keydown", handler, CAPTURE);
+    return () => document.removeEventListener("keydown", handler, CAPTURE);
   }, [busy]);
 
   return null;

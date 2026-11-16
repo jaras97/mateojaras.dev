@@ -21,3 +21,36 @@ export async function countProjects() {
   }[];
   return rows[0].n;
 }
+
+export type OrderRow = {
+  id: string;
+  slug: string;
+  titleEs: string;
+  status: string;
+  visible: boolean;
+};
+
+export async function projectOrder() {
+  return (await sql`
+    select id, slug, title_es as "titleEs", status, visible
+    from projects
+    order by "order" asc, id asc
+  `) as OrderRow[];
+}
+
+export const TEMP_TITLE = "Proyecto temporal e2e";
+
+// Test data only: a draft that never shows on the public site.
+export async function insertTempProject() {
+  const slug = `e2e-temp-${Date.now()}`;
+  const rows = (await sql`
+    insert into projects (slug, status, visible, "order", title_en, title_es)
+    values (${slug}, 'draft', true, 999, ${TEMP_TITLE}, ${TEMP_TITLE})
+    returning id
+  `) as { id: string }[];
+  return { id: rows[0].id, slug };
+}
+
+export async function deleteTempProjects() {
+  await sql`delete from projects where slug like 'e2e-temp-%'`;
+}

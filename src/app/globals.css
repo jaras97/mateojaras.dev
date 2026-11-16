@@ -13,6 +13,7 @@
   --line: oklch(0.88 0.01 80);
   --accent: oklch(0.66 0.17 40);
   --accent-ink: oklch(0.99 0 0);
+  --destructive: oklch(0.53 0.19 27);
   --radius: 0.25rem;
   color-scheme: light;
 }
@@ -25,6 +26,7 @@
   --line: oklch(0.3 0.012 260);
   --accent: oklch(0.72 0.16 40);
   --accent-ink: oklch(0.15 0.02 40);
+  --destructive: oklch(0.7 0.17 25);
   color-scheme: dark;
 }
 
@@ -47,7 +49,7 @@
   --muted: var(--bg-elev);
   --muted-foreground: var(--ink-2);
   --border: var(--line);
-  --input: var(--line);
+  --input: color-mix(in oklch, var(--line), var(--ink-2) 60%);
   --ring: var(--accent);
 }
 
@@ -67,6 +69,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
   /* shadcn "accent" is a neutral hover surface; the terracotta is "signal". */
   --color-accent: var(--bg-elev);
   --color-accent-foreground: var(--ink);

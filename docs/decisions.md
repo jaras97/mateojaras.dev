@@ -220,3 +220,94 @@ Decisión: Preview usa la rama Neon `dev` y Production usa `main`. La integraci�
 Quién: Teo hizo los paneles de Vercel y Neon y ejecutó los scripts que leen `.env.local` y las URLs de `main`; Claude Code enlazó el proyecto, generó y cargó los secretos aleatorios, y abrió el PR.
 Por qué: que ningún build de Preview migre `main` (T-02-30) y que un secreto filtrado de un entorno no sirva en otro (T-02-36).
 Verificación: `vercel env ls` muestra `DATABASE_URL*` en Production (integración) y en Preview (a mano, `dev`); la salida de migrate y seed en `main` mostró el host `ep-billowing-union-…`, distinto del de `dev` (`ep-floral-queen-…`); CI y el Preview del PR #1 en verde.
+
+## 2026-11-16 · Aprobaciones de arranque de la fase 3
+Contexto: el plan 03-01 reúne en una sola petición lo que CLAUDE.md obliga a preguntar (dependencias, modelo de datos, tokens, servicios). Las respuestas están en `.planning/phases/03-panel-admin-cv/03-01-ANSWERS.md`.
+Decisión: Teo delegó todo en las opciones recomendadas ("haz todo lo que recomiendes y déjame lo que deba hacer yo a mano"): A verificado, B sí, C sí, D a, E sí, F sí, G sí, H luego, I producción.
+Quién: Teo decidió delegar; Claude Code aplicó las opciones recomendadas.
+Por qué: la fase 3 no puede empezar sin estas aprobaciones y Teo prefiere que solo se le pidan los pasos manuales.
+Verificación: 03-01-ANSWERS.md, nueve líneas de Lectura.
+
+## 2026-11-16 · Mecanismo del borrador (D-01)
+Contexto: D-01 fijó borrador y publicación en un solo sentido; el mecanismo lo elegía el planificador.
+Decisión: columna `draft` jsonb nula en projects, experiences, skills y education, más `status` y `draft` en site_settings (la fila actual queda `published`). Un elemento nunca publicado se edita en sus columnas; uno publicado guarda los cambios en `draft` y "Publicar" los copia. Migración 0002 en dev y luego en main (la escribe 03-03).
+Quién: Claude Code propuso el mecanismo; Teo lo aprobó (B: sí).
+Por qué: evita una tabla de revisiones y mantiene las consultas públicas leyendo solo columnas publicadas.
+Verificación: migración 0002 y tests de 03-03.
+
+## 2026-11-16 · Snapshot del CV en Blob (D-08)
+Contexto: el CV se genera desde el admin y se guarda en Blob.
+Decisión: ruta `resume/<locale>/v<n>-<sufijo aleatorio>.pdf` en vez de `v<n>.pdf` exacto; la URL pública sigue siendo /cv/en.pdf y /cv/es.pdf.
+Quién: Claude Code propuso; Teo aprobó (F: sí).
+Por qué: un reintento nunca choca con un blob existente y la CDN no sirve una versión vieja.
+Verificación: se implementa en 03-11.
+
+## 2026-11-16 · Rutas aprobadas del admin (D-13)
+Contexto: CLAUDE.md pide preguntar antes de añadir rutas.
+Decisión: se aprueban las rutas de D-13 de 03-CONTEXT.md (panel, ajustes, proyectos, experiencia, skills, educación, CV, mensajes y los endpoints de subida y de CV), sin rutas adicionales.
+Quién: Teo (D-13, ya aprobado en CONTEXT); Claude Code las aplica.
+Por qué: el alcance de la fase 3 está cerrado en CONTEXT.
+Verificación: lista de rutas en 03-CONTEXT.md.
+
+## 2026-11-16 · Paquetes de la fase 3 (D-16)
+Contexto: el admin necesita toasts y el test de tildes del PDF necesita extraer texto.
+Decisión: `sonner` 2.0.8 en dependencies y `unpdf` 2.1.0 en devDependencies, ambos con versión exacta. sonner se instaló a mano y `src/components/ui/sonner.tsx` se escribió a mano, porque `shadcn add sonner` arrastra next-themes, que está prohibido. unpdf 2.2.x tiene menos de 2 semanas y se descarta por ahora. Más 19 componentes oficiales de shadcn sin paquetes npm nuevos.
+Quién: Teo delegó la verificación (A); Claude Code la hizo con metadatos de npm (repos emilkowalski/sonner y unjs/unpdf, sin postinstall, unpdf publicada hace 17 días) y aplicó las versiones.
+Por qué: dependencias mínimas y verificadas contra paquetes con nombre parecido.
+Verificación: `grep next-themes package.json pnpm-lock.yaml` no devuelve nada.
+
+## 2026-11-16 · Campos estructurales en vivo (C)
+Contexto: con borradores hay que decidir qué cambia el sitio en el acto.
+Decisión: visible, orden y destacado se aplican al sitio sin pasar por borrador; el interruptor de visible es el que retira algo del sitio.
+Quién: Teo (C: sí).
+Por qué: retirar algo del sitio no debe esperar a una publicación.
+Verificación: 03-04.
+
+## 2026-11-16 · content/*.json fuera del repo público (D)
+Contexto: con borradores, Inventario y Finanzas y cambios sin publicar acabarían en GitHub si content/ sigue versionado.
+Decisión: opción (a): dejar de versionar content/ (se queda en disco; el respaldo en producción va a Blob con rutas no adivinables). Lo aplica 03-02.
+Quién: Teo (D: a).
+Por qué: privacidad de borradores; es reversible.
+Verificación: 03-02 (.gitignore y git rm --cached).
+
+## 2026-11-16 · Portada desde las imágenes subidas (E)
+Contexto: la portada de un proyecto necesita alt en en/es.
+Decisión: la portada se elige entre las imágenes subidas del proyecto.
+Quién: Teo (E: sí).
+Por qué: así toda portada tiene alt en ambos idiomas.
+Verificación: 03-07.
+
+## 2026-11-16 · Tokens del tema del admin (G)
+Contexto: la UI-SPEC necesita dos tokens que DESIGN.md no define.
+Decisión: `--destructive` oklch(0.53 0.19 27) en claro y oklch(0.70 0.17 25) en oscuro, solo para errores y el botón final de borrar; `--input` pasa a `color-mix(in oklch, var(--line), var(--ink-2) 60%)` para cumplir el contraste 3.2:1 de WCAG 1.4.11. El admin queda solo en claro y el CV en A4 en esta fase. DESIGN.md no se toca.
+Quién: Teo aprobó (G: sí); Claude Code lo aplicó en globals.css.
+Por qué: errores y bordes de campo legibles sin cambiar los siete tokens de la paleta.
+Verificación: `grep -c -- '--destructive' src/app/globals.css`.
+
+## 2026-11-16 · Token de Vercel Blob (H)
+Contexto: D-17, la subida de imágenes y el CV necesitan BLOB_READ_WRITE_TOKEN.
+Decisión: Teo crea el store (Public) más adelante y pega el token en `.env.local` y en Vercel. Mientras falte, subida y CV muestran un aviso; nada se simula.
+Quién: Teo (H: luego).
+Por qué: es un paso manual de su dashboard; el token nunca se versiona.
+Verificación: la comprobación de la variable en los planes 03-07 y 03-11.
+
+## 2026-11-16 · Entorno de la sesión de carga (D-09, I)
+Contexto: el contenido real se carga al final de la fase.
+Decisión: producción. Justo antes de la sesión se hace push a main, que despliega Production y aplica la migración 0002 en Neon main, y Teo carga el contenido en mateojaras-dev.vercel.app.
+Quién: Teo (I: producción).
+Por qué: el contenido tiene que quedar donde se sirve.
+Verificación: 03-13.
+
+## 2026-11-16 · Sesión antes de Zod en cada acción
+Contexto: RESEARCH Pitfall 9.
+Decisión: toda Server Action y loader del admin llama a `requireSession()` antes de parsear con Zod.
+Quién: Claude Code.
+Por qué: una petición sin sesión no debe recibir errores de validación que revelen la forma de los datos.
+Verificación: tests de acciones en los planes de cada entidad.
+
+## 2026-11-16 · `seed --force` solo inserta lo que falta
+Contexto: con contenido real en la base, un seed no puede pisarlo.
+Decisión: `seed --force` inserta solo filas ausentes y tiene una guarda contra producción (`--allow-production`). Se implementa en 03-02.
+Quién: Claude Code.
+Por qué: evitar perder contenido editado en el admin.
+Verificación: tests de 03-02.

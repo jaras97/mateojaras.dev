@@ -332,3 +332,17 @@ Decisión: el e2e inserta un proyecto de prueba completo (`e2e-tracer-project`) 
 Quién: Claude Code.
 Por qué: probar publicar sin modificar contenido real.
 Verificación: `pnpm test:e2e e2e/admin-projects.spec.ts`.
+
+## 2026-11-16 · El formulario de proyecto edita filas emparejadas (03-05)
+Contexto: el borrador guarda un array por idioma (`resultsEs`/`resultsEn`, `metricsEs`/`metricsEn`, `techDecisionsEs/En`), pero `useFieldArray` no admite arrays de strings y emparejar por índice a mano es frágil.
+Decisión: el formulario trabaja con filas `{ es, en }` (`src/features/projects/form-model.ts`) y convierte a y desde el payload del borrador. No hay resolver: antes de enviar se valida con `projectDraftSchema` o `projectPublishSchema` sobre el payload convertido y los errores se vuelven a mapear a los campos.
+Quién: Claude Code (autónomo, dentro de los límites).
+Por qué: añadir o quitar una fila afecta a los dos idiomas a la vez y el modelo de datos no cambia.
+Verificación: `project-form.test.tsx`, `bilingual-repeater.test.tsx` y los e2e de proyectos.
+
+## 2026-11-16 · Textos de la interfaz del formulario por contexto (03-05)
+Contexto: los componentes del kit (campo bilingüe, repetidor, editor) necesitan muchas cadenas del admin.
+Decisión: `FormLabelsProvider` recibe del servidor un recorte de `messages/es.json` (`Admin.common`, `form`, `projects`, `richText`, `errors`, `toasts`, `skills`) y los componentes lo leen con `useFormLabels()`. Se añadió `Admin.projects.add.aiTool` en es y en.
+Quién: Claude Code.
+Por qué: evita pasar decenas de props y deja el kit reutilizable en 03-07, 03-08 y 03-09.
+Verificación: `pnpm check`.

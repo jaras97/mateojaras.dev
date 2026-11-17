@@ -15,6 +15,8 @@ import { localized } from "@/lib/i18n-fields";
 
 export type CvData = {
   locale: Locale;
+  // ISO instant of the newest updatedAt among the rows included (JSON Resume meta).
+  lastModified: string | null;
   name: string;
   headline: string;
   summary: string;
@@ -31,6 +33,8 @@ export type CvData = {
     role: string;
     location: string | null;
     dates: string;
+    startDate: string;
+    endDate: string | null;
     bullets: string[];
   }[];
   projects: {
@@ -43,6 +47,8 @@ export type CvData = {
     institution: string;
     program: string;
     dates: string;
+    startDate: string | null;
+    endDate: string | null;
     status: string | null;
   }[];
   languages: { name: string; level: string }[];
@@ -131,8 +137,22 @@ export async function buildCvData(locale: Locale): Promise<CvData> {
 
   const displayNames = new Intl.DisplayNames(locale, { type: "language" });
 
+  const stamps = [
+    settings,
+    ...experiences,
+    ...projects,
+    ...skills,
+    ...education,
+  ]
+    .map((row) => row.updatedAt)
+    .filter((d): d is Date => d instanceof Date)
+    .map((d) => d.getTime());
+
   return {
     locale,
+    lastModified: stamps.length
+      ? new Date(Math.max(...stamps)).toISOString()
+      : null,
     name: settings.name,
     headline: text(settings, "headline", locale),
     summary: text(settings, "bio", locale),
@@ -149,6 +169,8 @@ export async function buildCvData(locale: Locale): Promise<CvData> {
       role: text(row, "role", locale),
       location: row.location,
       dates: range(row.startDate, row.endDate, locale, present),
+      startDate: row.startDate,
+      endDate: row.endDate,
       bullets: list(row, "bullets", locale),
     })),
     projects: projects
@@ -163,6 +185,8 @@ export async function buildCvData(locale: Locale): Promise<CvData> {
       institution: row.institution,
       program: text(row, "program", locale),
       dates: range(row.startDate, row.endDate, locale, present),
+      startDate: row.startDate,
+      endDate: row.endDate,
       status: text(row, "status", locale) || null,
     })),
     languages: settings.languages.map((entry) => {

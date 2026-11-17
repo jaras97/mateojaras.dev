@@ -72,6 +72,7 @@ export function cvFixture(locale: "en" | "es"): CvData {
   const c = COPY[locale];
   return {
     locale,
+    lastModified: "2026-11-01T12:00:00.000Z",
     name: NAME,
     headline: c.headline,
     summary: c.summary,
@@ -89,6 +90,8 @@ export function cvFixture(locale: "en" | "es"): CvData {
         role: c.freelanceRole,
         location: "Remote",
         dates: c.dates.freelance,
+        startDate: "2025-09-01",
+        endDate: null,
         bullets: [...c.bullets],
       },
       {
@@ -96,6 +99,8 @@ export function cvFixture(locale: "en" | "es"): CvData {
         role: c.sofkaRole,
         location: "Remote",
         dates: c.dates.sofka,
+        startDate: "2021-08-01",
+        endDate: "2025-08-01",
         bullets: [],
       },
     ],
@@ -117,6 +122,8 @@ export function cvFixture(locale: "en" | "es"): CvData {
         institution: "Universidad de Antioquia",
         program: c.program,
         dates: "",
+        startDate: null,
+        endDate: null,
         status: c.status,
       },
     ],

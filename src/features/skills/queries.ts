@@ -1,11 +1,39 @@
-export function skillsQuery(
-  _handle: unknown,
-  _opts: { includeDrafts: boolean },
-): { toSQL(): { sql: string; params: unknown[] } } {
-  return { toSQL: () => ({ sql: "", params: [] }) };
+// Public reads of skills. The cached wrapper never reads the locale (skills
+// have no localized columns). The CV builder calls the core with includeDrafts.
+import { and, asc, eq } from "drizzle-orm";
+import { cacheLife, cacheTag } from "next/cache";
+import { draftMode } from "next/headers";
+import { db } from "@/db";
+import type { Db } from "@/db/client";
+import { skills } from "@/db/schema";
+import { tags } from "@/lib/cache-tags";
+import { applyDraft, stripDraft } from "@/lib/draft";
+
+type Opts = { includeDrafts: boolean };
+
+export function skillsQuery(handle: Db, { includeDrafts }: Opts) {
+  const base = handle.select().from(skills);
+  return (
+    includeDrafts
+      ? base
+      : base.where(
+          and(eq(skills.status, "published"), eq(skills.visible, true)),
+        )
+  ).orderBy(asc(skills.category), asc(skills.order));
 }
-export async function getSkillsCore(_opts: {
-  includeDrafts: boolean;
-}): Promise<Record<string, unknown>[]> {
-  return [{ draft: null }];
+
+// Public reads never carry `draft`; Draft Mode overlays it on the columns.
+export async function getSkillsCore(opts: Opts) {
+  const rows = await skillsQuery(db, opts);
+  return rows.map((row) =>
+    opts.includeDrafts ? applyDraft(row) : stripDraft(row),
+  );
+}
+
+export async function getSkills() {
+  "use cache";
+  cacheTag(tags.skills);
+  cacheLife("max");
+  const { isEnabled } = await draftMode();
+  return getSkillsCore({ includeDrafts: isEnabled });
 }

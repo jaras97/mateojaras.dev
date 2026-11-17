@@ -376,6 +376,7 @@
     "skills": {
       "title": "Skills",
       "count": "{n, plural, =0 {Sin skills} one {# skill} other {# skills}}",
+      "nameTaken": "Ya hay una skill con este nombre. Elige otro.",
       "new": "Nueva skill",
       "newTitle": "Nueva skill",
       "empty": {

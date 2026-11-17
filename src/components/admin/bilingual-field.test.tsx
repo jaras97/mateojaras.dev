@@ -8,7 +8,7 @@ import { adminMessages } from "@/lib/messages";
 import { BilingualField } from "./bilingual-field";
 import { FormLabelsProvider } from "./form-labels";
 
-const { common, form, projects, richText, errors, toasts, skills } =
+const { common, form, projects, richText, errors, toasts, skills, images } =
   adminMessages;
 
 function Harness({
@@ -21,7 +21,16 @@ function Harness({
   const methods = useForm({ defaultValues: defaults });
   return (
     <FormLabelsProvider
-      labels={{ common, form, projects, richText, errors, toasts, skills }}
+      labels={{
+        common,
+        form,
+        projects,
+        richText,
+        errors,
+        toasts,
+        skills,
+        images,
+      }}
     >
       <FormProvider {...methods}>{children}</FormProvider>
     </FormLabelsProvider>

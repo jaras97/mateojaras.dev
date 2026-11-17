@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { AdminLink } from "@/components/admin/admin-link";
 import { AdminNav, type AdminNavLabels } from "@/components/admin/admin-nav";
+import { EnvMissingNotice } from "@/components/admin/env-missing-notice";
 import { MobileMenu } from "@/components/admin/mobile-menu";
 import { NavigationBlockerProvider } from "@/components/admin/navigation-blocker";
 import { Button } from "@/components/ui/button";
@@ -97,9 +98,10 @@ export async function AuthGate({ children }: { children: ReactNode }) {
           </header>
           <div className="flex min-w-0 flex-1 flex-col">
             {exportSkipped ? (
-              <output className="block border-b border-border bg-muted px-6 py-2 text-sm">
-                {t("exportSkipped")}
-              </output>
+              <EnvMissingNotice
+                message={t("exportSkipped")}
+                className="border-x-0 border-t-0 px-6"
+              />
             ) : null}
             {children}
           </div>

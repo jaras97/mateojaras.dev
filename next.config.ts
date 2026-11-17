@@ -4,6 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 const isDev = process.env.NODE_ENV === "development";
 const isPreview = process.env.VERCEL_ENV === "preview";
 const vercelLive = isPreview ? " https://vercel.live" : "";
+const blobHost = "https://*.public.blob.vercel-storage.com";
 
 // Static CSP sent as a header: per-request tokens would force dynamic
 // rendering and break the static shell. Report-Only until the reports are reviewed.
@@ -11,7 +12,7 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${vercelLive}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' blob: data:${vercelLive}`,
+  `img-src 'self' blob: data: ${blobHost}${vercelLive}`,
   "font-src 'self'",
   `connect-src 'self'${vercelLive}`,
   ...(isPreview ? ["frame-src https://vercel.live"] : []),
@@ -47,6 +48,23 @@ const nextConfig: NextConfig = {
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
     ];
+  },
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+    ],
+  },
+  // The CV PDF renders from the admin routes and reads the static TTFs at runtime.
+  outputFileTracingIncludes: { "/admin/**": ["./assets/fonts-pdf/*.ttf"] },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        { source: "/cv/en.pdf", destination: "/api/cv/en" },
+        { source: "/cv/es.pdf", destination: "/api/cv/es" },
+        { source: "/resume.json", destination: "/api/resume/en" },
+        { source: "/resume.es.json", destination: "/api/resume/es" },
+      ],
+    };
   },
   cacheComponents: true,
   partialPrefetching: true,

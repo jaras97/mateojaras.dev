@@ -18,6 +18,7 @@ import { BilingualField } from "@/components/admin/bilingual-field";
 import { BilingualRepeater } from "@/components/admin/bilingual-repeater";
 import { useFormLabels } from "@/components/admin/form-labels";
 import { FormSection } from "@/components/admin/form-section";
+import { ImageUploader } from "@/components/admin/image-uploader";
 import { RichTextField } from "@/components/admin/rich-text-field";
 import { SectionIndex } from "@/components/admin/section-index";
 import { UnsavedGuard } from "@/components/admin/unsaved-guard";
@@ -100,11 +101,12 @@ function ProjectFormBody({
   featured,
   skillOptions,
   previewHref,
+  uploadsEnabled,
   savedAt,
   alert,
   onSaved,
   onAlert,
-}: Omit<Props, "version" | "uploadsEnabled"> & {
+}: Omit<Props, "version"> & {
   savedAt: string | null;
   alert: Alert;
   onSaved: (time: string, hasPendingDraft: boolean) => void;
@@ -121,14 +123,22 @@ function ProjectFormBody({
   const busyRef = useRef(false);
   const titleEs = useWatch({ control, name: "titleEs" });
 
+  function issueMessage(issue: FieldIssue) {
+    if (issue.message !== "required") return issue.message;
+    const alt = /^media\.\d+\.alt(Es|En)$/.exec(issue.name);
+    if (alt) {
+      return fill(labels.form.altMissing, {
+        idioma: alt[1] === "Es" ? "español" : "inglés",
+      });
+    }
+    return labels.form.requiredPublish;
+  }
+
   function showIssues(issues: FieldIssue[]) {
     for (const issue of issues) {
       setError(issue.name as never, {
         type: "validation",
-        message:
-          issue.message === "required"
-            ? labels.form.requiredPublish
-            : issue.message,
+        message: issueMessage(issue),
       });
     }
     if (issues[0]) setFocus(issues[0].name as never);
@@ -226,6 +236,7 @@ function ProjectFormBody({
       title: names.metrics,
       missingEs: missing.metrics,
     },
+    { id: "imagenes", number: "05", title: names.images, missingEs: 0 },
   ];
 
   return (
@@ -293,6 +304,9 @@ function ProjectFormBody({
           </FormSection>
           <FormSection id="metricas" number="04" title={names.metrics}>
             <MetricsSection />
+          </FormSection>
+          <FormSection id="imagenes" number="05" title={names.images}>
+            <ImagesSection id={id} uploadsEnabled={uploadsEnabled} />
           </FormSection>
         </form>
         <SectionIndex sections={sections} />
@@ -586,6 +600,39 @@ function DecisionsSection() {
           { kind: "single", label: f.aiTools.label, key: "value", mono: true },
         ]}
       />
+    </>
+  );
+}
+
+function ImagesSection({
+  id,
+  uploadsEnabled,
+}: {
+  id: string;
+  uploadsEnabled: boolean;
+}) {
+  const { control, setValue } = useFormContext<ProjectFormValues>();
+  const media = useWatch({ control, name: "media" });
+  const coverImage = useWatch({ control, name: "coverImage" });
+  const { errors } = useFormState({ control });
+  const coverError = fieldMessage(errors, "coverImage");
+  return (
+    <>
+      <ImageUploader
+        projectId={id}
+        media={media ?? []}
+        coverImage={coverImage}
+        uploadsEnabled={uploadsEnabled}
+        onChange={(nextMedia, nextCover) => {
+          setValue("media", nextMedia, { shouldDirty: true });
+          setValue("coverImage", nextCover, { shouldDirty: true });
+        }}
+      />
+      {coverError ? (
+        <p role="alert" className="text-sm text-destructive">
+          {coverError}
+        </p>
+      ) : null}
     </>
   );
 }

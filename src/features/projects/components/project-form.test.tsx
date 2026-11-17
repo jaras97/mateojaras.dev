@@ -28,8 +28,17 @@ import { adminMessages } from "@/lib/messages";
 import { projectFormValues } from "../validation";
 import { ProjectForm } from "./project-form";
 
-const { common, form, projects, richText, errors, toasts, skills, confirm } =
-  adminMessages;
+const {
+  common,
+  form,
+  projects,
+  richText,
+  errors,
+  toasts,
+  skills,
+  images,
+  confirm,
+} = adminMessages;
 
 // Complete except problemEs, so publish fails on exactly one field.
 const row = {
@@ -58,7 +67,16 @@ function renderForm() {
       }}
     >
       <FormLabelsProvider
-        labels={{ common, form, projects, richText, errors, toasts, skills }}
+        labels={{
+          common,
+          form,
+          projects,
+          richText,
+          errors,
+          toasts,
+          skills,
+          images,
+        }}
       >
         <ProjectForm
           version="v1"

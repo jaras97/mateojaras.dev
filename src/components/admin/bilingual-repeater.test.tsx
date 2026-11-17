@@ -7,14 +7,23 @@ import { adminMessages } from "@/lib/messages";
 import { BilingualRepeater } from "./bilingual-repeater";
 import { FormLabelsProvider } from "./form-labels";
 
-const { common, form, projects, richText, errors, toasts, skills } =
+const { common, form, projects, richText, errors, toasts, skills, images } =
   adminMessages;
 
 function Harness({ rows }: { rows: { es: string; en: string }[] }) {
   const methods = useForm({ defaultValues: { results: rows } });
   return (
     <FormLabelsProvider
-      labels={{ common, form, projects, richText, errors, toasts, skills }}
+      labels={{
+        common,
+        form,
+        projects,
+        richText,
+        errors,
+        toasts,
+        skills,
+        images,
+      }}
     >
       <FormProvider {...methods}>
         <BilingualRepeater

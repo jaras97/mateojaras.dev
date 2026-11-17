@@ -7,7 +7,14 @@ import type { AdminMessages } from "@/lib/messages";
 // slices; kit components read them here instead of threading props.
 export type FormMessages = Pick<
   AdminMessages,
-  "common" | "form" | "projects" | "richText" | "errors" | "toasts" | "skills"
+  | "common"
+  | "form"
+  | "projects"
+  | "richText"
+  | "errors"
+  | "toasts"
+  | "skills"
+  | "images"
 >;
 
 const Context = createContext<FormMessages | null>(null);

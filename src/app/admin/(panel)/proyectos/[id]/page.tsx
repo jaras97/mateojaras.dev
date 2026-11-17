@@ -24,11 +24,20 @@ export default async function EditProjectPage({
   ]);
   if (!data) notFound();
   const { row, skillIds, hasPendingDraft } = data;
-  const { common, form, projects, richText, errors, toasts, skills } =
+  const { common, form, projects, richText, errors, toasts, skills, images } =
     adminMessages;
   return (
     <FormLabelsProvider
-      labels={{ common, form, projects, richText, errors, toasts, skills }}
+      labels={{
+        common,
+        form,
+        projects,
+        richText,
+        errors,
+        toasts,
+        skills,
+        images,
+      }}
     >
       <ProjectForm
         version={row.updatedAt.toISOString()}

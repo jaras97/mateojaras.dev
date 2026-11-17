@@ -377,6 +377,7 @@
       "title": "Skills",
       "count": "{n, plural, =0 {No skills} one {# skill} other {# skills}}",
       "nameTaken": "A skill with this name already exists. Pick another one.",
+      "yearsInvalid": "Enter a whole number between 0 and 50.",
       "new": "New skill",
       "newTitle": "New skill",
       "empty": {
@@ -500,6 +501,8 @@
       "published": "Published. It is now live on the site.",
       "visibleOn": "Visible on the site.",
       "visibleOff": "Hidden from the site.",
+      "featuredOn": "Marked as featured.",
+      "featuredOff": "No longer featured.",
       "orderSaved": "Order saved.",
       "deleted": "{nombre} deleted.",
       "discarded": "Changes discarded. The published version remains.",

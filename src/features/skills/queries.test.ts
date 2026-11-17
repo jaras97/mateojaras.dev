@@ -23,7 +23,9 @@ describe("skillsQuery", () => {
     const { sql, params } = skillsQuery(db, { includeDrafts: false }).toSQL();
     expect(sql).toContain('"skills"."status" = $1');
     expect(sql).toContain('"skills"."visible" = $2');
-    expect(sql).toContain('order by "skills"."category" asc, "skills"."order" asc');
+    expect(sql).toContain(
+      'order by "skills"."category" asc, "skills"."order" asc',
+    );
     expect(params).toEqual(["published", true]);
   });
 

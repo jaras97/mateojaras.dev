@@ -377,6 +377,7 @@
       "title": "Skills",
       "count": "{n, plural, =0 {Sin skills} one {# skill} other {# skills}}",
       "nameTaken": "Ya hay una skill con este nombre. Elige otro.",
+      "yearsInvalid": "Escribe un número entero entre 0 y 50.",
       "new": "Nueva skill",
       "newTitle": "Nueva skill",
       "empty": {
@@ -500,6 +501,8 @@
       "published": "Publicado. Ya se ve en el sitio.",
       "visibleOn": "Visible en el sitio.",
       "visibleOff": "Oculto del sitio.",
+      "featuredOn": "Marcada como destacada.",
+      "featuredOff": "Ya no es destacada.",
       "orderSaved": "Orden guardado.",
       "deleted": "{nombre} eliminado.",
       "discarded": "Cambios descartados. Queda la versión publicada.",

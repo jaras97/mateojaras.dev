@@ -579,7 +579,21 @@
         "heading": "Todavía no has generado el CV",
         "body": "Genera la primera versión para publicar /cv/en.pdf y /cv/es.pdf."
       },
-      "tokenMissing": "La subida de archivos no está disponible: falta BLOB_READ_WRITE_TOKEN en este entorno."
+      "tokenMissing": "La subida de archivos no está disponible: falta BLOB_READ_WRITE_TOKEN en este entorno.",
+      "preflightProblems": {
+        "headline": "Ajustes: falta el titular en {idioma}",
+        "bio": "Ajustes: falta la bio en {idioma}",
+        "role": "Experiencia {nombre}: falta el cargo en {idioma}",
+        "bullets": "Experiencia {nombre}: los logros no coinciden entre inglés y español",
+        "title": "Proyecto {nombre}: falta el título en {idioma}",
+        "tagline": "Proyecto {nombre}: falta la bajada en {idioma}",
+        "program": "Formación {nombre}: falta el programa en {idioma}",
+        "noFeatured": "Ningún proyecto destacado: el CV no listará proyectos"
+      },
+      "languageNames": {
+        "en": "inglés",
+        "es": "español"
+      }
     },
     "messages": {
       "title": "Mensajes",

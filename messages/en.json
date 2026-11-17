@@ -579,7 +579,21 @@
         "heading": "You have not generated the CV yet",
         "body": "Generate the first version to publish /cv/en.pdf and /cv/es.pdf."
       },
-      "tokenMissing": "File upload is not available: BLOB_READ_WRITE_TOKEN is missing in this environment."
+      "tokenMissing": "File upload is not available: BLOB_READ_WRITE_TOKEN is missing in this environment.",
+      "preflightProblems": {
+        "headline": "Settings: the headline is missing in {idioma}",
+        "bio": "Settings: the bio is missing in {idioma}",
+        "role": "Experience {nombre}: the role is missing in {idioma}",
+        "bullets": "Experience {nombre}: the bullets do not match between English and Spanish",
+        "title": "Project {nombre}: the title is missing in {idioma}",
+        "tagline": "Project {nombre}: the tagline is missing in {idioma}",
+        "program": "Education {nombre}: the program is missing in {idioma}",
+        "noFeatured": "No featured project: the CV will list no projects"
+      },
+      "languageNames": {
+        "en": "English",
+        "es": "Spanish"
+      }
     },
     "messages": {
       "title": "Messages",

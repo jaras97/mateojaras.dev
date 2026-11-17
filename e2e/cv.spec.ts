@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { del } from "@vercel/blob";
 import { signIn } from "./admin-session";
+import { expectNoBlockingViolations } from "./axe";
 import { sql } from "./db";
 
 test.skip(
@@ -48,7 +49,9 @@ test("without BLOB_READ_WRITE_TOKEN, Generar CV is disabled and explained", asyn
   await signIn(page);
   await expect(page).toHaveURL(/\/admin$/);
   await page.goto("/admin/cv");
-  await expect(page.getByRole("button", { name: "Generar CV" })).toBeDisabled();
+  await expect(
+    page.getByRole("button", { name: "Generar CV" }).first(),
+  ).toBeDisabled();
   await expect(page.getByText("falta BLOB_READ_WRITE_TOKEN")).toBeVisible();
 });
 
@@ -88,4 +91,68 @@ test("Generar CV stores both locales and /cv/{lang}.pdf serves them", async ({
     const length = response.headers()["content-length"];
     if (length) expect(Number(length)).toBe(body.length);
   }
+});
+
+test("/admin/cv shows pre-flight, the four public links and passes axe", async ({
+  page,
+}) => {
+  await signIn(page);
+  await expect(page).toHaveURL(/\/admin$/);
+  await page.goto("/admin/cv");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "CV" }),
+  ).toBeVisible();
+
+  const preflight = page.getByLabel("Revisión previa");
+  const allClear = page.getByText(
+    "Todo listo: no falta ningún campo en los datos del CV.",
+  );
+  await expect(preflight.or(allClear)).toBeVisible();
+
+  for (const path of [
+    "/cv/en.pdf",
+    "/cv/es.pdf",
+    "/resume.json",
+    "/resume.es.json",
+  ]) {
+    await expect(page.getByText(path, { exact: true })).toBeVisible();
+  }
+  await expectNoBlockingViolations(page);
+});
+
+test("/admin/cv without versions shows the empty state with Generar CV", async ({
+  page,
+}) => {
+  test.skip(versionBefore > 0, "A CV version already exists in this database");
+  await signIn(page);
+  await expect(page).toHaveURL(/\/admin$/);
+  await page.goto("/admin/cv");
+  await expect(page.getByText("Todavía no has generado el CV")).toBeVisible();
+  await expect(page.getByText("Sin generar")).toHaveCount(2);
+  await expect(page.getByRole("button", { name: "Generar CV" })).toHaveCount(2);
+});
+
+test("history marks the latest version of each locale as Actual", async ({
+  page,
+}) => {
+  test.skip(!hasToken, NO_TOKEN);
+  test.setTimeout(120_000);
+  await signIn(page);
+  await expect(page).toHaveURL(/\/admin$/);
+  await page.goto("/admin/cv");
+  await page.getByRole("button", { name: "Generar CV" }).first().click();
+  const toast = page.getByText(/CV generado: v\d+/);
+  await expect(toast).toBeVisible({ timeout: 90_000 });
+  const n = Number((await toast.innerText()).match(/v(\d+)/)?.[1]);
+
+  const history = page.getByRole("table");
+  await expect(history.getByText(`v${n}`, { exact: true })).toHaveCount(2);
+  await expect(history.getByText("Actual", { exact: true })).toHaveCount(2);
+  const links = history.getByRole("link", { name: /Descargar/ });
+  for (const href of await links.evaluateAll((els) =>
+    els.map((el) => el.getAttribute("href")),
+  )) {
+    expect(href).toContain(".public.blob.vercel-storage.com");
+  }
+  await expectNoBlockingViolations(page);
 });

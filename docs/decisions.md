@@ -346,3 +346,17 @@ Decisión: `FormLabelsProvider` recibe del servidor un recorte de `messages/es.j
 Quién: Claude Code.
 Por qué: evita pasar decenas de props y deja el kit reutilizable en 03-07, 03-08 y 03-09.
 Verificación: `pnpm check`.
+
+## 2026-11-16 · CV: instantáneas en Blob, ruta propia y datos publicados (03-11)
+Contexto: el CV en PDF (en/es) debe salir de los mismos datos que el sitio y no filtrar borradores.
+Decisión: `generateCv` renderiza los dos idiomas con react-pdf en el servidor (A4, TTF estáticos), sube `resume/<lang>/v<n>-<sufijo>.pdf` a Blob (acceso público, sufijo aleatorio) e inserta las dos filas de `resume_versions` en un solo `db.batch`. `/cv/en.pdf` y `/cv/es.pdf` pasan por los rewrites de next.config.ts a `/api/cv/[lang]`, que transmite el cuerpo de Blob sin pasar por un Buffer. `buildCvData` lee solo los cores con `includeDrafts: false` y nunca `draftMode()`. Si un campo del idioma está vacío, el CV usa el texto en inglés y la revisión previa del admin lo señala.
+Quién: Teo aprobó F (ruta con sufijo) y G (A4) en 03-01; Claude Code decidió la revisión previa, el respaldo al inglés y que sin `BLOB_READ_WRITE_TOKEN` la acción devuelve `token` sin escribir nada.
+Por qué: una versión nunca se sobrescribe (el CDN cachea la URL) y el PDF público solo muestra lo publicado y visible.
+Verificación: tests de `src/features/resume` (extracción con unpdf, páginas, acciones), render en build de producción y e2e `cv.spec.ts`. La subida real y la comprobación en Vercel Preview quedan pendientes del token.
+
+## 2026-11-16 · Prueba de tildes del CV por familia tipográfica (03-11)
+Contexto: el plan pedía que la fixture contuviera á é í ó ú ñ, pero los datos sembrados no tienen todas esas letras en cada idioma (no hay ú en español y casi no hay tildes en inglés) y no se inventa copy.
+Decisión: la fixture usa solo cadenas sembradas; el test exige las letras que la fixture contiene. Un test aparte renderiza `áéíóúñ` en las tres familias registradas (Funnel Display, Hanken Grotesk 400 y 700, Geist Mono) y comprueba la extracción. `scripts/check-cv-pdf.ts` acepta `--chars=` para acotar el conjunto cuando el contenido real de un idioma no tiene alguna letra.
+Quién: Claude Code.
+Por qué: cubre el riesgo real (glifos y ToUnicode por fuente) sin texto inventado.
+Verificación: `pnpm exec vitest run src/features/resume`.

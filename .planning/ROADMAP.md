@@ -157,7 +157,7 @@ Plans:
   5. `/resume.json` y `/resume.es.json` devuelven JSON Resume válido generado en vivo desde los mismos datos, y Teo tiene en el admin una bandeja de mensajes de contacto (vacía hasta que el formulario de la fase 4 reciba el primero)
   6. *(Desde la fase 1.)* El contenido de los 4 proyectos (IDEN-05), al menos 3 capturas 16:10 por proyecto revisadas por Teo (IDEN-06) y el copy en en/es sin marcadores ni borradores, incluidos los bullets de Sofka (IDEN-07), están cargados y aprobados por Teo desde el admin
 
-**Plans**: 11/14 plans executed en 10 olas (2 compuertas humanas `blocking-human`)
+**Plans**: 12/14 plans executed en 10 olas (2 compuertas humanas `blocking-human`)
 
 Plans:
 **Wave 1**
@@ -194,7 +194,7 @@ Plans:
 
 **Wave 8** *(blocked on Wave 7 completion)*
 
-- [ ] 03-11-PLAN.md — CV: CvData, react-pdf con fuentes estáticas, generar en/es a Blob, /cv/{en,es}.pdf, historial y spike en Preview
+- [x] 03-11-PLAN.md — CV: CvData, react-pdf con fuentes estáticas, generar en/es a Blob, /cv/{en,es}.pdf, historial y spike en Preview
 
 **Wave 9** *(blocked on Wave 8 completion)*
 
@@ -283,6 +283,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Identidad y contenido | 13/13 | Complete    | 2026-11-01 |
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
-| 3. Panel admin + CV | 11/14 | In Progress | - |
+| 3. Panel admin + CV | 12/14 | In Progress | - |
 | 4. Sitio público | 0/TBD | Not started | - |
 | 5. Pulido y lanzamiento | 0/TBD | Not started | - |

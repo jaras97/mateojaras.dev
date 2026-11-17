@@ -56,10 +56,10 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 ### CV y JSON Resume (CV)
 
-- [ ] **CV-01**: Teo genera desde el admin el CV en PDF en/es a partir de los datos; la copia se guarda en Blob y en `resume_versions`
-- [ ] **CV-02**: `/cv/en.pdf` y `/cv/es.pdf` sirven la última copia generada
-- [ ] **CV-03**: El PDF es de una columna, con capa de texto real, sin foto, y tildes y ñ correctas (verificado por un test de extracción de texto)
-- [ ] **CV-04**: Teo ve el historial de PDFs generados y puede descargar cualquiera
+- [x] **CV-01**: Teo genera desde el admin el CV en PDF en/es a partir de los datos; la copia se guarda en Blob y en `resume_versions`
+- [x] **CV-02**: `/cv/en.pdf` y `/cv/es.pdf` sirven la última copia generada
+- [x] **CV-03**: El PDF es de una columna, con capa de texto real, sin foto, y tildes y ñ correctas (verificado por un test de extracción de texto)
+- [x] **CV-04**: Teo ve el historial de PDFs generados y puede descargar cualquiera
 - [ ] **CV-05**: `/resume.json` (en) y `/resume.es.json` (es) sirven el JSON Resume generado en vivo desde los mismos datos
 
 ### Casos de estudio (CASE)
@@ -197,10 +197,10 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | ADMN-11 | Phase 3 | Complete |
 | ADMN-12 | Phase 3 | Complete |
 | ADMN-13 | Phase 3 | Complete |
-| CV-01 | Phase 3 | Pending |
-| CV-02 | Phase 3 | Pending |
-| CV-03 | Phase 3 | Pending |
-| CV-04 | Phase 3 | Pending |
+| CV-01 | Phase 3 | Complete |
+| CV-02 | Phase 3 | Complete |
+| CV-03 | Phase 3 | Complete |
+| CV-04 | Phase 3 | Complete |
 | CV-05 | Phase 3 | Pending |
 | CASE-01 | Phase 4 | Pending |
 | CASE-02 | Phase 4 | Pending |

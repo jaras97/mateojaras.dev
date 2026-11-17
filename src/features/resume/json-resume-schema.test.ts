@@ -1,7 +1,11 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { cvFixture } from "./cv-fixture";
 import { toJsonResume } from "./json-resume";
 import { jsonResumeSchema } from "./json-resume-schema";
+
+// The mapping is pure; keep the database and cache runtime out of the unit.
+vi.mock("./cv-data", () => ({ buildCvData: vi.fn() }));
+vi.mock("next/cache", () => ({ cacheTag: vi.fn(), cacheLife: vi.fn() }));
 
 const SITE = "https://mateojaras.dev";
 

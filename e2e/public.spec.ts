@@ -121,10 +121,14 @@ for (const slug of [...drafts.map((d) => d.slug), "no-existe"]) {
       const res = await page.goto(path);
       expect([200, 404]).toContain(res?.status());
       await expect(page.locator("h1")).toHaveText(heading);
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
-        "content",
-        "noindex",
+      // notFound() runs inside the case study's Suspense boundary, so the
+      // streamed noindex can sit next to the head one: every tag must say noindex.
+      const robots = page.locator('meta[name="robots"]');
+      await expect(robots.first()).toHaveAttribute("content", "noindex");
+      const contents = await robots.evaluateAll((nodes) =>
+        nodes.map((n) => n.getAttribute("content")),
       );
+      expect(new Set(contents)).toEqual(new Set(["noindex"]));
     }
     const titles = drafts.flatMap((d) => [d.titleEn, d.titleEs]);
     const body = await page.locator("body").innerText();

@@ -150,3 +150,52 @@ test("the draft stays private, previews on the home and publishes without redepl
   }
   expect(await snapshot()).toEqual(original);
 });
+
+// Regression: updateTag(settings) invalidates the case-study App Shell, whose
+// runtime regeneration used to bail out (500 on every slug) while the page
+// awaited params outside Suspense. Seeded projects are only read here.
+test("case studies still render after a settings publish", async ({
+  page,
+  request,
+}) => {
+  test.setTimeout(120_000);
+  const rows = (await sql`
+    select slug, title_en as "titleEn", title_es as "titleEs"
+    from projects where status = 'published' and visible = true
+    order by "order" asc limit 1
+  `) as { slug: string; titleEn: string; titleEs: string }[];
+  test.skip(!rows[0], "no published visible project");
+  const project = rows[0];
+
+  await signIn(page);
+  await expect(page).toHaveURL(/\/admin$/);
+  await page.goto("/admin/ajustes");
+  await expect(page.locator("#name")).toHaveValue(String(original.name));
+  // Publish the unchanged values: same row, one updateTag(settings).
+  await page.getByRole("button", { name: "Publicar cambios" }).first().click();
+  await expect(
+    page.getByText("Publicado. Ya se ve en el sitio."),
+  ).toBeVisible();
+
+  for (const [path, title] of [
+    [`/projects/${project.slug}`, project.titleEn],
+    [`/es/proyectos/${project.slug}`, project.titleEs],
+  ] as const) {
+    // Twice: the first request after the tag may render on demand.
+    for (let i = 0; i < 2; i++) {
+      expect((await request.get(path)).status()).toBe(200);
+      await page.goto(path);
+      await expect(
+        page.getByRole("heading", { level: 1, name: title, exact: true }),
+      ).toBeVisible();
+    }
+  }
+  for (const [path, heading] of [
+    ["/projects/e2e-no-existe", "Page not found"],
+    ["/es/proyectos/e2e-no-existe", "Página no encontrada"],
+  ] as const) {
+    expect([200, 404]).toContain((await request.get(path)).status());
+    await page.goto(path);
+    await expect(page.locator("h1")).toHaveText(heading);
+  }
+});

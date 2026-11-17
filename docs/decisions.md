@@ -360,3 +360,10 @@ Decisión: la fixture usa solo cadenas sembradas; el test exige las letras que l
 Quién: Claude Code.
 Por qué: cubre el riesgo real (glifos y ToUnicode por fuente) sin texto inventado.
 Verificación: `pnpm exec vitest run src/features/resume`.
+
+## 2026-11-16 · El slug del caso de estudio se lee dentro de Suspense
+Contexto: en la suite e2e completa, tras `updateTag(tags.settings)` (publicar Ajustes) todas las URL de `/[locale]/projects/[slug]` respondían 500 (`NEXT_STATIC_GEN_BAILOUT`) hasta reiniciar el servidor. La página hacía `await params` fuera de cualquier `<Suspense>`. El App Shell de la ruta (slug desconocido) se quedaba colgado en ese `params`, y su única etiqueta era `settings` (el `generateMetadata` del layout). Al invalidarla, regenerar el shell en runtime fallaba con "Accessed fallback `params` during prerendering". `updateTag(projects)` no lo tocaba porque `getProject` nunca llega a ejecutarse en el shell.
+Decisión: la página deja el locale y el enlace de vuelta en el shell y lee el slug en un hijo `CaseStudy` dentro de `<Suspense>`. Es el patrón de la guía "Move URL data behind Suspense" (adopting-partial-prefetching). Los slugs de `generateStaticParams` siguen siendo páginas estáticas completas. Sin `force-dynamic`, sin `instant = false` y sin Plan B.
+Quién: Claude Code (autónomo: estructura interna, sin cambio visual en páginas listadas).
+Por qué: el App Shell no puede depender de datos de la URL cuando `partialPrefetching` está activo.
+Verificación: reproducción determinista (publicar Ajustes sin cambios → 500 en todos los slugs) y e2e de regresión en `admin-settings.spec.ts`, rojo antes del arreglo y verde después.

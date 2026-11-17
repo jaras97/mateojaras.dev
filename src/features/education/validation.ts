@@ -25,8 +25,9 @@ export const educationDraftSchema = z.strictObject({
 
 export const createEducationSchema = z.strictObject({
   institution: z.string().trim().min(1),
-  programEn: z.string().trim().min(1),
   programEs: z.string().trim().min(1),
+  // The English program may still be empty: publishing requires it.
+  programEn: z.string().trim(),
 });
 
 export const educationPublishSchema = educationDraftSchema.superRefine(

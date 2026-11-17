@@ -9,6 +9,8 @@ if (existsSync(".env.local")) {
 }
 
 const PORT = 3100;
+// E2E_BASE_URL points the specs at a deployed Preview: no local build or server.
+const remote = process.env.E2E_BASE_URL;
 
 export default defineConfig({
   testDir: "e2e",
@@ -16,16 +18,18 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   use: {
-    baseURL: `http://localhost:${PORT}`,
+    baseURL: remote ?? `http://localhost:${PORT}`,
     reducedMotion: "reduce",
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
-  webServer: {
-    command: `pnpm build && pnpm start -p ${PORT}`,
-    url: `http://localhost:${PORT}/`,
-    reuseExistingServer: !process.env.CI,
-    timeout: 300_000,
-    // e2e saves write their backup here, never into the repo.
-    env: { CONTENT_EXPORT_DIR: join(tmpdir(), "mateojaras-e2e-content") },
-  },
+  webServer: remote
+    ? undefined
+    : {
+        command: `pnpm build && pnpm start -p ${PORT}`,
+        url: `http://localhost:${PORT}/`,
+        reuseExistingServer: !process.env.CI,
+        timeout: 300_000,
+        // e2e saves write their backup here, never into the repo.
+        env: { CONTENT_EXPORT_DIR: join(tmpdir(), "mateojaras-e2e-content") },
+      },
 });

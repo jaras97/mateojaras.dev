@@ -4,6 +4,12 @@ export type ActionResult<T = object> =
   | ({ ok: true; savedAt: string } & T)
   | {
       ok: false;
-      error: "session" | "not_found" | "validation" | "conflict" | "server";
+      error:
+        | "session"
+        | "not_found"
+        | "validation"
+        | "conflict"
+        | "server"
+        | "token";
       fieldErrors?: Record<string, string[]>;
     };

@@ -60,7 +60,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **CV-02**: `/cv/en.pdf` y `/cv/es.pdf` sirven la última copia generada
 - [x] **CV-03**: El PDF es de una columna, con capa de texto real, sin foto, y tildes y ñ correctas (verificado por un test de extracción de texto)
 - [x] **CV-04**: Teo ve el historial de PDFs generados y puede descargar cualquiera
-- [ ] **CV-05**: `/resume.json` (en) y `/resume.es.json` (es) sirven el JSON Resume generado en vivo desde los mismos datos
+- [x] **CV-05**: `/resume.json` (en) y `/resume.es.json` (es) sirven el JSON Resume generado en vivo desde los mismos datos
 
 ### Casos de estudio (CASE)
 
@@ -201,7 +201,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | CV-02 | Phase 3 | Complete |
 | CV-03 | Phase 3 | Complete |
 | CV-04 | Phase 3 | Complete |
-| CV-05 | Phase 3 | Pending |
+| CV-05 | Phase 3 | Complete |
 | CASE-01 | Phase 4 | Pending |
 | CASE-02 | Phase 4 | Pending |
 | CASE-03 | Phase 4 | Pending |

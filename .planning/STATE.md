@@ -4,16 +4,16 @@ milestone: v1.0
 current_phase: 03
 current_phase_name: Panel admin + CV
 status: executing
-stopped_at: Completed 03-11-PLAN.md
-last_updated: "2026-11-17T00:38:37.384Z"
+stopped_at: Completed 03-12-PLAN.md
+last_updated: "2026-11-17T00:54:52.204Z"
 last_activity: 2026-11-16
 last_activity_desc: Phase 03 execution started
-state_head: eb14cb589d8b75b29dd7a4827315f8db504fee40
+state_head: 22820062dc330d13e51a47d056f928234edaefcb
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 36
-  completed_plans: 34
+  completed_plans: 35
 milestone_name: milestone
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-10-29)
 ## Current Position
 
 Phase: 03 (Panel admin + CV) — EXECUTING
-Plan: 13 of 14
+Plan: 14 of 14
 Status: Ready to execute
 Last activity: 2026-11-16 — Phase 03 execution started
 
@@ -82,6 +82,7 @@ Progress: [████░░░░░░] 40%
 | Phase 03 P09 | 25m | 1 tasks | 20 files |
 | Phase 03 P08 | 40min | 2 tasks | 20 files |
 | Phase 03 P11 | 60min | 2 tasks | 19 files |
+| Phase 03 P12 | ~20m | 1 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -127,6 +128,7 @@ Recent decisions affecting current work:
 - [Phase 03]: 03-09: experience form labels passed as a prop; relations of a published experience stay in draft until publish
 - [Phase 03]: 03-08: time zones validated via Intl.DateTimeFormat try/catch; education create needs institution + ES program only
 - [Phase 03]: 03-11: CV blob path resume/<lang>/v<n>-<suffix>.pdf, A4; blank locale field falls back to English, pre-flight flags it
+- [Phase 03]: 03-12: CvData carries raw ISO dates and lastModified; absent site URL means url/canonical omitted
 
 ### Pending Todos
 
@@ -151,6 +153,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-17T00:38:37.054Z
-Stopped at: Completed 03-11-PLAN.md
+Last session: 2026-11-17T00:54:52.090Z
+Stopped at: Completed 03-12-PLAN.md
 Resume file: None

@@ -47,7 +47,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **ADMN-05**: Cada entidad de contenido tiene acciones separadas de Guardar borrador y Publicar, y un interruptor de visible
 - [x] **ADMN-06**: Teo reordena proyectos, experiencias y skills arrastrando (dnd-kit), con alternativa de teclado
 - [x] **ADMN-07**: Los campos en/es se editan lado a lado y los que faltan en español se marcan como vacíos
-- [ ] **ADMN-08**: Teo sube imágenes a Vercel Blob desde el navegador (subida de cliente) y cada imagen exige alt en/es
+- [x] **ADMN-08**: Teo sube imágenes a Vercel Blob desde el navegador (subida de cliente) y cada imagen exige alt en/es
 - [x] **ADMN-09**: El slug de un proyecto queda fijo una vez publicado
 - [x] **ADMN-10**: Cmd+S guarda el formulario actual y salir con cambios sin guardar pide confirmación
 - [x] **ADMN-11**: Teo previsualiza un borrador en su ruta pública real (Draft Mode) antes de publicarlo
@@ -191,7 +191,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | ADMN-05 | Phase 3 | Complete |
 | ADMN-06 | Phase 3 | Complete |
 | ADMN-07 | Phase 3 | Complete |
-| ADMN-08 | Phase 3 | Pending |
+| ADMN-08 | Phase 3 | Complete |
 | ADMN-09 | Phase 3 | Complete |
 | ADMN-10 | Phase 3 | Complete |
 | ADMN-11 | Phase 3 | Complete |

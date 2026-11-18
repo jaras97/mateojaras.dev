@@ -23,6 +23,7 @@ export async function POST(request: Request) {
     const result = await handleUpload({
       request,
       body,
+      token: process.env.BLOB_READ_WRITE_TOKEN,
       onBeforeGenerateToken: async (pathname) => {
         if (!isAllowedUploadPath(pathname)) {
           throw new Error("pathname not allowed");

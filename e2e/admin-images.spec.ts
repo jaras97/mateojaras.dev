@@ -74,6 +74,8 @@ test("uploads a screenshot with alt en/es, cover and order", async ({
   await expect(page).toHaveURL(/\/admin$/);
   await page.goto(`/admin/proyectos/${id}`);
 
+  // The file input is server-rendered: wait for hydration or the change event is lost.
+  await page.waitForLoadState("networkidle");
   const input = page.locator('input[type="file"]');
   await input.setInputFiles(await png(page, 1600, 1000, "uno.png"));
   await expect(page.getByText("Portada", { exact: true })).toBeVisible({

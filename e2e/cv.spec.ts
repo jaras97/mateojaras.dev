@@ -58,7 +58,7 @@ test("without BLOB_READ_WRITE_TOKEN, Generar CV is disabled and explained", asyn
 test("/cv/en.pdf and /cv/es.pdf answer 404 when no version exists", async ({
   request,
 }) => {
-  test.skip(versionBefore > 0, "A CV version already exists in this database");
+  test.skip((await maxVersion()) > 0, "A CV version already exists");
   for (const lang of ["en", "es"]) {
     const response = await request.get(`/cv/${lang}.pdf`);
     expect(response.status()).toBe(404);
@@ -74,7 +74,9 @@ test("Generar CV stores both locales and /cv/{lang}.pdf serves them", async ({
   await signIn(page);
   await expect(page).toHaveURL(/\/admin$/);
   await page.goto("/admin/cv");
-  await page.getByRole("button", { name: "Generar CV" }).click();
+  await page.waitForLoadState("networkidle");
+  // With no versions yet the empty state repeats the button: take the first.
+  await page.getByRole("button", { name: "Generar CV" }).first().click();
   await expect(page.getByText(/CV generado: v\d+/)).toBeVisible({
     timeout: 90_000,
   });
@@ -123,7 +125,8 @@ test("/admin/cv shows pre-flight, the four public links and passes axe", async (
 test("/admin/cv without versions shows the empty state with Generar CV", async ({
   page,
 }) => {
-  test.skip(versionBefore > 0, "A CV version already exists in this database");
+  // Earlier tests in this file may have generated versions: check right now.
+  test.skip((await maxVersion()) > 0, "A CV version already exists");
   await signIn(page);
   await expect(page).toHaveURL(/\/admin$/);
   await page.goto("/admin/cv");

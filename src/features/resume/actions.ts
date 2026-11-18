@@ -53,6 +53,7 @@ export async function generateCv(): Promise<ActionResult<{ version: number }>> {
           access: "public",
           contentType: "application/pdf",
           addRandomSuffix: true,
+          token: process.env.BLOB_READ_WRITE_TOKEN,
         },
       );
       uploaded.push(blob.url);
@@ -72,7 +73,9 @@ export async function generateCv(): Promise<ActionResult<{ version: number }>> {
   } catch (error) {
     // Orphaned files are removed best-effort; the history never lists them.
     if (uploaded.length > 0) {
-      await del(uploaded).catch((e) => console.error("blob cleanup failed", e));
+      await del(uploaded, { token: process.env.BLOB_READ_WRITE_TOKEN }).catch(
+        (e) => console.error("blob cleanup failed", e),
+      );
     }
     return failure(error);
   }

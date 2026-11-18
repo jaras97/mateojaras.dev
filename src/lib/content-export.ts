@@ -155,6 +155,7 @@ export async function exportContent({
         access: "public",
         contentType: "application/json",
         addRandomSuffix: true,
+        token,
       });
       results.push({
         table: name,

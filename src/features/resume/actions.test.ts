@@ -37,6 +37,7 @@ vi.mock("./pdf/cv-document", () => ({ CvDocument: () => null }));
 vi.mock("./pdf/fonts", () => ({ registerCvFonts: vi.fn() }));
 
 beforeEach(() => {
+  vi.unstubAllEnvs();
   vi.resetModules();
   calls.maxVersion = 2;
   for (const fn of [
@@ -93,6 +94,7 @@ describe("generateCv", () => {
   });
 
   it("writes no row and cleans up when the second upload fails", async () => {
+    vi.stubEnv("BLOB_READ_WRITE_TOKEN", "test-token");
     put
       .mockResolvedValueOnce({ url: "https://x/en.pdf" })
       .mockRejectedValueOnce(new Error("upload roto"));
@@ -100,7 +102,10 @@ describe("generateCv", () => {
     const result = await generateCv();
     expect(result).toMatchObject({ ok: false, error: "server" });
     expect(calls.batch).not.toHaveBeenCalled();
-    expect(del).toHaveBeenCalledWith(["https://x/en.pdf"]);
+    expect(del).toHaveBeenCalledWith(
+      ["https://x/en.pdf"],
+      expect.objectContaining({ token: "test-token" }),
+    );
   });
 
   it("inserts two rows with the same next version and invalidates once", async () => {

@@ -61,3 +61,29 @@ DATABASE_URL='<URL de Neon main>' pnpm exec tsx scripts/check-phase-3.ts
 
 ## Resultado
 
+Fecha: 2026-11-21. Entorno: producción (https://mateojaras-dev.vercel.app). Teo delegó la carga ("hazlo tu") y aportó los hechos. Claude Code cargó por los formularios reales del admin con un script de Playwright fuera del repo (idempotente; probado antes en la rama dev de Neon).
+
+### Cargado
+- Centro Estético ManuJ: tagline, fechas (ago 2026), URL en vivo y repo, problema, papel, solución, 3 resultados, 3 decisiones, 3 capturas (webp) subidas por el uploader real con alt es/en, portada = 01-inicio, 0 métricas (solo cualitativo). Publicado, visible y destacado.
+- Sofka Technologies: 3 bullets es/en, publicados.
+- Freelance: 3 bullets es/en de docs/copy.md, publicados.
+- Ahora es/en de docs/copy.md, publicado en Ajustes. Titular y bio ya estaban cargados desde la siembra y no se tocaron.
+- CV: "Generar CV" en /admin/cv, versión v1 en y es.
+
+### No cargado, por decisión de Teo
+- EcoExport Costa Rica, Finanzas personales, Sistema de gestión de inventario: sin completar. Finanzas e Inventario siguen en borrador. EcoExport figura como publicado desde la siembra y el admin no tiene acción para despublicar (ver Pendiente para Teo).
+- Skills: la tabla está vacía en producción y no se creó ninguna. Las bullets no enlazan skills.
+
+### Verificación en producción
+- `check-cv-pdf.ts` /cv/es.pdf: PASS (1 página).
+- `check-cv-pdf.ts` /cv/en.pdf: FAIL con el conjunto por defecto ("missing á ó ú ñ"): el contenido en inglés no tiene esas letras. Con `--chars=éí` (Medellín, México, Estético): PASS (1 página). Texto extraído de ambos PDF comprobado: tildes y ñ correctas en es.
+- /resume.json y /resume.es.json: 200, basics.name = Mateo Jaramillo, projects = Centro Estético ManuJ, Sofka con 3 highlights en cada idioma, skills = 0.
+- /projects/centro-estetico-manuj y /es/proyectos/centro-estetico-manuj: 200. La vista pública del caso de estudio todavía muestra solo el título (las secciones públicas son de la fase 4); decisiones e imágenes se comprobaron por el admin: 3 resultados, 3 decisiones, 3 imágenes con alt, 1 portada, sin cambios pendientes.
+- Checker contra Neon main: NO ejecutado. Vercel marca DATABASE_URL como sensible y `vercel env pull` devuelve `[SENSITIVE]`. Contra la rama dev con el mismo contenido cargado: ManuJ sin FAIL; FAIL esperados en EcoExport (publicado en dev) y en resume (dev no generó CV).
+
+### Pendiente para Teo
+1. Correr `DATABASE_URL='<URL de Neon main>' pnpm exec tsx scripts/check-phase-3.ts` y pegar la salida.
+2. EcoExport: está publicado y visible con campos vacíos. Opciones: ocultarlo con el interruptor Visible, o pasarlo a borrador en la base. Hasta entonces el checker marcará FAIL en sus líneas de contenido.
+3. Skills: la tabla está vacía, así que `/resume.json` tiene 0 skills. Decide si las creas desde /admin/skills (categoría y años son datos tuyos) y vuelve a pulsar "Generar CV".
+4. Revisar las capturas en el admin (proporción 16:10; el script no leyó el aviso del uploader) y la traducción EN de ManuJ (marcada draft-translation).
+5. Escribir "listo" para cerrar D-09.

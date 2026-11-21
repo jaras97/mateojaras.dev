@@ -367,3 +367,52 @@ Decisión: la página deja el locale y el enlace de vuelta en el shell y lee el 
 Quién: Claude Code (autónomo: estructura interna, sin cambio visual en páginas listadas).
 Por qué: el App Shell no puede depender de datos de la URL cuando `partialPrefetching` está activo.
 Verificación: reproducción determinista (publicar Ajustes sin cambios → 500 en todos los slugs) y e2e de regresión en `admin-settings.spec.ts`, rojo antes del arreglo y verde después.
+
+## 2026-11-21 · El token de Blob lo creó Teo a mano (03-13)
+Contexto: el store de Blob enlazado por OIDC no generó `BLOB_READ_WRITE_TOKEN`, y la subida de imágenes y el CV lo necesitan.
+Decisión: Teo creó el token a mano y lo puso en `.env.local` y en Vercel (Production y Preview). El código lo pasa de forma explícita a Blob (commit ad0c575).
+Quién: Teo (token); Claude Code (cambio de código).
+Por qué: sin el token explícito, la subida y la generación del CV no funcionan en ningún entorno.
+Verificación: `vercel env ls production` y `vercel env ls preview` lo listan; en producción se subieron 3 capturas y se generó el CV v1.
+
+## 2026-11-21 · Teo delegó la carga de contenido (03-13, D-09)
+Contexto: el plan pedía que Teo cargara todo desde el admin. Teo respondió "hazlo tu" tres veces y aportó los hechos que faltaban (entrevista del 2026-11-20 para ManuJ, bullets de Sofka).
+Decisión: Claude Code cargó el contenido por los formularios reales del admin con un script de Playwright que vive fuera del repo. Solo escribió textos aprobados por Teo: `docs/content/centro-estetico-manuj.md`, los bullets de Sofka que dictó Teo y los textos de `docs/copy.md` para Freelance y Ahora. Titular y bio ya estaban cargados desde la siembra y no se tocaron. No se inventó ni se tradujo nada.
+Quién: Teo delegó y aportó los hechos; Claude Code ejecutó.
+Por qué: el contenido sale de los formularios (no de la siembra), así que se prueba el admin con datos reales, y cada texto tiene fuente.
+Verificación: relectura en producción por el admin (3 resultados, 3 decisiones, 3 imágenes con alt, 1 portada, sin cambios pendientes) y `/resume.json` y `/resume.es.json`.
+
+## 2026-11-21 · EcoExport, Finanzas personales e Inventario se quedan sin completar (03-13, D-10)
+Contexto: D-10 deja a Teo decidir qué publica. Dijo "ecoexport dejalo en borrador" y "deja en borrador lo otro que despues con mas calma lo actualizo".
+Decisión: los tres proyectos no se completan. Finanzas e Inventario siguen en borrador. EcoExport figura como `published` en la base desde la siembra (tenía `clientPermission: true`) y el admin no tiene acción para despublicar, así que sigue publicado y visible con sus campos pendientes; queda como tarea manual de Teo.
+Quién: Teo decidió; Claude Code lo registró.
+Por qué: publicar contenido a medias o inventado contradice las reglas del proyecto.
+Verificación: lista de proyectos en el admin de producción.
+
+## 2026-11-21 · El checker de fase 3 admite EcoExport como borrador (03-13)
+Contexto: Teo decidió que EcoExport queda en borrador, como Finanzas e Inventario.
+Decisión: `scripts/check-phase-3.ts` añade EcoExport a `DRAFT_ALLOWED`. Un proyecto de `DRAFT_ALLOWED` que no esté publicado solo imprime la línea INFO de estado y pasa la comprobación de marcadores de relleno; se saltan las líneas de contenido. Además, el marcador `TODO` se busca ahora como palabra en mayúsculas, porque `/TODO/i` marcaba la palabra "Todos", que es texto real del alt de la galería de ManuJ.
+Quién: Teo decidió lo de EcoExport; Claude Code corrigió el falso positivo.
+Por qué: el checker no debe fallar por decisiones de Teo ni por palabras españolas legítimas.
+Verificación: ejecución contra la rama dev con ManuJ cargado: sin FAIL en ManuJ.
+
+## 2026-11-21 · Métricas de ManuJ: solo resultados cualitativos (03-13, D-10)
+Contexto: no hay métricas verificables de ManuJ.
+Decisión: `metrics` queda vacío y los resultados son tres frases cualitativas que Teo aprobó. Ninguna cifra sin fuente.
+Quién: Teo (resultados, entrevista del 2026-11-20); Claude Code (carga).
+Por qué: regla del proyecto: sin métricas que no estén en `docs/content/`.
+Verificación: `docs/content/centro-estetico-manuj.md` (`metrics: []`) y el checker, que acepta 0 métricas con el mismo recuento en en/es.
+
+## 2026-11-21 · Dónde viven las copias del contenido (03-13)
+Contexto: Lectura D del plan 03-01 y el log del 2026-11-16 (`content/` no se versiona).
+Decisión: la copia de producción son los respaldos que cada Server Action escribe en Blob con ruta no adivinable (`exportContent`); la copia local es `content/` en disco, sin versionar. Las fuentes de texto aprobadas siguen en `docs/content/` y `docs/copy.md`. Las capturas de ManuJ viven en `material/centro-estetico-manuj/` y en el Blob público del proyecto.
+Quién: Claude Code (resume decisiones previas de Teo).
+Por qué: una sola fuente por tipo de dato y nada secreto en el repo.
+Verificación: las Server Actions de 03-05 a 03-09 llaman a `exportContent`.
+
+## 2026-11-21 · Cierre de D-09 pendiente del "listo" de Teo (03-13)
+Contexto: el plan exige que la fase solo se cierre con el mensaje "listo" de Teo y la salida del checker contra la base donde se cargó. El checker no pudo correr contra Neon main: Vercel marca `DATABASE_URL` como sensible y `vercel env pull` devuelve el marcador `[SENSITIVE]`, no la URL.
+Decisión: la carga y el CV de producción están hechos; el cierre de D-09 queda abierto hasta que Teo corra `DATABASE_URL='<URL de Neon main>' pnpm exec tsx scripts/check-phase-3.ts` y escriba "listo". No se rodeó el bloqueo con otra variable de conexión.
+Quién: Claude Code (registro); Teo (comando y "listo").
+Por qué: la regla D-09 dice que solo cuenta su propio mensaje.
+Verificación: la sección "Resultado" de 03-13-CARGA.md.

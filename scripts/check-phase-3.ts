@@ -22,6 +22,7 @@ const SLUGS = [
   "sistema-gestion-inventario",
 ];
 const DRAFT_ALLOWED = new Set([
+  "ecoexport-costa-rica",
   "finanzas-personales",
   "sistema-gestion-inventario",
 ]);
@@ -83,8 +84,13 @@ async function main() {
     }
     console.log(`INFO ${scope}: status=${p.status}`);
     if (p.status === "published") publishedUpdates.push(p.updatedAt);
-    const drafted = p.status !== "published" && DRAFT_ALLOWED.has(slug);
-    // D-10: Inventario/Finanzas may stay drafts; content lines still apply.
+    // D-10: an unpublished DRAFT_ALLOWED project is Teo's decision: it gets
+    // the status line and the placeholder-marker check, no content lines.
+    if (p.status !== "published" && DRAFT_ALLOWED.has(slug)) {
+      console.log(`INFO ${scope}: kept as draft (D-10, Teo decides)`);
+      markers(scope, p as unknown as Record<string, unknown>);
+      continue;
+    }
     for (const [field, en, es] of [
       ["title", p.titleEn, p.titleEs],
       ["tagline", p.taglineEn, p.taglineEs],
@@ -131,8 +137,6 @@ async function main() {
     );
     line(p.draft === null, scope, "no pending draft edits");
     markers(scope, p as unknown as Record<string, unknown>);
-    if (drafted)
-      console.log(`INFO ${scope}: kept as draft (D-10, Teo decides)`);
   }
 
   if (!settings) {

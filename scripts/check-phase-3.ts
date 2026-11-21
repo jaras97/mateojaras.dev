@@ -26,7 +26,9 @@ const DRAFT_ALLOWED = new Set([
   "finanzas-personales",
   "sistema-gestion-inventario",
 ]);
-const MARKERS = /\[Teo escribe\]|TODO|lorem/i;
+// TODO is matched as an uppercase word: the Spanish word "Todos" is real copy.
+const MARKERS = /\[Teo escribe\]|\bTODO\b|lorem/;
+const LOREM = /lorem/i;
 
 let failures = 0;
 function line(ok: boolean, scope: string, label: string, detail = "") {
@@ -51,7 +53,8 @@ function collectStrings(value: unknown, out: string[] = []): string[] {
 function markers(scope: string, row: Record<string, unknown>) {
   const hits: string[] = [];
   for (const [key, value] of Object.entries(row)) {
-    if (collectStrings(value).some((s) => MARKERS.test(s))) hits.push(key);
+    if (collectStrings(value).some((s) => MARKERS.test(s) || LOREM.test(s)))
+      hits.push(key);
   }
   line(hits.length === 0, scope, "no placeholder markers", hits.join(", "));
 }

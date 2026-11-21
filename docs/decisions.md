@@ -416,3 +416,10 @@ Decisión: la carga y el CV de producción están hechos; el cierre de D-09 qued
 Quién: Claude Code (registro); Teo (comando y "listo").
 Por qué: la regla D-09 dice que solo cuenta su propio mensaje.
 Verificación: la sección "Resultado" de 03-13-CARGA.md.
+
+## 2026-11-21 · EcoExport oculto hasta que Teo lo complete (03-13)
+Contexto: EcoExport figuraba como publicado y visible con campos vacíos, y Teo pidió que quede en borrador.
+Decisión: Claude Code lo ocultó con el interruptor Visible del admin de producción (sin tocar contenido ni estado). Teo lo vuelve a mostrar cuando lo complete.
+Quién: Teo pidió el borrador; Claude Code aplicó el interruptor por indicación de la coordinación.
+Por qué: el admin no puede despublicar y el sitio no debe mostrar un proyecto vacío.
+Verificación: `/` y `/es` no lo listan; sus URL de caso de estudio devuelven 404.

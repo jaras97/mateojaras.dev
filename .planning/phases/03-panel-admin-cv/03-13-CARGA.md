@@ -87,3 +87,5 @@ Fecha: 2026-11-21. Entorno: producción (https://mateojaras-dev.vercel.app). Teo
 3. Skills: la tabla está vacía, así que `/resume.json` tiene 0 skills. Decide si las creas desde /admin/skills (categoría y años son datos tuyos) y vuelve a pulsar "Generar CV".
 4. Revisar las capturas en el admin (proporción 16:10; el script no leyó el aviso del uploader) y la traducción EN de ManuJ (marcada draft-translation).
 5. Escribir "listo" para cerrar D-09.
+
+- 2026-11-21: EcoExport Costa Rica oculto con el interruptor Visible en el admin de producción (sin cambios de contenido). / y /es ya no lo listan y /projects/ecoexport-costa-rica y /es/proyectos/ecoexport-costa-rica devuelven 404. Sigue con estado published; Teo lo completa o lo pasa a borrador después.

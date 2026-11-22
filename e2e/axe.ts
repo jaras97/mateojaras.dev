@@ -5,10 +5,13 @@ export const AXE_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
 export const AXE_BLOCKING = new Set(["serious", "critical"]);
 
 // Fails listing id, impact and target of every serious or critical violation.
-export async function expectNoBlockingViolations(page: Page) {
-  const { violations } = await new AxeBuilder({ page })
-    .withTags(AXE_TAGS)
-    .analyze();
+export async function expectNoBlockingViolations(
+  page: Page,
+  exclude: string[] = [],
+) {
+  const builder = new AxeBuilder({ page }).withTags(AXE_TAGS);
+  for (const selector of exclude) builder.exclude(selector);
+  const { violations } = await builder.analyze();
   const blocking = violations
     .filter((v) => v.impact && AXE_BLOCKING.has(v.impact))
     .map((v) => ({

@@ -14,6 +14,7 @@ export function PageSection({
   children,
   className,
   numberClassName,
+  aside,
 }: {
   id: string;
   number: string;
@@ -21,6 +22,8 @@ export function PageSection({
   children: ReactNode;
   className?: string;
   numberClassName?: string;
+  // Margin notes in cols 10-12 from lg; below lg they follow the content.
+  aside?: ReactNode;
 }) {
   return (
     <section
@@ -43,6 +46,7 @@ export function PageSection({
         </div>
         <div className="mt-6 lg:grid lg:grid-cols-12 lg:gap-x-6">
           <div className="lg:col-span-7 lg:col-start-3">{children}</div>
+          {aside}
         </div>
       </div>
     </section>

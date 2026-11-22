@@ -3,9 +3,22 @@ import { notFound } from "next/navigation";
 import { locale } from "next/root-params";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { getProject, getPublishedSlugsCore } from "@/features/projects/queries";
+import { Reveal } from "@/components/motion/reveal";
+import { CaseCover } from "@/components/site/case-study/case-cover";
+import { CaseCta } from "@/components/site/case-study/case-cta";
+import { CaseHeader } from "@/components/site/case-study/case-header";
+import { CaseMetrics } from "@/components/site/case-study/case-metrics";
+import { CaseSections } from "@/components/site/case-study/case-sections";
+import { PrevNext } from "@/components/site/case-study/prev-next";
+import { pageGridClass } from "@/components/site/page-section";
+import { adjacentProjects } from "@/features/projects/adjacent";
+import {
+  getProject,
+  getProjects,
+  getPublishedSlugsCore,
+} from "@/features/projects/queries";
 import type { Locale } from "@/features/site-settings/types";
-import { Link } from "@/i18n/navigation";
+import { getPathname } from "@/i18n/navigation";
 import { localized } from "@/lib/i18n-fields";
 import { isLocale } from "@/lib/locale";
 
@@ -38,12 +51,97 @@ async function CaseStudy({
   locale: Locale;
 }) {
   const { slug } = await params;
-  const project = await getProject(slug);
+  const [project, all, t] = await Promise.all([
+    getProject(slug),
+    getProjects(),
+    getTranslations({ locale, namespace: "Site.project" }),
+  ]);
   if (!project) notFound();
+
+  const metrics =
+    (localized(project, "metrics", locale) as
+      | { label: string; value: string }[]
+      | null) ?? [];
+  const coverAlt = project.media?.find(
+    (item) => item.url === project.coverImage,
+  );
+  const { prev, next } = adjacentProjects(all, slug);
+  const neighbour = (row: (typeof all)[number] | null) =>
+    row
+      ? {
+          href: getPathname({
+            locale,
+            href: { pathname: "/projects/[slug]", params: { slug: row.slug } },
+          }),
+          title: localized(row, "title", locale) as string,
+        }
+      : null;
+  const contactHref = getPathname({ locale, href: "/contact" });
+
   return (
-    <h1 className="font-heading text-4xl font-semibold tracking-display text-balance">
-      {localized(project, "title", locale) as string}
-    </h1>
+    <article className={pageGridClass}>
+      <Reveal index={0} className="lg:col-span-12">
+        <CaseHeader
+          title={localized(project, "title", locale) as string}
+          tagline={localized(project, "tagline", locale) as string | null}
+          locale={locale}
+          stack={[]}
+          startedAt={project.startedAt}
+          finishedAt={project.finishedAt}
+          liveUrl={project.liveUrl}
+          repoUrl={project.repoUrl}
+          backHref={`${getPathname({ locale, href: "/" })}#work`}
+          contactHref={contactHref}
+          labels={{
+            backHome: t("backHome"),
+            present: t("present"),
+            source: t("source"),
+            internalTool: t("internalTool"),
+            demoText: t("demoText"),
+            demoLink: t("demoLink"),
+          }}
+        />
+      </Reveal>
+      {metrics.length > 0 ? (
+        <Reveal index={1} className="mt-12 lg:col-span-10 lg:col-start-3">
+          <CaseMetrics metrics={metrics} label={t("metrics")} />
+        </Reveal>
+      ) : null}
+      {project.coverImage ? (
+        <div className="mt-12 lg:col-span-10 lg:col-start-3">
+          <CaseCover
+            src={project.coverImage}
+            alt={
+              coverAlt
+                ? (localized(coverAlt, "alt", locale) as string)
+                : (localized(project, "title", locale) as string)
+            }
+          />
+        </div>
+      ) : null}
+      <Reveal index={2} className="lg:col-span-12">
+        <CaseSections
+          project={project}
+          locale={locale}
+          slug={slug}
+          labels={{
+            problem: t("sections.problem"),
+            role: t("sections.role"),
+            solution: t("sections.solution"),
+            results: t("sections.results"),
+            decisions: t("sections.decisions"),
+          }}
+        />
+      </Reveal>
+      <div className="lg:col-span-12">
+        <PrevNext
+          prev={neighbour(prev)}
+          next={neighbour(next)}
+          labels={{ nav: t("more"), prev: t("prev"), next: t("next") }}
+        />
+        <CaseCta closing={t("closing")} label={t("cta")} href={contactHref} />
+      </div>
+    </article>
   );
 }
 
@@ -52,18 +150,16 @@ export default async function ProjectPage({
 }: PageProps<"/[locale]/projects/[slug]">) {
   const param = await locale();
   if (!isLocale(param)) notFound();
-  const t = await getTranslations({ locale: param, namespace: "Site.project" });
   return (
-    <div className="mx-auto max-w-page px-6 py-12 md:px-12 lg:py-16">
-      {/* Reserves the heading line while an unlisted slug streams in. */}
-      <Suspense fallback={<div aria-hidden="true" className="h-10" />}>
-        <CaseStudy params={params} locale={param} />
-      </Suspense>
-      <p className="mt-8">
-        <Link href="/" className="underline underline-offset-4">
-          {t("backHome")}
-        </Link>
-      </p>
-    </div>
+    // Reserves the heading line while an unlisted slug streams in.
+    <Suspense
+      fallback={
+        <div className={pageGridClass}>
+          <div aria-hidden="true" className="h-10 lg:col-span-12" />
+        </div>
+      }
+    >
+      <CaseStudy params={params} locale={param} />
+    </Suspense>
   );
 }

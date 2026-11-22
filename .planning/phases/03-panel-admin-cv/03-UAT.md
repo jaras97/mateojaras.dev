@@ -1,9 +1,9 @@
 ---
-status: diagnosed
+status: complete
 phase: 03-panel-admin-cv
 source: [03-VERIFICATION.md]
 started: 2026-11-22T19:40:00Z
-updated: 2026-11-22T19:36:25.486Z
+updated: 2026-11-22T19:40:08.243Z
 ---
 
 ## Current Test
@@ -18,9 +18,8 @@ result: pass
 
 ### 2. Run DATABASE_URL='<Neon main URL>' pnpm exec tsx scripts/check-phase-3.ts and paste output
 expected: ManuJ, resume and skills lines PASS. EcoExport content lines FAIL by design while it stays published-but-hidden with empty fields
-result: issue
-reported: "Script output (pasted, top truncated): ManuJ visible lines PASS; settings and experiences PASS; EcoExport FAILs as expected (tagline, problem, role, results, decisions, media, coverImage); FAIL resume en: latest version exists; FAIL resume es: latest version exists; RESULT: 9 FAIL. Skills lines not visible in pasted output."
-severity: major
+result: pass
+retested: 2026-11-22 after generating CV en/es against Neon main (first run reported resume FAILs, see gap G-03-2)
 
 ### 3. Review the 3 ManuJ screenshots (16:10, alt es/en) and the EN translation in the admin; open /cv/en.pdf and /cv/es.pdf
 expected: Images are 16:10 and acceptable; English text approved (draft-translation flag cleared); CVs read correctly
@@ -33,8 +32,8 @@ result: pass
 ## Summary
 
 total: 4
-passed: 3
-issues: 1
+passed: 4
+issues: 0
 pending: 0
 skipped: 0
 blocked: 0
@@ -47,6 +46,7 @@ blocked: 0
   reason: "User reported: FAIL resume en: latest version exists; FAIL resume es: latest version exists (RESULT: 9 FAIL, 7 of them the expected EcoExport content lines)"
   severity: major
   test: 2
+  retest: "pass on 2026-11-22: Teo generated both CVs against main and the check script's resume lines passed. Closed by data load, no gap-closure plan."
   root_cause: "Data, not code. Neon main has no resume_versions rows for en/es. The CVs approved in test 3 were most likely generated against the dev branch (local .env.local). src/app/api/cv/[lang]/route.ts serves the latest row via getLatestResume(lang), so on production /cv/en.pdf and /cv/es.pdf return 404 until a CV is generated against main. Not verified against the dev branch (secret-read guard blocks reading .env.local)."
   artifacts:
     - path: "src/app/api/cv/[lang]/route.ts"

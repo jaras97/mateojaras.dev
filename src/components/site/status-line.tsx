@@ -78,7 +78,8 @@ export function StatusLine({
         {copy.overlap}
       </span>
     ),
-    className: "text-muted-foreground",
+    // The live phrase grows with the hours; let it wrap inside the segment.
+    className: "whitespace-normal text-muted-foreground",
   });
 
   return <SegmentLine segments={segments} className={className} />;

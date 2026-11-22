@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/motion/reveal";
+import { SplitHeading } from "@/components/motion/split-heading";
 import {
   HeroCta,
   type HeroProps,
@@ -24,12 +25,11 @@ export function HeroA({ settings, locale, cta }: HeroProps) {
 
   return (
     <section aria-labelledby="hero-title" className={heroSectionClass}>
-      <h1
-        id="hero-title"
-        className={cn(heroTitleClass, "lg:col-span-8 lg:col-start-2")}
-      >
-        {headline}
-      </h1>
+      <SplitHeading className="lg:col-span-8 lg:col-start-2">
+        <h1 id="hero-title" className={heroTitleClass}>
+          {headline}
+        </h1>
+      </SplitHeading>
       <Reveal index={0} className="lg:col-span-8 lg:col-start-2">
         <StatusLine settings={settings} locale={locale} className="mt-8" />
         <StatusClockScript

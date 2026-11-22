@@ -18,7 +18,7 @@ vi.mock("@/db", () => ({ db: { select: () => chain() } }));
 // which reads DATABASE_URL at import time, so it is stubbed before the import.
 const URL = "postgresql://test:test@localhost/test";
 vi.stubEnv("DATABASE_URL", URL);
-const { projectsQuery } = await import("./queries");
+const { projectsQuery, sitemapProjectsQuery } = await import("./queries");
 const db = createDb(URL);
 
 describe("projectsQuery", () => {
@@ -33,6 +33,17 @@ describe("projectsQuery", () => {
     const { sql } = projectsQuery(db, { includeDrafts: true }).toSQL();
     expect(sql).not.toContain('"projects"."status" =');
     expect(sql).not.toContain("where");
+  });
+});
+
+describe("sitemapProjectsQuery", () => {
+  it("lists only published and visible projects with slug and updatedAt", () => {
+    const { sql, params } = sitemapProjectsQuery(db).toSQL();
+    expect(sql).toContain('"projects"."slug"');
+    expect(sql).toContain('"projects"."updated_at"');
+    expect(sql).toContain('"projects"."status" = $1');
+    expect(sql).toContain('"projects"."visible" = $2');
+    expect(params).toEqual(["published", true]);
   });
 });
 

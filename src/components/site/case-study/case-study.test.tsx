@@ -86,6 +86,22 @@ describe("CaseSections", () => {
     expect(html).not.toContain('id="demo-results"');
   });
 
+  it("marks each section for the scene with one base and one aria-hidden accent number", () => {
+    const html = renderToStaticMarkup(
+      <CaseSections
+        project={baseProject}
+        locale="en"
+        slug="demo"
+        labels={sectionLabels}
+      />,
+    );
+    const sections = html.match(/data-scene-section/g) ?? [];
+    expect(sections).toHaveLength(4);
+    expect(html.match(/data-margin-number/g)).toHaveLength(4);
+    const accents = html.match(/<span aria-hidden="true" data-accent/g) ?? [];
+    expect(accents).toHaveLength(4);
+  });
+
   it("renders results as a list when present", () => {
     const html = renderToStaticMarkup(
       <CaseSections

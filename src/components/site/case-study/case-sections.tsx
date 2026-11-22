@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { PlainText } from "@/components/site/case-study/plain-text";
+import { SectionMarginNumber } from "@/components/site/case-study/section-margin-number";
 import { PageSection } from "@/components/site/page-section";
 import type { Locale } from "@/features/site-settings/types";
 import { localized } from "@/lib/i18n-fields";
@@ -65,12 +66,24 @@ export function CaseSections({
   return (
     <>
       {hasText(problem) ? (
-        <PageSection id={`${slug}-problem`} number="01" title={labels.problem}>
+        <PageSection
+          id={`${slug}-problem`}
+          number="01"
+          marginNumber={<SectionMarginNumber number="01" />}
+          scene
+          title={labels.problem}
+        >
           <PlainText text={problem} />
         </PageSection>
       ) : null}
       {hasText(role) ? (
-        <PageSection id={`${slug}-role`} number="02" title={labels.role}>
+        <PageSection
+          id={`${slug}-role`}
+          number="02"
+          marginNumber={<SectionMarginNumber number="02" />}
+          scene
+          title={labels.role}
+        >
           <PlainText text={role} />
         </PageSection>
       ) : null}
@@ -78,6 +91,8 @@ export function CaseSections({
         <PageSection
           id={`${slug}-solution`}
           number="03"
+          marginNumber={<SectionMarginNumber number="03" />}
+          scene
           title={labels.solution}
         >
           <PlainText text={solution} />
@@ -90,7 +105,13 @@ export function CaseSections({
         </PageSection>
       ) : null}
       {results.length > 0 ? (
-        <PageSection id={`${slug}-results`} number="04" title={labels.results}>
+        <PageSection
+          id={`${slug}-results`}
+          number="04"
+          marginNumber={<SectionMarginNumber number="04" />}
+          scene
+          title={labels.results}
+        >
           <ul className="flex list-disc flex-col gap-2 ps-4">
             {results.map((result) => (
               <li key={result}>{result}</li>
@@ -102,6 +123,8 @@ export function CaseSections({
         <PageSection
           id={`${slug}-decisions`}
           number="05"
+          marginNumber={<SectionMarginNumber number="05" />}
+          scene
           title={labels.decisions}
           aside={decisionsAside}
         >

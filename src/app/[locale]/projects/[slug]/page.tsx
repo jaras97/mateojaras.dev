@@ -4,6 +4,7 @@ import { locale } from "next/root-params";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { Reveal } from "@/components/motion/reveal";
+import { ScrollScene } from "@/components/motion/scroll-scene";
 import { CaseCover } from "@/components/site/case-study/case-cover";
 import { CaseCta } from "@/components/site/case-study/case-cta";
 import { CaseGallery } from "@/components/site/case-study/case-gallery";
@@ -136,29 +137,31 @@ async function CaseStudy({
         </div>
       ) : null}
       <Reveal index={2} className="lg:col-span-12">
-        <CaseSections
-          project={project}
-          locale={locale}
-          slug={slug}
-          solutionExtra={
-            hasGallery ? (
-              <CaseGallery
-                media={media}
-                cover={project.coverImage}
-                locale={locale}
-                labels={{ figure: t("figure") }}
-              />
-            ) : null
-          }
-          decisionsAside={<Marginalia notes={notes} />}
-          labels={{
-            problem: t("sections.problem"),
-            role: t("sections.role"),
-            solution: t("sections.solution"),
-            results: t("sections.results"),
-            decisions: t("sections.decisions"),
-          }}
-        />
+        <ScrollScene>
+          <CaseSections
+            project={project}
+            locale={locale}
+            slug={slug}
+            solutionExtra={
+              hasGallery ? (
+                <CaseGallery
+                  media={media}
+                  cover={project.coverImage}
+                  locale={locale}
+                  labels={{ figure: t("figure") }}
+                />
+              ) : null
+            }
+            decisionsAside={<Marginalia notes={notes} />}
+            labels={{
+              problem: t("sections.problem"),
+              role: t("sections.role"),
+              solution: t("sections.solution"),
+              results: t("sections.results"),
+              decisions: t("sections.decisions"),
+            }}
+          />
+        </ScrollScene>
       </Reveal>
       <div className="lg:col-span-12">
         <PrevNext

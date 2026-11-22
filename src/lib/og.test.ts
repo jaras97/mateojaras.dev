@@ -5,7 +5,7 @@ describe("renderOgImage", () => {
   it("returns a 1200x630 png response", async () => {
     expect(ogSize).toEqual({ width: 1200, height: 630 });
     expect(ogContentType).toBe("image/png");
-    const res = renderOgImage({
+    const res = await renderOgImage({
       label: "Case study",
       title: "ManuJ",
       date: "Nov 2026",

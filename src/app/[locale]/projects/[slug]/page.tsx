@@ -21,10 +21,12 @@ import {
   getProjects,
   getPublishedSlugsCore,
 } from "@/features/projects/queries";
+import { getSiteSettings } from "@/features/site-settings/queries";
 import type { Locale } from "@/features/site-settings/types";
 import { getPathname } from "@/i18n/navigation";
 import { localized } from "@/lib/i18n-fields";
 import { isLocale } from "@/lib/locale";
+import { buildPageMetadata, truncateAtWord } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return (await getPublishedSlugsCore()).map((slug) => ({ slug }));
@@ -35,9 +37,23 @@ export async function generateMetadata({
 }: PageProps<"/[locale]/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const param = await locale();
-  const project = await getProject(slug);
-  if (!project || !isLocale(param)) return {};
-  return { title: localized(project, "title", param) as string };
+  const [project, settings] = await Promise.all([
+    getProject(slug),
+    getSiteSettings(),
+  ]);
+  if (!project || !settings || !isLocale(param)) return {};
+  const title = localized(project, "title", param) as string;
+  const tagline = localized(project, "tagline", param) as string | null;
+  return buildPageMetadata({
+    locale: param,
+    title: `${title} · ${settings.name}`,
+    description:
+      tagline?.trim() ||
+      truncateAtWord(localized(project, "problem", param) as string | null),
+    href: { pathname: "/projects/[slug]", params: { slug } },
+    siteName: settings.name,
+    ogType: "article",
+  });
 }
 
 type Params = PageProps<"/[locale]/projects/[slug]">["params"];

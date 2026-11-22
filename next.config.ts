@@ -54,8 +54,12 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
     ],
   },
-  // The CV PDF renders from the admin routes and reads the static TTFs at runtime.
-  outputFileTracingIncludes: { "/admin/**": ["./assets/fonts-pdf/*.ttf"] },
+  // The CV PDF (admin) and the OG images read the static TTFs at runtime.
+  outputFileTracingIncludes: {
+    "/admin/**": ["./assets/fonts-pdf/*.ttf"],
+    "/[locale]/**/opengraph-image": ["./assets/fonts-pdf/*.ttf"],
+    "/[locale]/opengraph-image": ["./assets/fonts-pdf/*.ttf"],
+  },
   async rewrites() {
     return {
       beforeFiles: [

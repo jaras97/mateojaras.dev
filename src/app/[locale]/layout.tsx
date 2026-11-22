@@ -10,11 +10,15 @@ import { SiteHeader } from "@/components/site/site-header";
 import { ThemeScript } from "@/components/site/theme-script";
 import { getSiteSettings } from "@/features/site-settings/queries";
 import { isLocale, locales } from "@/lib/locale";
+import { siteUrl } from "@/lib/site-url";
 import "@/app/globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
-  return settings ? { title: settings.name } : {};
+  return {
+    metadataBase: new URL(siteUrl()),
+    ...(settings ? { title: settings.name } : {}),
+  };
 }
 
 export function generateStaticParams() {

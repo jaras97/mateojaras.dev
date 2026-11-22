@@ -1,7 +1,8 @@
 ---
 phase: "04"
 slug: "sitio-p-blico"
-status: draft
+status: approved
+reviewed_at: "2026-11-22"
 shadcn_initialized: true
 preset: "base-nova (components.json, baseColor neutral sustituido por los tokens de DESIGN.md en src/app/globals.css)"
 created: "2026-11-22"
@@ -198,7 +199,7 @@ Prohibido: gradientes, texto con gradiente, sombras de color, glass, un segundo 
 - `<header>` estático (no `sticky`), alto 64px, borde inferior 1px `--line`, contenedor de página. Primer hijo del `<body>`: enlace "Saltar al contenido" visible solo con foco, a `#main`.
 - Izquierda: enlace a la home con el nombre `settings.name` en Hanken 14px/600 `--ink`. **Por debajo de 640px** muestra "MJ" (iniciales del nombre) con el nombre completo como nombre accesible (`aria-label`).
 - Derecha, en una sola línea (`flex items-center gap-4`): `<nav aria-label>` con Work (`/#work`), About, Contact en Hanken 14px/400, `--ink-2`, `--ink` al hover (160ms) · `LangSwitch` · `ThemeToggle`.
-- Enlace activo: `aria-current="page"`, `--ink`, subrayado 2px `decoration-signal` con `underline-offset-[6px]`. Ver tabla de acento.
+- Enlace activo: `aria-current="page"`, `--ink`, subrayado 2px `decoration-signal` con `underline-offset-8` (8px, en la escala). Ver tabla de acento.
 - `LangSwitch`: Geist Mono 14px. Desde 640px muestra `EN / ES`: el idioma actual en `--ink` sin enlace (`aria-current="true"`), el otro como enlace `--ink-2` con `hrefLang` y `lang`. Por debajo de 640px muestra solo el código del otro idioma (`ES` en inglés, `EN` en español). El enlace lleva a la misma página en el otro idioma; en un caso de estudio, al mismo slug (`/projects/x` ↔ `/es/proyectos/x`). Conserva el hash.
 - `ThemeToggle`: Button `ghost` `icon-sm` (32px), icono `Moon` en claro y `Sun` en oscuro, `aria-label` con la acción (ver copy). Clic: si `prefers-reduced-motion: no-preference` y existe `document.startViewTransition`, fundido de 250ms del root; si no, cambio directo. Guarda `localStorage.theme = 'light' | 'dark'`. Sin preferencia guardada, sigue `prefers-color-scheme` y escucha sus cambios.
 - Presupuesto a 390px en español (estimado a 14px): MJ 22 + 16 + nav 199 (Trabajo · Sobre mí · Contacto con 16px) + 16 + EN 17 + 16 + toggle 32 = 318px ≤ 342px útiles. El planner verifica con la captura de 390px en es; si no cabe, primero baja el gap de la nav a 8px. Nunca menú hamburguesa.
@@ -220,7 +221,7 @@ Orden (D-15): hero A → `01 Work` → `02 Contact`. Sin teaser de About. La num
 - `HeroA` sin cambios de layout. El `h1#hero-title` va dentro de `<SplitHeading>` (ver Movimiento).
 - **StatusLine** con dos segmentos nuevos (SITE-02, SITE-03). Orden: `[punto + disponibilidad] · [location] · [hora local + offset] · [solapamiento]`.
   - Hora local: `<time>` con `HH:mm` de 24h en `America/Bogota` seguido del offset (`14:32 UTC-5`), `tabular-nums`. Sale de `ThemeScript` antes del primer paint y `LocalTime` la actualiza al cambiar el minuto. Sin JavaScript, el segmento muestra solo `UTC-5` (lo que se renderiza hoy).
-  - Solapamiento: horas de jornada compartidas con Toronto y Madrid en la fecha actual, con horario de verano (`Intl.DateTimeFormat` con `America/Toronto` y `Europe/Madrid`). Supuesto por defecto: jornada 09:00–18:00 en las tres ciudades (P1). Hoy (noviembre) da 9 h con Toronto y 3 h con Madrid; en verano, 8 h y 2 h. Copy en el Copywriting Contract. El shell prerenderizado lleva la frase estática actual (`overlaps with Toronto and Madrid`) y `ThemeScript` la sustituye antes del primer paint por la versión con horas, así que no hay salto de layout ni desajuste de hidratación (`suppressHydrationWarning` solo en esos dos `<span>`).
+  - Solapamiento: horas de jornada compartidas con Toronto y Madrid en la fecha actual, con horario de verano (`Intl.DateTimeFormat` con `America/Toronto` y `Europe/Madrid`). Jornada 09:00–18:00 en las tres ciudades (P1, confirmada por Teo el 2026-11-22). Hoy (noviembre) da 9 h con Toronto y 3 h con Madrid; en verano, 8 h y 2 h. Copy en el Copywriting Contract. El shell prerenderizado lleva la frase estática actual (`overlaps with Toronto and Madrid`) y `ThemeScript` la sustituye antes del primer paint por la versión con horas, así que no hay salto de layout ni desajuste de hidratación (`suppressHydrationWarning` solo en esos dos `<span>`).
   - Ningún segmento se parte por dentro y ninguna línea empieza con `·` (regla de la fase 1).
 
 ### 01 Work (`EntryList`, D-14), id `work`
@@ -252,7 +253,7 @@ Orden del documento (un solo `<article>`):
 5. **Secciones 01–05 (CASE-02)**, cada una `PageSection` con id (`problem`, `role`, `solution`, `results`, `decisions`); una sección sin datos no se renderiza y **los números son fijos** (01 Problem … 05 Technical decisions), así que un caso sin "Resultados" salta de 03 a 05, como una bitácora que cita su índice. Contenido en cols 3–9:
    - `01 Problem`: texto plano de `problem`.
    - `02 My role`: texto plano de `role`.
-   - `03 Solution`: texto plano de `solution`, luego `RichText` de `case_study`, luego la **galería (D-01)**: los items de `media` excepto la portada, apilados, 32px entre figuras. Cada `<figure>`: imagen 16:10, radio 8px, fondo `--bg-elev`, `loading="lazy"`, `sizes="(min-width: 1024px) 650px, 100vw"`, `alt` localizado. `<figcaption>` 8px debajo en Geist Mono 14px `--ink-2` con el contador `01 / 04` (ver P2 sobre vista y fecha). Items `video`: `<video controls preload="none" playsInline>` 16:10 sin autoplay, con el alt como `aria-label`. Sin JS de cliente, sin lightbox.
+   - `03 Solution`: texto plano de `solution`, luego `RichText` de `case_study`, luego la **galería (D-01)**: los items de `media` excepto la portada, apilados, 32px entre figuras. Cada `<figure>`: imagen 16:10, radio 8px, fondo `--bg-elev`, `loading="lazy"`, `sizes="(min-width: 1024px) 650px, 100vw"`, `alt` localizado. `<figcaption>` 8px debajo en Geist Mono 14px `--ink-2`: `localized(item, 'caption')` (la vista) y, si existe, la fecha `capturedAt` formateada mes/año en el idioma, separadas por ` · `. Si el item no tiene caption ni fecha, el pie cae al contador `01 / 04`. Nunca repite el alt ni inventa texto (P2, aprobada por Teo: campos opcionales `captionEn`, `captionEs`, `capturedAt` en cada item de `media`). Items `video`: `<video controls preload="none" playsInline>` 16:10 sin autoplay, con el alt como `aria-label`. Sin JS de cliente, sin lightbox.
    - `04 Results`: `<ul>` de `results`, `ps-4 list-disc`, 8px entre items.
    - `05 Technical decisions` (CASE-03): en cols 3–9 la lista de decisiones, 32px entre ellas, cada una con h3 (Body 600) y 8px debajo su cuerpo (Body 400). En cols 10–12, `<aside>` `Marginalia`, alineada arriba con la primera decisión, con hasta 3 notas en este orden, 24px entre ellas: "Trade-offs" (`tradeoffs`), "How I verified it" (`validation`), "AI tools" (`aiTools` unidos con ` · `). Cada nota: etiqueta Geist Mono 14px `--ink-2`, 4px debajo el cuerpo en Geist Mono 14px `--ink`. <1024px: el `<aside>` va debajo de las decisiones, 32px, con regla izquierda 1px `--line` y `ps-4` (DESIGN.md §4: "debajo del párrafo en mono pequeño"). Una nota vacía no se renderiza; sin notas, no hay `<aside>`.
 6. **Número de sección en el margen (D-02, MOTN-03)**:
@@ -401,7 +402,7 @@ Reglas: sin em-dashes, sin emojis, sin "!", sin superlativos. Apóstrofo tipogr�
 
 ## UI Considerations
 
-Applicable state considerations resolved: 22 covered, 6 backstop, 3 unresolved.
+Applicable state considerations resolved: 23 covered, 6 backstop, 2 unresolved.
 
 | Category | Element(s) | Status | Resolution / Reason |
 |----------|------------|--------|---------------------|
@@ -432,11 +433,11 @@ Applicable state considerations resolved: 22 covered, 6 backstop, 3 unresolved.
 | overflow | Header a 390px en es | 🧪 backstop | `{ statement: "A 390px en es el header cabe en una línea (MJ, 3 enlaces, ES/EN, toggle) sin scroll horizontal ni solapes", verification: backstop }` |
 | long-text | H1 de caso y de hero en es a 390px, títulos de entrada, fila meta, StatusLine con hora y solapamiento | 🧪 backstop | `{ statement: "A 390px: H1 con text-balance sin truncar ni bajar de 44.8px; la fila meta y la StatusLine envuelven entre segmentos y ninguna línea empieza con ·; sin scroll horizontal", verification: backstop }` |
 | motion | Reduced motion | 🧪 backstop | `{ statement: "Con prefers-reduced-motion: reduce, Reveal, SplitHeading, ScrollScene, hover de desplazamiento, View Transitions y el fundido de la confirmación no animan; los números del margen quedan estáticos en --ink-2 y no son sticky", verification: backstop }` |
-| motion | CLS y LCP con SplitHeading y Reveal | 🧪 backstop | `{ statement: "Lighthouse móvil en el Preview: CLS ≤ 0.1 (objetivo 0 en el hero) y LCP ≤ 2.5 s en /, /projects/[slug], /about y /contact en en y es; el H1 del hero nunca queda oculto más de 1000ms", verification: backstop }`. Si el LCP del hero falla, se consulta a Teo el plan B de P4 |
+| motion | CLS y LCP con SplitHeading y Reveal | 🧪 backstop | `{ statement: "Lighthouse móvil en el Preview: CLS ≤ 0.1 (objetivo 0 en el hero) y LCP ≤ 2.5 s en /, /projects/[slug], /about y /contact en en y es; el H1 del hero nunca queda oculto más de 1000ms", verification: backstop }`. Si el LCP del hero falla, se aplica el plan B de P4 (aprobado por Teo) y se registra en `docs/decisions.md` |
 | contrast | Acento en claro (3.19:1) | ✅ covered | Solo en marcas no textuales y texto de 25px (ver Color) |
 | data | `e2e-stale-probe` aparece publicado y visible en `content/projects.json` | ⚠ unresolved — planner must treat as assumption | Si la base de `dev`/`main` lo tiene así, saldría en la home con el título "Stale probe e2e". Supuesto: el e2e lo limpia o lo pone en borrador; el planner lo comprueba antes de las capturas |
 | content | Ningún proyecto tiene hoy tagline, problema, rol, métricas, portada ni media | ⚠ unresolved — planner must treat as assumption | Las capturas y el Lighthouse de ManuJ miden un caso casi vacío. Supuesto: Teo carga ManuJ completo desde el admin antes del gate; el planner pide el contenido al empezar la fase |
-| data | Pie de figura "vista y fecha" (D-01) sin campo en `media` | ⚠ unresolved — planner must treat as assumption | Supuesto por defecto: pie con contador `01 / 04` y nada inventado (P2) |
+| data | Pie de figura "vista y fecha" (D-01) | ✅ covered | P2 aprobada: `captionEn/captionEs/capturedAt` opcionales en `media` (JSON, sin migración; actualiza `docs/data-model.md`, el Zod del item y el formulario de media del admin). Sin datos, cae al contador `01 / 04` |
 
 ---
 
@@ -450,27 +451,27 @@ Applicable state considerations resolved: 22 covered, 6 backstop, 3 unresolved.
 
 ---
 
-## Preguntas abiertas para Teo
+## Preguntas abiertas para Teo (respondidas el 2026-11-22)
 
-Ninguna bloquea el plan: cada una tiene su valor por defecto en el contrato. Se registran en `docs/decisions.md` cuando Teo responda.
+Se registran en `docs/decisions.md` como decisiones de Teo en la primera tarea de la fase.
 
-- **P1. Jornada para el solapamiento (SITE-02).** Por defecto, 09:00–18:00 en Medellín, Toronto y Madrid. Hoy da "9 h con Toronto y 3 h con Madrid" (8 h y 2 h en verano). ¿Es tu jornada real, o prefieres otro rango (por ejemplo, 07:00–16:00 para coincidir más con Madrid)? El número sale publicado, por eso se pregunta.
-- **P2. Pie de las capturas (D-01).** `media` solo guarda `url`, `altEn/altEs` y `type`: no hay "vista" ni fecha. Por defecto el pie muestra el contador `01 / 04` y no repite el alt. Alternativa: añadir `captionEn/captionEs` y `capturedAt` opcionales a cada item de `media` (es JSON, no hace falta migración, pero toca `docs/data-model.md` y el formulario del admin).
-- **P3. Header a 390px.** Por defecto, por debajo de 640px el nombre se abrevia a "MJ" y el selector muestra solo el otro idioma (`ES`/`EN`). Alternativa: nombre completo y nav más compacta, con el riesgo de que en español no quepa.
-- **P4. Plan B de SplitText si el LCP del hero no llega a 2.5 s.** Por defecto se usa GSAP SplitText con un tope de 1000ms oculto. Si el gate falla, la alternativa es partir el H1 en palabras en el servidor y animarlo solo con CSS (mismo efecto, sin JS), lo que se aparta de la letra de MOTN-02.
-- **P5. Resumen del caso (CASE-01).** Por defecto el resumen es tagline + métricas + portada, y problema y rol se leen en 01 y 02 justo debajo, para no repetir el mismo texto dos veces. Si prefieres que el resumen también traiga problema y rol, haría falta un campo corto aparte (cambio de modelo de datos).
-- **P6. Copy propuesta.** Todas las filas **[propuesta]** del Copywriting Contract, en especial "Internal tool, sample data", la frase de demo, las etiquetas de `Marginalia` y los errores del formulario.
+- **P1. Jornada para el solapamiento (SITE-02):** 09:00–18:00 en Medellín, Toronto y Madrid. Hoy da 9 h con Toronto y 3 h con Madrid (8 h y 2 h en verano).
+- **P2. Pie de las capturas (D-01):** se añaden `captionEn`, `captionEs` y `capturedAt` opcionales a cada item de `media`. Es JSON, así que no hay migración, pero se toca `docs/data-model.md` (aprobado), el esquema Zod del item y el formulario de media del admin. Teo carga los valores. Sin datos, el pie cae al contador `01 / 04`.
+- **P3. Header a 390px:** por debajo de 640px se muestra "MJ" (con el nombre completo en `aria-label`) y el selector solo muestra el otro idioma.
+- **P4. Plan B de SplitText:** aprobado. Si el LCP del hero no llega a 2.5 s con GSAP SplitText, el H1 se parte en palabras en el servidor y se anima solo con CSS (mismo efecto, sin JS). Se registra como desviación de la letra de MOTN-02.
+- **P5. Resumen del caso (CASE-01):** se queda el valor por defecto: tagline + métricas + portada, y problema y rol en 01 y 02.
+- **P6. Copy propuesta:** sigue pendiente. Teo revisa las filas **[propuesta]** en la revisión visual de cada vista. Recomendación del checker: botón del formulario "Send message" / "Enviar mensaje" en vez de "Send" / "Enviar" (`docs/copy.md` manda, así que lo decide Teo).
 
 ---
 
 ## Checker Sign-Off
 
-- [ ] Dimension 1 Copywriting: PASS
-- [ ] Dimension 2 Visuals: PASS
-- [ ] Dimension 3 Color: PASS
-- [ ] Dimension 4 Typography: PASS
-- [ ] Dimension 5 Spacing: PASS
-- [ ] Dimension 6 Registry Safety: PASS
-- [ ] Dimension 7 Inventory Provenance: PASS
+- [x] Dimension 1 Copywriting: FLAG (no bloquea; CTA "Send", ver P6)
+- [x] Dimension 2 Visuals: PASS
+- [x] Dimension 3 Color: PASS
+- [x] Dimension 4 Typography: PASS
+- [x] Dimension 5 Spacing: FLAG (no bloquea; 96px viene de DESIGN.md §4; underline-offset corregido a 8px)
+- [x] Dimension 6 Registry Safety: PASS
+- [x] Dimension 7 Inventory Provenance: PASS
 
-**Approval:** pending
+**Approval:** approved 2026-11-22 (gsd-ui-checker)

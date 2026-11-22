@@ -4,11 +4,11 @@ milestone: v1.0
 current_phase: 4
 current_phase_name: Sitio público
 status: planning
-stopped_at: Phase 4 context gathered
-last_updated: "2026-11-22T19:51:07.857Z"
+stopped_at: Phase 4 UI-SPEC approved
+last_updated: "2026-11-22T20:03:11.364Z"
 last_activity: 2026-11-22
 last_activity_desc: Phase 03 complete, transitioned to Phase 4
-state_head: 5647042a6e70d82c7b47bf8254136a0045c44933
+state_head: 5a1de0e66eba432c3faa88249183c95a70b8ba6f
 progress:
   total_phases: 5
   completed_phases: 3
@@ -155,6 +155,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-22T19:51:07.571Z
-Stopped at: Phase 4 context gathered
-Resume file: .planning/phases/04-sitio-p-blico/04-CONTEXT.md
+Last session: 2026-11-22T20:03:11.105Z
+Stopped at: Phase 4 UI-SPEC approved
+Resume file: .planning/phases/04-sitio-p-blico/04-UI-SPEC.md

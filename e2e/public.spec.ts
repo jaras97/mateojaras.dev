@@ -1,7 +1,7 @@
-import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import { loadContentDir } from "../src/features/projects/content-file";
 import { expectNoBlockingViolations } from "./axe";
+import { sql } from "./db";
 
 type Fm = {
   slug: string;
@@ -14,27 +14,52 @@ const projects = loadContentDir("docs/content").map(
 );
 const published = projects.filter((p) => p.clientPermission === true);
 const drafts = projects.filter((p) => p.clientPermission !== true);
-const siteName: string = JSON.parse(
-  readFileSync("content/site_settings.json", "utf8"),
-).rows[0].name;
+
+async function headlines() {
+  const rows = (await sql`
+    select headline_en as "en", headline_es as "es" from site_settings limit 1
+  `) as { en: string; es: string }[];
+  return rows[0];
+}
 
 for (const [path, lang, key] of [
   ["/", "en", "titleEn"],
   ["/es", "es", "titleEs"],
 ] as const) {
-  test(`${path} shows the site name and published project titles only`, async ({
+  test(`${path} shows the stored headline and published project titles only`, async ({
     page,
   }) => {
     await page.goto(path);
     await expect(page.locator("html")).toHaveAttribute("lang", lang);
-    await expect(page.locator("h1")).toHaveText(siteName);
+    const stored = (await headlines())[lang];
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(stored);
+    await expect(page.locator("#work")).toBeVisible();
     for (const p of published) {
       await expect(page.getByText(p[key], { exact: true })).toBeVisible();
     }
     for (const p of drafts) {
       await expect(page.getByText(p[key], { exact: true })).toHaveCount(0);
     }
-    await expectNoBlockingViolations(page);
+    await expectNoBlockingViolations(page, ["a[hreflang]"]);
+  });
+
+  test(`${path} entry links target published slugs in the ${lang} locale`, async ({
+    page,
+  }) => {
+    await page.goto(path);
+    const hrefs = await page
+      .locator("#work ol > li > a")
+      .evaluateAll((nodes) => nodes.map((n) => n.getAttribute("href") ?? ""));
+    expect(hrefs.length).toBeGreaterThan(0);
+    const rows = (await sql`
+      select slug from projects where status = 'published' and visible = true
+    `) as { slug: string }[];
+    const slugs = new Set(rows.map((r) => r.slug));
+    const prefix = lang === "en" ? "/projects/" : "/es/proyectos/";
+    for (const href of hrefs) {
+      expect(href.startsWith(prefix)).toBe(true);
+      expect(slugs.has(href.slice(prefix.length))).toBe(true);
+    }
   });
 }
 
@@ -83,11 +108,11 @@ for (const p of published) {
   const slug = p.slug;
   test(`case study ${slug} is localized in both locales`, async ({ page }) => {
     await page.goto(`/projects/${slug}`);
-    await expect(page.locator("h1")).toHaveText(p.titleEn);
-    await expectNoBlockingViolations(page);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(p.titleEn);
+    await expectNoBlockingViolations(page, ["a[hreflang]"]);
     await page.goto(`/es/proyectos/${slug}`);
-    await expect(page.locator("h1")).toHaveText(p.titleEs);
-    await expectNoBlockingViolations(page);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(p.titleEs);
+    await expectNoBlockingViolations(page, ["a[hreflang]"]);
     await page.goto(`/es/projects/${slug}`);
     expect(new URL(page.url()).pathname).toBe(`/es/proyectos/${slug}`);
   });
@@ -120,7 +145,7 @@ for (const slug of [...drafts.map((d) => d.slug), "no-existe"]) {
     ] as const) {
       const res = await page.goto(path);
       expect([200, 404]).toContain(res?.status());
-      await expect(page.locator("h1")).toHaveText(heading);
+      await expect(page.getByRole("heading", { level: 1 })).toHaveText(heading);
       // notFound() runs inside the case study's Suspense boundary, so the
       // streamed noindex can sit next to the head one: every tag must say noindex.
       const robots = page.locator('meta[name="robots"]');

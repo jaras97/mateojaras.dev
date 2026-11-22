@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/motion/reveal";
 import {
   HeroCta,
   type HeroProps,
@@ -25,12 +26,10 @@ export function HeroA({ settings, locale, cta }: HeroProps) {
       >
         {headline}
       </h1>
-      <StatusLine
-        settings={settings}
-        locale={locale}
-        className="mt-8 lg:col-span-8 lg:col-start-2"
-      />
-      <HeroCta cta={cta} className="mt-12 lg:col-span-8 lg:col-start-2" />
+      <Reveal index={0} className="lg:col-span-8 lg:col-start-2">
+        <StatusLine settings={settings} locale={locale} className="mt-8" />
+        <HeroCta cta={cta} className="mt-12" />
+      </Reveal>
     </section>
   );
 }

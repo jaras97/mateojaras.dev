@@ -54,8 +54,8 @@ describe("EntryList", () => {
   });
 
   it("dates by finishedAt, else startedAt, else no time element", () => {
-    expect(render([base])).toContain(
-      '<time dateTime="2025-06-20">Jun 2025</time>',
+    expect(render([base])).toMatch(
+      /<time[^>]*dateTime="2025-06-20"[^>]*>Jun 2025<\/time>/,
     );
     expect(render([{ ...base, finishedAt: null }])).toContain(
       'dateTime="2025-01-10"',

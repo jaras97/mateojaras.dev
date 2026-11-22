@@ -423,3 +423,17 @@ Decisión: Claude Code lo ocultó con el interruptor Visible del admin de produc
 Quién: Teo pidió el borrador; Claude Code aplicó el interruptor por indicación de la coordinación.
 Por qué: el admin no puede despublicar y el sitio no debe mostrar un proyecto vacío.
 Verificación: `/` y `/es` no lo listan; sus URL de caso de estudio devuelven 404.
+
+## 2026-11-22 · Cierre de D-09 con el "listo" de Teo (03-13)
+Contexto: Teo creó la skill (Frontend: Css), regeneró el CV y escribió "listo". No pegó la salida de `check-phase-3.ts` contra Neon main.
+Decisión: D-09 se da por cerrado con su "listo". Claude Code verificó lo que se ve desde fuera: `/resume.json` y `/resume.es.json` listan la skill, y `/cv/en.pdf` y `/cv/es.pdf` la incluyen, tienen 1 página y pasan `check-cv-pdf`. La salida del checker contra main queda registrada como no recibida.
+Quién: Teo ("listo"); Claude Code (verificación pública y registro).
+Por qué: la regla D-09 dice que cuenta su mensaje; el checker contra main solo lo puede correr él.
+Verificación: `scripts/check-cv-pdf.ts` sobre `https://mateojaras-dev.vercel.app/cv/{en,es}.pdf`.
+
+## 2026-11-22 · `connect-src` de la CSP para Blob queda para la fase 5 (03-07)
+Contexto: el plan 03-07 añadía el host de Blob y el endpoint de subida de vercel.com a `connect-src`. El clasificador de permisos bloqueó ese cambio y `next.config.ts` sigue con `connect-src 'self'`. La CSP está en `Report-Only`, así que las subidas solo registran la violación.
+Decisión: se acepta el riesgo T-03-26 (AR-03-03 en 03-SECURITY.md) y queda como condición de la fase 5: antes de pasar la CSP a modo estricto, Teo aprueba añadir esos hosts a `connect-src`.
+Quién: Claude Code (registro); Teo (aprobación pendiente).
+Por qué: con la CSP aplicada sin ese cambio, la subida de imágenes del admin se rompe.
+Verificación: grep de `connect-src` en `next.config.ts` antes de cerrar la fase 5.

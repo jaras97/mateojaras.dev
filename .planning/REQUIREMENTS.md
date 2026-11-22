@@ -64,13 +64,13 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 ### Casos de estudio (CASE)
 
-- [ ] **CASE-01**: El visitante ve en `/projects/[slug]` (y `/es/proyectos/[slug]`) cabecera con fila meta en mono, resumen (problema, rol, hasta 3 métricas) e imagen de portada
-- [ ] **CASE-02**: Secciones numeradas 01 Problema, 02 Mi rol, 03 Solución (con galería), 04 Resultados, 05 Decisiones técnicas; cada sección se oculta si no hay datos
-- [ ] **CASE-03**: Las decisiones técnicas se muestran como notas al margen (`Marginalia`) con lo descartado, el trade-off y cómo se verificó; en móvil pasan debajo del párrafo
-- [ ] **CASE-04**: El cuerpo en Tiptap se renderiza en servidor con `@tiptap/static-renderer`, sin enviar el editor al navegador
-- [ ] **CASE-05**: Un proyecto sin URL pública se marca como "Herramienta interna, datos de ejemplo" y ofrece una demostración por contacto
-- [ ] **CASE-06**: Al final de cada caso hay navegación al anterior/siguiente y una llamada a contacto
-- [ ] **CASE-07**: Un proyecto publicado después del deploy se puede abrir sin redeploy
+- [x] **CASE-01**: El visitante ve en `/projects/[slug]` (y `/es/proyectos/[slug]`) cabecera con fila meta en mono, resumen (problema, rol, hasta 3 métricas) e imagen de portada
+- [x] **CASE-02**: Secciones numeradas 01 Problema, 02 Mi rol, 03 Solución (con galería), 04 Resultados, 05 Decisiones técnicas; cada sección se oculta si no hay datos
+- [x] **CASE-03**: Las decisiones técnicas se muestran como notas al margen (`Marginalia`) con lo descartado, el trade-off y cómo se verificó; en móvil pasan debajo del párrafo
+- [x] **CASE-04**: El cuerpo en Tiptap se renderiza en servidor con `@tiptap/static-renderer`, sin enviar el editor al navegador
+- [x] **CASE-05**: Un proyecto sin URL pública se marca como "Herramienta interna, datos de ejemplo" y ofrece una demostración por contacto
+- [x] **CASE-06**: Al final de cada caso hay navegación al anterior/siguiente y una llamada a contacto
+- [x] **CASE-07**: Un proyecto publicado después del deploy se puede abrir sin redeploy
 
 ### Sitio público (SITE)
 
@@ -202,13 +202,13 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | CV-03 | Phase 3 | Complete |
 | CV-04 | Phase 3 | Complete |
 | CV-05 | Phase 3 | Complete |
-| CASE-01 | Phase 4 | Pending |
-| CASE-02 | Phase 4 | Pending |
-| CASE-03 | Phase 4 | Pending |
-| CASE-04 | Phase 4 | Pending |
-| CASE-05 | Phase 4 | Pending |
-| CASE-06 | Phase 4 | Pending |
-| CASE-07 | Phase 4 | Pending |
+| CASE-01 | Phase 4 | Complete |
+| CASE-02 | Phase 4 | Complete |
+| CASE-03 | Phase 4 | Complete |
+| CASE-04 | Phase 4 | Complete |
+| CASE-05 | Phase 4 | Complete |
+| CASE-06 | Phase 4 | Complete |
+| CASE-07 | Phase 4 | Complete |
 | SITE-01 | Phase 4 | Pending |
 | SITE-02 | Phase 4 | Pending |
 | SITE-03 | Phase 4 | Pending |

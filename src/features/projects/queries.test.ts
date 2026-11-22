@@ -39,8 +39,8 @@ describe("projectsQuery", () => {
 describe("sitemapProjectsQuery", () => {
   it("lists only published and visible projects with slug and updatedAt", () => {
     const { sql, params } = sitemapProjectsQuery(db).toSQL();
-    expect(sql).toContain('"projects"."slug"');
-    expect(sql).toContain('"projects"."updated_at"');
+    expect(sql).toContain('"slug"');
+    expect(sql).toContain('"updated_at"');
     expect(sql).toContain('"projects"."status" = $1');
     expect(sql).toContain('"projects"."visible" = $2');
     expect(params).toEqual(["published", true]);

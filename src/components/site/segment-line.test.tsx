@@ -16,7 +16,9 @@ describe("SegmentLine", () => {
       />,
     );
     expect(count(html)).toBe(2);
-    expect(html).toMatch(/<span class="whitespace-nowrap">A<span[^>]*>·<\/span><\/span>/);
+    expect(html).toMatch(
+      /<span class="whitespace-nowrap">A<span[^>]*>·<\/span><\/span>/,
+    );
   });
 
   it("renders no separator for a single segment", () => {

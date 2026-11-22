@@ -5,7 +5,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { CopyEmail } from "@/components/site/copy-email";
 
 // Test inputs, not site copy.
-const labels = { copy: "Copy email", copied: "Copied", failed: "Copy it by hand" };
+const labels = {
+  copy: "Copy email",
+  copied: "Copied",
+  failed: "Copy it by hand",
+};
 const email = "user@example.test";
 
 beforeEach(() => vi.useFakeTimers({ shouldAdvanceTime: true }));
@@ -25,21 +29,25 @@ function stubClipboard(writeText: unknown) {
 describe("CopyEmail", () => {
   it("writes the address, announces Copied and reverts after 2 s", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
-    stubClipboard(writeText);
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    stubClipboard(writeText);
     render(<CopyEmail email={email} labels={labels} idPrefix="t" />);
     await user.click(screen.getByRole("button"));
     expect(writeText).toHaveBeenCalledWith(email);
-    expect(document.querySelector('[aria-live="polite"]')?.textContent).toBe("Copied");
+    expect(document.querySelector('[aria-live="polite"]')?.textContent).toBe(
+      "Copied",
+    );
     await act(async () => {
-      vi.advanceTimersByTime(2000);
+      await vi.advanceTimersByTimeAsync(2100);
     });
-    expect(document.querySelector('[aria-live="polite"]')?.textContent).toBe("");
+    expect(document.querySelector('[aria-live="polite"]')?.textContent).toBe(
+      "",
+    );
   });
 
   it("shows the failed text when writeText rejects", async () => {
-    stubClipboard(vi.fn().mockRejectedValue(new Error("denied")));
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    stubClipboard(vi.fn().mockRejectedValue(new Error("denied")));
     render(<CopyEmail email={email} labels={labels} idPrefix="t" />);
     await user.click(screen.getByRole("button"));
     expect(await screen.findByText("Copy it by hand")).toBeTruthy();
@@ -47,8 +55,8 @@ describe("CopyEmail", () => {
   });
 
   it("shows the failed text when the clipboard is unavailable", async () => {
-    stubClipboard(undefined);
     const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+    stubClipboard(undefined);
     render(<CopyEmail email={email} labels={labels} idPrefix="t" />);
     await user.click(screen.getByRole("button"));
     expect(await screen.findByText("Copy it by hand")).toBeTruthy();

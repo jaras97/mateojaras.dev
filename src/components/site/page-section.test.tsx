@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import { PageSection, pageGridClass } from "@/components/site/page-section";
 import { heroSectionClass } from "@/components/site/hero/hero-parts";
+import { PageSection, pageGridClass } from "@/components/site/page-section";
 
 describe("PageSection", () => {
   const html = renderToStaticMarkup(

@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
 import { heroCopy } from "@/components/site/hero-copy";
+import { type Segment, SegmentLine } from "@/components/site/segment-line";
 import type { HeroSettings, Locale } from "@/features/site-settings/types";
 import {
   formatEntryDate,
@@ -7,8 +7,6 @@ import {
   formatUtcOffset,
 } from "@/lib/format";
 import { cn } from "@/lib/utils";
-
-type Segment = { key: string; content: ReactNode; className?: string };
 
 // The live status line shared by the three hero variants. Server Component:
 // no clock read (the offset is taken at updatedAt), no animation.
@@ -75,30 +73,7 @@ export function StatusLine({
     className: "text-muted-foreground",
   });
 
-  // The separator closes the preceding segment inside its nowrap span, so a
-  // wrapped line can end with "·" but never start with one.
-  return (
-    <p
-      className={cn(
-        "flex flex-wrap gap-x-2 gap-y-1 font-mono text-sm",
-        className,
-      )}
-    >
-      {segments.map((segment, i) => (
-        <span
-          key={segment.key}
-          className={cn("whitespace-nowrap", segment.className)}
-        >
-          {segment.content}
-          {i < segments.length - 1 ? (
-            <span aria-hidden="true" className="ms-2 text-muted-foreground">
-              ·
-            </span>
-          ) : null}
-        </span>
-      ))}
-    </p>
-  );
+  return <SegmentLine segments={segments} className={className} />;
 }
 
 function availabilityText(

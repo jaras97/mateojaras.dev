@@ -11,8 +11,10 @@ export type HeroProps = {
 };
 
 // 12-column grid from lg, 1200px max, 24/48px side margins (DESIGN.md §4).
-export const heroSectionClass =
+export const pageGridClass =
   "mx-auto grid max-w-page grid-cols-1 gap-x-6 px-6 py-12 md:px-12 lg:grid-cols-12 lg:py-16";
+
+export const heroSectionClass = pageGridClass;
 
 // The display headline (h1#hero-title): never truncated, never below 44.8px.
 export const heroTitleClass =

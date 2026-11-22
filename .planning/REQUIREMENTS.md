@@ -89,7 +89,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [ ] **CONT-02**: El mensaje se guarda en `contact_messages` antes de enviarse y llega a Teo por Resend con `replyTo` del visitante
 - [ ] **CONT-03**: Los envíos con honeypot lleno o hechos en menos de ~3 s se descartan sin avisar al bot
 - [ ] **CONT-04**: Upstash limita los envíos por IP (3–5 por hora) y el límite falla cerrado si Upstash no responde
-- [ ] **CONT-05**: El visitante copia el email con un botón y abre Cal.com con un enlace simple (sin embed)
+- [x] **CONT-05**: El visitante copia el email con un botón y abre Cal.com con un enlace simple (sin embed)
 
 ### SEO e i18n (SEO)
 
@@ -99,10 +99,10 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 ### Movimiento (MOTN)
 
-- [ ] **MOTN-01**: Un reveal escalonado al cargar (`<Reveal>`) sobre los bloques de primer nivel
+- [x] **MOTN-01**: Un reveal escalonado al cargar (`<Reveal>`) sobre los bloques de primer nivel
 - [ ] **MOTN-02**: El H1 del hero entra partido por palabras con SplitText, después de cargar las fuentes y sin causar CLS
 - [ ] **MOTN-03**: Como máximo una escena scrubbed con ScrollTrigger por página
-- [ ] **MOTN-04**: Con `prefers-reduced-motion: reduce` todo aparece sin animación; solo se animan `transform` y `opacity`
+- [x] **MOTN-04**: Con `prefers-reduced-motion: reduce` todo aparece sin animación; solo se animan `transform` y `opacity`
 
 ### Calidad y lanzamiento (QUAL)
 
@@ -221,14 +221,14 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | CONT-02 | Phase 4 | Pending |
 | CONT-03 | Phase 4 | Pending |
 | CONT-04 | Phase 4 | Pending |
-| CONT-05 | Phase 4 | Pending |
+| CONT-05 | Phase 4 | Complete |
 | SEO-01 | Phase 4 | Pending |
 | SEO-02 | Phase 4 | Pending |
 | SEO-03 | Phase 4 | Pending |
-| MOTN-01 | Phase 4 | Pending |
+| MOTN-01 | Phase 4 | Complete |
 | MOTN-02 | Phase 4 | Pending |
 | MOTN-03 | Phase 4 | Pending |
-| MOTN-04 | Phase 4 | Pending |
+| MOTN-04 | Phase 4 | Complete |
 | QUAL-01 | Phase 4 | Pending |
 | QUAL-02 | Phase 4 | Pending |
 | QUAL-03 | Phase 5 | Pending |

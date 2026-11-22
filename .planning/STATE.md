@@ -1,19 +1,20 @@
 ---
 gsd_state_version: "1.0"
 milestone: v1.0
-current_phase: 03
-current_phase_name: Panel admin + CV
-status: verifying
-stopped_at: Completed 03-13-PLAN.md (content loaded; D-09 listo pending)
-last_updated: "2026-11-21T14:14:12.109Z"
-last_activity: 2026-11-16
-last_activity_desc: Phase 03 execution started
-state_head: 2494483af3ce532b4e71d11f5236b8524c39591c
+current_phase: 4
+current_phase_name: Sitio público
+status: planning
+stopped_at: Phase 03 complete, ready to plan Phase 4
+last_updated: "2026-11-22T19:40:20.219Z"
+last_activity: 2026-11-22
+last_activity_desc: Phase 03 complete, transitioned to Phase 4
+state_head: bfe09ca99164a92f97a25208e0f60471f0e7b005
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 36
   completed_plans: 36
+  percent: 60
 milestone_name: milestone
 ---
 
@@ -21,25 +22,25 @@ milestone_name: milestone
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-10-29)
+See: .planning/PROJECT.md (updated 2026-11-22)
 
 **Core value:** Los casos de estudio (`/projects/[slug]`) convencen a un cliente o reclutador de que Teo sabe decidir y entregar.
-**Current focus:** Phase 03 — Panel admin + CV
+**Current focus:** Phase 4 — Sitio público
 
 ## Current Position
 
-Phase: 03 (Panel admin + CV) — EXECUTING
-Plan: 14 of 14
-Status: Phase complete — ready for verification
-Last activity: 2026-11-16 — Phase 03 execution started
+Phase: 4 — Sitio público
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-11-22 — Phase 03 complete, transitioned to Phase 4
 
-Progress: [████░░░░░░] 40%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 22
+- Total plans completed: 36
 - Average duration: -
 - Total execution time: 0.0 hours
 
@@ -49,6 +50,7 @@ Progress: [████░░░░░░] 40%
 |-------|-------|-------|----------|
 | 01 | 13 | - | - |
 | 2 | 9 | - | - |
+| 03 | 14 | - | - |
 
 **Recent Trend:**
 
@@ -138,7 +140,8 @@ None yet.
 
 - [Phase 1]: `docs/content/` y `material/` están vacíos y `docs/copy.md` tiene marcadores `[Teo escribe]`. Bloquea el seed de la fase 2 (al menos un proyecto completo), el gate de la fase 3 y los casos de estudio de la fase 4.
 - [Phase 2]: Las aprobaciones de dependencias y de cambios en `docs/data-model.md` y CLAUDE.md se piden juntas al inicio, antes de escribir código que dependa de ellas.
-- [Phase 3]: `@react-pdf/renderer` 4.9 con React 19.3 sin verificar; spike el día 5. Pedir `BLOB_READ_WRITE_TOKEN` al inicio.
+- [Phase 3]: CR-01 accepted as known open item at UAT (2026-11-22): stale relation ids in pending drafts block publish; workaround "Descartar borrador".
+- [Phase 3]: Only ManuJ is complete. EcoExport is published-but-hidden with empty narrative fields; Finanzas and Inventario stay draft (D-10). Phase 4 case studies render only complete projects.
 - [Phase 4]: Arrancar la verificación DNS de Resend en Porkbun la primera mañana; pedir las claves de Resend, Upstash y la URL de Cal.com.
 - IDEN-06: inventory and finance captures need Teo's G5 (permission, local sample-data apps, URLs, views); ask at G7 or before
 - 01-13 cannot run as written: G7 option reads pendiente and Teo deferred content, captures and translations to the admin; IDEN-05/06/07 need a replan or gap closure (see 01-12-SUMMARY 'Ajustes que necesita 01-13')
@@ -153,6 +156,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-21T14:14:12.001Z
-Stopped at: Completed 03-13-PLAN.md (content loaded; D-09 listo pending)
+Last session: 2026-11-22T21:00:00Z
+Stopped at: Phase 3 complete (UAT 4/4 passed), ready to plan Phase 4
 Resume file: None

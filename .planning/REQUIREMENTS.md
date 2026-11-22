@@ -78,9 +78,9 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [ ] **SITE-02**: La línea de estado muestra disponibilidad, ciudad, UTC-5 y las horas de solapamiento con Toronto y Madrid, respetando el horario de verano
 - [ ] **SITE-03**: La línea de estado muestra la hora local de Medellín en vivo (componente de cliente que no rompe el prerender)
 - [ ] **SITE-04**: El visitante ve en `/about` la bio, la sección Now fechada, el stack con años (sin barras de nivel), la experiencia, la educación y los idiomas
-- [ ] **SITE-05**: El visitante cambia de idioma y permanece en la página equivalente
-- [ ] **SITE-06**: El visitante cambia entre tema claro y oscuro con View Transitions, sin destello al cargar, y la preferencia persiste
-- [ ] **SITE-07**: El footer enlaza GitHub, LinkedIn, el CV en PDF y el código fuente del sitio
+- [x] **SITE-05**: El visitante cambia de idioma y permanece en la página equivalente
+- [x] **SITE-06**: El visitante cambia entre tema claro y oscuro con View Transitions, sin destello al cargar, y la preferencia persiste
+- [x] **SITE-07**: El footer enlaza GitHub, LinkedIn, el CV en PDF y el código fuente del sitio
 - [ ] **SITE-08**: Existe una página 404 en ambos idiomas
 
 ### Contacto (CONT)
@@ -213,9 +213,9 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | SITE-02 | Phase 4 | Pending |
 | SITE-03 | Phase 4 | Pending |
 | SITE-04 | Phase 4 | Pending |
-| SITE-05 | Phase 4 | Pending |
-| SITE-06 | Phase 4 | Pending |
-| SITE-07 | Phase 4 | Pending |
+| SITE-05 | Phase 4 | Complete |
+| SITE-06 | Phase 4 | Complete |
+| SITE-07 | Phase 4 | Complete |
 | SITE-08 | Phase 5 | Pending |
 | CONT-01 | Phase 4 | Pending |
 | CONT-02 | Phase 4 | Pending |

@@ -121,4 +121,13 @@ describe("StatusLine", () => {
     // one dot plus a separator after each of the first three segments
     expect(hidden.length).toBe(4);
   });
+
+  it("marks the time and overlap nodes for the live script and carries no clock digits", () => {
+    const html = render({});
+    expect(html).toMatch(/<time[^>]*data-status-time[^>]*>UTC-5<\/time>/);
+    expect(html).toMatch(
+      /<span[^>]*data-status-overlap[^>]*>overlaps with Toronto and Madrid<\/span>/,
+    );
+    expect(html).not.toMatch(/\d{2}:\d{2}/);
+  });
 });

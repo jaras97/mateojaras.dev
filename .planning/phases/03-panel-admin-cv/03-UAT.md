@@ -1,44 +1,51 @@
 ---
-status: testing
+status: complete
 phase: 03-panel-admin-cv
 source: [03-VERIFICATION.md]
 started: 2026-11-22T19:40:00Z
-updated: 2026-11-22T19:40:00Z
+updated: 2026-11-22T19:36:25.486Z
 ---
 
 ## Current Test
 
-number: 1
-name: Decide on SC1/SC6 scope: 3 of 4 projects (EcoExport, Finanzas, Inventario) are not loaded
-expected: |
-  Either accept the deviation as an override (the content is deferred by Teo's own decision, D-10, 2026-11-21) or open a gap-closure plan to load them
-awaiting: user response
+[testing complete]
 
 ## Tests
 
 ### 1. Decide on SC1/SC6 scope: 3 of 4 projects (EcoExport, Finanzas, Inventario) are not loaded
 expected: Either accept the deviation as an override (the content is deferred by Teo's own decision, D-10, 2026-11-21) or open a gap-closure plan to load them
-result: [pending]
+result: pass
 
 ### 2. Run DATABASE_URL='<Neon main URL>' pnpm exec tsx scripts/check-phase-3.ts and paste output
 expected: ManuJ, resume and skills lines PASS. EcoExport content lines FAIL by design while it stays published-but-hidden with empty fields
-result: [pending]
+result: issue
+reported: "Script output (pasted, top truncated): ManuJ visible lines PASS; settings and experiences PASS; EcoExport FAILs as expected (tagline, problem, role, results, decisions, media, coverImage); FAIL resume en: latest version exists; FAIL resume es: latest version exists; RESULT: 9 FAIL. Skills lines not visible in pasted output."
+severity: major
 
 ### 3. Review the 3 ManuJ screenshots (16:10, alt es/en) and the EN translation in the admin; open /cv/en.pdf and /cv/es.pdf
 expected: Images are 16:10 and acceptable; English text approved (draft-translation flag cleared); CVs read correctly
-result: [pending]
+result: pass
 
 ### 4. Decide whether CR-01 (stale relation ids in pending drafts block publish) must be fixed before phase 4
 expected: Fix now, or accept as known open item (escape route: "Descartar borrador")
-result: [pending]
+result: pass
 
 ## Summary
 
 total: 4
-passed: 0
-issues: 0
-pending: 4
+passed: 3
+issues: 1
+pending: 0
 skipped: 0
 blocked: 0
 
 ## Gaps
+
+- gap_id: G-03-2
+  truth: "check-phase-3.ts against Neon main reports PASS for resume en and resume es (a latest resume_versions row exists per locale)"
+  status: failed
+  reason: "User reported: FAIL resume en: latest version exists; FAIL resume es: latest version exists (RESULT: 9 FAIL, 7 of them the expected EcoExport content lines)"
+  severity: major
+  test: 2
+  artifacts: []
+  missing: []

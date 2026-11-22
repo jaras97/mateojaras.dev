@@ -1,5 +1,5 @@
 ---
-status: complete
+status: diagnosed
 phase: 03-panel-admin-cv
 source: [03-VERIFICATION.md]
 started: 2026-11-22T19:40:00Z
@@ -47,5 +47,13 @@ blocked: 0
   reason: "User reported: FAIL resume en: latest version exists; FAIL resume es: latest version exists (RESULT: 9 FAIL, 7 of them the expected EcoExport content lines)"
   severity: major
   test: 2
-  artifacts: []
-  missing: []
+  root_cause: "Data, not code. Neon main has no resume_versions rows for en/es. The CVs approved in test 3 were most likely generated against the dev branch (local .env.local). src/app/api/cv/[lang]/route.ts serves the latest row via getLatestResume(lang), so on production /cv/en.pdf and /cv/es.pdf return 404 until a CV is generated against main. Not verified against the dev branch (secret-read guard blocks reading .env.local)."
+  artifacts:
+    - path: "src/app/api/cv/[lang]/route.ts"
+      issue: "Returns 404 when no resume_versions row exists for the locale (correct behavior, missing data)"
+    - path: "scripts/check-phase-3.ts"
+      issue: "Line 193 check 'latest version exists' fails on main"
+  missing:
+    - "Generate CV en and es from /admin/cv with the app pointed at Neon main (Production deploy, or locally with DATABASE_URL=main)"
+    - "Re-run DATABASE_URL='<Neon main URL>' pnpm exec tsx scripts/check-phase-3.ts and confirm both resume lines PASS (plus 'generated after newest published content update')"
+  debug_session: ""

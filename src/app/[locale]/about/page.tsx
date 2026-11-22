@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { locale } from "next/root-params";
 import { getTranslations } from "next-intl/server";
@@ -17,6 +18,26 @@ import { localized } from "@/lib/i18n-fields";
 import { isLocale } from "@/lib/locale";
 import { docHasText } from "@/lib/rich-text";
 import { numberSections } from "@/lib/section-numbers";
+import { buildPageMetadata, truncateAtWord } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const param = await locale();
+  if (!isLocale(param)) return {};
+  const [t, settings] = await Promise.all([
+    getTranslations({ locale: param, namespace: "Site.about" }),
+    getSiteSettings(),
+  ]);
+  if (!settings) return {};
+  return buildPageMetadata({
+    locale: param,
+    title: `${t("title")} · ${settings.name}`,
+    description: truncateAtWord(
+      String(localized(settings, "bio", param) ?? ""),
+    ),
+    href: "/about",
+    siteName: settings.name,
+  });
+}
 
 export default async function AboutPage() {
   const param = await locale();

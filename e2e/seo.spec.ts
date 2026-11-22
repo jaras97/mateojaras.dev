@@ -1,5 +1,5 @@
 import { expect, type Page, test } from "@playwright/test";
-import { firstPublishedProject } from "./db";
+import { firstPublishedProject, sql } from "./db";
 
 test.skip(!process.env.DATABASE_URL, "DATABASE_URL is not set");
 
@@ -34,10 +34,14 @@ async function expectSeo(
   expect(hEs).toMatch(new RegExp(`^https?://[^/]+${es}$`));
   expect(hDefault).toBe(hEn);
   const own = lang === "en" ? en : es;
+  // The site root serializes without a trailing slash.
+  const tail = (p: string) => (p === "/" ? "/?" : p);
   expect(
     await page.locator('link[rel="canonical"]').getAttribute("href"),
-  ).toMatch(new RegExp(`^https?://[^/]+${own}$`));
-  expect(await meta('meta[property="og:url"]')).toMatch(new RegExp(`${own}$`));
+  ).toMatch(new RegExp(`^https?://[^/]+${tail(own)}$`));
+  expect(await meta('meta[property="og:url"]')).toMatch(
+    new RegExp(`${tail(own)}$`),
+  );
   const image = await meta('meta[property="og:image"]');
   expect(image).toBeTruthy();
   // The og:image URL carries the configured site origin; fetch it by path.
@@ -57,4 +61,64 @@ test("case study carries localized metadata, hreflang and an og image", async ({
   const es = `/es/proyectos/${project.slug}`;
   await expectSeo(page, request, en, { lang: "en", en, es });
   await expectSeo(page, request, es, { lang: "es", en, es });
+});
+
+const pages = [
+  { en: "/", es: "/es" },
+  { en: "/about", es: "/es/sobre-mi" },
+  { en: "/contact", es: "/es/contacto" },
+] as const;
+
+for (const { en, es } of pages) {
+  for (const lang of ["en", "es"] as const) {
+    test(`${lang === "en" ? en : es} carries metadata, hreflang and an og image`, async ({
+      page,
+      request,
+    }) => {
+      await expectSeo(page, request, lang === "en" ? en : es, { lang, en, es });
+    });
+  }
+}
+
+async function hiddenOrDraftSlugs() {
+  const rows = (await sql`
+    select slug from projects where status <> 'published' or visible = false
+  `) as { slug: string }[];
+  return rows.map((r) => r.slug);
+}
+
+test("sitemap.xml lists public pages and published cases in both languages", async ({
+  request,
+}) => {
+  const res = await request.get("/sitemap.xml");
+  expect(res.status()).toBe(200);
+  const xml = await res.text();
+  for (const path of ["/es/sobre-mi", "/es/contacto", "/about", "/contact"]) {
+    expect(xml).toContain(path);
+  }
+  const published = (await sql`
+    select slug from projects where status = 'published' and visible = true
+  `) as { slug: string }[];
+  for (const { slug } of published) {
+    expect(xml).toContain(`/projects/${slug}<`);
+    expect(xml).toContain(`/es/proyectos/${slug}"`);
+  }
+  expect(xml).toContain("hreflang");
+  expect(xml).toContain("x-default");
+  expect(xml).not.toContain("/admin");
+  expect(xml).not.toContain("/api");
+  for (const slug of await hiddenOrDraftSlugs()) {
+    expect(xml).not.toContain(`/${slug}<`);
+  }
+});
+
+test("robots.txt blocks admin and api and links the sitemap", async ({
+  request,
+}) => {
+  const res = await request.get("/robots.txt");
+  expect(res.status()).toBe(200);
+  const body = await res.text();
+  expect(body).toContain("Disallow: /admin");
+  expect(body).toContain("Disallow: /api");
+  expect(body).toContain("Sitemap:");
 });

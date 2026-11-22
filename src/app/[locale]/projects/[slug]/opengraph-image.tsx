@@ -10,20 +10,8 @@ import { ogContentType, ogSize, renderOgImage } from "@/lib/og";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
-export async function generateImageMetadata({ params }: Props) {
-  const { locale, slug } = await params;
-  const project = await getProject(slug);
-  if (!project || !isLocale(locale)) return [];
-  const t = await getTranslations({ locale, namespace: "Site.og" });
-  return [
-    {
-      id: "default",
-      alt: `${t("caseStudy")}: ${localized(project, "title", locale) as string}`,
-      size: ogSize,
-      contentType: ogContentType,
-    },
-  ];
-}
+export const size = ogSize;
+export const contentType = ogContentType;
 
 export default async function Image({ params }: Props) {
   const { locale, slug } = await params;

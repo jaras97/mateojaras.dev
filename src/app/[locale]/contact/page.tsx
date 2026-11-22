@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { locale } from "next/root-params";
 import { getTranslations } from "next-intl/server";
@@ -10,6 +11,24 @@ import { ContactAside } from "@/features/contact/components/contact-aside";
 import { ContactForm } from "@/features/contact/components/contact-form";
 import { getSiteSettings } from "@/features/site-settings/queries";
 import { isLocale } from "@/lib/locale";
+import { buildPageMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const param = await locale();
+  if (!isLocale(param)) return {};
+  const [t, settings] = await Promise.all([
+    getTranslations({ locale: param, namespace: "Site.contact" }),
+    getSiteSettings(),
+  ]);
+  if (!settings) return {};
+  return buildPageMetadata({
+    locale: param,
+    title: `${t("title")} · ${settings.name}`,
+    description: t("intro"),
+    href: "/contact",
+    siteName: settings.name,
+  });
+}
 
 export default async function ContactPage() {
   const param = await locale();

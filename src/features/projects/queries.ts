@@ -42,6 +42,20 @@ export async function getPublishedSlugsCore() {
   return rows.map((r) => r.slug);
 }
 
+// Rows the sitemap lists: same published+visible filter and order as the
+// slug list. Drafts and hidden projects never appear (SEO-03).
+export function sitemapProjectsQuery(handle: Db) {
+  return handle
+    .select({ slug: projects.slug, updatedAt: projects.updatedAt })
+    .from(projects)
+    .where(and(eq(projects.status, "published"), eq(projects.visible, true)))
+    .orderBy(asc(projects.order));
+}
+
+export async function getSitemapProjectsCore() {
+  return sitemapProjectsQuery(db);
+}
+
 export async function getProjectBySlugCore(slug: string, opts: Opts) {
   const rows = await db
     .select()
@@ -65,6 +79,13 @@ export async function getProjects() {
   cacheLife("max");
   const { isEnabled } = await draftMode();
   return getProjectsCore({ includeDrafts: isEnabled });
+}
+
+export async function getSitemapProjects() {
+  "use cache";
+  cacheTag(tags.projects);
+  cacheLife("max");
+  return getSitemapProjectsCore();
 }
 
 export async function getProject(slug: string) {

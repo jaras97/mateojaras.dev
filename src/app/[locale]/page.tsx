@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { locale } from "next/root-params";
 import { getTranslations } from "next-intl/server";
@@ -9,7 +10,24 @@ import { HomeContact } from "@/components/site/home-contact";
 import { PageSection } from "@/components/site/page-section";
 import { getProjectStacks, getProjects } from "@/features/projects/queries";
 import { getSiteSettings } from "@/features/site-settings/queries";
+import { localized } from "@/lib/i18n-fields";
 import { isLocale } from "@/lib/locale";
+import { buildPageMetadata } from "@/lib/seo";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const param = await locale();
+  const settings = await getSiteSettings();
+  if (!settings || !isLocale(param)) return {};
+  const pick = (field: string) =>
+    String(localized(settings, field, param) ?? "").trim();
+  return buildPageMetadata({
+    locale: param,
+    title: pick("seoTitle") || settings.name,
+    description: pick("seoDescription") || pick("headline"),
+    href: "/",
+    siteName: settings.name,
+  });
+}
 
 export default async function Home() {
   const param = await locale();

@@ -24,6 +24,16 @@
       "title": "Page not found",
       "body": "This page does not exist.",
       "home": "Back to home"
+    },
+    "header": {
+      "skip": "Skip to content"
+    },
+    "about": {
+      "title": "About"
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "Tell me what you’re building. I reply within a day, in English or Spanish."
     }
   },
   "Admin": {

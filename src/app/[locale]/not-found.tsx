@@ -11,7 +11,7 @@ export default async function NotFound() {
     namespace: "Site.notFound",
   });
   return (
-    <main className="mx-auto max-w-page px-6 py-12 md:px-12 lg:py-16">
+    <div className="mx-auto max-w-page px-6 py-12 md:px-12 lg:py-16">
       <h1 className="font-heading text-4xl font-semibold tracking-display text-balance">
         {t("title")}
       </h1>
@@ -21,6 +21,6 @@ export default async function NotFound() {
           {t("home")}
         </Link>
       </p>
-    </main>
+    </div>
   );
 }

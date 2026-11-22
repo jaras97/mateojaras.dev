@@ -54,7 +54,7 @@ export default async function ProjectPage({
   if (!isLocale(param)) notFound();
   const t = await getTranslations({ locale: param, namespace: "Site.project" });
   return (
-    <main className="mx-auto max-w-page px-6 py-12 md:px-12 lg:py-16">
+    <div className="mx-auto max-w-page px-6 py-12 md:px-12 lg:py-16">
       {/* Reserves the heading line while an unlisted slug streams in. */}
       <Suspense fallback={<div aria-hidden="true" className="h-10" />}>
         <CaseStudy params={params} locale={param} />
@@ -64,6 +64,6 @@ export default async function ProjectPage({
           {t("backHome")}
         </Link>
       </p>
-    </main>
+    </div>
   );
 }

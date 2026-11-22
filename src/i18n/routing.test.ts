@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { getPathname } from "./navigation";
 import { routing } from "./routing";
 
 describe("routing", () => {
@@ -15,5 +16,25 @@ describe("routing", () => {
       en: "/projects/[slug]",
       es: "/proyectos/[slug]",
     });
+  });
+
+  it("localizes the about path in Spanish", () => {
+    expect(routing.pathnames?.["/about"]).toEqual({
+      en: "/about",
+      es: "/sobre-mi",
+    });
+    expect(getPathname({ locale: "es", href: "/about" })).toBe("/es/sobre-mi");
+    expect(getPathname({ locale: "en", href: "/about" })).toBe("/about");
+  });
+
+  it("localizes the contact path in Spanish", () => {
+    expect(routing.pathnames?.["/contact"]).toEqual({
+      en: "/contact",
+      es: "/contacto",
+    });
+    expect(getPathname({ locale: "es", href: "/contact" })).toBe(
+      "/es/contacto",
+    );
+    expect(getPathname({ locale: "en", href: "/contact" })).toBe("/contact");
   });
 });

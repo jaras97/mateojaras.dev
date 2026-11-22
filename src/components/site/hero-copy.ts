@@ -1,4 +1,5 @@
 import type { Locale } from "@/features/site-settings/types";
+import { getPathname } from "@/i18n/navigation";
 import { fill, heroMessages } from "@/lib/messages";
 
 // Hero interface strings, read from the Hero namespace of messages/*.json.
@@ -16,11 +17,6 @@ export type HeroCopy = {
   index: { number: string; label: string }[];
 };
 
-const CTA_HREF: Record<Locale, string> = {
-  en: "/contact",
-  es: "/es/contacto",
-};
-
 function buildHeroCopy(locale: Locale): HeroCopy {
   const m = heroMessages[locale];
   return {
@@ -30,7 +26,7 @@ function buildHeroCopy(locale: Locale): HeroCopy {
       closed: m.availability.closed,
     },
     overlap: m.overlap,
-    cta: { label: m.cta, href: CTA_HREF[locale] },
+    cta: { label: m.cta, href: getPathname({ locale, href: "/contact" }) },
     index: [
       { number: "01", label: m.index.work },
       { number: "02", label: m.index.about },

@@ -24,6 +24,16 @@
       "title": "Página no encontrada",
       "body": "Esta página no existe.",
       "home": "Volver al inicio"
+    },
+    "header": {
+      "skip": "Saltar al contenido"
+    },
+    "about": {
+      "title": "Sobre mí"
+    },
+    "contact": {
+      "title": "Contacto",
+      "intro": "Cuéntame qué estás construyendo. Te respondo en menos de un día, en español o en inglés."
     }
   },
   "Admin": {

@@ -16,7 +16,7 @@ export default async function Home() {
     getProjects(),
   ]);
   return (
-    <main className="mx-auto max-w-page px-6 py-12 md:px-12 lg:py-16">
+    <div className="mx-auto max-w-page px-6 py-12 md:px-12 lg:py-16">
       {settings && (
         <h1 className="font-heading text-4xl font-semibold tracking-display text-balance">
           {settings.name}
@@ -44,6 +44,6 @@ export default async function Home() {
           </ul>
         </section>
       )}
-    </main>
+    </div>
   );
 }

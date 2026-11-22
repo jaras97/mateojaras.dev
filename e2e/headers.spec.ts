@@ -13,7 +13,16 @@ function watchCsp(page: Page) {
   return violations;
 }
 
-for (const path of ["/", "/es", `/projects/${slug}`, "/admin/login"]) {
+for (const path of [
+  "/",
+  "/es",
+  `/projects/${slug}`,
+  "/about",
+  "/contact",
+  "/es/sobre-mi",
+  "/es/contacto",
+  "/admin/login",
+]) {
   test(`${path} carries the security headers and no CSP violation`, async ({
     page,
   }) => {

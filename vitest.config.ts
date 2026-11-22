@@ -13,5 +13,8 @@ export default defineConfig({
   test: {
     include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
     environment: "node",
+    // next-intl imports `next/navigation` without an extension; inlining it
+    // lets Vite resolve it (needed once a module imports src/i18n/navigation).
+    server: { deps: { inline: ["next-intl"] } },
   },
 });

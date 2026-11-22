@@ -50,4 +50,12 @@ describe.each(VARIANTS)("%s", (_name, Hero) => {
     expect(ctaHref(render(Hero, heroFixture, "en"))).toBe("/contact");
     expect(ctaHref(render(Hero, heroFixture, "es"))).toBe("/es/contacto");
   });
+
+  it("ships the clock script and the static shell without a clock time", () => {
+    const html = render(Hero, heroFixture, "en");
+    expect(html).toContain("data-status-time");
+    expect(html).toContain("data-status-overlap");
+    expect(html).toContain("<script");
+    expect(html).not.toMatch(/\d{2}:\d{2} UTC-5/);
+  });
 });

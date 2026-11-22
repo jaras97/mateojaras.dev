@@ -63,6 +63,23 @@ for (const [path, lang, key] of [
   });
 }
 
+for (const path of ["/", "/es"]) {
+  test(`${path} server HTML has no clock time; the browser fills time and overlap`, async ({
+    request,
+    page,
+  }) => {
+    const html = await (await request.get(path)).text();
+    expect(html).toContain("UTC-5");
+    expect(html).toMatch(/Toronto/);
+    expect(html).not.toMatch(/\d{2}:\d{2} UTC-5/);
+    await page.goto(path);
+    await expect(page.locator("[data-status-time]")).toHaveText(
+      /^\d{2}:\d{2} UTC-5$/,
+    );
+    await expect(page.locator("[data-status-overlap]")).toContainText(/\d+ h/);
+  });
+}
+
 test("Accept-Language: es does not change `/` and sets no locale cookie", async ({
   playwright,
   baseURL,

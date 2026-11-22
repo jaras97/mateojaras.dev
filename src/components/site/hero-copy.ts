@@ -1,6 +1,6 @@
 import type { Locale } from "@/features/site-settings/types";
 import { getPathname } from "@/i18n/navigation";
-import { fill, heroMessages } from "@/lib/messages";
+import { fill, heroMessages, overlapTemplates } from "@/lib/messages";
 
 // Hero interface strings, read from the Hero namespace of messages/*.json.
 // This file holds only routes, index numbers and the approval status. Phase 2
@@ -13,6 +13,7 @@ export type HeroCopy = {
     closed: string;
   };
   overlap: string;
+  overlapTemplate: string;
   cta: { label: string; href: string };
   index: { number: string; label: string }[];
 };
@@ -26,6 +27,7 @@ function buildHeroCopy(locale: Locale): HeroCopy {
       closed: m.availability.closed,
     },
     overlap: m.overlap,
+    overlapTemplate: overlapTemplates[locale],
     cta: { label: m.cta, href: getPathname({ locale, href: "/contact" }) },
     index: [
       { number: "01", label: m.index.work },

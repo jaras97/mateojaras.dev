@@ -89,7 +89,7 @@ describe("StatusLine", () => {
     const withDate = render({}, "en", true);
     expect(withDate).toMatch(/<time dateTime="\d{4}-\d{2}-\d{2}">/);
     expect(withDate).toContain('dateTime="2026-10-30"');
-    expect(render({}, "en", false)).not.toContain("<time");
+    expect(render({}, "en", false)).not.toContain("dateTime=");
   });
 
   it("never starts a segment with the separator and never ends the line with one", () => {

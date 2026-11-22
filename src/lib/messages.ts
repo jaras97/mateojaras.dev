@@ -14,6 +14,12 @@ export const heroMessages: Record<Locale, HeroMessages> = {
   es: es.Hero,
 };
 
+// Template with {toronto} and {madrid}, filled at runtime by the status line.
+export const overlapTemplates: Record<Locale, string> = {
+  en: en.Site.status.overlapHours,
+  es: es.Site.status.overlapHours,
+};
+
 // Replaces each {name} in an ICU-style template with values[name]. A
 // placeholder without a value is left as written, never filled with a guess.
 export function fill(template: string, values: Record<string, string>): string {

@@ -64,12 +64,20 @@ export function StatusLine({
 
   segments.push({
     key: "offset",
-    content: formatUtcOffset(settings.timezone, settings.updatedAt),
+    content: (
+      <time data-status-time suppressHydrationWarning>
+        {formatUtcOffset(settings.timezone, settings.updatedAt)}
+      </time>
+    ),
     className: "text-muted-foreground",
   });
   segments.push({
     key: "overlap",
-    content: copy.overlap,
+    content: (
+      <span data-status-overlap suppressHydrationWarning>
+        {copy.overlap}
+      </span>
+    ),
     className: "text-muted-foreground",
   });
 

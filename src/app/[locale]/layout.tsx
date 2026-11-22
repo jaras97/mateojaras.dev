@@ -5,6 +5,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { fontVariables } from "@/app/fonts";
 import { DraftBanner } from "@/components/site/draft-banner";
+import { SiteFooter } from "@/components/site/site-footer";
+import { SiteHeader } from "@/components/site/site-header";
+import { ThemeScript } from "@/components/site/theme-script";
 import { getSiteSettings } from "@/features/site-settings/queries";
 import { isLocale, locales } from "@/lib/locale";
 import "@/app/globals.css";
@@ -25,7 +28,14 @@ export default async function RootLayout({
   if (!isLocale(param)) notFound();
   const t = await getTranslations({ locale: param, namespace: "Site.header" });
   return (
-    <html lang={param} className={`${fontVariables} h-full antialiased`}>
+    <html
+      lang={param}
+      className={`${fontVariables} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="min-h-full flex flex-col">
         {/* Client Links need the locale; UI strings stay server-side. */}
         <a
@@ -36,9 +46,11 @@ export default async function RootLayout({
         </a>
         <NextIntlClientProvider locale={param} messages={null}>
           <DraftBanner locale={param} />
+          <SiteHeader locale={param} />
           <main id="main" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>
+          <SiteFooter locale={param} />
         </NextIntlClientProvider>
       </body>
     </html>

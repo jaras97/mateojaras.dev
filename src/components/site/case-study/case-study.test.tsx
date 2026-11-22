@@ -1,5 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+import { CaseGallery } from "@/components/site/case-study/case-gallery";
 import { CaseHeader } from "@/components/site/case-study/case-header";
 import { CaseMetrics } from "@/components/site/case-study/case-metrics";
 import { CaseSections } from "@/components/site/case-study/case-sections";
@@ -176,5 +177,55 @@ describe("CaseHeader period", () => {
       expect(html).toContain('href="/contact"');
       expect(html).toContain("React · Next.js");
     }
+  });
+});
+
+describe("CaseGallery", () => {
+  const labels = { figure: "{n} / {total}" };
+  const item = (url: string, extra = {}) => ({
+    url,
+    altEn: `alt ${url}`,
+    altEs: `alt es ${url}`,
+    type: "image" as const,
+    ...extra,
+  });
+  const render = (media: ReturnType<typeof item>[], cover = "c") =>
+    renderToStaticMarkup(
+      <CaseGallery media={media} cover={cover} locale="en" labels={labels} />,
+    );
+
+  it("renders nothing with only the cover", () => {
+    expect(render([item("c")])).toBe("");
+    expect(render([])).toBe("");
+  });
+
+  it("captions with text and date, text alone, date alone or the counter", () => {
+    const html = render([
+      item("c"),
+      item("https://x.dev/1.png", {
+        captionEn: "Home",
+        captionEs: "Inicio",
+        capturedAt: "2026-03",
+      }),
+      item("https://x.dev/2.png", { captionEn: "Only text" }),
+      item("https://x.dev/3.png", { capturedAt: "2026-03-15" }),
+      item("https://x.dev/4.png"),
+    ]);
+    expect(html).toContain("Home");
+    expect(html).toContain("Mar 2026");
+    expect(html).toContain("Only text");
+    expect(html).toContain("04 / 04");
+    expect(html).not.toContain("alt https://x.dev/c");
+  });
+
+  it("renders video with controls and an aria-label", () => {
+    const html = render([
+      item("c"),
+      item("https://x.dev/v.mp4", { type: "video" }),
+    ]);
+    expect(html).toContain("<video");
+    expect(html).toContain("controls");
+    expect(html).toContain('preload="none"');
+    expect(html).toContain('aria-label="alt https://x.dev/v.mp4"');
   });
 });

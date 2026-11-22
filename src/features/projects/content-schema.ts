@@ -46,6 +46,12 @@ export const mediaSchema = z.strictObject({
   altEs: text,
   altEn: text,
   type: z.literal("image"),
+  captionEs: z.string().trim().min(1).max(120).optional(),
+  captionEn: z.string().trim().min(1).max(120).optional(),
+  capturedAt: z
+    .string()
+    .regex(/^\d{4}-\d{2}(-\d{2})?$/)
+    .optional(),
 });
 
 export const projectFrontMatterSchema = z.strictObject({

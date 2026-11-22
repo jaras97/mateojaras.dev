@@ -6,7 +6,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import { draftMode } from "next/headers";
 import { db } from "@/db";
 import type { Db } from "@/db/client";
-import { projects } from "@/db/schema";
+import { projectSkills, projects, skills } from "@/db/schema";
 import { tags } from "@/lib/cache-tags";
 import { applyDraft, stripDraft } from "@/lib/draft";
 
@@ -73,4 +73,39 @@ export async function getProject(slug: string) {
   cacheLife("max");
   const { isEnabled } = await draftMode();
   return getProjectBySlugCore(slug, { includeDrafts: isEnabled });
+}
+
+// Skill names per project for the case header. Public reads keep only
+// published, visible skills; order follows the admin order of skills.
+export function projectStacksQuery(handle: Db, { includeDrafts }: Opts) {
+  const base = handle
+    .select({ projectId: projectSkills.projectId, name: skills.name })
+    .from(projectSkills)
+    .innerJoin(skills, eq(projectSkills.skillId, skills.id));
+  return (
+    includeDrafts
+      ? base
+      : base.where(
+          and(eq(skills.status, "published"), eq(skills.visible, true)),
+        )
+  ).orderBy(asc(skills.order));
+}
+
+export async function getProjectStacksCore(
+  opts: Opts,
+): Promise<Record<string, string[]>> {
+  const rows = await projectStacksQuery(db, opts);
+  const byProject: Record<string, string[]> = {};
+  for (const row of rows) {
+    byProject[row.projectId] = [...(byProject[row.projectId] ?? []), row.name];
+  }
+  return byProject;
+}
+
+export async function getProjectStacks() {
+  "use cache";
+  cacheTag(tags.projects, tags.skills);
+  cacheLife("max");
+  const { isEnabled } = await draftMode();
+  return getProjectStacksCore({ includeDrafts: isEnabled });
 }

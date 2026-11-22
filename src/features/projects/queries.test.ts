@@ -65,3 +65,24 @@ describe("project cores and drafts", () => {
     expect(one && "skillIds" in one).toBe(false);
   });
 });
+
+describe("projectStacksQuery", () => {
+  it("joins skills, keeps published visible skills and orders by skills.order", async () => {
+    const { projectStacksQuery } = await import("./queries");
+    const { sql, params } = projectStacksQuery(db, {
+      includeDrafts: false,
+    }).toSQL();
+    expect(sql).toContain('"project_skills"');
+    expect(sql).toContain("inner join");
+    expect(sql).toContain('"skills"."status" = $1');
+    expect(sql).toContain('"skills"."visible" = $2');
+    expect(sql).toContain('order by "skills"."order"');
+    expect(params).toEqual(["published", true]);
+  });
+
+  it("does not filter when drafts are included", async () => {
+    const { projectStacksQuery } = await import("./queries");
+    const { sql } = projectStacksQuery(db, { includeDrafts: true }).toSQL();
+    expect(sql).not.toContain('"skills"."status" =');
+  });
+});

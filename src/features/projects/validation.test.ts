@@ -107,6 +107,43 @@ describe("projectPublishSchema", () => {
   });
 });
 
+describe("media captions", () => {
+  const base = {
+    url: "https://x.dev/a.png",
+    altEn: "a",
+    altEs: "a",
+    type: "image" as const,
+  };
+  it("accepts optional captions and capturedAt", () => {
+    const result = projectDraftSchema.safeParse({
+      ...complete,
+      media: [
+        {
+          ...base,
+          captionEn: "Home",
+          captionEs: "Inicio",
+          capturedAt: "2026-03",
+        },
+      ],
+    });
+    expect(result.success).toBe(true);
+  });
+  it("rejects a bad capturedAt, a long caption and unknown keys", () => {
+    for (const extra of [
+      { capturedAt: "March" },
+      { captionEn: "x".repeat(121) },
+      { notes: "x" },
+    ]) {
+      expect(
+        projectDraftSchema.safeParse({
+          ...complete,
+          media: [{ ...base, ...extra }],
+        }).success,
+      ).toBe(false);
+    }
+  });
+});
+
 describe("slug messages", () => {
   it("match messages/es.json", () => {
     expect(SLUG_FORMAT_MESSAGE).toBe(es.Admin.form.slugFormat);

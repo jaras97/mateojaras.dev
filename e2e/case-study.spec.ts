@@ -100,3 +100,69 @@ test("an unknown slug shows the not-found page", async ({ page }) => {
   await expect(page.getByText("Page not found")).toBeVisible();
   await expect(page.locator("article")).toHaveCount(0);
 });
+
+// A complete fixture row: no live URL, two decisions and margin notes.
+async function withFixture(run: (slug: string) => Promise<void>) {
+  const slug = `${LATE_PREFIX}notes-${Date.now()}`;
+  const tech = JSON.stringify({
+    decisions: [
+      { title: "Decision one", body: "Reason one." },
+      { title: "Decision two", body: "Reason two." },
+    ],
+    tradeoffs: "Test trade-off",
+    validation: "Test check",
+    aiTools: ["Tool A", "Tool B"],
+  });
+  await sql`
+    insert into projects (slug, status, visible, "order", title_en, title_es,
+      tagline_en, tagline_es, problem_en, problem_es, role_en, role_es,
+      solution_en, solution_es, tech_decisions_en, live_url)
+    values (${slug}, 'published', true, 997, 'Notes e2e', 'Notes e2e',
+      'tagline', 'frase', 'problem', 'problema', 'role', 'papel', 'solution',
+      'solucion', ${tech}::jsonb, null)
+  `;
+  try {
+    await run(slug);
+  } finally {
+    await sql`delete from projects where slug = ${slug}`;
+  }
+}
+
+test("margin notes sit under the decisions on mobile and beside them on desktop", async ({
+  page,
+}) => {
+  await withFixture(async (slug) => {
+    for (const [width, beside] of [
+      [390, false],
+      [1440, true],
+    ] as const) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`/projects/${slug}`);
+      const aside = page.locator('[id$="-decisions"] aside');
+      await expect(aside).toBeVisible();
+      await expect(aside).toContainText("Test trade-off");
+      await expect(aside).toContainText("Tool A · Tool B");
+      const list = page.locator('[id$="-decisions"] h3').first();
+      const a = await aside.boundingBox();
+      const l = await list.boundingBox();
+      if (!a || !l)
+        throw new Error(
+          `no layout box at ${width}: aside=${JSON.stringify(a)} h3=${JSON.stringify(l)}`,
+        );
+      if (beside) expect(a.x).toBeGreaterThan(l.x + l.width - 1);
+      else expect(a.y).toBeGreaterThan(l.y);
+    }
+  });
+});
+
+test("a project without liveUrl carries the internal-tool label and demo link", async ({
+  page,
+}) => {
+  await withFixture(async (slug) => {
+    await page.goto(`/projects/${slug}`);
+    await expect(page.getByText("Internal tool, sample data")).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Ask for a demo" }),
+    ).toHaveAttribute("href", "/contact");
+  });
+});

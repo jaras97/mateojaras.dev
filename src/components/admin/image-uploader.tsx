@@ -3,10 +3,13 @@
 import { upload } from "@vercel/blob/client";
 import { cn } from "cn";
 import { useEffect, useId, useRef, useState } from "react";
+import { useFormContext } from "react-hook-form";
 import { BilingualField } from "@/components/admin/bilingual-field";
 import { EnvMissingNotice } from "@/components/admin/env-missing-notice";
 import { useFormLabels } from "@/components/admin/form-labels";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import {
   MAX_UPLOAD_BYTES,
@@ -20,6 +23,9 @@ export type MediaItem = {
   altEn: string;
   altEs: string;
   type: "image" | "video";
+  captionEn?: string;
+  captionEs?: string;
+  capturedAt?: string;
 };
 
 type Pending = { key: string; preview: string; percent: number };
@@ -56,6 +62,7 @@ export function ImageUploader({
 }: Props) {
   const { images, common, form, projects } = useFormLabels();
   const inputId = useId();
+  const { register } = useFormContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const [pending, setPending] = useState<Pending[]>([]);
   const [warnings, setWarnings] = useState<Record<string, string>>({});
@@ -227,6 +234,23 @@ export function ImageUploader({
                   accessibleLabel={`${images.alt} ${index + 1}`}
                   helper={form.altHelper}
                 />
+                <BilingualField
+                  esName={`media.${index}.captionEs`}
+                  enName={`media.${index}.captionEn`}
+                  label={images.caption}
+                  accessibleLabel={`${images.caption} ${index + 1}`}
+                  helper={images.captionHelper}
+                />
+                <div className="flex max-w-xs flex-col gap-2">
+                  <Label htmlFor={`${inputId}-captured-${index}`}>
+                    {images.capturedAt}
+                  </Label>
+                  <Input
+                    id={`${inputId}-captured-${index}`}
+                    type="month"
+                    {...register(`media.${index}.capturedAt`)}
+                  />
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {isCover ? null : (
                     <Button

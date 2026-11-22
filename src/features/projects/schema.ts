@@ -50,7 +50,15 @@ export const projects = pgTable(
     coverImage: text("cover_image"),
     media:
       jsonb("media").$type<
-        { url: string; altEn: string; altEs: string; type: "image" | "video" }[]
+        {
+          url: string;
+          altEn: string;
+          altEs: string;
+          type: "image" | "video";
+          captionEn?: string;
+          captionEs?: string;
+          capturedAt?: string;
+        }[]
       >(),
     featured: boolean("featured").notNull().default(false),
     startedAt: date("started_at"),

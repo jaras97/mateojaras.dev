@@ -39,6 +39,12 @@ const mediaItem = z.strictObject({
   altEn: text,
   altEs: text,
   type: z.enum(["image", "video"]),
+  captionEn: z.string().trim().max(120).optional(),
+  captionEs: z.string().trim().max(120).optional(),
+  capturedAt: z
+    .string()
+    .regex(/^\d{4}-\d{2}(-\d{2})?$/)
+    .optional(),
 });
 
 export const projectDraftSchema = z.strictObject({

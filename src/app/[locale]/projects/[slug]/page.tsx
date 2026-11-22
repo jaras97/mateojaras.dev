@@ -6,14 +6,17 @@ import { Suspense } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import { CaseCover } from "@/components/site/case-study/case-cover";
 import { CaseCta } from "@/components/site/case-study/case-cta";
+import { CaseGallery } from "@/components/site/case-study/case-gallery";
 import { CaseHeader } from "@/components/site/case-study/case-header";
 import { CaseMetrics } from "@/components/site/case-study/case-metrics";
 import { CaseSections } from "@/components/site/case-study/case-sections";
 import { PrevNext } from "@/components/site/case-study/prev-next";
+import { Marginalia } from "@/components/site/marginalia";
 import { pageGridClass } from "@/components/site/page-section";
 import { adjacentProjects } from "@/features/projects/adjacent";
 import {
   getProject,
+  getProjectStacks,
   getProjects,
   getPublishedSlugsCore,
 } from "@/features/projects/queries";
@@ -51,9 +54,10 @@ async function CaseStudy({
   locale: Locale;
 }) {
   const { slug } = await params;
-  const [project, all, t] = await Promise.all([
+  const [project, all, stacks, t] = await Promise.all([
     getProject(slug),
     getProjects(),
+    getProjectStacks(),
     getTranslations({ locale, namespace: "Site.project" }),
   ]);
   if (!project) notFound();
@@ -76,6 +80,18 @@ async function CaseStudy({
           title: localized(row, "title", locale) as string,
         }
       : null;
+  const media = project.media ?? [];
+  const hasGallery = media.some((item) => item.url !== project.coverImage);
+  const tech = localized(project, "techDecisions", locale) as {
+    tradeoffs?: string;
+    validation?: string;
+    aiTools?: string[];
+  } | null;
+  const notes = [
+    { label: t("marginalia.tradeoffs"), body: tech?.tradeoffs ?? "" },
+    { label: t("marginalia.validation"), body: tech?.validation ?? "" },
+    { label: t("marginalia.aiTools"), body: (tech?.aiTools ?? []).join(" · ") },
+  ];
   const contactHref = getPathname({ locale, href: "/contact" });
 
   return (
@@ -85,7 +101,7 @@ async function CaseStudy({
           title={localized(project, "title", locale) as string}
           tagline={localized(project, "tagline", locale) as string | null}
           locale={locale}
-          stack={[]}
+          stack={stacks[project.id] ?? []}
           startedAt={project.startedAt}
           finishedAt={project.finishedAt}
           liveUrl={project.liveUrl}
@@ -124,6 +140,17 @@ async function CaseStudy({
           project={project}
           locale={locale}
           slug={slug}
+          solutionExtra={
+            hasGallery ? (
+              <CaseGallery
+                media={media}
+                cover={project.coverImage}
+                locale={locale}
+                labels={{ figure: t("figure") }}
+              />
+            ) : null
+          }
+          decisionsAside={<Marginalia notes={notes} />}
           labels={{
             problem: t("sections.problem"),
             role: t("sections.role"),

@@ -167,11 +167,20 @@ export function toDraftInput(values: ProjectFormValues): ProjectDraftInput {
     liveUrl: values.liveUrl,
     repoUrl: values.repoUrl,
     coverImage: values.coverImage,
-    media: values.media,
+    media: values.media?.map(compactMedia) ?? values.media,
     startedAt: values.startedAt,
     finishedAt: values.finishedAt,
     skillIds: values.skillIds,
   };
+}
+
+// Empty optional caption inputs store no key (undefined, not "").
+function compactMedia<T extends Record<string, unknown>>(item: T): T {
+  const next: Record<string, unknown> = { ...item };
+  for (const key of ["captionEn", "captionEs", "capturedAt"]) {
+    if (next[key] === "" || next[key] === undefined) delete next[key];
+  }
+  return next as T;
 }
 
 // Draft path (what Zod reports) -> form field name.

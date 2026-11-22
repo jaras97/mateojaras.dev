@@ -21,8 +21,8 @@ const labels = {
     emailInvalid: "Email inválido",
     messageShort: "Mensaje corto",
     messageLong: "Mensaje largo",
-    rateLimited: "Límite alcanzado",
-    unavailable: "No disponible",
+    rateLimited: "Límite alcanzado, escribe a {email}",
+    unavailable: "No disponible, escribe a {email}",
   },
 };
 
@@ -54,7 +54,10 @@ describe("ContactForm", () => {
     await user.type(screen.getByLabelText("Correo"), "ana@example.com");
     await user.type(screen.getByLabelText("Mensaje"), "Hola, un mensaje largo");
     await user.click(screen.getByRole("button", { name: "Enviar" }));
-    const h2 = await screen.findByRole("heading", { level: 2, name: "Gracias" });
+    const h2 = await screen.findByRole("heading", {
+      level: 2,
+      name: "Gracias",
+    });
     await waitFor(() => expect(document.activeElement).toBe(h2));
     expect(screen.queryByLabelText("Nombre")).toBeNull();
     expect(submitContact).toHaveBeenCalledWith(
@@ -73,7 +76,9 @@ describe("ContactForm", () => {
     await user.click(screen.getByRole("button", { name: "Enviar" }));
     const alert = await screen.findByRole("alert");
     expect(alert.textContent).toContain("Límite alcanzado");
-    expect(alert.querySelector("a")?.getAttribute("href")).toBe("mailto:a@b.co");
+    expect(alert.querySelector("a")?.getAttribute("href")).toBe(
+      "mailto:a@b.co",
+    );
     expect((screen.getByLabelText("Nombre") as HTMLInputElement).value).toBe(
       "Ana",
     );

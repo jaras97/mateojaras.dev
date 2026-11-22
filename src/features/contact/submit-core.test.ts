@@ -10,96 +10,111 @@ const input = {
 };
 
 function makeDeps(over: Partial<ContactDeps> = {}) {
-  const deps = {
-    limiter: { limit: vi.fn().mockResolvedValue({ success: true }) },
+  const limit = vi.fn().mockResolvedValue({ success: true });
+  const insert = vi.fn().mockResolvedValue({ id: "id-1" });
+  const schedule = vi.fn();
+  const log = vi.fn();
+  const deps: ContactDeps = {
+    limiter: { limit },
     ipHash: "hash",
-    insert: vi.fn().mockResolvedValue({ id: "id-1" }),
-    schedule: vi.fn(),
-    log: vi.fn(),
+    insert,
+    schedule,
+    log,
     ...over,
-  } satisfies ContactDeps;
-  return deps;
+  };
+  return { deps, limit, insert, schedule, log };
 }
 
-let deps: ReturnType<typeof makeDeps>;
+let m: ReturnType<typeof makeDeps>;
 beforeEach(() => {
-  deps = makeDeps();
+  m = makeDeps();
 });
 
 describe("submitContactCore", () => {
   it("returns a validation error with field codes", async () => {
-    const r = await submitContactCore("en", { ...input, name: "" }, deps);
+    const r = await submitContactCore("en", { ...input, name: "" }, m.deps);
     expect(r).toMatchObject({ ok: false, error: "validation" });
-    expect(deps.insert).not.toHaveBeenCalled();
+    expect(m.insert).not.toHaveBeenCalled();
   });
 
   it("silently discards a filled honeypot", async () => {
-    const r = await submitContactCore("en", { ...input, website: "bot" }, deps);
+    const r = await submitContactCore(
+      "en",
+      { ...input, website: "bot" },
+      m.deps,
+    );
     expect(r).toEqual({ ok: true });
-    expect(deps.insert).not.toHaveBeenCalled();
-    expect(deps.limiter?.limit).not.toHaveBeenCalled();
+    expect(m.insert).not.toHaveBeenCalled();
+    expect(m.limit).not.toHaveBeenCalled();
   });
 
   it("silently discards a submission faster than 3 s", async () => {
-    const r = await submitContactCore("en", { ...input, elapsedMs: 2999 }, deps);
+    const r = await submitContactCore(
+      "en",
+      { ...input, elapsedMs: 2999 },
+      m.deps,
+    );
     expect(r).toEqual({ ok: true });
-    expect(deps.insert).not.toHaveBeenCalled();
+    expect(m.insert).not.toHaveBeenCalled();
   });
 
   it("fails closed without a limiter and names the env var", async () => {
-    deps = makeDeps({ limiter: null });
-    const r = await submitContactCore("en", input, deps);
+    m = makeDeps({ limiter: null });
+    const r = await submitContactCore("en", input, m.deps);
     expect(r).toEqual({ ok: false, error: "unavailable" });
-    expect(deps.insert).not.toHaveBeenCalled();
-    expect(deps.log.mock.calls[0][0]).toContain("UPSTASH_REDIS_REST_URL");
+    expect(m.insert).not.toHaveBeenCalled();
+    expect(m.log.mock.calls[0][0]).toContain("UPSTASH_REDIS_REST_URL");
   });
 
   it("treats reason timeout as unavailable", async () => {
-    deps.limiter.limit.mockResolvedValue({ success: true, reason: "timeout" });
-    const r = await submitContactCore("en", input, deps);
+    m.limit.mockResolvedValue({ success: true, reason: "timeout" });
+    const r = await submitContactCore("en", input, m.deps);
     expect(r).toEqual({ ok: false, error: "unavailable" });
-    expect(deps.insert).not.toHaveBeenCalled();
+    expect(m.insert).not.toHaveBeenCalled();
   });
 
   it("returns rate_limited when the limiter refuses", async () => {
-    deps.limiter.limit.mockResolvedValue({ success: false });
-    const r = await submitContactCore("en", input, deps);
+    m.limit.mockResolvedValue({ success: false });
+    const r = await submitContactCore("en", input, m.deps);
     expect(r).toEqual({ ok: false, error: "rate_limited" });
-    expect(deps.insert).not.toHaveBeenCalled();
+    expect(m.insert).not.toHaveBeenCalled();
   });
 
   it("returns unavailable when the limiter throws", async () => {
-    deps.limiter.limit.mockRejectedValue(new Error("down"));
-    const r = await submitContactCore("en", input, deps);
+    m.limit.mockRejectedValue(new Error("down"));
+    const r = await submitContactCore("en", input, m.deps);
     expect(r).toEqual({ ok: false, error: "unavailable" });
-    expect(deps.insert).not.toHaveBeenCalled();
+    expect(m.insert).not.toHaveBeenCalled();
   });
 
   it("inserts once, schedules the notification and succeeds", async () => {
-    const r = await submitContactCore("es", input, deps);
+    const r = await submitContactCore("es", input, m.deps);
     expect(r).toEqual({ ok: true });
-    expect(deps.insert).toHaveBeenCalledTimes(1);
-    expect(deps.insert).toHaveBeenCalledWith({
+    expect(m.insert).toHaveBeenCalledTimes(1);
+    expect(m.insert).toHaveBeenCalledWith({
       name: "Ana",
       email: "ana@example.com",
       message: input.message,
       locale: "es",
       ipHash: "hash",
     });
-    expect(deps.schedule).toHaveBeenCalledWith("id-1", expect.objectContaining({ email: "ana@example.com" }));
+    expect(m.schedule).toHaveBeenCalledWith(
+      "id-1",
+      expect.objectContaining({ email: "ana@example.com" }),
+    );
   });
 
   it("returns unavailable and does not notify when the insert throws", async () => {
-    deps.insert.mockRejectedValue(new Error("db"));
-    const r = await submitContactCore("en", input, deps);
+    m.insert.mockRejectedValue(new Error("db"));
+    const r = await submitContactCore("en", input, m.deps);
     expect(r).toEqual({ ok: false, error: "unavailable" });
-    expect(deps.schedule).not.toHaveBeenCalled();
+    expect(m.schedule).not.toHaveBeenCalled();
   });
 
   it("never logs visitor data", async () => {
-    deps.insert.mockRejectedValue(new Error("db"));
-    await submitContactCore("en", input, deps);
-    const logged = JSON.stringify(deps.log.mock.calls);
+    m.insert.mockRejectedValue(new Error("db"));
+    await submitContactCore("en", input, m.deps);
+    const logged = JSON.stringify(m.log.mock.calls);
     expect(logged).not.toContain("ana@example.com");
     expect(logged).not.toContain("Hola");
   });

@@ -13,4 +13,5 @@ export const contactMessages = pgTable("contact_messages", {
     .notNull()
     .defaultNow(),
   readAt: timestamp("read_at", { withTimezone: true }),
+  emailSentAt: timestamp("email_sent_at", { withTimezone: true }),
 });

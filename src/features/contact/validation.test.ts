@@ -36,7 +36,11 @@ describe("contactSchema", () => {
   });
 
   it("trims the name and coerces elapsedMs", () => {
-    const r = contactSchema.parse({ ...valid, name: "  Ana ", elapsedMs: "4000" });
+    const r = contactSchema.parse({
+      ...valid,
+      name: "  Ana ",
+      elapsedMs: "4000",
+    });
     expect(r.name).toBe("Ana");
     expect(r.elapsedMs).toBe(4000);
   });

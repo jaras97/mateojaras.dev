@@ -8,3 +8,7 @@
 
 ## From 04-02
 - Language link label fix (see "From 04-04") is approved by Teo ("ES, ver esta página en español" / "EN, view this page in English", no em-dash; docs/decisions.md 2026-11-22). Assigned to 04-11 together with the nav-links `<a>` to next-intl `Link` fix (see "From 04-09"). 04-11 also removes the axe exclusion in e2e/case-study.spec.ts.
+
+## From 04-10
+- Soft 404 on unknown `/projects/[slug]` (and `/es/proyectos/[slug]`): the not-found UI renders but the status is HTTP 200. Tried resolving the slug above the Suspense boundary (await params + cached published-slug list + `notFound()` at the top of the page): with `cacheComponents` + `partialPrefetching` the unlisted slug is still served from the route shell and answers 200, and reading `params` outside Suspense is what 04-04 found to break shell regeneration. Getting a real 404 needs an architectural change (e.g. dropping partialPrefetching/App Shell for this route, or `cacheComponents: false` per the Plan B). Mitigation in place: Next injects `<meta name="robots" content="noindex">` in the not-found render (documented in not-found.md, asserted in e2e/seo.spec.ts), and the sitemap lists only published+visible slugs.
+- OG `alt` is not localized: `generateImageMetadata` receives empty `params` for `[locale]` routes while Next collects page data (build fails on `notFound()`), so the OG routes export only `size` and `contentType` and emit no `og:image:alt`. Revisit if alt text is wanted.

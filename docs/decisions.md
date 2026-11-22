@@ -515,3 +515,17 @@ Decisión: el aria-label empieza por el texto visible, con coma y sin raya: "ES,
 Quién: Teo aprobó el copy; Claude Code lo aplica.
 Por qué: WCAG 2.5.3, el nombre accesible debe contener el texto visible.
 Verificación: axe en e2e/case-study.spec.ts sin exclusión del enlace.
+
+## 2026-11-22 · Slug desconocido devuelve 200 con noindex (04-10)
+Contexto: `/projects/[slug]` con un slug que no existe pinta la UI de not-found pero con HTTP 200 (soft 404), porque el slug se resuelve dentro de Suspense después de que el shell ya salió.
+Decisión: se acepta la limitación en v1. Se probó `notFound()` antes del Suspense con la lista cacheada de slugs publicados y, con `cacheComponents` y `partialPrefetching`, sigue respondiendo 200. Mitigación: Next inyecta `<meta name="robots" content="noindex">` y el sitemap solo lista casos publicados y visibles.
+Quién: Claude Code.
+Por qué: un 404 real exige cambiar la arquitectura (quitar el App Shell de la ruta o pasar al Plan B de caché), fuera del alcance de SEO.
+Verificación: e2e/seo.spec.ts (noindex y ausencia en el sitemap).
+
+## 2026-11-22 · Imágenes OG sin alt localizado (04-10)
+Contexto: `generateImageMetadata` recibe `params` vacío en rutas `[locale]` durante la recolección de datos del build.
+Decisión: las rutas OG exportan `size` y `contentType` y no emiten `og:image:alt`; el locale se lee de `params` al renderizar.
+Quién: Claude Code.
+Por qué: la alternativa rompía el build; el alt de una tarjeta social es opcional.
+Verificación: `pnpm build` y e2e/seo.spec.ts.

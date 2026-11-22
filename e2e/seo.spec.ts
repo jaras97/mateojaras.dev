@@ -122,3 +122,24 @@ test("robots.txt blocks admin and api and links the sitemap", async ({
   expect(body).toContain("Disallow: /api");
   expect(body).toContain("Sitemap:");
 });
+
+// Known limitation (deferred-items.md): the slug resolves inside Suspense, so
+// an unknown case study streams the not-found UI with HTTP 200. Next injects
+// noindex into that render, and the sitemap only lists published slugs.
+for (const path of [
+  "/projects/does-not-exist",
+  "/es/proyectos/does-not-exist",
+]) {
+  test(`${path} is noindex and absent from the sitemap`, async ({
+    page,
+    request,
+  }) => {
+    await page.goto(path);
+    await expect(page.locator('meta[name="robots"]').first()).toHaveAttribute(
+      "content",
+      /noindex/,
+    );
+    const xml = await (await request.get("/sitemap.xml")).text();
+    expect(xml).not.toContain("does-not-exist");
+  });
+}

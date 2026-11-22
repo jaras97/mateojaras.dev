@@ -15,10 +15,35 @@
   },
   "Site": {
     "home": {
-      "projectsHeading": "Projects"
+      "projectsHeading": "Projects",
+      "calendar": "Book a call on Cal.com"
     },
     "project": {
-      "backHome": "All projects"
+      "backHome": "All projects",
+      "sections": {
+        "problem": "Problem",
+        "role": "My role",
+        "solution": "Solution",
+        "results": "Results",
+        "decisions": "Technical decisions"
+      },
+      "metrics": "Key figures",
+      "marginalia": {
+        "tradeoffs": "Trade-offs",
+        "validation": "How I verified it",
+        "aiTools": "AI tools"
+      },
+      "source": "Source code",
+      "present": "present",
+      "internalTool": "Internal tool, sample data",
+      "demoText": "This tool is not public. I can show you a demo with sample data.",
+      "demoLink": "Ask for a demo",
+      "prev": "Previous project",
+      "next": "Next project",
+      "more": "More projects",
+      "closing": "Tell me what you’re building. I reply within a day, in English or Spanish.",
+      "cta": "Let’s talk",
+      "figure": "{n} / {total}"
     },
     "notFound": {
       "title": "Page not found",
@@ -26,14 +51,66 @@
       "home": "Back to home"
     },
     "header": {
-      "skip": "Skip to content"
+      "skip": "Skip to content",
+      "home": "Mateo Jaramillo, home",
+      "nav": "Main",
+      "toOtherLocale": "Ver esta página en español",
+      "themeToDark": "Switch to dark theme",
+      "themeToLight": "Switch to light theme"
     },
     "about": {
-      "title": "About"
+      "title": "About",
+      "now": "Now",
+      "nowUpdated": "Updated {date}",
+      "stack": "Stack",
+      "experience": "Experience",
+      "education": "Education",
+      "languages": "Languages",
+      "years": "{n, plural, one {# year} other {# years}}",
+      "type": {
+        "employment": "Employment",
+        "freelance": "Freelance"
+      },
+      "present": "Present"
     },
     "contact": {
       "title": "Contact",
-      "intro": "Tell me what you’re building. I reply within a day, in English or Spanish."
+      "intro": "Tell me what you’re building. I reply within a day, in English or Spanish.",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "honeypot": "Leave this field empty",
+      "send": "Send",
+      "sending": "Sending…",
+      "confirmation": "Thanks, I’ll get back to you soon.",
+      "orWrite": "Or write directly",
+      "preferCall": "Prefer a call?",
+      "calendar": "Book a call on Cal.com",
+      "errors": {
+        "nameRequired": "Write your name.",
+        "emailInvalid": "Enter a valid email, like name@company.com.",
+        "messageShort": "Tell me a bit more, at least 10 characters.",
+        "messageLong": "Keep it under 5,000 characters, or write to {email}.",
+        "rateLimited": "You’ve sent 3 messages in the last hour. Try again later, or write to {email}.",
+        "unavailable": "I couldn’t send your message right now. Try again in a few minutes, or write to {email}."
+      }
+    },
+    "footer": {
+      "cv": "Resume (PDF)",
+      "source": "Source code",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    },
+    "status": {
+      "overlapHours": "overlaps {toronto} h with Toronto and {madrid} h with Madrid"
+    },
+    "copyEmail": {
+      "copy": "Copy email",
+      "copied": "Copied",
+      "failed": "Could not copy. The address is selected, copy it with your keyboard."
+    },
+    "og": {
+      "caseStudy": "Case study"
     }
   },
   "Admin": {
@@ -481,7 +558,10 @@
       "alt": "Alt text",
       "useAsCover": "Use as cover",
       "uploading": "Uploading {percent} %",
-      "previewAlt": "Image preview"
+      "previewAlt": "Image preview",
+      "caption": "Image caption",
+      "captionHelper": "Which view the image shows. It appears below the image in the case.",
+      "capturedAt": "Capture date"
     },
     "richText": {
       "bold": "Bold",
@@ -625,7 +705,9 @@
       "delete": "Delete",
       "replyPrefix": "Re: ",
       "close": "Close",
-      "reader": "Message from {nombre}"
+      "reader": "Message from {nombre}",
+      "emailNotSent": "Email no enviado",
+      "emailNotSentHelp": "Saved, but the email notice failed. Reply from here."
     }
   },
   "DraftMode": {

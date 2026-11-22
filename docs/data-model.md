@@ -64,7 +64,7 @@ export const projects = pgTable('projects', {
   techDecisionsEs: jsonb('tech_decisions_es').$type<TechDecisions>(),
   liveUrl: text('live_url'), repoUrl: text('repo_url'),
   coverImage: text('cover_image'),            // URL de Blob
-  media: jsonb('media').$type<{ url: string; altEn: string; altEs: string; type: 'image' | 'video' }[]>(),
+  media: jsonb('media').$type<{ url: string; altEn: string; altEs: string; type: 'image' | 'video'; captionEn?: string; captionEs?: string; capturedAt?: string }[]>(),  // captionEn/Es: qué vista muestra la captura; capturedAt: ISO YYYY-MM o YYYY-MM-DD (opcionales)
   featured: boolean('featured').notNull().default(false),
   startedAt: date('started_at'), finishedAt: date('finished_at'),
 }, (t) => [uniqueIndex('projects_slug_idx').on(t.slug), index('projects_status_idx').on(t.status, t.visible, t.order)]);
@@ -144,6 +144,7 @@ export const contactMessages = pgTable('contact_messages', {
   ipHash: text('ip_hash'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   readAt: timestamp('read_at', { withTimezone: true }),
+  emailSentAt: timestamp('email_sent_at', { withTimezone: true }),   // se rellena cuando Resend acepta el envío (D-10); nulo = aviso no enviado
 });
 
 // ---------- Better Auth: user, session, account, verification (generadas con `pnpm dlx auth@1.7.25 generate --config scripts/auth-cli.ts --output src/db/auth-schema.ts`)

@@ -15,10 +15,35 @@
   },
   "Site": {
     "home": {
-      "projectsHeading": "Proyectos"
+      "projectsHeading": "Proyectos",
+      "calendar": "Agenda una llamada en Cal.com"
     },
     "project": {
-      "backHome": "Todos los proyectos"
+      "backHome": "Todos los proyectos",
+      "sections": {
+        "problem": "Problema",
+        "role": "Mi rol",
+        "solution": "Solución",
+        "results": "Resultados",
+        "decisions": "Decisiones técnicas"
+      },
+      "metrics": "Cifras clave",
+      "marginalia": {
+        "tradeoffs": "Compromisos",
+        "validation": "Cómo lo verifiqué",
+        "aiTools": "Herramientas de IA"
+      },
+      "source": "Código fuente",
+      "present": "actualidad",
+      "internalTool": "Herramienta interna, datos de ejemplo",
+      "demoText": "Esta herramienta no es pública. Te muestro una demo con datos de ejemplo.",
+      "demoLink": "Pide una demo",
+      "prev": "Proyecto anterior",
+      "next": "Proyecto siguiente",
+      "more": "Más proyectos",
+      "closing": "Cuéntame qué estás construyendo. Te respondo en menos de un día, en español o en inglés.",
+      "cta": "Hablemos",
+      "figure": "{n} / {total}"
     },
     "notFound": {
       "title": "Página no encontrada",
@@ -26,14 +51,66 @@
       "home": "Volver al inicio"
     },
     "header": {
-      "skip": "Saltar al contenido"
+      "skip": "Saltar al contenido",
+      "home": "Mateo Jaramillo, inicio",
+      "nav": "Principal",
+      "toOtherLocale": "View this page in English",
+      "themeToDark": "Cambiar a tema oscuro",
+      "themeToLight": "Cambiar a tema claro"
     },
     "about": {
-      "title": "Sobre mí"
+      "title": "Sobre mí",
+      "now": "Ahora",
+      "nowUpdated": "Actualizado el {date}",
+      "stack": "Stack",
+      "experience": "Experiencia",
+      "education": "Educación",
+      "languages": "Idiomas",
+      "years": "{n, plural, one {# año} other {# años}}",
+      "type": {
+        "employment": "Empleo",
+        "freelance": "Freelance"
+      },
+      "present": "Actualidad"
     },
     "contact": {
       "title": "Contacto",
-      "intro": "Cuéntame qué estás construyendo. Te respondo en menos de un día, en español o en inglés."
+      "intro": "Cuéntame qué estás construyendo. Te respondo en menos de un día, en español o en inglés.",
+      "name": "Nombre",
+      "email": "Email",
+      "message": "Mensaje",
+      "honeypot": "Deja este campo vacío",
+      "send": "Enviar",
+      "sending": "Enviando…",
+      "confirmation": "Gracias, te respondo pronto.",
+      "orWrite": "O escríbeme directamente",
+      "preferCall": "¿Prefieres una llamada?",
+      "calendar": "Agenda una llamada en Cal.com",
+      "errors": {
+        "nameRequired": "Escribe tu nombre.",
+        "emailInvalid": "Escribe un email válido, como nombre@empresa.com.",
+        "messageShort": "Cuéntame un poco más, al menos 10 caracteres.",
+        "messageLong": "Que no pase de 5000 caracteres, o escríbeme a {email}.",
+        "rateLimited": "Ya enviaste 3 mensajes en la última hora. Vuelve a intentarlo más tarde o escríbeme a {email}.",
+        "unavailable": "No pude enviar tu mensaje ahora. Inténtalo de nuevo en unos minutos o escríbeme a {email}."
+      }
+    },
+    "footer": {
+      "cv": "CV (PDF)",
+      "source": "Código fuente",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    },
+    "status": {
+      "overlapHours": "coincide {toronto} h con Toronto y {madrid} h con Madrid"
+    },
+    "copyEmail": {
+      "copy": "Copiar email",
+      "copied": "Copiado",
+      "failed": "No se pudo copiar. La dirección quedó seleccionada, cópiala con el teclado."
+    },
+    "og": {
+      "caseStudy": "Caso de estudio"
     }
   },
   "Admin": {
@@ -481,7 +558,10 @@
       "alt": "Texto alternativo",
       "useAsCover": "Usar como portada",
       "uploading": "Subiendo {percent} %",
-      "previewAlt": "Vista previa de la imagen"
+      "previewAlt": "Vista previa de la imagen",
+      "caption": "Pie de la captura",
+      "captionHelper": "Qué vista muestra. Sale debajo de la imagen en el caso.",
+      "capturedAt": "Fecha de la captura"
     },
     "richText": {
       "bold": "Negrita",
@@ -625,7 +705,9 @@
       "delete": "Eliminar",
       "replyPrefix": "Re: ",
       "close": "Cerrar",
-      "reader": "Mensaje de {nombre}"
+      "reader": "Mensaje de {nombre}",
+      "emailNotSent": "Email no enviado",
+      "emailNotSentHelp": "Guardado, pero el aviso por email falló. Respóndelo desde aquí."
     }
   },
   "DraftMode": {

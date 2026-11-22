@@ -46,4 +46,23 @@ describe("messages/en.json and messages/es.json", () => {
       expect(enKeys.length).toBeGreaterThan(0);
     });
   }
+
+  for (const locale of ["en", "es"] as const) {
+    it(`keep ${locale} Site and Admin.messages free of em-dashes, emojis and exclamation marks`, () => {
+      const tree = files[locale] as Tree;
+      const admin = tree.Admin as Tree;
+      const values = (t: Tree): string[] =>
+        Object.values(t).flatMap((v) =>
+          v !== null && typeof v === "object" ? values(v as Tree) : [String(v)],
+        );
+      const strings = [
+        ...values(tree.Site as Tree),
+        ...values(admin.messages as Tree),
+      ];
+      const offenders = strings.filter((v) =>
+        /—|!|\p{Extended_Pictographic}/u.test(v),
+      );
+      expect(offenders).toEqual([]);
+    });
+  }
 });

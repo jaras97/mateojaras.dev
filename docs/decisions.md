@@ -437,3 +437,74 @@ Decisión: se acepta el riesgo T-03-26 (AR-03-03 en 03-SECURITY.md) y queda como
 Quién: Claude Code (registro); Teo (aprobación pendiente).
 Por qué: con la CSP aplicada sin ese cambio, la subida de imágenes del admin se rompe.
 Verificación: grep de `connect-src` en `next.config.ts` antes de cerrar la fase 5.
+
+## 2026-11-22 · Rutas /about y /contact con pathnames localizados (D-05, 04-01)
+Contexto: la fase 4 añade dos rutas públicas.
+Decisión: `/about` ↔ `/es/sobre-mi` y `/contact` ↔ `/es/contacto` como entradas de `pathnames` de next-intl. El nombre en inglés bajo `/es` redirige al localizado.
+Quién: Teo.
+Por qué: URLs legibles en cada idioma, igual que los casos de estudio.
+Verificación: `src/i18n/routing.test.ts` y `e2e/routes.spec.ts`.
+
+## 2026-11-22 · `email_sent_at` en contact_messages (D-10, 04-01)
+Contexto: si Resend falla o falta la clave, el mensaje se guarda igual (D-09) y hay que poder distinguirlo.
+Decisión: columna `email_sent_at timestamp null`, rellena cuando Resend acepta el envío; `/admin/mensajes` marca los nulos como "Email no enviado". Solo documentada aquí; la migración va en 04-06.
+Quién: Teo.
+Por qué: no perder un aviso sin enterarse.
+Verificación: `docs/data-model.md` y el plan 04-06.
+
+## 2026-11-22 · Respuestas P1 a P5 de la UI-SPEC (04-01)
+Contexto: preguntas abiertas de 04-UI-SPEC.md.
+Decisión: P1 jornada 09:00-18:00 en las tres ciudades para el solapamiento. P2 `captionEn`, `captionEs` y `capturedAt` opcionales en cada item de `media` (sin migración, JSON). P3 por debajo de 640px el header muestra "MJ" con el nombre completo en `aria-label` y el selector muestra solo el otro idioma. P4 Plan B de SplitText aprobado: si el LCP no llega a 2.5 s, el H1 se parte en palabras en el servidor y se anima solo con CSS, como desviación de la letra de MOTN-02. P5 el resumen del caso es tagline + métricas + portada.
+Quién: Teo.
+Por qué: cierran las preguntas antes de escribir código.
+Verificación: 04-UI-SPEC.md, sección "Preguntas abiertas".
+
+## 2026-11-22 · Lectura del flag de View Transitions (04-01)
+Contexto: DESIGN.md §5.6 condiciona el uso de View Transitions a `experimental.viewTransition`, que se eliminó en Next 16.3.
+Decisión: la condición se evalúa sobre `<ViewTransition>` de React sin configuración. No se edita DESIGN.md.
+Quién: Claude Code.
+Por qué: el flag ya no existe; el comportamiento es el que describe la sección.
+Verificación: `next.config.ts` sin `viewTransition`.
+
+## 2026-11-22 · Hash de IP del formulario (04-01)
+Contexto: `contact_messages.ip_hash` y el límite por IP necesitan una clave estable sin variable nueva.
+Decisión: `ip_hash` es HMAC-SHA256 con clave `BETTER_AUTH_SECRET` sobre `contact-ip:` + IP. Rotar el secreto solo reinicia las ventanas de 1 hora.
+Quién: Claude Code.
+Por qué: evita guardar IPs en claro y no añade variables de entorno.
+Verificación: tests de la action de contacto en 04-06.
+
+## 2026-11-22 · Tiempo transcurrido medido en el cliente (04-01)
+Contexto: `/contact` se prerenderiza, así que un timestamp de render en el servidor sería el del build.
+Decisión: el tiempo hasta el envío (descarte bajo ~3 s) se mide en el cliente desde el montaje del formulario y viaja en un campo oculto.
+Quién: Claude Code.
+Por qué: un reloj de servidor no sirve en una página estática.
+Verificación: 04-06 y su test.
+
+## 2026-11-22 · Variables de contacto y Cal retiradas (04-01)
+Contexto: `CONTACT_TO_EMAIL` y `NEXT_PUBLIC_CAL_URL` duplican datos del admin.
+Decisión: se quitan de `.env.example`. D-11 y D-15 leen el destinatario y el enlace de Cal.com de SiteSettings (`email`, `calendarUrl`). También se anota que `KV_REST_API_*` es válido para Upstash.
+Quién: Claude Code.
+Por qué: una sola fuente editable sin redeploy.
+Verificación: `.env.example`.
+
+## 2026-11-22 · LangSwitch es un `<a>` con getPathname (04-01)
+Contexto: `<Link locale>` de next-intl fuerza el prefijo /en en la locale por defecto.
+Decisión: LangSwitch es un `<a>` plano con el href de `getPathname`.
+Quién: Claude Code.
+Por qué: mantener `/` como URL en inglés.
+Verificación: e2e del header en 04-03.
+
+## 2026-11-22 · Copy [propuesta] enviada como pendiente de P6 (04-01)
+Contexto: las filas [propuesta] del Copywriting Contract no están aprobadas.
+Decisión: se envían en `messages/*.json` tal cual, marcadas como pendientes de P6. Teo las revisa en la revisión visual de fin de fase (incluido "Send" frente a "Send message"). Hasta entonces no cuentan como aprobadas.
+Quién: Teo decide la revisión; Claude Code las escribió.
+Por qué: `docs/copy.md` manda y Teo no las ha visto.
+Verificación: 04-UI-SPEC.md, P6.
+
+## 2026-11-22 · Propiedad de messages/*.json en la fase 4 (04-01)
+Contexto: varios planes en paralelo tocarían los mismos archivos.
+Decisión: 04-01 escribe todas las cadenas de la fase. La única edición posterior es 04-08, que borra `Site.home.projectsHeading` junto con su último lector.
+Quién: Claude Code.
+Por qué: evitar conflictos entre planes de la misma ola.
+Verificación: `git log -- messages` al cerrar la fase.
+

@@ -225,7 +225,7 @@ Plans:
   4. Cada página pública tiene título, descripción, OG y hreflang (`en`, `es`, `x-default`) en su idioma, y `sitemap.xml` y `robots.txt` listan ambos idiomas sin `/admin`; el movimiento se limita a un reveal escalonado, el H1 del hero partido por palabras sin CLS y como máximo una escena scrubbed por página, y con `prefers-reduced-motion: reduce` todo aparece sin animación
   5. `/impeccable:audit` no reporta hallazgos críticos en ninguna vista pública, y Lighthouse móvil da ≥ 95 con LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en `/`, `/projects/[slug]`, `/about` y `/contact` en ambos idiomas, medido en el Preview de Vercel
 
-**Plans**: 6/12 plans executed en 5 olas (1 compuerta humana `blocking`: cuentas y contenido)
+**Plans**: 7/12 plans executed en 5 olas (1 compuerta humana `blocking`: cuentas y contenido)
 Plans:
 **Wave 1**
 
@@ -243,7 +243,7 @@ Plans:
 
 - [x] 04-05-PLAN.md — Escena scrubbed del número de sección, capturas e impeccable del caso
 - [ ] 04-07-PLAN.md — Otras vías de contacto (copiar email, Cal.com), confirmación segura con Activity, envío real, capturas e impeccable
-- [ ] 04-08-PLAN.md — Home: entradas fechadas, hora en vivo y solapamiento con horario de verano, SplitText del H1, capturas e impeccable
+- [x] 04-08-PLAN.md — Home: entradas fechadas, hora en vivo y solapamiento con horario de verano, SplitText del H1, capturas e impeccable
 - [ ] 04-09-PLAN.md — About con Now fechada, stack con años, experiencia, educación e idiomas, capturas e impeccable
 
 **Wave 4** *(blocked on Wave 3 completion)*
@@ -312,5 +312,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Identidad y contenido | 13/13 | Complete    | 2026-11-01 |
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
 | 3. Panel admin + CV | 14/14 | Complete    | 2026-11-22 |
-| 4. Sitio público | 6/12 | In Progress | - |
+| 4. Sitio público | 7/12 | In Progress | - |
 | 5. Pulido y lanzamiento | 0/TBD | Not started | - |

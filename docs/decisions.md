@@ -508,3 +508,10 @@ Quién: Claude Code.
 Por qué: evitar conflictos entre planes de la misma ola.
 Verificación: `git log -- messages` al cerrar la fase.
 
+
+## 2026-11-22 · Label del enlace de idioma para axe (04-02)
+Contexto: axe `label-content-name-mismatch` (serious) en el enlace de idioma del header: el aria-label no contiene el texto visible ("ES").
+Decisión: el aria-label empieza por el texto visible, con coma y sin raya: "ES, ver esta página en español" / "EN, view this page in English". Se aplica en `Site.header.toOtherLocale` (messages/en.json y es.json) en 04-11.
+Quién: Teo aprobó el copy; Claude Code lo aplica.
+Por qué: WCAG 2.5.3, el nombre accesible debe contener el texto visible.
+Verificación: axe en e2e/case-study.spec.ts sin exclusión del enlace.

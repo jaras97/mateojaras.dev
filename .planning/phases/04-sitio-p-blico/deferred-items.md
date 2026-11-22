@@ -5,3 +5,6 @@
 ## From 04-09
 - Header nav does a full page load on every link (observed in 04-08). Diagnosis: `src/components/site/nav-links.tsx` renders plain `<a href>` in `StaticNav` (used by both the Suspense fallback and the active-state `NavLinks`), with hrefs built by `getPathname`. It is not a root-layout split. Fix: render `Link` from `@/i18n/navigation` (next-intl) in `StaticNav` with `href` as the pathname object/`locale` prop, keeping `aria-current`. File is outside 04-09's scope (04-03); fix in a header polish pass or 04-11. The `#work` hash link may need a plain anchor or `Link` with a hash.
 - /about renders no Stack section because the dev DB has no published visible skills; the component and e2e handle both cases.
+
+## From 04-02
+- Language link label fix (see "From 04-04") is approved by Teo ("ES, ver esta página en español" / "EN, view this page in English", no em-dash; docs/decisions.md 2026-11-22). Assigned to 04-11 together with the nav-links `<a>` to next-intl `Link` fix (see "From 04-09"). 04-11 also removes the axe exclusion in e2e/case-study.spec.ts.

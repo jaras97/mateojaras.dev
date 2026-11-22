@@ -225,11 +225,11 @@ Plans:
   4. Cada página pública tiene título, descripción, OG y hreflang (`en`, `es`, `x-default`) en su idioma, y `sitemap.xml` y `robots.txt` listan ambos idiomas sin `/admin`; el movimiento se limita a un reveal escalonado, el H1 del hero partido por palabras sin CLS y como máximo una escena scrubbed por página, y con `prefers-reduced-motion: reduce` todo aparece sin animación
   5. `/impeccable:audit` no reporta hallazgos críticos en ninguna vista pública, y Lighthouse móvil da ≥ 95 con LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en `/`, `/projects/[slug]`, `/about` y `/contact` en ambos idiomas, medido en el Preview de Vercel
 
-**Plans**: 12 plans en 5 olas (1 compuerta humana `blocking`: cuentas y contenido)
+**Plans**: 1/12 plans executed en 5 olas (1 compuerta humana `blocking`: cuentas y contenido)
 Plans:
 **Wave 1**
 
-- [ ] 04-01-PLAN.md — Tracer de rutas /about y /contact con un solo main, todos los textos de la fase y decisiones
+- [x] 04-01-PLAN.md — Tracer de rutas /about y /contact con un solo main, todos los textos de la fase y decisiones
 - [ ] 04-12-PLAN.md — Primitivas compartidas: Reveal y CSS de la fase, PageSection, SegmentLine, CopyEmail, texto plano, siteUrl
 - [ ] 04-02-PLAN.md — Petición única a Teo: DNS y clave de Resend, Upstash, URL de Cal.com, método de Lighthouse, contenido de ManuJ
 
@@ -312,5 +312,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Identidad y contenido | 13/13 | Complete    | 2026-11-01 |
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
 | 3. Panel admin + CV | 14/14 | Complete    | 2026-11-22 |
-| 4. Sitio público | 0/11 | Planned | - |
+| 4. Sitio público | 1/12 | In Progress | - |
 | 5. Pulido y lanzamiento | 0/TBD | Not started | - |

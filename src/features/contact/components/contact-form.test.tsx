@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Activity } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { submitContact } = vi.hoisted(() => ({ submitContact: vi.fn() }));
@@ -82,5 +83,26 @@ describe("ContactForm", () => {
     expect((screen.getByLabelText("Nombre") as HTMLInputElement).value).toBe(
       "Ana",
     );
+  });
+
+  it("resets a stale confirmation when the Activity is hidden and shown again", async () => {
+    submitContact.mockResolvedValue({ ok: true });
+    const user = userEvent.setup();
+    const ui = (mode: "visible" | "hidden") => (
+      <Activity mode={mode}>
+        <ContactForm locale="es" email="a@b.co" labels={labels} />
+      </Activity>
+    );
+    const { rerender } = render(ui("visible"));
+    await user.type(screen.getByLabelText("Nombre"), "Ana");
+    await user.type(screen.getByLabelText("Correo"), "ana@example.com");
+    await user.type(screen.getByLabelText("Mensaje"), "Hola, un mensaje largo");
+    await user.click(screen.getByRole("button", { name: "Enviar" }));
+    await screen.findByRole("heading", { level: 2, name: "Gracias" });
+    rerender(ui("hidden"));
+    rerender(ui("visible"));
+    const name = (await screen.findByLabelText("Nombre")) as HTMLInputElement;
+    expect(name.value).toBe("");
+    expect(screen.queryByRole("heading", { name: "Gracias" })).toBeNull();
   });
 });

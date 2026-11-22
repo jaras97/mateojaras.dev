@@ -112,3 +112,63 @@ for (const c of CASES) {
     });
   });
 }
+
+test.describe("contact aside and activity", () => {
+  test("copies the stored email", async ({ page, context }) => {
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page.goto("/contact");
+    const address = (
+      await page.locator("#contact-aside-address").textContent()
+    )?.trim();
+    expect(address).toBeTruthy();
+    await page.getByRole("button", { name: "Copy email" }).click();
+    await expect(page.getByText("Copied").first()).toBeVisible();
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+      address,
+    );
+  });
+
+  test("shows the failed hint without clipboard access", async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "clipboard", { value: undefined });
+    });
+    await page.goto("/contact");
+    await page.getByRole("button", { name: "Copy email" }).click();
+    await expect(page.getByText("Could not copy.")).toBeVisible();
+  });
+
+  test("has no calendar embed or third-party script", async ({ page }) => {
+    await page.goto("/contact");
+    await expect(page.locator("iframe")).toHaveCount(0);
+    await expect(page.locator('script[src*="cal.com"]')).toHaveCount(0);
+  });
+
+  test("a stale confirmation does not survive back navigation", async ({
+    page,
+  }) => {
+    await page.goto("/contact");
+    await page.getByLabel("Name", { exact: true }).fill("Bot e2e");
+    await page
+      .getByLabel("Email", { exact: true })
+      .fill(`e2e-contact+act-${Date.now()}@example.com`);
+    await page
+      .getByLabel("Message", { exact: true })
+      .fill("Mensaje de prueba automatizada.");
+    await page
+      .locator('input[name="website"]')
+      .fill("http://spam.example", { force: true });
+    await page.waitForTimeout(3200);
+    await page.getByRole("button", { name: "Send" }).click();
+    await expect(
+      page.getByRole("heading", { level: 2, name: /Thanks/ }),
+    ).toBeVisible();
+    await page.getByRole("link", { name: "About" }).first().click();
+    await page.waitForURL(/\/about/);
+    await page.goBack();
+    await expect(page.getByLabel("Name", { exact: true })).toBeVisible();
+    await expect(page.getByLabel("Name", { exact: true })).toHaveValue("");
+    await expect(
+      page.getByRole("heading", { level: 2, name: /Thanks/ }),
+    ).toHaveCount(0);
+  });
+});

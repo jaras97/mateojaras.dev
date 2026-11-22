@@ -2,7 +2,16 @@
 
 import "@/lib/zod-jitless";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Fragment, useEffect, useRef, useState, useTransition } from "react";
+import { domAnimation, LazyMotion, MotionConfig } from "motion/react";
+import * as m from "motion/react-m";
+import {
+  Fragment,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { useForm, useFormState } from "react-hook-form";
 import type { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -64,7 +73,7 @@ export function ContactForm({
   const [done, setDone] = useState(false);
   const startedAt = useRef(0);
   const confirmation = useRef<HTMLHeadingElement>(null);
-  const { register, handleSubmit, control, setError } = useForm<
+  const { register, handleSubmit, control, setError, reset } = useForm<
     FormInput,
     unknown,
     FormOutput
@@ -82,11 +91,30 @@ export function ContactForm({
   });
   const { errors } = useFormState({ control });
 
+  const shouldReset = useRef(false);
+
   useEffect(() => {
     startedAt.current = performance.now();
   }, []);
+  // Activity hides this tree by running layout-effect cleanups: drop a stale
+  // confirmation so coming back shows a fresh, empty form.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reset is stable
+  useLayoutEffect(() => {
+    return () => {
+      if (shouldReset.current) {
+        shouldReset.current = false;
+        setDone(false);
+        setFormError(null);
+        reset();
+        startedAt.current = performance.now();
+      }
+    };
+  }, []);
   useEffect(() => {
-    if (done) confirmation.current?.focus();
+    if (done) {
+      shouldReset.current = true;
+      confirmation.current?.focus();
+    }
   }, [done]);
 
   function onSubmit(values: FormOutput) {
@@ -117,15 +145,24 @@ export function ContactForm({
 
   if (done) {
     return (
-      <div aria-live="polite">
-        <h2
-          ref={confirmation}
-          tabIndex={-1}
-          className="font-heading text-[25px] leading-tight outline-none"
-        >
-          {labels.confirmation}
-        </h2>
-      </div>
+      <LazyMotion features={domAnimation}>
+        <MotionConfig reducedMotion="user">
+          <m.div
+            aria-live="polite"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
+          >
+            <h2
+              ref={confirmation}
+              tabIndex={-1}
+              className="font-heading text-[25px] leading-tight outline-none"
+            >
+              {labels.confirmation}
+            </h2>
+          </m.div>
+        </MotionConfig>
+      </LazyMotion>
     );
   }
 

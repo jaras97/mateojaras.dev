@@ -37,6 +37,15 @@ describe("schema contract", () => {
     expect(col?.default).toEqual([]);
   });
 
+  it("has a nullable timestamptz contact_messages.email_sent_at (D-10)", () => {
+    const col = byName("contact_messages").columns.find(
+      (c) => c.name === "email_sent_at",
+    );
+    expect(col?.columnType).toBe("PgTimestamp");
+    expect(col?.notNull).toBe(false);
+    expect(col?.getSQLType()).toBe("timestamp with time zone");
+  });
+
   it("has a nullable jsonb draft column on the five editable tables", () => {
     for (const name of [
       "projects",

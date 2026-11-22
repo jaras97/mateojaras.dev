@@ -106,3 +106,38 @@ test("reads, marks, replies to and deletes a message", async ({ page }) => {
   await expect.poll(tempCount).toBe(1);
   await expect(page.getByRole("dialog")).toHaveCount(0);
 });
+
+test("marks a message saved without an email notice", async ({ page }) => {
+  const NOT_SENT = "Visitante temporal e2e sin aviso";
+  const SENT = "Visitante temporal e2e con aviso";
+  await sql`delete from contact_messages where name in (${NOT_SENT}, ${SENT})`;
+  try {
+    await sql`
+      insert into contact_messages (name, email, message, locale, email_sent_at)
+      values (${NOT_SENT}, 'e2e@example.com', 'Sin aviso', 'es', null)
+    `;
+    await sql`
+      insert into contact_messages (name, email, message, locale, email_sent_at)
+      values (${SENT}, 'e2e@example.com', 'Con aviso', 'es', now())
+    `;
+    await signIn(page);
+    await expect(page).toHaveURL(/\/admin$/);
+    await page.goto("/admin/mensajes");
+    const unsent = page.getByRole("row").filter({ hasText: NOT_SENT });
+    const sent = page.getByRole("row").filter({ hasText: SENT });
+    await expect(unsent).toContainText("Email no enviado");
+    await expect(sent).not.toContainText("Email no enviado");
+    const help = "Guardado, pero el aviso por email falló";
+
+    await unsent.getByRole("button", { name: NOT_SENT }).click();
+    await expect(page.getByRole("dialog")).toContainText(help);
+    await page.keyboard.press("Escape");
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+
+    await sent.getByRole("button", { name: SENT }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await expect(page.getByRole("dialog")).not.toContainText(help);
+  } finally {
+    await sql`delete from contact_messages where name in (${NOT_SENT}, ${SENT})`;
+  }
+});

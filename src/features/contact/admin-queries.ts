@@ -16,6 +16,7 @@ export async function listMessagesForAdmin() {
       locale: contactMessages.locale,
       createdAt: contactMessages.createdAt,
       readAt: contactMessages.readAt,
+      emailSentAt: contactMessages.emailSentAt,
     })
     .from(contactMessages)
     .orderBy(desc(contactMessages.createdAt));

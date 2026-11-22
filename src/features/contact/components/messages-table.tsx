@@ -4,6 +4,7 @@ import { type ColumnDef, tableFeatures, useTable } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useState } from "react";
 import { toast } from "sonner";
+import { HiddenBadge } from "@/components/admin/status-badge";
 import {
   Empty,
   EmptyDescription,
@@ -33,6 +34,7 @@ export type MessagesTableLabels = {
     received: string;
   };
   new: string;
+  emailNotSent: string;
   empty: { heading: string; body: string };
   reader: MessageReaderLabels;
 };
@@ -76,6 +78,9 @@ function NameCell({ row }: { row: MessageRow }) {
       </button>
       {unread ? (
         <span className="font-mono text-xs text-primary">{labels.new}</span>
+      ) : null}
+      {row.emailSentAt === null ? (
+        <HiddenBadge label={labels.emailNotSent} />
       ) : null}
     </span>
   );

@@ -32,12 +32,14 @@ export type MessageRow = {
   locale: "en" | "es";
   createdAt: string; // ISO
   readAt: string | null; // ISO
+  emailSentAt: string | null; // ISO
 };
 
 // Strings keep the {nombre} placeholder.
 export type MessageReaderLabels = {
   reader: string;
   reply: string;
+  emailNotSentHelp: string;
   replyPrefix: string;
   markRead: string;
   markUnread: string;
@@ -135,6 +137,11 @@ export function MessageReader({
                 <p className="max-w-[68ch] whitespace-pre-wrap break-words text-sm leading-relaxed">
                   {message.message}
                 </p>
+                {message.emailSentAt === null ? (
+                  <p className="mt-6 font-mono text-xs text-muted-foreground">
+                    {labels.emailNotSentHelp}
+                  </p>
+                ) : null}
               </div>
               <SheetFooter className="gap-2 p-6">
                 <a

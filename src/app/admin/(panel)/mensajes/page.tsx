@@ -34,6 +34,7 @@ export default async function MessagesPage() {
             ...row,
             createdAt: row.createdAt.toISOString(),
             readAt: row.readAt ? row.readAt.toISOString() : null,
+            emailSentAt: row.emailSentAt ? row.emailSentAt.toISOString() : null,
           }))}
           labels={{
             columns: {
@@ -44,10 +45,12 @@ export default async function MessagesPage() {
               received: t("columns.received"),
             },
             new: c("new"),
+            emailNotSent: t("emailNotSent"),
             empty: { heading: t("empty.heading"), body: t("empty.body") },
             reader: {
               reader: t("reader", { nombre: "{nombre}" }),
               reply: t("reply"),
+              emailNotSentHelp: t("emailNotSentHelp"),
               replyPrefix: t("replyPrefix"),
               markRead: t("markRead"),
               markUnread: t("markUnread"),

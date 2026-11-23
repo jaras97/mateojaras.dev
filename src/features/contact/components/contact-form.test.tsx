@@ -85,6 +85,45 @@ describe("ContactForm", () => {
     );
   });
 
+  it.each([
+    new Error('Failed to find Server Action "abc"'),
+    new TypeError("Failed to fetch"),
+  ])("degrades a rejected action call to the unavailable alert (%s)", async (rejection) => {
+    submitContact.mockRejectedValueOnce(rejection);
+    const user = userEvent.setup();
+    render(<ContactForm locale="es" email="a@b.co" labels={labels} />);
+    await user.type(screen.getByLabelText("Nombre"), "Ana");
+    await user.type(screen.getByLabelText("Correo"), "ana@example.com");
+    await user.type(screen.getByLabelText("Mensaje"), "Hola, un mensaje largo");
+    await user.click(screen.getByRole("button", { name: "Enviar" }));
+    const alert = await screen.findByRole("alert");
+    expect(alert.textContent).toContain("No disponible");
+    expect(alert.querySelector("a")?.getAttribute("href")).toBe(
+      "mailto:a@b.co",
+    );
+    expect((screen.getByLabelText("Nombre") as HTMLInputElement).value).toBe(
+      "Ana",
+    );
+    expect((screen.getByLabelText("Correo") as HTMLInputElement).value).toBe(
+      "ana@example.com",
+    );
+    expect((screen.getByLabelText("Mensaje") as HTMLInputElement).value).toBe(
+      "Hola, un mensaje largo",
+    );
+    const send = screen.getByRole("button", {
+      name: "Enviar",
+    }) as HTMLButtonElement;
+    expect(send.disabled).toBe(false);
+    expect(document.body.textContent).not.toContain(
+      "Failed to find Server Action",
+    );
+    expect(document.body.textContent).not.toContain("Failed to fetch");
+
+    submitContact.mockResolvedValueOnce({ ok: true });
+    await user.click(send);
+    expect(await screen.findByText("Gracias")).toBeTruthy();
+  });
+
   it("resets a stale confirmation when the Activity is hidden and shown again", async () => {
     submitContact.mockResolvedValue({ ok: true });
     const user = userEvent.setup();

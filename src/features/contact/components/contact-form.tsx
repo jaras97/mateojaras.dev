@@ -124,7 +124,15 @@ export function ContactForm({
       elapsedMs: Math.round(performance.now() - startedAt.current),
     };
     startTransition(async () => {
-      const result = await submitContact(locale, payload);
+      let result: Awaited<ReturnType<typeof submitContact>>;
+      try {
+        result = await submitContact(locale, payload);
+      } catch {
+        // Network failure or deploy skew: degrade to the localized
+        // "unavailable" alert and keep what the visitor typed.
+        setFormError("unavailable");
+        return;
+      }
       if (result.ok) {
         setDone(true);
         return;

@@ -2,362 +2,140 @@
 phase: 04-sitio-p-blico
 reviewed: 2026-11-23T00:00:00Z
 depth: standard
-files_reviewed: 146
+scope: incremental follow-up (diff 6038037..HEAD, gap-closure plans 04-13 and 04-14)
+supersedes: prior 04-REVIEW.md for the files listed below
+files_reviewed: 20
 files_reviewed_list:
-  - .env.example
-  - drizzle/0003_thankful_white_tiger.sql
-  - e2e/about.spec.ts
-  - e2e/accent.spec.ts
-  - e2e/admin-messages.spec.ts
-  - e2e/admin-reorder.spec.ts
-  - e2e/admin-settings.spec.ts
-  - e2e/axe.ts
-  - e2e/case-study-motion.spec.ts
-  - e2e/case-study.spec.ts
+  - docs/decisions.md
   - e2e/contact-live.spec.ts
   - e2e/contact.spec.ts
-  - e2e/headers.spec.ts
-  - e2e/home-motion.spec.ts
-  - e2e/keyboard.spec.ts
-  - e2e/lang-theme.spec.ts
-  - e2e/nav-client.spec.ts
-  - e2e/public.spec.ts
-  - e2e/reduced-motion.spec.ts
-  - e2e/route-transition.spec.ts
-  - e2e/routes.spec.ts
-  - e2e/screens-about.spec.ts
-  - e2e/screens-case.spec.ts
-  - e2e/screens-contact.spec.ts
-  - e2e/screens-home.spec.ts
-  - e2e/screens.ts
-  - e2e/seo.spec.ts
   - messages/en.json
   - messages/es.json
-  - next.config.ts
-  - scripts/lighthouse-preview.mjs
-  - scripts/project-status.mjs
-  - src/app/[locale]/about/opengraph-image.tsx
-  - src/app/[locale]/about/page.tsx
-  - src/app/[locale]/contact/opengraph-image.tsx
-  - src/app/[locale]/contact/page.tsx
+  - src/app/[locale]/error.test.tsx
+  - src/app/[locale]/error.tsx
   - src/app/[locale]/layout.tsx
-  - src/app/[locale]/not-found.tsx
-  - src/app/[locale]/opengraph-image.tsx
-  - src/app/[locale]/page.tsx
-  - src/app/[locale]/projects/[slug]/opengraph-image.tsx
-  - src/app/[locale]/projects/[slug]/page.tsx
-  - src/app/admin/(panel)/mensajes/page.tsx
-  - src/app/globals.css
-  - src/app/robots.ts
-  - src/app/sitemap.ts
-  - src/components/admin/image-uploader.tsx
-  - src/components/motion/reveal.test.tsx
-  - src/components/motion/reveal.tsx
-  - src/components/motion/scroll-scene.tsx
-  - src/components/site/about/about.test.tsx
-  - src/components/site/about/education-list.tsx
-  - src/components/site/about/experience-list.tsx
-  - src/components/site/about/language-list.tsx
-  - src/components/site/about/now-section.tsx
-  - src/components/site/about/stack-list.tsx
-  - src/components/site/alternate-href.test.ts
-  - src/components/site/alternate-href.ts
-  - src/components/site/case-study/case-cover.tsx
-  - src/components/site/case-study/case-cta.tsx
   - src/components/site/case-study/case-gallery.tsx
-  - src/components/site/case-study/case-header.tsx
-  - src/components/site/case-study/case-metrics.tsx
-  - src/components/site/case-study/case-sections.tsx
   - src/components/site/case-study/case-study.test.tsx
-  - src/components/site/case-study/plain-text.tsx
-  - src/components/site/case-study/prev-next.tsx
-  - src/components/site/case-study/section-margin-number.tsx
-  - src/components/site/copy-email.test.tsx
-  - src/components/site/copy-email.tsx
-  - src/components/site/entry-list.test.tsx
-  - src/components/site/entry-list.tsx
-  - src/components/site/footer-line.tsx
-  - src/components/site/hero-copy.ts
-  - src/components/site/hero/hero-a.tsx
-  - src/components/site/hero/hero-parts.tsx
-  - src/components/site/hero/hero.test.tsx
-  - src/components/site/home-contact.tsx
-  - src/components/site/inline-script.tsx
-  - src/components/site/lang-switch.test.tsx
-  - src/components/site/lang-switch.tsx
-  - src/components/site/local-time.tsx
-  - src/components/site/marginalia.test.tsx
-  - src/components/site/marginalia.tsx
-  - src/components/site/nav-links.tsx
-  - src/components/site/page-section.test.tsx
-  - src/components/site/page-section.tsx
-  - src/components/site/segment-line.test.tsx
-  - src/components/site/segment-line.tsx
-  - src/components/site/site-footer.test.tsx
-  - src/components/site/site-footer.tsx
-  - src/components/site/site-header.tsx
-  - src/components/site/status-clock-script.tsx
-  - src/components/site/status-line.test.tsx
-  - src/components/site/status-line.tsx
-  - src/components/site/theme-script.tsx
-  - src/components/site/theme-toggle.tsx
-  - src/components/ui/textarea.tsx
-  - src/db/schema.test.ts
-  - src/features/contact/admin-queries.ts
-  - src/features/contact/components/contact-aside.test.tsx
-  - src/features/contact/components/contact-aside.tsx
+  - src/components/site/site-error-provider.tsx
   - src/features/contact/components/contact-form.test.tsx
   - src/features/contact/components/contact-form.tsx
-  - src/features/contact/components/message-reader.tsx
-  - src/features/contact/components/messages-table.tsx
-  - src/features/contact/notify.test.ts
-  - src/features/contact/notify.ts
-  - src/features/contact/public-actions.ts
-  - src/features/contact/schema.ts
-  - src/features/contact/submit-core.test.ts
-  - src/features/contact/submit-core.ts
-  - src/features/contact/validation.test.ts
-  - src/features/contact/validation.ts
-  - src/features/projects/adjacent.test.ts
-  - src/features/projects/adjacent.ts
-  - src/features/projects/content-schema.ts
-  - src/features/projects/form-model.ts
-  - src/features/projects/queries.test.ts
-  - src/features/projects/queries.ts
-  - src/features/projects/schema.ts
   - src/features/projects/validation.test.ts
   - src/features/projects/validation.ts
-  - src/i18n/routing.test.ts
-  - src/i18n/routing.ts
-  - src/lib/ip-hash.test.ts
-  - src/lib/ip-hash.ts
-  - src/lib/mailer.ts
-  - src/lib/messages.test.ts
-  - src/lib/messages.ts
-  - src/lib/og-page.tsx
-  - src/lib/og.test.ts
-  - src/lib/og.tsx
-  - src/lib/overlap.test.ts
-  - src/lib/overlap.ts
-  - src/lib/plain-text.test.ts
-  - src/lib/plain-text.ts
-  - src/lib/section-numbers.test.ts
-  - src/lib/section-numbers.ts
-  - src/lib/seo.test.ts
-  - src/lib/seo.ts
-  - src/lib/site-url.test.ts
-  - src/lib/site-url.ts
-  - src/proxy.ts
-  - vitest.config.ts
+  - src/lib/format.test.ts
+  - src/lib/format.ts
+  - src/lib/rate-limit.ts
+  - src/lib/upstash-env.test.ts
+  - src/lib/upstash-env.ts
 findings:
-  critical: 1
-  warning: 9
-  info: 9
-  total: 19
+  critical: 0
+  warning: 4
+  info: 4
+  total: 8
 status: issues_found
 ---
 
-# Phase 04: Code Review Report
+# Phase 04: Code Review Report (gap-closure follow-up)
 
 **Reviewed:** 2026-11-23
 **Depth:** standard
-**Files Reviewed:** 146
+**Files Reviewed:** 20
 **Status:** issues_found
+
+This is an incremental review of the changes since `6038037` (plans 04-13 and 04-14). For these 20 files it supersedes the previous 04-REVIEW.md, which covered 146 files. Findings from that review on files outside this scope (WR-04 through WR-08, IN-01 through IN-08) were not re-checked here. They stay open as recorded in the prior report and in the git history of this file.
 
 ## Narrative Findings (AI reviewer)
 
 ## Summary
 
-I reviewed the public site for phase 04: the home, case study, about and contact pages, the contact Server Action pipeline (Zod, honeypot and elapsed check, Upstash fail-closed limiter, insert, Resend in `after()`), SEO/OG/sitemap, the inline scripts, motion, i18n routing and the admin inbox.
+### Status of the prior findings this round targeted
 
-The main security work holds up:
-- Zod validation runs on the server with `strictObject`.
-- The locale is passed as an argument and validated.
-- The email subject strips CR/LF, and the email body is plain `text` through Resend's JSON API, so there is no header injection.
-- Logs carry only error names and ids.
-- `ipHash` is never selected for the admin.
-- Rich text goes through a Zod schema that allows only `https:` and `mailto:` links, and it is rendered as React elements.
-- The stored strings in `StatusClockScript` are escaped with JSON plus `<` → `<`.
-- The cached queries never read the locale.
+| Prior ID | Status | Evidence |
+|---|---|---|
+| CR-01: the contact form crashes when the Server Action call throws | **Resolved** | `contact-form.tsx:127-135` wraps `submitContact` in `try/catch` and sets `formError("unavailable")`. The typed values are kept because nothing calls `reset()`. `src/app/[locale]/error.tsx` adds a localized boundary that uses `retry` (the correct prop name in Next 16.3+, checked in the bundled `error.md`) and offers a mailto. `SiteErrorProvider` sits in the layout above the segment's error boundary, so the context is available when the boundary renders. Tests cover both rejection kinds and the retry path. Residual issue: WR-01 below. |
+| WR-02: the `??` env fallback ignores `KV_REST_API_*` when `UPSTASH_*` is set but empty | **Resolved** | `resolveUpstashCredentials` picks one complete, trimmed pair: `UPSTASH_*` first, otherwise `KV_*`, and it never mixes the two. `rate-limit.ts` and both e2e specs now share it, so `HAS_LIMITER` matches what the app actually uses. The tests cover empty, blank, mixed and trimmed values. |
+| WR-03: an invalid `capturedAt` crashes the published case study | **Resolved (render path)** | `toCalendarDay` round-trips the date parts, so `2025-13`, `2025-00` and `2025-02-31` return `null`. `CaseGallery` drops the date segment instead of throwing, which protects rows already stored in the database. `projectDraftSchema` now rejects impossible dates. Residual issues: WR-02 and IN-01 below. |
 
-The defects are in other places:
-- The contact form crashes when the Server Action call fails, for example on a network error or a "Failed to find Server Action" error after a redeploy. This is the one blocker.
-- The rate limit is easy to get around over IPv6.
-- One env fallback silently disables the form.
-- One unvalidated jsonb date can crash a published case study.
-- The status line's clock and its overlap hours disagree when the timezone setting changes.
-- One script, and parts of the e2e suite, bypass or exhaust the project's own pipelines.
+### Prior findings in these files that are still open
+- Prior WR-01 (rate limit per exact IPv6 address, no global cap) is still open in `rate-limit.ts`. It is carried forward as WR-03.
+- Prior WR-09 (the name max-length error says "Write your name.") is still open. `messages/*.json` has no `nameLong` key. It is carried forward as WR-04.
+- Prior IN-09 (the limit of 3 is hardcoded in both the copy and the limiter) is still open. It is carried forward as IN-03.
 
-Known items in `deferred-items.md` (soft 404 with noindex, unlocalized `og:image:alt`) are not repeated. The Report-Only CSP decision is accepted; WR-08 covers only the part of its mitigation that does not work.
-
-## Critical Issues
-
-### CR-01: The contact form crashes when the Server Action call throws (redeploy skew, network error)
-
-**File:** `src/features/contact/components/contact-form.tsx:126-143`
-**Issue:** `onSubmit` awaits `submitContact(...)` inside `startTransition(async () => ...)` with no `try/catch`. Server Action calls throw on the client in several ordinary cases:
-- a network blip or offline visitor ("Failed to fetch");
-- a 5xx before the action body runs;
-- an action ID that no longer exists after a deployment ("Failed to find Server Action").
-
-The bundled Next docs (`02-guides/server-actions.md` §Deployment considerations) say IDs rotate on new deployments and recommend: "Surface the error as a retry path in the UI rather than a hard failure." The contact page is a static, long-cached shell, so a visitor can easily have it open across one of Teo's deploys.
-
-In React 19, an error thrown inside a transition goes to the nearest error boundary. There is no `error.tsx` under `src/app/[locale]/` and no `global-error.tsx`, so the visitor gets Next's generic "Application error" screen and loses the typed message. The `unavailable` alert with the mailto fallback, which exists for exactly this case, never appears. This is the site's only conversion form.
-**Fix:**
-```tsx
-startTransition(async () => {
-  let result: ContactResult;
-  try {
-    result = await submitContact(locale, payload);
-  } catch {
-    setFormError("unavailable"); // keeps the typed values; the alert offers mailto
-    return;
-  }
-  // ...existing handling
-});
-```
-Also add a `src/app/[locale]/error.tsx` (client component, localized retry plus mailto) so other unexpected errors degrade the same way.
+No new blockers. The new code is small and the fixes are correct. Most of what is left is about how the fixes look to the user: the error text after a redeploy gives the wrong advice, and an admin save fails without any visible field message.
 
 ## Warnings
 
-### WR-01: The rate limit is per exact IP, so rotating IPv6 addresses gets around it, and there is no global cap
+### WR-01: After a redeploy (action-ID skew), the fallback tells the visitor to "try again in a few minutes", but retrying can never work
 
-**File:** `src/features/contact/public-actions.ts:19-20`, `src/lib/rate-limit.ts:18-23`
-**Issue:** The limiter key is the HMAC of the full client address (3 per hour). Any IPv6 client controls at least a /64 (2^64 addresses), so a single host can send without limit by rotating source addresses. Every message lands in `contact_messages` and triggers a Resend email to Teo's inbox. Nothing else bounds the volume: there is no per-/64 bucket and no site-wide ceiling, and the honeypot and elapsed-time checks are client-supplied and trivial to fake.
-**Fix:** Normalize IPv6 to its /64 prefix before hashing, and add a second, global limiter (for example `slidingWindow(30, "1 h")` on the key `"global"`) that is checked after the per-IP one:
-```ts
-const key = ip.includes(":") ? ip.split(":").slice(0, 4).join(":") + "::/64" : ip;
+**File:** `src/features/contact/components/contact-form.tsx:128-135`, `messages/en.json:100`, `messages/es.json:100`
+**Issue:** Every rejection, including "Failed to find Server Action", maps to `unavailable`: "I couldn't send your message right now. Try again in a few minutes, or write to {email}." When the cause is deploy skew, the action ID in the visitor's bundle is gone for good. Every later click on Send fails the same way until the page is reloaded. The bundled Next guide (`02-guides/server-actions.md:180`) says to surface a retry path "so a refresh recovers the user". The contact page is a long-cached static shell, so a stale tab is the likely case.
+
+The new unit test (`contact-form.test.tsx`, last lines of the `it.each`) proves that a second click succeeds. That holds for a network blip and is false for skew, so the test encodes the wrong expectation for half of its parameters.
+**Fix:** Tell the two cases apart and offer a reload for skew. Keep the typed values across the reload:
+```tsx
+} catch (error) {
+  const skew = error instanceof Error && /Server Action/.test(error.message);
+  if (skew) sessionStorage.setItem("contact-draft", JSON.stringify(values));
+  setFormError(skew ? "stale" : "unavailable"); // "stale": "This page is out of date. Reload it to send, or write to {email}." + reload button
+  return;
+}
 ```
-(Use a proper IPv6 expansion before slicing, because `::` compression breaks the naive split.)
+Restore the draft from `sessionStorage` on mount. If a new message key is too much for now, at least change the `unavailable` copy to "Reload the page and try again" (copy change, so ask Teo). Also enable Vercel Skew Protection, which avoids the problem at the platform level.
 
-### WR-02: The `??` env fallback ignores `KV_REST_API_*` when `UPSTASH_REDIS_REST_*` is set but empty
+### WR-02: A newly rejected `capturedAt` makes the admin save fail with no message next to the field, and existing projects with such a value can no longer be saved
 
-**File:** `src/lib/rate-limit.ts:11-16`
-**Issue:** `process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL` only falls through on `undefined`. `.env.example` ships `UPSTASH_REDIS_REST_URL=` and `UPSTASH_REDIS_REST_TOKEN=` as empty lines. A `.env.local` copied from it, with Marketplace `KV_REST_API_*` added, therefore yields `"".trim()` → `!url` → `null`, and the form is permanently `unavailable`. The URL and the token can also come from different providers when only one of each pair is set.
+**File:** `src/features/projects/validation.ts:45-49`, `src/components/admin/image-uploader.tsx:244-252`, `src/features/projects/components/project-form.tsx:126-145`
+**Issue:** The `.refine(...)` has no message, so Zod reports its English default ("Invalid input"). `issueMessage` passes non-`required` messages through unchanged. `showIssues` calls `setError("media.N.capturedAt", ...)`, but the `capturedAt` `<Input type="month">` in `image-uploader.tsx` renders no error text, no `aria-invalid` and no `aria-describedby`. The admin sees only the generic "save failed" alert (or "publish blocked: 1 issue"), and focus lands on a month field that shows nothing wrong.
 
-`e2e/contact-live.spec.ts:4-6` and `e2e/contact.spec.ts` use `||` for `HAS_LIMITER`. In that configuration the tests assume a limiter exists while the app has none, and they fail with a misleading error.
-**Fix:**
+This is more likely than before. Desktop Safari renders `type="month"` as free text, which is how a value like `2025-13` gets in (the original WR-03 scenario). Any project already stored with an impossible `capturedAt` now fails `projectDraftSchema` on every save, including saves that only change other fields, and the UI does not say why. The admin also has no other way to clear the value.
+**Fix:** Give the refine a code and render it:
 ```ts
-const pick = (a?: string, b?: string) => (a?.trim() || b?.trim()) || undefined;
-const url = pick(process.env.UPSTASH_REDIS_REST_URL, process.env.KV_REST_API_URL);
-const token = pick(process.env.UPSTASH_REDIS_REST_TOKEN, process.env.KV_REST_API_TOKEN);
-```
-Better still, choose one pair as a whole: use `UPSTASH_*` only if both are non-empty, otherwise `KV_*`.
-
-### WR-03: An invalid `capturedAt` month crashes the published case study (RangeError)
-
-**File:** `src/features/projects/validation.ts:44-47`, `src/components/site/case-study/case-gallery.tsx:42-49`, `src/lib/format.ts:8-14`
-**Issue:** `capturedAt` is stored in `media` jsonb and validated only by `/^\d{4}-\d{2}(-\d{2})?$/`, so `2025-13`, `2025-00` or `2025-02-31` pass. `formatMonthYear` builds `new Date("2025-13-01T00:00:00Z")`, which is an Invalid Date, and `Intl.DateTimeFormat#format` throws `RangeError: Invalid time value`. The whole `/projects/[slug]` render fails.
-
-The admin uses `<input type="month">` (`image-uploader.tsx`), but desktop Safari renders that as a free-text field, so a typo is realistic. Unlike `startedAt`/`finishedAt` (Postgres `date` columns), Postgres does not check jsonb values.
-**Fix:** Validate real dates in Zod, and make the formatter defensive:
-```ts
-capturedAt: z.string().regex(/^\d{4}-(0[1-9]|1[0-2])(-(0[1-9]|[12]\d|3[01]))?$/)
-  .refine((v) => !Number.isNaN(Date.parse(`${v.length === 7 ? `${v}-01` : v}T00:00:00Z`)))
+capturedAt: z.string()
+  .refine((v) => toCalendarDay(v) !== null, "capturedAtInvalid")
   .optional(),
 ```
-In `CaseGallery`, skip the date segment when the parsed date is invalid instead of throwing.
+Then, in `image-uploader.tsx`, read `fieldMessage(errors, \`media.${index}.capturedAt\`)` and render it with `aria-invalid`/`aria-describedby`, as the alt-text fields already do. Map `capturedAtInvalid` to a Spanish admin string in `messages/es.json`.
 
-### WR-04: The status line's overlap hours ignore `settings.timezone`, and the UTC offset is frozen at `updatedAt`
+### WR-03 (carried from prior WR-01): The rate limit is still keyed by the exact IP, so rotating IPv6 addresses gets around it, and there is no global cap
 
-**File:** `src/lib/overlap.ts:5-17`, `src/components/site/status-clock-script.tsx:20`, `src/components/site/local-time.tsx:55`, `src/components/site/status-line.tsx:68-70`
-**Issue:**
-1. `timezone` is an editable setting (`site-settings/validation.ts:56,99`, any known IANA zone). The clock uses it, but `overlapHours` hardcodes `America/Bogota` and 14:00-23:00 UTC. If Teo changes the zone, the line shows his new local time next to overlap hours computed for Bogotá.
-2. The offset text ("UTC-5") is computed server-side at `settings.updatedAt`. Both the inline script and `LocalTime` replace only the `HH:MM ` prefix and keep the stale offset. For any DST zone, the offset is wrong for half the year until the settings are saved again.
+**File:** `src/lib/rate-limit.ts:14-19` (with `src/features/contact/public-actions.ts:19-30`)
+**Issue:** Not changed by 04-14. The limiter is still a single `slidingWindow(3, "1 h")` keyed by the hash of the full client address. A host with an IPv6 /64 can rotate its source address on every request. Each message inserts a row and sends a Resend email to Teo. The honeypot and elapsed-time checks are supplied by the client, so they do not bound the volume.
+**Fix:** Same as before. Normalize IPv6 to its /64 prefix before hashing (expand `::` first), and add a second limiter, `slidingWindow(30, "1 h")` on the key `"global"`, checked after the per-IP one. Both limiters fail closed in the same way.
 
-**Fix:** Pass `timeZone` into `overlapHours` and derive the home workday from it, the same way `hoursWith` does for Toronto and Madrid. In the script and in `LocalTime`, recompute the offset client-side (`timeZoneName: "shortOffset"`) and write the whole `HH:MM UTC±N` string, not just the time.
+### WR-04 (carried from prior WR-09): The name max-length error still tells the visitor to "Write your name."
 
-### WR-05: A decision with an empty title renders an empty `<h3>` and duplicate React keys
-
-**File:** `src/components/site/case-study/case-sections.tsx:59-63, 132-138`
-**Issue:** The filter keeps a decision when `title` **or** `body` has text, so `{ title: "", body: "..." }` passes. It renders `<h3 className="font-semibold"></h3>` (an empty heading, which axe flags), and `key={decision.title}` collides as soon as two decisions have an empty or identical title. The draft schema (`techDecisions.decisions: { title: text, body: text }`) does not require a title.
-**Fix:** Render the `<h3>` only when `decision.title.trim()` is non-empty, and key by index (static, never reordered) or by `${i}-${title}`.
-
-### WR-06: The footer renders an empty segment and a dangling separator when `location` is empty
-
-**File:** `src/components/site/footer-line.tsx:28-30`, `src/components/site/segment-line.tsx:17-19`
-**Issue:** `location` is not required to publish (`settingsPublishSchema` checks only name, headline, bio and email), so it can be `""`. `SegmentLine` filters only `null`/`undefined`, so the footer prints "Mateo Jaramillo ·  · GitHub ...". `StatusLine` guards with `location.trim() !== ""`, but `FooterLine` has no such check.
-**Fix:** `content: settings.location.trim() ? settings.location : null`, or make `SegmentLine` also drop empty strings.
-
-### WR-07: `scripts/project-status.mjs` changes project status without `updateTag` or `exportContent`
-
-**File:** `scripts/project-status.mjs:11-17`
-**Issue:** `draft SLUG` runs a raw `UPDATE projects SET status='draft'` against whatever `DATABASE_URL` is in `.env.local`. It also leaves `updated_at` unchanged, so the sitemap's `lastModified` is stale. Public queries use `cacheLife("max")` with `cacheTag(tags.projects)`, so the unpublished case study keeps being served from cache, and it stays in the sitemap and in the home list until another admin mutation happens to invalidate the tag. The content export also goes out of sync. CLAUDE.md says every mutation is a Server Action ending in `updateTag` → `exportContent()`.
-**Fix:** Remove the mutating branch and use the admin's unpublish action. If a CLI path is needed, call `revalidateTag(tags.projects, "max")` through an authenticated route, or at least print a loud warning that caches stay stale, and refuse to run when `VERCEL_ENV=production`.
-
-### WR-08: The Report-Only CSP has no reporting endpoint, so its review condition can never be met
-
-**File:** `next.config.ts:9-26`
-**Issue:** The CSP is `Content-Security-Policy-Report-Only` "until the reports are reviewed", but it has no `report-uri` or `report-to`. Violations go only to each visitor's devtools console, so no reports reach anyone, and the site has no enforced CSP at all. Report-Only itself is accepted until phase 5 (decisions.md 2026-11-22). This finding is about the mitigation not working.
-
-There is a second problem for the phase 5 plan to hash `ThemeScript` and the clock script (T-04-06). `StatusClockScript` interpolates `settings.timezone` and the overlap template, so its hash changes every time those settings change. A static header hash will break the clock after the first settings edit.
-**Fix:** Add `report-to` with a `Reporting-Endpoints` header (or `report-uri`) pointing to a small route handler, or document that reports are collected manually. For phase 5, move the dynamic values into `data-*` attributes on the status line, so the script body stays a constant string and gets a stable hash.
-
-### WR-09: The name max-length error tells the visitor to "Write your name."
-
-**File:** `src/features/contact/validation.ts:9`
-**Issue:** `.max(100, "nameRequired")` reuses the "required" code, so a visitor whose name is over 100 characters sees "Write your name." / "Escribe tu nombre." next to a filled field. The client resolver blocks the submit, and the message gives no hint of what to change. `message` has a separate `messageLong` code. `name` does not.
-**Fix:** Add a `nameLong` code with `Site.contact.errors.nameLong` in both message files, and add it to `ErrorCode` in `contact-form.tsx`.
+**File:** `src/features/contact/validation.ts:9`, `messages/en.json` / `messages/es.json` (`Site.contact.errors`)
+**Issue:** Not changed. `.max(100, "nameRequired")` reuses the "required" code, so a visitor whose name is over 100 characters is told to write a name in a field that is already filled. The message files changed in this round but still have no `nameLong` key.
+**Fix:** Add `nameLong` to `Site.contact.errors` in both locales, use `.max(100, "nameLong")`, and add it to the `ErrorCode` union in `contact-form.tsx`.
 
 ## Info
 
-### IN-01: The `motion-ok` class is set but no CSS uses it
+### IN-01: The seed/import schema still accepts impossible `capturedAt` values
 
-**File:** `src/components/site/theme-script.tsx:5`, `src/components/site/theme-toggle.tsx:32-34`
-**Issue:** Both add `motion-ok` to `<html>`, but `globals.css` gates motion with `@media (prefers-reduced-motion: no-preference)`, and only an e2e test reads the class. It is also never removed when the preference changes at runtime.
-**Fix:** Remove the class or use it in CSS, and drop the e2e assertion that depends on it.
+**File:** `src/features/projects/content-schema.ts:51-54` (outside the listed files, but it is the other write path for the same field)
+**Issue:** `mediaSchema.capturedAt` still uses only the `\d{4}-\d{2}(-\d{2})?` regex. `pnpm seed` can store `2025-02-31`. The gallery now hides the value instead of crashing, so the result is only a missing date, but the project then hits WR-02 the first time it is saved from the admin.
+**Fix:** Apply the same `.refine((v) => toCalendarDay(v) !== null)` there, ideally through one shared `capturedAtSchema` exported next to `toCalendarDay`.
 
-### IN-02: The `typeof window` ternary in `InlineScript` is dead code and its comment is misleading
+### IN-02: The regex before the refine in `projectDraftSchema` is redundant
 
-**File:** `src/components/site/inline-script.tsx:4-11`
-**Issue:** `InlineScript` is a Server Component (no `'use client'`), so `typeof window` is always `"undefined"` and the RSC payload always says `text/javascript`. The comment says the client renders `text/plain`, which never happens. The real reason the script does not re-run is that React does not execute scripts it inserts on the client.
-**Fix:** Hardcode the attribute (or omit `type`) and correct the comment.
+**File:** `src/features/projects/validation.ts:47-48`
+**Issue:** `toCalendarDay` already applies the same pattern and returns `null` when it does not match, so `.regex(...)` only adds a second issue with a different message for the same value.
+**Fix:** Keep only the refine, with a message code (see WR-02).
 
-### IN-03: `String.replace` with visitor-controlled replacement strings interprets `$` patterns
+### IN-03 (carried from prior IN-09): The limit of 3 per hour is hardcoded in both the copy and the limiter
 
-**File:** `src/features/contact/components/message-reader.tsx:128, 187-190`
-**Issue:** `labels.reader.replace("{nombre}", message.name)` treats `$&`, `` $` `` and `$'` in the visitor's name as special patterns, so a name like `$'` renders garbled admin text. React escapes the output, so this is cosmetic, not XSS.
-**Fix:** Use a replacer function: `.replace("{nombre}", () => message.name)`.
+**File:** `src/lib/rate-limit.ts:16`, `messages/en.json:99`, `messages/es.json:99`
+**Issue:** Unchanged. Changing one side leaves the other wrong. With a real limiter, the e2e contact specs use up the 3-per-hour window from the test machine's IP.
+**Fix:** Export a `CONTACT_LIMIT` constant and pass it as an ICU argument (`{limit}`). For e2e runs, use a separate limiter prefix.
 
-### IN-04: The OG card date uses the UTC day, unlike the rest of the site
+### IN-04: The error boundary renders a blank `<main>` without its provider, ignores `error`, and its copy is still unapproved
 
-**File:** `src/lib/og-page.tsx:34-37`
-**Issue:** `settings.updatedAt.toISOString().slice(0, 10)` takes the UTC date. Near a month boundary (evening in Bogotá), the OG card shows the next month. `formatEntryDate(at, timeZone)` already exists for exactly this.
-**Fix:** `formatMonthYear(formatEntryDate(settings.updatedAt, settings.timezone), locale)`.
-
-### IN-05: The IP hashing key and the trusted IP source are implicit
-
-**File:** `src/features/contact/public-actions.ts:19-23`
+**File:** `src/app/[locale]/error.tsx:7-19`, `docs/decisions.md` (entry 2026-11-23)
 **Issue:**
-- The HMAC key reuses `BETTER_AUTH_SECRET`. Rotating the auth secret silently resets every rate-limit window and breaks correlation of stored `ip_hash` values.
-- The first `x-forwarded-for` entry is trustworthy only behind Vercel's edge, which overwrites the header. Self-hosted or behind another proxy, a visitor can spoof it and get a fresh bucket on every request.
-- Requests without the header all share the `"unknown"` bucket, so one bot could lock out every such visitor.
+- `if (!site) return null` leaves an empty `<main>` with no heading and no retry. Today the layout always provides the context, but a future layout refactor would fail silently. A dev-only `console.error` or a minimal fallback would make the problem visible.
+- `error` is discarded. There is no `useEffect` that reports `error.digest`, so client-side errors that reach this boundary leave no trace once analytics exists (phase 5).
+- The decision log says the `Site.error` copy is "una propuesta pendiente de Teo". CLAUDE.md requires asking before touching copy, so make sure this is on Teo's list before closing the phase.
 
-**Fix:** Use a dedicated `CONTACT_IP_HASH_KEY` (or derive one with HKDF from the auth secret and a label). Read `x-real-ip` / `@vercel/functions` `ipAddress()`, and fail closed (`unavailable`) when no IP is available instead of pooling.
-
-### IN-06: The proxy matcher's `.*/opengraph-image` exclusion is unanchored
-
-**File:** `src/proxy.ts:23`
-**Issue:** The negative lookahead matches any path that contains `/opengraph-image`. A project slug starting with `opengraph-image` (which `SLUG_PATTERN` allows) would skip the next-intl rewrite and 404 on `/projects/opengraph-image-...` and `/es/proyectos/...`.
-**Fix:** Anchor it: `.*/opengraph-image(?:-[\\w]+)?$`, or match the generated suffix exactly.
-
-### IN-07: A failed GSAP chunk import in `ScrollScene` is an unhandled rejection
-
-**File:** `src/components/motion/scroll-scene.tsx:18-49`
-**Issue:** The `Promise.all([import("gsap"), ...]).then(...)` chain has no `.catch`. A failed chunk load (offline, or a stale deploy) logs an unhandled rejection. The scene is progressive enhancement, so this should fail silently.
-**Fix:** Append `.catch(() => {})`.
-
-### IN-08: Content-keyed lists can produce duplicate React keys
-
-**File:** `src/components/site/case-study/plain-text.tsx:19`, `src/components/site/case-study/case-sections.tsx:116-118`, `src/components/site/about/experience-list.tsx:55-57`, `src/components/site/case-study/case-metrics.tsx:23`
-**Issue:** `key={item}`, `key={result}`, `key={b}` and `key={label-value}` collide when an editor enters two identical lines. React warns and may reconcile the wrong nodes.
-**Fix:** Use the index for these static, never-reordered lists, as `PlainText` already does for blocks.
-
-### IN-09: The rate-limit count is hardcoded in two places
-
-**File:** `messages/en.json` / `messages/es.json` (`Site.contact.errors.rateLimited`), `src/lib/rate-limit.ts:20`
-**Issue:** The copy says "You've sent 3 messages in the last hour", and the limiter uses `slidingWindow(3, "1 h")`. Changing one leaves the other wrong. The message is also inaccurate for visitors on a shared IP (an office or NAT, or the `"unknown"` bucket) who sent nothing themselves. Relatedly, with a real limiter configured, `e2e/contact.spec.ts` (2 real sends) plus `e2e/contact-live.spec.ts` (1) use up the whole 3-per-hour window from the test machine's IP, so a second e2e run within an hour fails as `rate_limited`.
-**Fix:** Pass the limit as an ICU argument (`{limit}`) from a shared constant. For tests, use a separate limiter prefix or allow-list the test IP when `E2E=1`, or give each test run its own `x-forwarded-for` (only against a local, non-Vercel server).
+**Fix:** Render a minimal fallback (or throw in development) when the provider is missing. Add `useEffect(() => { /* report error.digest */ }, [error])` when analytics lands. Track the copy approval as an open item.
 
 ---
 

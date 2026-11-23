@@ -64,50 +64,50 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 ### Casos de estudio (CASE)
 
-- [ ] **CASE-01**: El visitante ve en `/projects/[slug]` (y `/es/proyectos/[slug]`) cabecera con fila meta en mono, resumen (problema, rol, hasta 3 métricas) e imagen de portada
-- [ ] **CASE-02**: Secciones numeradas 01 Problema, 02 Mi rol, 03 Solución (con galería), 04 Resultados, 05 Decisiones técnicas; cada sección se oculta si no hay datos
-- [ ] **CASE-03**: Las decisiones técnicas se muestran como notas al margen (`Marginalia`) con lo descartado, el trade-off y cómo se verificó; en móvil pasan debajo del párrafo
-- [ ] **CASE-04**: El cuerpo en Tiptap se renderiza en servidor con `@tiptap/static-renderer`, sin enviar el editor al navegador
-- [ ] **CASE-05**: Un proyecto sin URL pública se marca como "Herramienta interna, datos de ejemplo" y ofrece una demostración por contacto
-- [ ] **CASE-06**: Al final de cada caso hay navegación al anterior/siguiente y una llamada a contacto
-- [ ] **CASE-07**: Un proyecto publicado después del deploy se puede abrir sin redeploy
+- [x] **CASE-01**: El visitante ve en `/projects/[slug]` (y `/es/proyectos/[slug]`) cabecera con fila meta en mono, resumen (problema, rol, hasta 3 métricas) e imagen de portada
+- [x] **CASE-02**: Secciones numeradas 01 Problema, 02 Mi rol, 03 Solución (con galería), 04 Resultados, 05 Decisiones técnicas; cada sección se oculta si no hay datos
+- [x] **CASE-03**: Las decisiones técnicas se muestran como notas al margen (`Marginalia`) con lo descartado, el trade-off y cómo se verificó; en móvil pasan debajo del párrafo
+- [x] **CASE-04**: El cuerpo en Tiptap se renderiza en servidor con `@tiptap/static-renderer`, sin enviar el editor al navegador
+- [x] **CASE-05**: Un proyecto sin URL pública se marca como "Herramienta interna, datos de ejemplo" y ofrece una demostración por contacto
+- [x] **CASE-06**: Al final de cada caso hay navegación al anterior/siguiente y una llamada a contacto
+- [x] **CASE-07**: Un proyecto publicado después del deploy se puede abrir sin redeploy
 
 ### Sitio público (SITE)
 
-- [ ] **SITE-01**: El visitante ve en `/` el hero elegido, la línea de estado y la lista de proyectos como entradas fechadas (sin cards)
-- [ ] **SITE-02**: La línea de estado muestra disponibilidad, ciudad, UTC-5 y las horas de solapamiento con Toronto y Madrid, respetando el horario de verano
-- [ ] **SITE-03**: La línea de estado muestra la hora local de Medellín en vivo (componente de cliente que no rompe el prerender)
-- [ ] **SITE-04**: El visitante ve en `/about` la bio, la sección Now fechada, el stack con años (sin barras de nivel), la experiencia, la educación y los idiomas
-- [ ] **SITE-05**: El visitante cambia de idioma y permanece en la página equivalente
-- [ ] **SITE-06**: El visitante cambia entre tema claro y oscuro con View Transitions, sin destello al cargar, y la preferencia persiste
-- [ ] **SITE-07**: El footer enlaza GitHub, LinkedIn, el CV en PDF y el código fuente del sitio
+- [x] **SITE-01**: El visitante ve en `/` el hero elegido, la línea de estado y la lista de proyectos como entradas fechadas (sin cards)
+- [x] **SITE-02**: La línea de estado muestra disponibilidad, ciudad, UTC-5 y las horas de solapamiento con Toronto y Madrid, respetando el horario de verano
+- [x] **SITE-03**: La línea de estado muestra la hora local de Medellín en vivo (componente de cliente que no rompe el prerender)
+- [x] **SITE-04**: El visitante ve en `/about` la bio, la sección Now fechada, el stack con años (sin barras de nivel), la experiencia, la educación y los idiomas
+- [x] **SITE-05**: El visitante cambia de idioma y permanece en la página equivalente
+- [x] **SITE-06**: El visitante cambia entre tema claro y oscuro con View Transitions, sin destello al cargar, y la preferencia persiste
+- [x] **SITE-07**: El footer enlaza GitHub, LinkedIn, el CV en PDF y el código fuente del sitio
 - [ ] **SITE-08**: Existe una página 404 en ambos idiomas
 
 ### Contacto (CONT)
 
-- [ ] **CONT-01**: El visitante envía nombre, email y mensaje desde `/contact` (o `/es/contacto`) y ve la confirmación en su idioma
+- [x] **CONT-01**: El visitante envía nombre, email y mensaje desde `/contact` (o `/es/contacto`) y ve la confirmación en su idioma
 - [ ] **CONT-02**: El mensaje se guarda en `contact_messages` antes de enviarse y llega a Teo por Resend con `replyTo` del visitante
-- [ ] **CONT-03**: Los envíos con honeypot lleno o hechos en menos de ~3 s se descartan sin avisar al bot
+- [x] **CONT-03**: Los envíos con honeypot lleno o hechos en menos de ~3 s se descartan sin avisar al bot
 - [ ] **CONT-04**: Upstash limita los envíos por IP (3–5 por hora) y el límite falla cerrado si Upstash no responde
-- [ ] **CONT-05**: El visitante copia el email con un botón y abre Cal.com con un enlace simple (sin embed)
+- [x] **CONT-05**: El visitante copia el email con un botón y abre Cal.com con un enlace simple (sin embed)
 
 ### SEO e i18n (SEO)
 
-- [ ] **SEO-01**: Cada página pública tiene título, descripción y OG en su idioma, desde SiteSettings y el contenido
-- [ ] **SEO-02**: Cada página declara hreflang `en`, `es` y `x-default`
-- [ ] **SEO-03**: `sitemap.xml` y `robots.txt` incluyen las rutas de ambos idiomas y excluyen `/admin`
+- [x] **SEO-01**: Cada página pública tiene título, descripción y OG en su idioma, desde SiteSettings y el contenido
+- [x] **SEO-02**: Cada página declara hreflang `en`, `es` y `x-default`
+- [x] **SEO-03**: `sitemap.xml` y `robots.txt` incluyen las rutas de ambos idiomas y excluyen `/admin`
 
 ### Movimiento (MOTN)
 
-- [ ] **MOTN-01**: Un reveal escalonado al cargar (`<Reveal>`) sobre los bloques de primer nivel
-- [ ] **MOTN-02**: El H1 del hero entra partido por palabras con SplitText, después de cargar las fuentes y sin causar CLS
-- [ ] **MOTN-03**: Como máximo una escena scrubbed con ScrollTrigger por página
-- [ ] **MOTN-04**: Con `prefers-reduced-motion: reduce` todo aparece sin animación; solo se animan `transform` y `opacity`
+- [x] **MOTN-01**: Un reveal escalonado al cargar (`<Reveal>`) sobre los bloques de primer nivel
+- [x] **MOTN-02**: El H1 del hero entra partido por palabras con SplitText, después de cargar las fuentes y sin causar CLS (Complete via approved Plan B P4: H1 split into words on the server and animated with CSS, not SplitText; see docs/decisions.md "2026-11-23 · P4 aplicado: titular del hero partido en el servidor (04-11)")
+- [x] **MOTN-03**: Como máximo una escena scrubbed con ScrollTrigger por página
+- [x] **MOTN-04**: Con `prefers-reduced-motion: reduce` todo aparece sin animación; solo se animan `transform` y `opacity`
 
 ### Calidad y lanzamiento (QUAL)
 
-- [ ] **QUAL-01**: Lighthouse móvil ≥ 95 en `/`, `/projects/[slug]`, `/about` y `/contact` en ambos idiomas, medido en el Preview de Vercel
-- [ ] **QUAL-02**: LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en esas rutas
+- [x] **QUAL-01**: Lighthouse móvil ≥ 95 en `/`, `/projects/[slug]`, `/about` y `/contact` en ambos idiomas, medido en el Preview de Vercel
+- [x] **QUAL-02**: LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en esas rutas
 - [ ] **QUAL-03**: WCAG AA, foco visible, navegación por teclado y axe sin `serious`/`critical`
 - [ ] **QUAL-04**: `/impeccable:audit` sin hallazgos críticos en cada vista pública
 - [ ] **QUAL-05**: Tests e2e de Playwright para login, CRUD de proyecto y contacto
@@ -202,37 +202,37 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | CV-03 | Phase 3 | Complete |
 | CV-04 | Phase 3 | Complete |
 | CV-05 | Phase 3 | Complete |
-| CASE-01 | Phase 4 | Gaps Found |
-| CASE-02 | Phase 4 | Gaps Found |
-| CASE-03 | Phase 4 | Gaps Found |
-| CASE-04 | Phase 4 | Gaps Found |
-| CASE-05 | Phase 4 | Gaps Found |
-| CASE-06 | Phase 4 | Gaps Found |
-| CASE-07 | Phase 4 | Gaps Found |
-| SITE-01 | Phase 4 | Pending |
-| SITE-02 | Phase 4 | Pending |
-| SITE-03 | Phase 4 | Pending |
-| SITE-04 | Phase 4 | Pending |
-| SITE-05 | Phase 4 | Gaps Found |
-| SITE-06 | Phase 4 | Gaps Found |
-| SITE-07 | Phase 4 | Gaps Found |
+| CASE-01 | Phase 4 | Complete |
+| CASE-02 | Phase 4 | Complete |
+| CASE-03 | Phase 4 | Complete |
+| CASE-04 | Phase 4 | Complete |
+| CASE-05 | Phase 4 | Complete |
+| CASE-06 | Phase 4 | Complete |
+| CASE-07 | Phase 4 | Complete |
+| SITE-01 | Phase 4 | Complete |
+| SITE-02 | Phase 4 | Complete |
+| SITE-03 | Phase 4 | Complete |
+| SITE-04 | Phase 4 | Complete |
+| SITE-05 | Phase 4 | Complete |
+| SITE-06 | Phase 4 | Complete |
+| SITE-07 | Phase 4 | Complete |
 | SITE-08 | Phase 5 | Pending |
-| CONT-01 | Phase 4 | Pending |
-| CONT-02 | Phase 4 | Pending |
-| CONT-03 | Phase 4 | Pending |
-| CONT-04 | Phase 4 | Pending |
-| CONT-05 | Phase 4 | Gaps Found |
-| SEO-01 | Phase 4 | Pending |
-| SEO-02 | Phase 4 | Pending |
-| SEO-03 | Phase 4 | Pending |
-| MOTN-01 | Phase 4 | Gaps Found |
-| MOTN-02 | Phase 4 | Pending |
-| MOTN-03 | Phase 4 | Pending |
-| MOTN-04 | Phase 4 | Gaps Found |
-| QUAL-01 | Phase 4 | Pending |
-| QUAL-02 | Phase 4 | Pending |
+| CONT-01 | Phase 4 | Complete |
+| CONT-02 | Phase 4 | Human Needed |
+| CONT-03 | Phase 4 | Complete |
+| CONT-04 | Phase 4 | Human Needed |
+| CONT-05 | Phase 4 | Complete |
+| SEO-01 | Phase 4 | Complete |
+| SEO-02 | Phase 4 | Complete |
+| SEO-03 | Phase 4 | Complete |
+| MOTN-01 | Phase 4 | Complete |
+| MOTN-02 | Phase 4 | Complete |
+| MOTN-03 | Phase 4 | Complete |
+| MOTN-04 | Phase 4 | Complete |
+| QUAL-01 | Phase 4 | Complete |
+| QUAL-02 | Phase 4 | Complete |
 | QUAL-03 | Phase 5 | Pending |
-| QUAL-04 | Phase 4 | Pending |
+| QUAL-04 | Phase 4 | Human Needed |
 | QUAL-05 | Phase 5 | Pending |
 | QUAL-06 | Phase 5 | Pending |
 | QUAL-07 | Phase 5 | Pending |
@@ -247,4 +247,4 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 
 ---
 *Requirements defined: 2026-10-29*
-*Last updated: 2026-10-29 after roadmap creation (traceability)*
+*Last updated: 2026-11-23 after phase 4 gap closure (04-13, 04-14)*

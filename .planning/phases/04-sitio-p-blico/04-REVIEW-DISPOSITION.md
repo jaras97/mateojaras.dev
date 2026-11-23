@@ -3,18 +3,30 @@ phase: 04
 review: 04-REVIEW.md
 titles: json
 findings:
+  - id: WR-01
+    severity: warning
+    disposition: open
+    title: "After a redeploy (action-ID skew), the fallback tells the visitor to \"try again in a few minutes\", but retrying can never work"
+  - id: WR-02
+    severity: warning
+    disposition: open
+    title: "A newly rejected `capturedAt` makes the admin save fail with no message next to the field, and existing projects with such a value can no longer be saved"
+  - id: IN-01
+    severity: info
+    disposition: open
+    title: "The seed/import schema still accepts impossible `capturedAt` values"
+  - id: IN-02
+    severity: info
+    disposition: open
+    title: "The regex before the refine in `projectDraftSchema` is redundant"
+  - id: IN-04
+    severity: info
+    disposition: open
+    title: "The error boundary renders a blank `<main>` without its provider, ignores `error`, and its copy is still unapproved"
   - id: CR-01
     severity: critical
     disposition: open
     title: "The contact form crashes when the Server Action call throws (redeploy skew, network error)"
-  - id: WR-01
-    severity: warning
-    disposition: open
-    title: "The rate limit is per exact IP, so rotating IPv6 addresses gets around it, and there is no global cap"
-  - id: WR-02
-    severity: warning
-    disposition: open
-    title: "The `??` env fallback ignores `KV_REST_API_*` when `UPSTASH_REDIS_REST_*` is set but empty"
   - id: WR-03
     severity: warning
     disposition: open
@@ -43,22 +55,10 @@ findings:
     severity: warning
     disposition: open
     title: "The name max-length error tells the visitor to \"Write your name.\""
-  - id: IN-01
-    severity: info
-    disposition: open
-    title: "The `motion-ok` class is set but no CSS uses it"
-  - id: IN-02
-    severity: info
-    disposition: open
-    title: "The `typeof window` ternary in `InlineScript` is dead code and its comment is misleading"
   - id: IN-03
     severity: info
     disposition: open
     title: "`String.replace` with visitor-controlled replacement strings interprets `$` patterns"
-  - id: IN-04
-    severity: info
-    disposition: open
-    title: "The OG card date uses the UTC day, unlike the rest of the site"
   - id: IN-05
     severity: info
     disposition: open
@@ -81,32 +81,33 @@ findings:
     title: "The rate-limit count is hardcoded in two places"
 open: 19
 total: 19
-recorded: 2026-11-23T20:10:25.018Z
+unparsed: 3
+recorded: 2026-11-23T23:50:33.443Z
 ---
 
 # Phase 04: Code Review Disposition
 
 | Finding | Severity | Disposition | Source |
 |---------|----------|-------------|--------|
-| CR-01 | critical | open | - |
 | WR-01 | warning | open | - |
 | WR-02 | warning | open | - |
-| WR-03 | warning | open | - |
-| WR-04 | warning | open | - |
-| WR-05 | warning | open | - |
-| WR-06 | warning | open | - |
-| WR-07 | warning | open | - |
-| WR-08 | warning | open | - |
-| WR-09 | warning | open | - |
 | IN-01 | info | open | - |
 | IN-02 | info | open | - |
-| IN-03 | info | open | - |
 | IN-04 | info | open | - |
-| IN-05 | info | open | - |
-| IN-06 | info | open | - |
-| IN-07 | info | open | - |
-| IN-08 | info | open | - |
-| IN-09 | info | open | - |
+| CR-01 | critical | open | - (not in the current review) |
+| WR-03 | warning | open | - (not in the current review) |
+| WR-04 | warning | open | - (not in the current review) |
+| WR-05 | warning | open | - (not in the current review) |
+| WR-06 | warning | open | - (not in the current review) |
+| WR-07 | warning | open | - (not in the current review) |
+| WR-08 | warning | open | - (not in the current review) |
+| WR-09 | warning | open | - (not in the current review) |
+| IN-03 | info | open | - (not in the current review) |
+| IN-05 | info | open | - (not in the current review) |
+| IN-06 | info | open | - (not in the current review) |
+| IN-07 | info | open | - (not in the current review) |
+| IN-08 | info | open | - (not in the current review) |
+| IN-09 | info | open | - (not in the current review) |
 
 Dispositions: `open` (recorded, not yet triaged), `fixed`, `skipped`, `deferred`.
 Set `deferred` by hand and put the reason in the Source cell; both are preserved. A `|` in the reason is kept as prose and escaped on the next run.

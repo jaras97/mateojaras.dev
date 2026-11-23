@@ -51,9 +51,7 @@ for (const [contact, lang] of [
     for (const href of hrefs) {
       expect(published).toContain(href.split("/").pop());
     }
-    // The header language link (04-03) fails label-content-name-mismatch;
-    // tracked in deferred-items.md, out of this plan's scope.
-    await expectNoBlockingViolations(page, ["a[hreflang]"]);
+    await expectNoBlockingViolations(page);
   });
 }
 

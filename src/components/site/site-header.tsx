@@ -44,8 +44,8 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
         </a>
         <div className="flex items-center gap-4">
           <nav aria-label={t("nav")}>
-            <Suspense fallback={<StaticNav locale={locale} labels={labels} />}>
-              <NavLinks locale={locale} labels={labels} />
+            <Suspense fallback={<StaticNav labels={labels} />}>
+              <NavLinks labels={labels} />
             </Suspense>
           </nav>
           <Suspense

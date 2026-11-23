@@ -56,8 +56,7 @@ for (const c of CASES) {
         "aria-invalid",
         "true",
       );
-      // The form is the subject; the site chrome has its own coverage (see deferred-items).
-      await expectNoBlockingViolations(page, ["header", "footer"]);
+      await expectNoBlockingViolations(page);
     });
 
     test("discards a honeypot submission without a row", async ({ page }) => {

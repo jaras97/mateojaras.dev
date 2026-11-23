@@ -40,7 +40,7 @@ for (const [path, lang, key] of [
     for (const p of drafts) {
       await expect(page.getByText(p[key], { exact: true })).toHaveCount(0);
     }
-    await expectNoBlockingViolations(page, ["a[hreflang]"]);
+    await expectNoBlockingViolations(page);
   });
 
   test(`${path} entry links target published slugs in the ${lang} locale`, async ({
@@ -126,10 +126,10 @@ for (const p of published) {
   test(`case study ${slug} is localized in both locales`, async ({ page }) => {
     await page.goto(`/projects/${slug}`);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(p.titleEn);
-    await expectNoBlockingViolations(page, ["a[hreflang]"]);
+    await expectNoBlockingViolations(page);
     await page.goto(`/es/proyectos/${slug}`);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(p.titleEs);
-    await expectNoBlockingViolations(page, ["a[hreflang]"]);
+    await expectNoBlockingViolations(page);
     await page.goto(`/es/projects/${slug}`);
     expect(new URL(page.url()).pathname).toBe(`/es/proyectos/${slug}`);
   });

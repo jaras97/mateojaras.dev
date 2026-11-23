@@ -39,8 +39,6 @@ for (const [path, lang] of [
     }
     // Years only, never proficiency bars.
     await expect(page.getByRole("progressbar")).toHaveCount(0);
-    // The header language link fails label-content-name-mismatch
-    // (deferred-items.md, pending a copy decision).
-    await expectNoBlockingViolations(page, ["a[hreflang]"]);
+    await expectNoBlockingViolations(page);
   });
 }

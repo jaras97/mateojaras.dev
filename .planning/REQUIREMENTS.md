@@ -64,13 +64,13 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 ### Casos de estudio (CASE)
 
-- [x] **CASE-01**: El visitante ve en `/projects/[slug]` (y `/es/proyectos/[slug]`) cabecera con fila meta en mono, resumen (problema, rol, hasta 3 métricas) e imagen de portada
-- [x] **CASE-02**: Secciones numeradas 01 Problema, 02 Mi rol, 03 Solución (con galería), 04 Resultados, 05 Decisiones técnicas; cada sección se oculta si no hay datos
-- [x] **CASE-03**: Las decisiones técnicas se muestran como notas al margen (`Marginalia`) con lo descartado, el trade-off y cómo se verificó; en móvil pasan debajo del párrafo
-- [x] **CASE-04**: El cuerpo en Tiptap se renderiza en servidor con `@tiptap/static-renderer`, sin enviar el editor al navegador
-- [x] **CASE-05**: Un proyecto sin URL pública se marca como "Herramienta interna, datos de ejemplo" y ofrece una demostración por contacto
-- [x] **CASE-06**: Al final de cada caso hay navegación al anterior/siguiente y una llamada a contacto
-- [x] **CASE-07**: Un proyecto publicado después del deploy se puede abrir sin redeploy
+- [ ] **CASE-01**: El visitante ve en `/projects/[slug]` (y `/es/proyectos/[slug]`) cabecera con fila meta en mono, resumen (problema, rol, hasta 3 métricas) e imagen de portada
+- [ ] **CASE-02**: Secciones numeradas 01 Problema, 02 Mi rol, 03 Solución (con galería), 04 Resultados, 05 Decisiones técnicas; cada sección se oculta si no hay datos
+- [ ] **CASE-03**: Las decisiones técnicas se muestran como notas al margen (`Marginalia`) con lo descartado, el trade-off y cómo se verificó; en móvil pasan debajo del párrafo
+- [ ] **CASE-04**: El cuerpo en Tiptap se renderiza en servidor con `@tiptap/static-renderer`, sin enviar el editor al navegador
+- [ ] **CASE-05**: Un proyecto sin URL pública se marca como "Herramienta interna, datos de ejemplo" y ofrece una demostración por contacto
+- [ ] **CASE-06**: Al final de cada caso hay navegación al anterior/siguiente y una llamada a contacto
+- [ ] **CASE-07**: Un proyecto publicado después del deploy se puede abrir sin redeploy
 
 ### Sitio público (SITE)
 
@@ -78,9 +78,9 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [ ] **SITE-02**: La línea de estado muestra disponibilidad, ciudad, UTC-5 y las horas de solapamiento con Toronto y Madrid, respetando el horario de verano
 - [ ] **SITE-03**: La línea de estado muestra la hora local de Medellín en vivo (componente de cliente que no rompe el prerender)
 - [ ] **SITE-04**: El visitante ve en `/about` la bio, la sección Now fechada, el stack con años (sin barras de nivel), la experiencia, la educación y los idiomas
-- [x] **SITE-05**: El visitante cambia de idioma y permanece en la página equivalente
-- [x] **SITE-06**: El visitante cambia entre tema claro y oscuro con View Transitions, sin destello al cargar, y la preferencia persiste
-- [x] **SITE-07**: El footer enlaza GitHub, LinkedIn, el CV en PDF y el código fuente del sitio
+- [ ] **SITE-05**: El visitante cambia de idioma y permanece en la página equivalente
+- [ ] **SITE-06**: El visitante cambia entre tema claro y oscuro con View Transitions, sin destello al cargar, y la preferencia persiste
+- [ ] **SITE-07**: El footer enlaza GitHub, LinkedIn, el CV en PDF y el código fuente del sitio
 - [ ] **SITE-08**: Existe una página 404 en ambos idiomas
 
 ### Contacto (CONT)
@@ -89,7 +89,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [ ] **CONT-02**: El mensaje se guarda en `contact_messages` antes de enviarse y llega a Teo por Resend con `replyTo` del visitante
 - [ ] **CONT-03**: Los envíos con honeypot lleno o hechos en menos de ~3 s se descartan sin avisar al bot
 - [ ] **CONT-04**: Upstash limita los envíos por IP (3–5 por hora) y el límite falla cerrado si Upstash no responde
-- [x] **CONT-05**: El visitante copia el email con un botón y abre Cal.com con un enlace simple (sin embed)
+- [ ] **CONT-05**: El visitante copia el email con un botón y abre Cal.com con un enlace simple (sin embed)
 
 ### SEO e i18n (SEO)
 
@@ -99,10 +99,10 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 ### Movimiento (MOTN)
 
-- [x] **MOTN-01**: Un reveal escalonado al cargar (`<Reveal>`) sobre los bloques de primer nivel
+- [ ] **MOTN-01**: Un reveal escalonado al cargar (`<Reveal>`) sobre los bloques de primer nivel
 - [ ] **MOTN-02**: El H1 del hero entra partido por palabras con SplitText, después de cargar las fuentes y sin causar CLS
 - [ ] **MOTN-03**: Como máximo una escena scrubbed con ScrollTrigger por página
-- [x] **MOTN-04**: Con `prefers-reduced-motion: reduce` todo aparece sin animación; solo se animan `transform` y `opacity`
+- [ ] **MOTN-04**: Con `prefers-reduced-motion: reduce` todo aparece sin animación; solo se animan `transform` y `opacity`
 
 ### Calidad y lanzamiento (QUAL)
 
@@ -202,33 +202,33 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | CV-03 | Phase 3 | Complete |
 | CV-04 | Phase 3 | Complete |
 | CV-05 | Phase 3 | Complete |
-| CASE-01 | Phase 4 | Complete |
-| CASE-02 | Phase 4 | Complete |
-| CASE-03 | Phase 4 | Complete |
-| CASE-04 | Phase 4 | Complete |
-| CASE-05 | Phase 4 | Complete |
-| CASE-06 | Phase 4 | Complete |
-| CASE-07 | Phase 4 | Complete |
+| CASE-01 | Phase 4 | Gaps Found |
+| CASE-02 | Phase 4 | Gaps Found |
+| CASE-03 | Phase 4 | Gaps Found |
+| CASE-04 | Phase 4 | Gaps Found |
+| CASE-05 | Phase 4 | Gaps Found |
+| CASE-06 | Phase 4 | Gaps Found |
+| CASE-07 | Phase 4 | Gaps Found |
 | SITE-01 | Phase 4 | Pending |
 | SITE-02 | Phase 4 | Pending |
 | SITE-03 | Phase 4 | Pending |
 | SITE-04 | Phase 4 | Pending |
-| SITE-05 | Phase 4 | Complete |
-| SITE-06 | Phase 4 | Complete |
-| SITE-07 | Phase 4 | Complete |
+| SITE-05 | Phase 4 | Gaps Found |
+| SITE-06 | Phase 4 | Gaps Found |
+| SITE-07 | Phase 4 | Gaps Found |
 | SITE-08 | Phase 5 | Pending |
 | CONT-01 | Phase 4 | Pending |
 | CONT-02 | Phase 4 | Pending |
 | CONT-03 | Phase 4 | Pending |
 | CONT-04 | Phase 4 | Pending |
-| CONT-05 | Phase 4 | Complete |
+| CONT-05 | Phase 4 | Gaps Found |
 | SEO-01 | Phase 4 | Pending |
 | SEO-02 | Phase 4 | Pending |
 | SEO-03 | Phase 4 | Pending |
-| MOTN-01 | Phase 4 | Complete |
+| MOTN-01 | Phase 4 | Gaps Found |
 | MOTN-02 | Phase 4 | Pending |
 | MOTN-03 | Phase 4 | Pending |
-| MOTN-04 | Phase 4 | Complete |
+| MOTN-04 | Phase 4 | Gaps Found |
 | QUAL-01 | Phase 4 | Pending |
 | QUAL-02 | Phase 4 | Pending |
 | QUAL-03 | Phase 5 | Pending |

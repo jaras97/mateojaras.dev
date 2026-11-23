@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type { projects } from "@/db/schema";
+import { toCalendarDay } from "@/lib/format";
 import { richTextDocSchema } from "@/lib/rich-text-schema";
 
 // Shared by the admin form (zodResolver) and the Server Actions (safeParse).
@@ -44,6 +45,7 @@ const mediaItem = z.strictObject({
   capturedAt: z
     .string()
     .regex(/^\d{4}-\d{2}(-\d{2})?$/)
+    .refine((value) => toCalendarDay(value) !== null)
     .optional(),
 });
 

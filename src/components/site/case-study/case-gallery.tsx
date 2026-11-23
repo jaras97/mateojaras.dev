@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { type Segment, SegmentLine } from "@/components/site/segment-line";
 import type { Locale } from "@/features/site-settings/types";
-import { formatMonthYear } from "@/lib/format";
+import { formatMonthYear, toCalendarDay } from "@/lib/format";
 import { localized } from "@/lib/i18n-fields";
 
 export type GalleryMedia = {
@@ -39,14 +39,8 @@ export function CaseGallery({
         const caption = (
           localized(item, "caption", locale) as string | undefined
         )?.trim();
-        const date = item.capturedAt
-          ? formatMonthYear(
-              item.capturedAt.length === 7
-                ? `${item.capturedAt}-01`
-                : item.capturedAt,
-              locale,
-            )
-          : null;
+        const day = item.capturedAt ? toCalendarDay(item.capturedAt) : null;
+        const date = day ? formatMonthYear(day, locale) : null;
         const segments: Segment[] = [];
         if (caption) segments.push({ key: "caption", content: caption });
         if (date) segments.push({ key: "date", content: date });

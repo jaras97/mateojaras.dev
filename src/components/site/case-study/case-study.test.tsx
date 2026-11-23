@@ -234,6 +234,17 @@ describe("CaseGallery", () => {
     expect(html).not.toContain("alt https://x.dev/c");
   });
 
+  it("hides the date of an impossible capturedAt instead of throwing", () => {
+    const html = render([
+      item("c"),
+      item("https://x.dev/1.png", { captionEn: "Home", capturedAt: "2025-13" }),
+      item("https://x.dev/2.png", { capturedAt: "2025-02-31" }),
+    ]);
+    expect(html).toContain("Home");
+    expect(html).toContain("02 / 02");
+    expect(html).not.toContain("Invalid");
+  });
+
   it("renders video with controls and an aria-label", () => {
     const html = render([
       item("c"),

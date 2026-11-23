@@ -128,9 +128,22 @@ describe("media captions", () => {
     });
     expect(result.success).toBe(true);
   });
+  it("accepts real calendar capturedAt values", () => {
+    for (const capturedAt of ["2026-03", "2024-02-29", "2026-03-15"]) {
+      expect(
+        projectDraftSchema.safeParse({
+          ...complete,
+          media: [{ ...base, capturedAt }],
+        }).success,
+      ).toBe(true);
+    }
+  });
   it("rejects a bad capturedAt, a long caption and unknown keys", () => {
     for (const extra of [
       { capturedAt: "March" },
+      { capturedAt: "2025-13" },
+      { capturedAt: "2025-00" },
+      { capturedAt: "2025-02-30" },
       { captionEn: "x".repeat(121) },
       { notes: "x" },
     ]) {

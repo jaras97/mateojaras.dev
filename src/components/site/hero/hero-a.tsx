@@ -1,5 +1,5 @@
+import { type CSSProperties, Fragment } from "react";
 import { Reveal } from "@/components/motion/reveal";
-import { SplitHeading } from "@/components/motion/split-heading";
 import {
   HeroCta,
   type HeroProps,
@@ -23,13 +23,34 @@ export function HeroA({ settings, locale, cta }: HeroProps) {
     return null;
   }
 
+  // P4 (MOTN-02 Plan B): words are split on the server and animated with CSS
+  // only, so the H1 is in the HTML at first paint and needs no JS to appear.
+  // Total stays within 0.7 s: 0.5 s keyframe plus at most 0.2 s of stagger.
+  const words = headline.trim().split(/\s+/);
+  const step = words.length > 1 ? Math.min(40, 200 / (words.length - 1)) : 0;
+
   return (
     <section aria-labelledby="hero-title" className={heroSectionClass}>
-      <SplitHeading className="lg:col-span-8 lg:col-start-2">
-        <h1 id="hero-title" className={heroTitleClass}>
-          {headline}
+      <div className="lg:col-span-8 lg:col-start-2">
+        <h1
+          id="hero-title"
+          className={heroTitleClass}
+          style={{ "--split-step": `${step}ms` } as CSSProperties}
+        >
+          {words.map((word, i) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: static server-rendered split, never reordered
+            <Fragment key={i}>
+              {i > 0 && " "}
+              <span
+                className="split-word"
+                style={{ "--w": i } as CSSProperties}
+              >
+                {word}
+              </span>
+            </Fragment>
+          ))}
         </h1>
-      </SplitHeading>
+      </div>
       <Reveal index={0} className="lg:col-span-8 lg:col-start-2">
         <StatusLine settings={settings} locale={locale} className="mt-8" />
         <StatusClockScript

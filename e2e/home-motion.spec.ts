@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// Home hero motion (MOTN-02): split-by-words H1, failsafe, no CLS, once per visit.
+// Home hero motion (MOTN-02, P4 Plan B): H1 split by words on the server, CSS-only entrance, no CLS.
 
 async function observeVitals(page: import("@playwright/test").Page) {
   await page.addInitScript(() => {
@@ -36,55 +36,42 @@ async function observeVitals(page: import("@playwright/test").Page) {
 test.describe("motion allowed", () => {
   test.use({ reducedMotion: "no-preference" });
 
-  test("H1 is visible within 1000 ms of load even when GSAP chunks are blocked", async ({
-    page,
-  }) => {
-    await page.route(/gsap|split-heading|SplitText/i, (route) => route.abort());
-    await page.route("**/_next/static/chunks/**", async (route) => {
-      const url = route.request().url();
-      if (/gsap/i.test(url)) return route.abort();
-      return route.continue();
-    });
-    await page.goto("/", { waitUntil: "load" });
-    const opacity = () =>
-      page.evaluate(() =>
-        Number(
-          getComputedStyle(document.querySelector("[data-split]") as Element)
-            .opacity,
-        ),
-      );
-    await page.waitForTimeout(1100);
-    expect(await opacity()).toBe(1);
-  });
-
-  test("splits by words once, keeps the text and adds no CLS in the hero", async ({
+  test("H1 words are server-rendered, animate with CSS only and settle within 1000 ms", async ({
     page,
   }) => {
     await observeVitals(page);
-    await page.addInitScript(() => {
-      const w = window as unknown as { __split: boolean };
-      w.__split = false;
-      new MutationObserver((records) => {
-        for (const r of records) {
-          for (const n of r.addedNodes) {
-            if (n instanceof Element && n.closest("#hero-title"))
-              w.__split = true;
-          }
-        }
-      }).observe(document, { childList: true, subtree: true });
-    });
-    await page.goto("/");
+    // The HTML already carries the words; no GSAP is needed for the headline.
+    await page.route(/gsap|SplitText/i, (route) => route.abort());
+    const response = await page.goto("/", { waitUntil: "load" });
+    const html = (await response?.text()) ?? "";
+    expect(html).toMatch(
+      /<h1[^>]*id="hero-title"[^>]*>\s*<span class="split-word"/,
+    );
     const h1 = page.getByRole("heading", { level: 1 });
-    await expect(page.locator("[data-split][data-split-done]")).toHaveCount(1);
-    const text = (await h1.textContent()) ?? "";
-    await page.waitForTimeout(1500);
-    await expect(h1).toBeVisible();
-    expect((await h1.textContent()) ?? "").toBe(text);
-    expect(
-      await page
-        .locator("#hero-title [class*='split'], #hero-title div")
-        .count(),
-    ).toBe(0);
+    const text = ((await h1.textContent()) ?? "").trim();
+    expect(text.length).toBeGreaterThan(0);
+    await page.waitForTimeout(1000);
+    const state = await page.evaluate(() => {
+      const words = [
+        ...document.querySelectorAll<HTMLElement>("#hero-title .split-word"),
+      ];
+      return {
+        count: words.length,
+        opacities: words.map((w) => Number(getComputedStyle(w).opacity)),
+        running: document
+          .getAnimations()
+          .filter(
+            (a) =>
+              a.playState === "running" &&
+              (a.effect as KeyframeEffect | null)?.target?.closest?.(
+                "#hero-title",
+              ),
+          ).length,
+      };
+    });
+    expect(state.count).toBeGreaterThan(0);
+    expect(state.opacities.every((o) => o === 1)).toBe(true);
+    expect(state.running).toBe(0);
     const cls = await page.evaluate(() =>
       (window as unknown as { __cls: number[] }).__cls.reduce(
         (a, b) => a + b,
@@ -92,33 +79,6 @@ test.describe("motion allowed", () => {
       ),
     );
     expect(cls).toBe(0);
-    // The split really ran (word wrappers were added) and was reverted.
-    expect(
-      await page.evaluate(
-        () => (window as unknown as { __split: boolean }).__split,
-      ),
-    ).toBe(true);
-
-    // Leaving and coming back must not replay the split.
-    await page.evaluate(() => {
-      const w = window as unknown as {
-        __soft: boolean;
-        next: { router: { push: (path: string) => void } };
-      };
-      w.__soft = true;
-      w.next.router.push("/about");
-    });
-    await page.waitForURL(/about/);
-    await page.goBack();
-    // Only a client navigation keeps the page's JS state, so only then is
-    // "no replay" meaningful.
-    const soft = await page.evaluate(
-      () => (window as unknown as { __soft?: boolean }).__soft === true,
-    );
-    test.skip(!soft, "back navigation was a full load");
-    await expect(page.locator("[data-split][data-split-done]")).toHaveCount(1);
-    await page.waitForTimeout(100);
-    expect(await page.locator("#hero-title div").count()).toBe(0);
   });
 
   test("about and case pages load no SplitText chunk", async ({ page }) => {
@@ -162,8 +122,7 @@ test.describe("reduced motion", () => {
       const w = window as unknown as { __min: number };
       w.__min = 1;
       const tick = () => {
-        const el = document.querySelector("[data-split]");
-        if (el)
+        for (const el of document.querySelectorAll("#hero-title .split-word"))
           w.__min = Math.min(w.__min, Number(getComputedStyle(el).opacity));
         requestAnimationFrame(tick);
       };

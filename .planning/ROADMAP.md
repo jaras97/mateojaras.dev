@@ -225,7 +225,7 @@ Plans:
   4. Cada página pública tiene título, descripción, OG y hreflang (`en`, `es`, `x-default`) en su idioma, y `sitemap.xml` y `robots.txt` listan ambos idiomas sin `/admin`; el movimiento se limita a un reveal escalonado, el H1 del hero partido por palabras sin CLS y como máximo una escena scrubbed por página, y con `prefers-reduced-motion: reduce` todo aparece sin animación
   5. `/impeccable:audit` no reporta hallazgos críticos en ninguna vista pública, y Lighthouse móvil da ≥ 95 con LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en `/`, `/projects/[slug]`, `/about` y `/contact` en ambos idiomas, medido en el Preview de Vercel
 
-**Plans**: 12/14 plans executed; 04-13 y 04-14 cierran los gaps de la verificación (CR-01, WR-02, WR-03)
+**Plans**: 13/14 plans executed; 04-13 y 04-14 cierran los gaps de la verificación (CR-01, WR-02, WR-03)
 Plans:
 **Wave 1**
 
@@ -256,7 +256,7 @@ Plans:
 
 **Gap closure** *(after Wave 5)*
 
-- [ ] 04-13-PLAN.md — CR-01: el formulario de contacto sobrevive a un fallo de la Server Action (alerta con mailto) y error.tsx localizado en [locale] con reintento y mailto
+- [x] 04-13-PLAN.md — CR-01: el formulario de contacto sobrevive a un fallo de la Server Action (alerta con mailto) y error.tsx localizado en [locale] con reintento y mailto
 - [ ] 04-14-PLAN.md — WR-02 par completo de credenciales Upstash, WR-03 capturedAt imposible no rompe el caso, trazabilidad de REQUIREMENTS.md (depende de 04-13)
 
 **UI hint**: yes
@@ -317,5 +317,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Identidad y contenido | 13/13 | Complete    | 2026-11-01 |
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
 | 3. Panel admin + CV | 14/14 | Complete    | 2026-11-22 |
-| 4. Sitio público | 12/12 | In Progress | - |
+| 4. Sitio público | 13/14 | In Progress | - |
 | 5. Pulido y lanzamiento | 0/TBD | Not started | - |

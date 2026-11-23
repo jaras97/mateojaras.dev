@@ -92,8 +92,9 @@ try {
         tbt: a["total-blocking-time"].numericValue,
         fcp: a["first-contentful-paint"].numericValue / 1000,
         lcpEl:
-          a["largest-contentful-paint-element"]?.details?.items?.[0]?.items?.[0]
-            ?.node?.snippet ?? "",
+          a["lcp-breakdown-insight"]?.details?.items?.find?.(
+            (i) => i.type === "node",
+          )?.selector ?? "",
         status: j.runWarnings?.length ? j.runWarnings.length : 0,
         final: j.finalDisplayedUrl?.replace(/\?.*$/, "") ?? "",
       });

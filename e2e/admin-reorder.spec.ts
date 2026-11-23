@@ -100,10 +100,7 @@ test("moves a row with the keyboard only and the order persists", async ({
 
   // The public home lists the published projects in the admin order.
   await page.goto("/es");
-  const publicTitles = await page
-    .getByRole("main")
-    .getByRole("link")
-    .allInnerTexts();
+  const publicTitles = await page.locator("#work h3").allInnerTexts();
   const expectedPublic = (await projectOrder())
     .filter((r) => r.status === "published" && r.visible)
     .map((r) => r.titleEs);

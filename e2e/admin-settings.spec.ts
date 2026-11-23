@@ -68,7 +68,8 @@ test("the draft stays private, previews on the home and publishes without redepl
   const name = String(original.name);
   const draftName = `${name} borrador`;
   const heading = (target: import("@playwright/test").Page, text: string) =>
-    target.getByRole("heading", { level: 1, name: text, exact: true });
+    // The home H1 is the headline (04-08); the stored name shows in the header.
+    target.locator("header").getByText(text, { exact: true });
 
   await signIn(page);
   await expect(page).toHaveURL(/\/admin$/);

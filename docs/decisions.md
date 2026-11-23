@@ -529,3 +529,52 @@ Decisión: las rutas OG exportan `size` y `contentType` y no emiten `og:image:al
 Quién: Claude Code.
 Por qué: la alternativa rompía el build; el alt de una tarjeta social es opcional.
 Verificación: `pnpm build` y e2e/seo.spec.ts.
+
+## 2026-11-23 · Decisiones de implementación de las planes 04-03 a 04-10 (consolidación, 04-11)
+Contexto: cada SUMMARY de la fase 4 registra decisiones locales. Se reúnen aquí para que docs/decisions.md sea la única fuente.
+Decisión (todas de Claude Code salvo indicación):
+- 04-03: los fallbacks de nav e idioma en Suspense pintan los mismos enlaces sin estado activo; `ThemeToggle` no guarda el tema en estado de React (la clase en `<html>` es la fuente de verdad). T-04-06 (aceptado): en la fase 5, con CSP estricta, hay que dar hash a `ThemeScript` y al script del reloj de la home.
+- 04-04: `PageSection` gana un slot opcional `aside` en vez de un layout propio; el header del caso pinta el segmento de herramienta interna, el stack y la línea de demo; los `caption`/`date` vacíos se descartan en `form-model.compactMedia`, no en Zod; `expectNoBlockingViolations` admite `exclude`.
+- 04-05: `PageSection` gana `marginNumber`/`scene` en vez de duplicar el layout; el desplazamiento `lg:-mt-13` alinea el número con el h2 (revisar si cambia el tamaño del h2); el check de bundle busca `scrollerProxy` porque el chunk prefetch del wrapper contiene la palabra "ScrollTrigger".
+- 04-06: `ip_hash` = HMAC-SHA256 (`contact-ip:${ip}`) con `BETTER_AUTH_SECRET`, leído en la acción y nunca en el núcleo; sin `BETTER_AUTH_SECRET` la acción devuelve `unavailable` (falla cerrado); `email_sent_at` entra en schema.ts en el commit de la tarea 1; los errores con `{email}` llegan crudos y se pintan con enlace mailto.
+- 04-07: la confirmación del formulario se resetea con `shouldReset` + `useLayoutEffect` (patrón documentado de Activity) y reinicia `startedAt`; el burst de rate limit en e2e es opt-in (`E2E_RATE_LIMIT=1`) para no gastar la ventana de Teo.
+- 04-08: el solapamiento horario se calcula sobre la fecha de Bogotá, horas enteras, sin tratar fines de semana; la frase puede partirse dentro de su segmento (los separadores nunca abren línea); la lista de la home muestra todos los proyectos publicados y visibles (D-14) y uno sin fechas no tiene columna de fecha.
+- 04-09: la fecha de Now se compone con `formatToParts` como "día mes año" en ambos idiomas; las secciones vacías se filtran antes de numerar (sin Now, Stack es 01).
+Quién: Claude Code (04-01 ya recoge las aprobaciones de Teo).
+Por qué: 04-11 exige que docs/decisions.md contenga cada decisión de los SUMMARY.
+Verificación: SUMMARY 04-03 a 04-10, secciones "Decisiones".
+
+## 2026-11-23 · P4 aplicado: titular del hero partido en el servidor (04-11)
+Contexto: en el Preview la home medía LCP 4.66 s y rendimiento 81 (en y es) porque GSAP y SplitText mantenían el H1 oculto hasta cargar. Las otras seis rutas ya pasaban.
+Decisión: se aplica el Plan B P4 aprobado en 04-01. `hero-a.tsx` renderiza las palabras como `span.split-word` en el servidor y la entrada es solo CSS (`@media (prefers-reduced-motion: no-preference)`, 500 ms más como máximo 200 ms de escalonado). `SplitHeading` y su failsafe CSS se eliminan. Desvía de la letra de MOTN-02 (que pedía SplitText), con la aprobación previa de Teo.
+Quién: Claude Code, dentro de la aprobación de Teo (P4).
+Por qué: tras el cambio LCP 2.21 s y rendimiento 96 en `/`, 2.19 s y 96 en `/es`. GSAP sigue solo en la escena del caso.
+Verificación: 04-LIGHTHOUSE.md (8 filas) y e2e/home-motion.spec.ts.
+
+## 2026-11-23 · Sin transición de ruta con ViewTransition (04-11)
+Contexto: UI-SPEC fila 6 deja la transición de ruta a discreción. Se envolvió `{children}` del `<main>` en `<ViewTransition>`.
+Decisión: se retira. Con movimiento permitido, la escena del caso dejaba de encender el número de margen (e2e/case-study-motion.spec.ts fallaba en 2 de 5) y la página anterior permanecía en el DOM. La navegación sigue siendo cliente (e2e/route-transition.spec.ts). El cambio de tema conserva su View Transition.
+Quién: Claude Code.
+Por qué: la regla del plan: si hay glitch, la transición de ruta no entra y se registra el motivo.
+Verificación: e2e/case-study-motion.spec.ts verde sin ella.
+
+## 2026-11-23 · Portada del caso fuera de Reveal y repetición de Reveal tras Activity (04-11)
+Contexto: Pitfall 9 y repetición de Reveal al volver a mostrar una ruta oculta por Activity.
+Decisión: la portada se queda fuera de Reveal: es el elemento LCP del caso y mide 2.26 s y 2.28 s (en/es). La repetición de Reveal tras Activity se acepta (400 ms, sutil); no se añade guardia salvo que la auditoría la marque.
+Quién: Claude Code.
+Por qué: ambos cumplen el presupuesto medido; una guardia añadiría estado sin beneficio visible.
+Verificación: 04-LIGHTHOUSE.md.
+
+## 2026-11-23 · Anillo de foco global (04-11)
+Contexto: el e2e de teclado mostró que el sitio público usaba el anillo por defecto del navegador (1 px) y el textarea un anillo de 3 px al 50 %, no el anillo sólido de 2 px con offset 2 px de la UI-SPEC.
+Decisión: regla base `:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px }` en globals.css y el textarea se alinea con el input (ring-2, offset 2).
+Quién: Claude Code.
+Por qué: cumple la UI-SPEC sin tocar la paleta; las utilidades de cada componente siguen mandando.
+Verificación: e2e/keyboard.spec.ts.
+
+## 2026-11-23 · Label del enlace de idioma y nav con Link (04-11)
+Contexto: deferred-items de 04-04 y 04-09; copy aprobado por Teo el 2026-11-22.
+Decisión: `toOtherLocale` = "ES, ver esta página en español" / "EN, view this page in English"; se quitan las exclusiones de axe de header y footer en los e2e. `StaticNav` usa `Link` de next-intl (el enlace Work usa `{ pathname: "/", hash: "work" }`) y conserva `aria-current`.
+Quién: Teo (copy), Claude Code (implementación).
+Por qué: axe `label-content-name-mismatch` y recargas completas en cada enlace del header.
+Verificación: e2e/nav-client.spec.ts, axe sin exclusiones en about, case-study, public y contact.

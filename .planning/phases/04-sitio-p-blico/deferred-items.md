@@ -12,3 +12,7 @@
 ## From 04-10
 - Soft 404 on unknown `/projects/[slug]` (and `/es/proyectos/[slug]`): the not-found UI renders but the status is HTTP 200. Tried resolving the slug above the Suspense boundary (await params + cached published-slug list + `notFound()` at the top of the page): with `cacheComponents` + `partialPrefetching` the unlisted slug is still served from the route shell and answers 200, and reading `params` outside Suspense is what 04-04 found to break shell regeneration. Getting a real 404 needs an architectural change (e.g. dropping partialPrefetching/App Shell for this route, or `cacheComponents: false` per the Plan B). Mitigation in place: Next injects `<meta name="robots" content="noindex">` in the not-found render (documented in not-found.md, asserted in e2e/seo.spec.ts), and the sitemap lists only published+visible slugs.
 - OG `alt` is not localized: `generateImageMetadata` receives empty `params` for `[locale]` routes while Next collects page data (build fails on `notFound()`), so the OG routes export only `size` and `contentType` and emit no `og:image:alt`. Revisit if alt text is wanted.
+
+## Resuelto en 04-11
+- Label del enlace de idioma y exclusiones de axe (04-04, 04-02): hecho. `StaticNav` con `Link` (04-09): hecho.
+- Siguen abiertos y aceptados: soft 404 en slug desconocido (noindex) y og:image:alt sin localizar (04-10).

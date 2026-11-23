@@ -44,6 +44,12 @@
       "cta": "Let’s talk",
       "figure": "{n} / {total}"
     },
+    "error": {
+      "title": "Something went wrong",
+      "body": "This page didn’t load. Try again in a moment.",
+      "retry": "Try again",
+      "write": "Or write to me at {email}."
+    },
     "notFound": {
       "title": "Page not found",
       "body": "This page does not exist.",

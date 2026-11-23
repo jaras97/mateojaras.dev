@@ -578,3 +578,10 @@ Decisión: `toOtherLocale` = "ES, ver esta página en español" / "EN, view this
 Quién: Teo (copy), Claude Code (implementación).
 Por qué: axe `label-content-name-mismatch` y recargas completas en cada enlace del header.
 Verificación: e2e/nav-client.spec.ts, axe sin exclusiones en about, case-study, public y contact.
+
+## 2026-11-23 · Error boundary localizada en [locale] y fallo de la Server Action de contacto (04-13)
+Contexto: CR-01 de 04-VERIFICATION. Si `submitContact` rechaza (red, 5xx, "Failed to find Server Action" tras un redeploy), la página mostraba el error genérico de Next y el visitante perdía el mensaje escrito.
+Decisión: `ContactForm` captura el rechazo y muestra la alerta localizada "unavailable" con mailto, conservando los valores. Se añade `src/app/[locale]/error.tsx` (retry + mailto). Las etiquetas y el email llegan al boundary cliente mediante `SiteErrorProvider`, alimentado por el layout, porque `NextIntlClientProvider` lleva `messages={null}`. No se añade `global-error.tsx`: los fallos del layout raíz quedan fuera de este gap.
+Quién: Claude Code. La copy de `Site.error` es una propuesta pendiente de Teo.
+Por qué: el formulario es la única vía de conversión y la página es un shell estático cacheado.
+Verificación: contact-form.test.tsx, error.test.tsx.

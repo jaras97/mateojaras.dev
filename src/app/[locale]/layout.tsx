@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { fontVariables } from "@/app/fonts";
 import { DraftBanner } from "@/components/site/draft-banner";
+import { SiteErrorProvider } from "@/components/site/site-error-provider";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
 import { ThemeScript } from "@/components/site/theme-script";
@@ -30,7 +31,18 @@ export default async function RootLayout({
 }: LayoutProps<"/[locale]">) {
   const param = await locale();
   if (!isLocale(param)) notFound();
-  const t = await getTranslations({ locale: param, namespace: "Site.header" });
+  const [t, te, settings] = await Promise.all([
+    getTranslations({ locale: param, namespace: "Site.header" }),
+    getTranslations({ locale: param, namespace: "Site.error" }),
+    getSiteSettings(),
+  ]);
+  const errorLabels = {
+    title: te("title"),
+    body: te("body"),
+    retry: te("retry"),
+    write: te.raw("write") as string,
+  };
+  const errorEmail = settings?.email.trim() ? settings.email : null;
   return (
     <html
       lang={param}
@@ -52,7 +64,9 @@ export default async function RootLayout({
           <DraftBanner locale={param} />
           <SiteHeader locale={param} />
           <main id="main" tabIndex={-1} className="flex-1 outline-none">
-            {children}
+            <SiteErrorProvider labels={errorLabels} email={errorEmail}>
+              {children}
+            </SiteErrorProvider>
           </main>
           <SiteFooter locale={param} />
         </NextIntlClientProvider>

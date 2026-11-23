@@ -44,6 +44,12 @@
       "cta": "Hablemos",
       "figure": "{n} / {total}"
     },
+    "error": {
+      "title": "Algo salió mal",
+      "body": "Esta página no cargó. Inténtalo de nuevo en un momento.",
+      "retry": "Intentar de nuevo",
+      "write": "O escríbeme a {email}."
+    },
     "notFound": {
       "title": "Página no encontrada",
       "body": "Esta página no existe.",

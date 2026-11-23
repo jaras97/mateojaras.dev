@@ -1,12 +1,11 @@
 import { expect, test } from "@playwright/test";
+import { resolveUpstashCredentials } from "../src/lib/upstash-env";
 import { expectNoBlockingViolations } from "./axe";
 import { sql } from "./db";
 
 test.skip(!process.env.DATABASE_URL, "DATABASE_URL is not set");
 
-const HAS_LIMITER = Boolean(
-  process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL,
-);
+const HAS_LIMITER = resolveUpstashCredentials(process.env) !== null;
 
 const CASES = [
   {

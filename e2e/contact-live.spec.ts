@@ -1,15 +1,14 @@
 import { expect, test } from "@playwright/test";
+import { resolveUpstashCredentials } from "../src/lib/upstash-env";
 import { sql } from "./db";
 
-const HAS_LIMITER = Boolean(
-  process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL,
-);
+const HAS_LIMITER = resolveUpstashCredentials(process.env) !== null;
 const HAS_RESEND = Boolean(process.env.RESEND_API_KEY);
 
 test.skip(!process.env.DATABASE_URL, "DATABASE_URL is not set");
 test.skip(
   !(HAS_LIMITER && HAS_RESEND),
-  "Live delivery needs Upstash (UPSTASH_REDIS_REST_URL or KV_REST_API_URL) and RESEND_API_KEY; both are pending (04-02 answers A and B: luego)",
+  "Live delivery needs Upstash (a complete UPSTASH_REDIS_REST_* or KV_REST_API_* pair) and RESEND_API_KEY; both are pending (04-02 answers A and B: luego)",
 );
 
 async function fill(

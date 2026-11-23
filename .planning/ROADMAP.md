@@ -225,7 +225,7 @@ Plans:
   4. Cada página pública tiene título, descripción, OG y hreflang (`en`, `es`, `x-default`) en su idioma, y `sitemap.xml` y `robots.txt` listan ambos idiomas sin `/admin`; el movimiento se limita a un reveal escalonado, el H1 del hero partido por palabras sin CLS y como máximo una escena scrubbed por página, y con `prefers-reduced-motion: reduce` todo aparece sin animación
   5. `/impeccable:audit` no reporta hallazgos críticos en ninguna vista pública, y Lighthouse móvil da ≥ 95 con LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en `/`, `/projects/[slug]`, `/about` y `/contact` en ambos idiomas, medido en el Preview de Vercel
 
-**Plans**: 12/12 plans executed en 5 olas (1 compuerta humana `blocking`: cuentas y contenido)
+**Plans**: 12/14 plans executed; 04-13 y 04-14 cierran los gaps de la verificación (CR-01, WR-02, WR-03)
 Plans:
 **Wave 1**
 
@@ -253,6 +253,11 @@ Plans:
 **Wave 5** *(blocked on Wave 4 completion)*
 
 - [x] 04-11-PLAN.md — Compuerta: Lighthouse móvil en el Preview, plan B de SplitText si hace falta, reduced motion, teclado, acento e impeccable de todas las vistas
+
+**Gap closure** *(after Wave 5)*
+
+- [ ] 04-13-PLAN.md — CR-01: el formulario de contacto sobrevive a un fallo de la Server Action (alerta con mailto) y error.tsx localizado en [locale] con reintento y mailto
+- [ ] 04-14-PLAN.md — WR-02 par completo de credenciales Upstash, WR-03 capturedAt imposible no rompe el caso, trazabilidad de REQUIREMENTS.md (depende de 04-13)
 
 **UI hint**: yes
 **Window**: días 8–10

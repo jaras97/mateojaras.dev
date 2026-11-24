@@ -1,144 +1,114 @@
 ---
 phase: 04-sitio-p-blico
-reviewed: 2026-11-23T00:00:00Z
+reviewed: 2026-11-24T00:00:00Z
 depth: standard
-scope: incremental follow-up (diff 6038037..HEAD, gap-closure plans 04-13 and 04-14)
+scope: incremental follow-up (diff 8da2699..HEAD, gap-closure plan 04-15)
 supersedes: prior 04-REVIEW.md for the files listed below
-files_reviewed: 20
+files_reviewed: 3
 files_reviewed_list:
-  - docs/decisions.md
-  - e2e/contact-live.spec.ts
-  - e2e/contact.spec.ts
-  - messages/en.json
-  - messages/es.json
-  - src/app/[locale]/error.test.tsx
-  - src/app/[locale]/error.tsx
-  - src/app/[locale]/layout.tsx
-  - src/components/site/case-study/case-gallery.tsx
+  - e2e/case-study.spec.ts
+  - src/app/[locale]/projects/[slug]/page.tsx
   - src/components/site/case-study/case-study.test.tsx
-  - src/components/site/site-error-provider.tsx
-  - src/features/contact/components/contact-form.test.tsx
-  - src/features/contact/components/contact-form.tsx
-  - src/features/projects/validation.test.ts
-  - src/features/projects/validation.ts
-  - src/lib/format.test.ts
-  - src/lib/format.ts
-  - src/lib/rate-limit.ts
-  - src/lib/upstash-env.test.ts
-  - src/lib/upstash-env.ts
 findings:
   critical: 0
-  warning: 4
-  info: 4
-  total: 8
+  warning: 3
+  info: 2
+  total: 5
 status: issues_found
 ---
 
-# Phase 04: Code Review Report (gap-closure follow-up)
+# Phase 04: Code Review Report (gap-closure follow-up, plan 04-15)
 
-**Reviewed:** 2026-11-23
+**Reviewed:** 2026-11-24
 **Depth:** standard
-**Files Reviewed:** 20
+**Files Reviewed:** 3
 **Status:** issues_found
 
-This is an incremental review of the changes since `6038037` (plans 04-13 and 04-14). For these 20 files it supersedes the previous 04-REVIEW.md, which covered 146 files. Findings from that review on files outside this scope (WR-04 through WR-08, IN-01 through IN-08) were not re-checked here. They stay open as recorded in the prior report and in the git history of this file.
+This is an incremental review of the changes since `8da2699` (plan 04-15, gap G-04-2). For these 3 files it supersedes the previous 04-REVIEW.md. The findings in the previous report (2026-11-23: WR-01 through WR-04 and IN-01 through IN-04, plus the older ones it carried forward) are on files outside this scope. They were not re-checked here and stay open as recorded in the git history of this file. None of them were on `case-study.test.tsx`.
 
 ## Narrative Findings (AI reviewer)
 
 ## Summary
 
-### Status of the prior findings this round targeted
+### Status of G-04-2
 
-| Prior ID | Status | Evidence |
+| Gap | Status | Evidence |
 |---|---|---|
-| CR-01: the contact form crashes when the Server Action call throws | **Resolved** | `contact-form.tsx:127-135` wraps `submitContact` in `try/catch` and sets `formError("unavailable")`. The typed values are kept because nothing calls `reset()`. `src/app/[locale]/error.tsx` adds a localized boundary that uses `retry` (the correct prop name in Next 16.3+, checked in the bundled `error.md`) and offers a mailto. `SiteErrorProvider` sits in the layout above the segment's error boundary, so the context is available when the boundary renders. Tests cover both rejection kinds and the retry path. Residual issue: WR-01 below. |
-| WR-02: the `??` env fallback ignores `KV_REST_API_*` when `UPSTASH_*` is set but empty | **Resolved** | `resolveUpstashCredentials` picks one complete, trimmed pair: `UPSTASH_*` first, otherwise `KV_*`, and it never mixes the two. `rate-limit.ts` and both e2e specs now share it, so `HAS_LIMITER` matches what the app actually uses. The tests cover empty, blank, mixed and trimmed values. |
-| WR-03: an invalid `capturedAt` crashes the published case study | **Resolved (render path)** | `toCalendarDay` round-trips the date parts, so `2025-13`, `2025-00` and `2025-02-31` return `null`. `CaseGallery` drops the date segment instead of throwing, which protects rows already stored in the database. `projectDraftSchema` now rejects impossible dates. Residual issues: WR-02 and IN-01 below. |
+| G-04-2: a case study with gallery media fails with `FORMATTING_ERROR` (`t("figure")` with no values) | **Resolved** | `page.tsx:167` now passes `t.raw("figure")`, so `CaseGallery` gets the raw `"{n} / {total}"` and fills it in itself. No other label in `Site.project` has ICU placeholders, so no other call in `page.tsx` needs the same change. `contact/page.tsx:68-70` already uses `t.raw` for its templates. |
 
-### Prior findings in these files that are still open
-- Prior WR-01 (rate limit per exact IPv6 address, no global cap) is still open in `rate-limit.ts`. It is carried forward as WR-03.
-- Prior WR-09 (the name max-length error says "Write your name.") is still open. `messages/*.json` has no `nameLong` key. It is carried forward as WR-04.
-- Prior IN-09 (the limit of 3 is hardcoded in both the copy and the limiter) is still open. It is carried forward as IN-03.
+**Would the new tests fail without the fix?** The summary says this was not checked, so I traced it. In use-intl 4.14.9, `defaultOnError` only calls `console.error`, and `defaultGetMessageFallback` returns `namespace.key`. Under `next start`, which is what Playwright runs against, the unfixed page does not crash. It renders the figcaption as `Site.project.figure`. The e2e locator `figure:has(figcaption:has-text("01 / 01"))` then matches nothing, and `toBeVisible()` fails. So the e2e does catch a revert, but only through the figcaption text. Its two error assertions cannot fail in a production build (WR-01). The stack trace in the UAT report came from the dev overlay, which shows server `console.error` calls. The new unit tests never render `page.tsx`. They are not sensitive to a revert, and the test file says so.
 
-No new blockers. The new code is small and the fixes are correct. Most of what is left is about how the fixes look to the user: the error text after a redeploy gives the wrong advice, and an admin save fails without any visible field message.
+No blockers. The fix is correct and as small as it can be. What is left: the e2e says it checks more than it does, the fixture writes published rows to a shared database without invalidating caches, and the "pass a raw template" contract has no type protection, which is how this bug got in.
 
 ## Warnings
 
-### WR-01: After a redeploy (action-ID skew), the fallback tells the visitor to "try again in a few minutes", but retrying can never work
+### WR-01: The e2e checks for `FORMATTING_ERROR` and for the error title can never fail against a production build
 
-**File:** `src/features/contact/components/contact-form.tsx:128-135`, `messages/en.json:100`, `messages/es.json:100`
-**Issue:** Every rejection, including "Failed to find Server Action", maps to `unavailable`: "I couldn't send your message right now. Try again in a few minutes, or write to {email}." When the cause is deploy skew, the action ID in the visitor's bundle is gone for good. Every later click on Send fails the same way until the page is reloaded. The bundled Next guide (`02-guides/server-actions.md:180`) says to surface a retry path "so a refresh recovers the user". The contact page is a long-cached static shell, so a stale tab is the likely case.
-
-The new unit test (`contact-form.test.tsx`, last lines of the `it.each`) proves that a second click succeeds. That holds for a network blip and is false for skew, so the test encodes the wrong expectation for half of its parameters.
-**Fix:** Tell the two cases apart and offer a reload for skew. Keep the typed values across the reload:
-```tsx
-} catch (error) {
-  const skew = error instanceof Error && /Server Action/.test(error.message);
-  if (skew) sessionStorage.setItem("contact-draft", JSON.stringify(values));
-  setFormError(skew ? "stale" : "unavailable"); // "stale": "This page is out of date. Reload it to send, or write to {email}." + reload button
-  return;
-}
-```
-Restore the draft from `sessionStorage` on mount. If a new message key is too much for now, at least change the `unavailable` copy to "Reload the page and try again" (copy change, so ask Teo). Also enable Vercel Skew Protection, which avoids the problem at the platform level.
-
-### WR-02: A newly rejected `capturedAt` makes the admin save fail with no message next to the field, and existing projects with such a value can no longer be saved
-
-**File:** `src/features/projects/validation.ts:45-49`, `src/components/admin/image-uploader.tsx:244-252`, `src/features/projects/components/project-form.tsx:126-145`
-**Issue:** The `.refine(...)` has no message, so Zod reports its English default ("Invalid input"). `issueMessage` passes non-`required` messages through unchanged. `showIssues` calls `setError("media.N.capturedAt", ...)`, but the `capturedAt` `<Input type="month">` in `image-uploader.tsx` renders no error text, no `aria-invalid` and no `aria-describedby`. The admin sees only the generic "save failed" alert (or "publish blocked: 1 issue"), and focus lands on a month field that shows nothing wrong.
-
-This is more likely than before. Desktop Safari renders `type="month"` as free text, which is how a value like `2025-13` gets in (the original WR-03 scenario). Any project already stored with an impossible `capturedAt` now fails `projectDraftSchema` on every save, including saves that only change other fields, and the UI does not say why. The admin also has no other way to clear the value.
-**Fix:** Give the refine a code and render it:
+**File:** `e2e/case-study.spec.ts:209-213, 223-225`
+**Issue:** `next-intl` reports `FORMATTING_ERROR` on the server (`console.error` in the Node process). Playwright's `page.on("console")` only sees the browser console. Next replays server logs to the browser in `next dev` only, and the `webServer` here runs `pnpm build && pnpm start`. No error is thrown either (the fallback string is returned), so `Site.error.title` never renders and `getByText(errorTitle).toBeHidden()` passes right away. Both checks pass whether or not the fix is in place. Only `hasText: "01 / 01"` guards the regression. That makes the test misleading: the unit-test comment (`case-study.test.tsx:262-263`) and the summary both say the e2e guards `FORMATTING_ERROR`. If someone later loosens the figcaption assertion (for example to `figure img`), the regression goes undetected and nothing looks wrong.
+**Fix:** Assert the thing a user would see instead of the log, and remove the dead listeners, or turn the error into a hard failure in non-production:
 ```ts
-capturedAt: z.string()
-  .refine((v) => toCalendarDay(v) !== null, "capturedAtInvalid")
-  .optional(),
+// spec: assert the fallback key never reaches the DOM
+await expect(page.locator("article")).not.toContainText("Site.project.");
+await expect(figure.locator("figcaption")).toHaveText("01 / 01");
 ```
-Then, in `image-uploader.tsx`, read `fieldMessage(errors, \`media.${index}.capturedAt\`)` and render it with `aria-invalid`/`aria-describedby`, as the alt-text fields already do. Map `capturedAtInvalid` to a Spanish admin string in `messages/es.json`.
+```ts
+// src/i18n/request.ts: make missing ICU values loud in tests/dev
+onError(error) {
+  if (process.env.NODE_ENV !== "production" || process.env.E2E) throw error;
+  console.error(error);
+},
+```
+If you add `onError`, set `E2E=1` in the Playwright `webServer.env` so the e2e fails with the same error the UAT saw.
 
-### WR-03 (carried from prior WR-01): The rate limit is still keyed by the exact IP, so rotating IPv6 addresses gets around it, and there is no global cap
+### WR-02: The gallery fixture writes a published, visible project to the shared dev database without invalidating caches, and the cleanup by prefix deletes other runs' rows
 
-**File:** `src/lib/rate-limit.ts:14-19` (with `src/features/contact/public-actions.ts:19-30`)
-**Issue:** Not changed by 04-14. The limiter is still a single `slidingWindow(3, "1 h")` keyed by the hash of the full client address. A host with an IPv6 /64 can rotate its source address on every request. Each message inserts a row and sends a Resend email to Teo. The honeypot and elapsed-time checks are supplied by the client, so they do not bound the volume.
-**Fix:** Same as before. Normalize IPv6 to its /64 prefix before hashing (expand `::` first), and add a second limiter, `slidingWindow(30, "1 h")` on the key `"global"`, checked after the per-IP one. Both limiters fail closed in the same way.
+**File:** `e2e/case-study.spec.ts:168-202` (with `:9-11` `afterAll`)
+**Issue:** `withGalleryFixture` adds a third `status = 'published', visible = true` row with raw SQL (after `Late e2e` and `Notes e2e`). It bypasses the Server Action, so no `updateTag` runs on insert or on delete.
+- While the row exists, any cold cache fill of `getProjects()` / `getPublishedSlugsCore()` keeps "Gallery e2e" in the public list. Examples: the first visit to `/` on a fresh Preview instance when `E2E_BASE_URL` is set, or someone browsing the Preview that shares the Neon `dev` branch. `cacheLife("max")` then holds it there after the row is deleted. The home page and the prev/next links then point to a 404 until the next admin save.
+- `afterAll` runs `delete ... where slug like 'e2e-late-%'`. `workers: 1` only serializes one process. A second run against the same `DATABASE_URL` (CI and a local run, or two CI jobs) deletes the other run's fixture mid-test, which makes that test flaky.
+- `getProject(slug)` entries for each `e2e-late-gallery-<ts>` slug stay in the cache forever with the project data. With a local `next start` this is only junk. On a remote Preview, it is persistent junk in the shared data cache.
 
-### WR-04 (carried from prior WR-09): The name max-length error still tells the visitor to "Write your name."
+**Fix:** Give each run its own ID and clean up only that run's rows. Revalidate the tags the row can leak into:
+```ts
+const RUN = `${LATE_PREFIX}${process.env.GITHUB_RUN_ID ?? process.pid}-`;
+const slug = `${RUN}gallery-${Date.now()}`;
+// afterAll: delete from projects where slug like ${`${RUN}%`}
+```
+For remote runs, call an e2e-only revalidation endpoint (protected by a secret), or skip the fixture tests when `E2E_BASE_URL` is set. Document in `e2e/db.ts` that fixtures must not run against a database that serves a public deployment.
 
-**File:** `src/features/contact/validation.ts:9`, `messages/en.json` / `messages/es.json` (`Site.contact.errors`)
-**Issue:** Not changed. `.max(100, "nameRequired")` reuses the "required" code, so a visitor whose name is over 100 characters is told to write a name in a field that is already filled. The message files changed in this round but still have no `nameLong` key.
-**Fix:** Add `nameLong` to `Site.contact.errors` in both locales, use `.max(100, "nameLong")`, and add it to the `ErrorCode` union in `contact-form.tsx`.
+### WR-03: The raw-template contract is stringly typed, so the same bug comes back as soon as any caller passes `t("figure")`
+
+**File:** `src/app/[locale]/projects/[slug]/page.tsx:167`, `src/components/site/case-study/case-gallery.tsx:30, 50-52`
+**Issue:** `labels.figure` is a `string` in both the raw and the formatted form, so TypeScript cannot tell `t("figure")` from `t.raw("figure")`. That is exactly how G-04-2 shipped. The `as string` cast hides the type as well (on `contact/page.tsx`, `t.raw` is used without a cast). The hand-rolled `.replace("{n}", ...)` also bypasses ICU. It replaces only the first `{n}`, and any future ICU syntax in the catalog (`{total, number}`, plural, `'{'` escaping) prints literally. `CaseGallery` has no `'use client'`, so it is a Server Component and can take a function prop.
+**Fix:** Let next-intl format, and pass a formatter instead of a template:
+```tsx
+// case-gallery.tsx
+labels: { figure: (n: string, total: string) => string };
+// ...
+content: labels.figure(two(index + 1), two(total)),
+
+// page.tsx
+labels={{ figure: (n, total) => t("figure", { n, total }) }}
+```
+Now a caller that forgets the values fails typecheck, and the unit tests can pass `(n, t) => \`${n} / ${t}\``. If you keep the string contract, rename the prop to `figureTemplate` and drop the `as string`, so the call site shows what it expects.
 
 ## Info
 
-### IN-01: The seed/import schema still accepts impossible `capturedAt` values
+### IN-01: The new "real catalog" unit tests mostly repeat the existing `CaseGallery` tests
 
-**File:** `src/features/projects/content-schema.ts:51-54` (outside the listed files, but it is the other write path for the same field)
-**Issue:** `mediaSchema.capturedAt` still uses only the `\d{4}-\d{2}(-\d{2})?` regex. `pnpm seed` can store `2025-02-31`. The gallery now hides the value instead of crashing, so the result is only a missing date, but the project then hits WR-02 the first time it is saved from the admin.
-**Fix:** Apply the same `.refine((v) => toCalendarDay(v) !== null)` there, ideally through one shared `capturedAtSchema` exported next to `toCalendarDay`.
+**File:** `src/components/site/case-study/case-study.test.tsx:262-314`
+**Issue:** The existing `describe("CaseGallery")` already renders with `"{n} / {total}"` and covers "only the cover renders nothing" (`:215-218`). The new block adds sensitivity only to a change in the catalog text. The test name "renders zero-padded counters" duplicates `"04 / 04"` / `"02 / 02"` from `:236` and `:246`. The JSON imports through `../../../../messages/*.json` are fragile compared with the `@/` alias the rest of the file uses (if the alias reaches `messages/`).
+**Fix:** Delete the cover-only case in the new block. Keep one `it.each` over the catalogs. If you adopt WR-03, replace it with a test that `t("figure", { n, total })` formats in both locales.
 
-### IN-02: The regex before the refine in `projectDraftSchema` is redundant
+### IN-02: The fixture media points at a blob host that does not exist, which adds image-optimizer 4xx noise on every run
 
-**File:** `src/features/projects/validation.ts:47-48`
-**Issue:** `toCalendarDay` already applies the same pattern and returns `null` when it does not match, so `.regex(...)` only adds a second issue with a different message for the same value.
-**Fix:** Keep only the refine, with a message code (see WR-02).
-
-### IN-03 (carried from prior IN-09): The limit of 3 per hour is hardcoded in both the copy and the limiter
-
-**File:** `src/lib/rate-limit.ts:16`, `messages/en.json:99`, `messages/es.json:99`
-**Issue:** Unchanged. Changing one side leaves the other wrong. With a real limiter, the e2e contact specs use up the 3-per-hour window from the test machine's IP.
-**Fix:** Export a `CONTACT_LIMIT` constant and pass it as an ICU argument (`{limit}`). For e2e runs, use a separate limiter prefix.
-
-### IN-04: The error boundary renders a blank `<main>` without its provider, ignores `error`, and its copy is still unapproved
-
-**File:** `src/app/[locale]/error.tsx:7-19`, `docs/decisions.md` (entry 2026-11-23)
-**Issue:**
-- `if (!site) return null` leaves an empty `<main>` with no heading and no retry. Today the layout always provides the context, but a future layout refactor would fail silently. A dev-only `console.error` or a minimal fallback would make the problem visible.
-- `error` is discarded. There is no `useEffect` that reports `error.digest`, so client-side errors that reach this boundary leave no trace once analytics exists (phase 5).
-- The decision log says the `Site.error` copy is "una propuesta pendiente de Teo". CLAUDE.md requires asking before touching copy, so make sure this is on Teo's list before closing the phase.
-
-**Fix:** Render a minimal fallback (or throw in development) when the provider is missing. Add `useEffect(() => { /* report error.digest */ }, [error])` when analytics lands. Track the copy approval as an open item.
+**File:** `e2e/case-study.spec.ts:166, 173-186`
+**Issue:** `https://e2e-fixture.public.blob.vercel-storage.com/e2e/*.png` matches `remotePatterns`, so `/_next/image` fetches it and logs upstream 404/400s. The summary notes this. On a remote Preview, every run also adds failed optimizations to the image cache. The test asserts only `alt`, so it does not need a real image.
+**Fix:** Use a small PNG committed under `public/e2e/` (a local `src` skips remote fetches), or accept the noise and filter it from server-log checks if any are added later.
 
 ---
 
-_Reviewed: 2026-11-23_
+_Reviewed: 2026-11-24_
 _Reviewer: Claude (gsd-code-reviewer)_
 _Depth: standard_

@@ -164,7 +164,7 @@ async function CaseStudy({
                   media={media}
                   cover={project.coverImage}
                   locale={locale}
-                  labels={{ figure: t("figure") }}
+                  labels={{ figure: t.raw("figure") as string }}
                 />
               ) : null
             }

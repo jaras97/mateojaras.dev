@@ -5,6 +5,8 @@ import { CaseHeader } from "@/components/site/case-study/case-header";
 import { CaseMetrics } from "@/components/site/case-study/case-metrics";
 import { CaseSections } from "@/components/site/case-study/case-sections";
 import { PlainText } from "@/components/site/case-study/plain-text";
+import en from "../../../../messages/en.json";
+import es from "../../../../messages/es.json";
 
 // Test inputs, not site content.
 const sectionLabels = {
@@ -254,5 +256,59 @@ describe("CaseGallery", () => {
     expect(html).toContain("controls");
     expect(html).toContain('preload="none"');
     expect(html).toContain('aria-label="alt https://x.dev/v.mp4"');
+  });
+});
+
+// Catalog contract only: these never render page.tsx, so they do not fail if
+// the page stops passing the raw template. The e2e gallery case guards that.
+describe("CaseGallery with the real catalog figure template", () => {
+  const media = [
+    {
+      url: "https://x.public.blob.vercel-storage.com/cover.png",
+      altEn: "cover",
+      altEs: "portada",
+      type: "image" as const,
+    },
+    {
+      url: "https://x.public.blob.vercel-storage.com/1.png",
+      altEn: "one",
+      altEs: "uno",
+      type: "image" as const,
+    },
+    {
+      url: "https://x.public.blob.vercel-storage.com/2.png",
+      altEn: "two",
+      altEs: "dos",
+      type: "image" as const,
+    },
+  ];
+  const cover = media[0].url;
+
+  it.each([
+    ["en", en.Site.project.figure],
+    ["es", es.Site.project.figure],
+  ] as const)("renders zero-padded counters in %s", (locale, figure) => {
+    const html = renderToStaticMarkup(
+      <CaseGallery
+        media={media}
+        cover={cover}
+        locale={locale}
+        labels={{ figure }}
+      />,
+    );
+    expect(html).toContain("01 / 02");
+    expect(html).toContain("02 / 02");
+  });
+
+  it("renders nothing when the only item is the cover", () => {
+    const html = renderToStaticMarkup(
+      <CaseGallery
+        media={[media[0]]}
+        cover={cover}
+        locale="en"
+        labels={{ figure: en.Site.project.figure }}
+      />,
+    );
+    expect(html).toBe("");
   });
 });

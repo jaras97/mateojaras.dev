@@ -164,3 +164,65 @@ test("a project without liveUrl carries the internal-tool label and demo link", 
     ).toHaveAttribute("href", "/contact");
   });
 });
+
+const FIXTURE_HOST = "https://e2e-fixture.public.blob.vercel-storage.com/e2e";
+
+// A published project with one cover item and one non-cover image, so the
+// CaseGallery branch (hasGallery = true) renders.
+async function withGalleryFixture(run: (slug: string) => Promise<void>) {
+  const slug = `${LATE_PREFIX}gallery-${Date.now()}`;
+  const cover = `${FIXTURE_HOST}/cover.png`;
+  const media = JSON.stringify([
+    {
+      url: cover,
+      altEn: "Cover en",
+      altEs: "Portada es",
+      type: "image",
+    },
+    {
+      url: `${FIXTURE_HOST}/gallery-1.png`,
+      altEn: "Gallery en",
+      altEs: "Galeria es",
+      type: "image",
+    },
+  ]);
+  await sql`
+    insert into projects (slug, status, visible, "order", title_en, title_es,
+      tagline_en, tagline_es, problem_en, problem_es, role_en, role_es,
+      solution_en, solution_es, cover_image, media)
+    values (${slug}, 'published', true, 996, 'Gallery e2e', 'Galeria e2e',
+      'tagline', 'frase', 'problem', 'problema', 'role', 'papel', 'solution',
+      'solucion', ${cover}, ${media}::jsonb)
+  `;
+  try {
+    await run(slug);
+  } finally {
+    await sql`delete from projects where slug = ${slug}`;
+  }
+}
+
+for (const [prefix, lang, title, alt, errorTitle] of [
+  ["/projects/", "en", "Gallery e2e", "Gallery en", "Something went wrong"],
+  ["/es/proyectos/", "es", "Galeria e2e", "Galeria es", "Algo salió mal"],
+] as const) {
+  test(`a case study with gallery media renders its figures in ${lang}`, async ({
+    page,
+  }) => {
+    const problems: string[] = [];
+    page.on("pageerror", (err) => problems.push(err.message));
+    page.on("console", (msg) => {
+      if (msg.text().includes("FORMATTING_ERROR")) problems.push(msg.text());
+    });
+    await withGalleryFixture(async (slug) => {
+      await page.goto(prefix + slug);
+      await expect(page.locator("h1")).toHaveText(title);
+      const figure = page
+        .locator("figure")
+        .filter({ has: page.locator("figcaption", { hasText: "01 / 01" }) });
+      await expect(figure).toBeVisible();
+      await expect(figure.locator("img")).toHaveAttribute("alt", alt);
+      await expect(page.getByText(errorTitle)).toBeHidden();
+    });
+    expect(problems.filter((p) => p.includes("FORMATTING_ERROR"))).toEqual([]);
+  });
+}

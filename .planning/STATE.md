@@ -4,16 +4,16 @@ milestone: v1.0
 current_phase: 04
 current_phase_name: Sitio público
 status: verifying
-stopped_at: Completed 04-14-PLAN.md
-last_updated: "2026-11-23T23:46:41.045Z"
-last_activity: 2026-11-23
+stopped_at: Completed 04-15-PLAN.md
+last_updated: "2026-11-24T15:56:30.501Z"
+last_activity: 2026-11-24
 last_activity_desc: Phase 04 execution started
-state_head: 9e19802374709dece70cd3bc32b6edec4d952247
+state_head: affd8cb981a18ef1c15a37e05eeb2e2172d31878
 progress:
   total_phases: 5
   completed_phases: 3
-  total_plans: 50
-  completed_plans: 50
+  total_plans: 51
+  completed_plans: 51
 milestone_name: milestone
 ---
 
@@ -29,9 +29,9 @@ See: .planning/PROJECT.md (updated 2026-11-22)
 ## Current Position
 
 Phase: 04 (Sitio público) — EXECUTING
-Plan: 14 of 14
+Plan: 15 of 15
 Status: Phase complete — ready for verification
-Last activity: 2026-11-23 — Phase 04 execution started
+Last activity: 2026-11-24 — Phase 04 execution started
 
 Progress: [██████░░░░] 60%
 
@@ -132,6 +132,7 @@ Recent decisions affecting current work:
 - [Phase 03]: 03-08: time zones validated via Intl.DateTimeFormat try/catch; education create needs institution + ES program only
 - [Phase 03]: 03-11: CV blob path resume/<lang>/v<n>-<suffix>.pdf, A4; blank locale field falls back to English, pre-flight flags it
 - [Phase 03]: 03-12: CvData carries raw ISO dates and lastModified; absent site URL means url/canonical omitted
+- [Phase 04]: Pass t.raw('figure') to CaseGallery in page.tsx only (G-04-2) — Component expects raw template
 
 ### Pending Todos
 
@@ -157,6 +158,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-23T23:46:40.809Z
-Stopped at: Completed 04-14-PLAN.md
+Last session: 2026-11-24T15:56:30.115Z
+Stopped at: Completed 04-15-PLAN.md
 Resume file: None

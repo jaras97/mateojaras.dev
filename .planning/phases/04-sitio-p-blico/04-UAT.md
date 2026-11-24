@@ -1,9 +1,9 @@
 ---
-status: complete
+status: diagnosed
 phase: 04-sitio-p-blico
 source: [04-VERIFICATION.md]
 started: 2026-11-23T23:51:57Z
-updated: 2026-11-24T15:23:24.475Z
+updated: 2026-11-24T15:24:44Z
 ---
 
 ## Current Test
@@ -47,7 +47,13 @@ blocked: 0
   reason: "User reported: todo eso esta bien, encontre un solo error, en trabajo, al seleccionar un trabajo, ejemplo centro estetico, me aparece un error: Error: FORMATTING_ERROR: The intl string context variable \"n\" was not provided to the string \"{n} / {total}\" at CaseStudy (src/app/[locale]/projects/[slug]/page.tsx:167:37) labels={{ figure: t(\"figure\") }} — GET /es/proyectos/centro-estetico-manuj"
   severity: blocker
   test: 2
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "page.tsx:167 calls t(\"figure\") with no values; next-intl formats eagerly, so the template \"{n} / {total}\" throws FORMATTING_ERROR. CaseGallery expects the raw template and substitutes n/total itself. Only triggers when hasGallery (non-cover media exists), so seeded e2e projects never hit it."
+  artifacts:
+    - path: "src/app/[locale]/projects/[slug]/page.tsx"
+      issue: "line 167 formats the figure template eagerly via t(\"figure\") instead of passing the raw template"
+    - path: "e2e/case-study.spec.ts"
+      issue: "no e2e case for a project with gallery media, so the CaseGallery branch never runs in tests"
+  missing:
+    - "Pass the raw template: t.raw(\"figure\") as string (matches public-site convention in layout.tsx and contact/page.tsx)"
+    - "Add an e2e case seeding a project with at least one non-cover media item, open it in en and es, assert no error and the figure counter (e.g. 01 / 01) renders"
+  debug_session: ".planning/debug/case-study-figure-intl-format-error.md"

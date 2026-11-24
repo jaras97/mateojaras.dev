@@ -6,19 +6,23 @@ findings:
   - id: WR-01
     severity: warning
     disposition: open
-    title: "After a redeploy (action-ID skew), the fallback tells the visitor to \"try again in a few minutes\", but retrying can never work"
+    title: "The e2e checks for `FORMATTING_ERROR` and for the error title can never fail against a production build"
   - id: WR-02
     severity: warning
     disposition: open
-    title: "A newly rejected `capturedAt` makes the admin save fail with no message next to the field, and existing projects with such a value can no longer be saved"
+    title: "The gallery fixture writes a published, visible project to the shared dev database without invalidating caches, and the cleanup by prefix deletes other runs' rows"
+  - id: WR-03
+    severity: warning
+    disposition: open
+    title: "The raw-template contract is stringly typed, so the same bug comes back as soon as any caller passes `t(\"figure\")`"
   - id: IN-01
     severity: info
     disposition: open
-    title: "The seed/import schema still accepts impossible `capturedAt` values"
+    title: "The new \"real catalog\" unit tests mostly repeat the existing `CaseGallery` tests"
   - id: IN-02
     severity: info
     disposition: open
-    title: "The regex before the refine in `projectDraftSchema` is redundant"
+    title: "The fixture media points at a blob host that does not exist, which adds image-optimizer 4xx noise on every run"
   - id: IN-04
     severity: info
     disposition: open
@@ -27,10 +31,6 @@ findings:
     severity: critical
     disposition: open
     title: "The contact form crashes when the Server Action call throws (redeploy skew, network error)"
-  - id: WR-03
-    severity: warning
-    disposition: open
-    title: "An invalid `capturedAt` month crashes the published case study (RangeError)"
   - id: WR-04
     severity: warning
     disposition: open
@@ -81,8 +81,7 @@ findings:
     title: "The rate-limit count is hardcoded in two places"
 open: 19
 total: 19
-unparsed: 3
-recorded: 2026-11-23T23:50:33.443Z
+recorded: 2026-11-24T16:00:27.265Z
 ---
 
 # Phase 04: Code Review Disposition
@@ -91,11 +90,11 @@ recorded: 2026-11-23T23:50:33.443Z
 |---------|----------|-------------|--------|
 | WR-01 | warning | open | - |
 | WR-02 | warning | open | - |
+| WR-03 | warning | open | - |
 | IN-01 | info | open | - |
 | IN-02 | info | open | - |
-| IN-04 | info | open | - |
+| IN-04 | info | open | - (not in the current review) |
 | CR-01 | critical | open | - (not in the current review) |
-| WR-03 | warning | open | - (not in the current review) |
 | WR-04 | warning | open | - (not in the current review) |
 | WR-05 | warning | open | - (not in the current review) |
 | WR-06 | warning | open | - (not in the current review) |

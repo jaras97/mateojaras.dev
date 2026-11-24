@@ -86,9 +86,9 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 ### Contacto (CONT)
 
 - [x] **CONT-01**: El visitante envía nombre, email y mensaje desde `/contact` (o `/es/contacto`) y ve la confirmación en su idioma
-- [ ] **CONT-02**: El mensaje se guarda en `contact_messages` antes de enviarse y llega a Teo por Resend con `replyTo` del visitante
+- [x] **CONT-02**: El mensaje se guarda en `contact_messages` antes de enviarse y llega a Teo por Resend con `replyTo` del visitante
 - [x] **CONT-03**: Los envíos con honeypot lleno o hechos en menos de ~3 s se descartan sin avisar al bot
-- [ ] **CONT-04**: Upstash limita los envíos por IP (3–5 por hora) y el límite falla cerrado si Upstash no responde
+- [x] **CONT-04**: Upstash limita los envíos por IP (3–5 por hora) y el límite falla cerrado si Upstash no responde
 - [x] **CONT-05**: El visitante copia el email con un botón y abre Cal.com con un enlace simple (sin embed)
 
 ### SEO e i18n (SEO)
@@ -109,7 +109,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **QUAL-01**: Lighthouse móvil ≥ 95 en `/`, `/projects/[slug]`, `/about` y `/contact` en ambos idiomas, medido en el Preview de Vercel
 - [x] **QUAL-02**: LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en esas rutas
 - [ ] **QUAL-03**: WCAG AA, foco visible, navegación por teclado y axe sin `serious`/`critical`
-- [ ] **QUAL-04**: `/impeccable:audit` sin hallazgos críticos en cada vista pública
+- [x] **QUAL-04**: `/impeccable:audit` sin hallazgos críticos en cada vista pública
 - [ ] **QUAL-05**: Tests e2e de Playwright para login, CRUD de proyecto y contacto
 - [ ] **QUAL-06**: CSP en modo de bloqueo sin violaciones en las rutas públicas
 - [ ] **QUAL-07**: Analytics instalado (con la CSP ajustada)
@@ -218,9 +218,9 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | SITE-07 | Phase 4 | Complete |
 | SITE-08 | Phase 5 | Pending |
 | CONT-01 | Phase 4 | Complete |
-| CONT-02 | Phase 4 | Human Needed |
+| CONT-02 | Phase 4 | Complete |
 | CONT-03 | Phase 4 | Complete |
-| CONT-04 | Phase 4 | Human Needed |
+| CONT-04 | Phase 4 | Complete |
 | CONT-05 | Phase 4 | Complete |
 | SEO-01 | Phase 4 | Complete |
 | SEO-02 | Phase 4 | Complete |
@@ -232,7 +232,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | QUAL-01 | Phase 4 | Complete |
 | QUAL-02 | Phase 4 | Complete |
 | QUAL-03 | Phase 5 | Pending |
-| QUAL-04 | Phase 4 | Human Needed |
+| QUAL-04 | Phase 4 | Complete |
 | QUAL-05 | Phase 5 | Pending |
 | QUAL-06 | Phase 5 | Pending |
 | QUAL-07 | Phase 5 | Pending |

@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Identidad y contenido** - Identidad aprobada por Teo y base de contenido verificable en el repo; el contenido final pasa al admin (fase 3) (días 1–2) (completed 2026-11-01)
 - [x] **Phase 2: Base técnica** - Esqueleto andante desplegado: login admin, Preview en verde, seed real y decisión del plan B (días 3–4) (completed 2026-11-16)
 - [x] **Phase 3: Panel admin + CV** - Teo publica todo el contenido desde `/admin` y genera el CV en PDF en/es (días 5–7) (completed 2026-11-22)
-- [ ] **Phase 4: Sitio público** - Casos de estudio, home, about y contacto en en/es, con SEO y movimiento; entrega el valor central (días 8–10)
+- [x] **Phase 4: Sitio público** - Casos de estudio, home, about y contacto en en/es, con SEO y movimiento; entrega el valor central (días 8–10) (completed 2026-11-24)
 - [ ] **Phase 5: Pulido y lanzamiento** - Accesibilidad, 404, CSP en bloqueo, analytics, revisión por 3 personas y producción (días 11–14)
 
 ## Phase Details
@@ -225,7 +225,7 @@ Plans:
   4. Cada página pública tiene título, descripción, OG y hreflang (`en`, `es`, `x-default`) en su idioma, y `sitemap.xml` y `robots.txt` listan ambos idiomas sin `/admin`; el movimiento se limita a un reveal escalonado, el H1 del hero partido por palabras sin CLS y como máximo una escena scrubbed por página, y con `prefers-reduced-motion: reduce` todo aparece sin animación
   5. `/impeccable:audit` no reporta hallazgos críticos en ninguna vista pública, y Lighthouse móvil da ≥ 95 con LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en `/`, `/projects/[slug]`, `/about` y `/contact` en ambos idiomas, medido en el Preview de Vercel
 
-**Plans**: 15/15 plans executed; 04-13 y 04-14 cierran los gaps de la verificación (CR-01, WR-02, WR-03); 04-15 cierra el gap de UAT G-04-2
+**Plans**: 15/15 plans complete; 04-13 y 04-14 cierran los gaps de la verificación (CR-01, WR-02, WR-03); 04-15 cierra el gap de UAT G-04-2
 Plans:
 **Wave 1**
 
@@ -318,5 +318,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Identidad y contenido | 13/13 | Complete    | 2026-11-01 |
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
 | 3. Panel admin + CV | 14/14 | Complete    | 2026-11-22 |
-| 4. Sitio público | 15/15 | In Progress | - |
+| 4. Sitio público | 15/15 | Complete    | 2026-11-24 |
 | 5. Pulido y lanzamiento | 0/TBD | Not started | - |

@@ -17,18 +17,18 @@ Los casos de estudio (`/projects/[slug]`) tienen que convencer a un cliente o re
 - ✓ Scaffold de Next.js 16.4 con App Router, Tailwind v4, shadcn/ui inicializado y Biome — existente (commit 2fa9f24)
 - ✓ Admin en `/admin` para SiteSettings, Skills, Experience, Projects (con tech decisions), Education y Resume, con draft/published, visible y orden — Phase 3
 - ✓ CV en PDF en/es generado desde los datos (tildes y ñ correctas) y `/resume.json` (JSON Resume) — Phase 3 (generado en Neon main, UAT 2026-11-22)
+- ✓ Sitio público: `/`, `/projects/[slug]`, `/about` (+ `/now` corta), `/contact` y sus versiones en `/es` (`/es/proyectos/[slug]`, `/es/sobre-mi`, `/es/contacto`) — Phase 4 (UAT 2026-11-24)
+- ✓ Casos de estudio con notas al margen (`Marginalia`) sobre decisiones técnicas — Phase 4 (UAT 2026-11-24)
+- ✓ Línea de estado viva en el hero (disponibilidad, ciudad, UTC-5, overlap con Toronto y Madrid) editable desde el admin — Phase 4 (UAT 2026-11-24)
+- ✓ Formulario de contacto con Resend, rate limit de Upstash y honeypot; enlace a Cal.com — Phase 4 (UAT 2026-11-24)
+- ✓ SEO por idioma: hreflang, OG, metadatos desde SiteSettings — Phase 4 (UAT 2026-11-24)
+- ✓ Movimiento dentro del presupuesto (reveal, SplitHeading, 1–2 escenas GSAP, tema con View Transitions) y respeto de `prefers-reduced-motion` — Phase 4 (UAT 2026-11-24)
 
 ### Active
 
 - [ ] Identidad cerrada: DESIGN.md aprobado (concepto en palabras de Teo), tokens CSS y tema shadcn propios, variante del hero elegida entre 3 en código
 - [ ] Contenido real en el repo: capturas, URLs, métricas y textos en/es de los 4 proyectos en `docs/content/` y `material/`, y `docs/copy.md` sin marcadores
 - [ ] Base técnica: esquema Drizzle + migración, Better Auth con un solo admin, next-intl con locale desde `next/root-params`, seed con contenido real, CI y preview en Vercel
-- [ ] Sitio público: `/`, `/projects/[slug]`, `/about` (+ `/now` corta), `/contact` y sus versiones en `/es` (`/es/proyectos/[slug]`, `/es/sobre-mi`, `/es/contacto`)
-- [ ] Casos de estudio con notas al margen (`Marginalia`) sobre decisiones técnicas
-- [ ] Línea de estado viva en el hero (disponibilidad, ciudad, UTC-5, overlap con Toronto y Madrid) editable desde el admin
-- [ ] Formulario de contacto con Resend, rate limit de Upstash y honeypot; enlace a Cal.com
-- [ ] SEO por idioma: hreflang, OG, metadatos desde SiteSettings
-- [ ] Movimiento dentro del presupuesto (reveal, SplitHeading, 1–2 escenas GSAP, tema con View Transitions) y respeto de `prefers-reduced-motion`
 - [ ] Pulido: a11y WCAG AA, 404, analytics, revisión por 3 personas
 
 ### Out of Scope
@@ -89,4 +89,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-11-22 after Phase 3*
+*Last updated: 2026-11-24 after Phase 4*

@@ -148,7 +148,7 @@ None yet.
 - [Phase 4]: Arrancar la verificación DNS de Resend en Porkbun la primera mañana; pedir las claves de Resend, Upstash y la URL de Cal.com.
 - IDEN-06: inventory and finance captures need Teo's G5 (permission, local sample-data apps, URLs, views); ask at G7 or before
 - 01-13 cannot run as written: G7 option reads pendiente and Teo deferred content, captures and translations to the admin; IDEN-05/06/07 need a replan or gap closure (see 01-12-SUMMARY 'Ajustes que necesita 01-13')
-- 04.1-10: horizontal overflow from nowrap stack line in entry-list.tsx; fix before 04.1-11/12
+- ~~04.1-10: horizontal overflow from nowrap stack line in entry-list.tsx~~ resolved in c164c71 (one segment per skill; screens-home and screens-case e2e pass)
 
 ### Roadmap Evolution
 

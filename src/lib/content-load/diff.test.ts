@@ -28,6 +28,20 @@ describe("diffFields", () => {
   });
 });
 
+describe("diffFields key order", () => {
+  it("ignores jsonb key reordering", () => {
+    expect(
+      diffFields(
+        "s",
+        "k",
+        { a: { x: 1, y: [{ b: 1, c: 2 }] } },
+        { a: { y: [{ c: 2, b: 1 }], x: 1 } },
+        ["a"],
+      ),
+    ).toEqual([]);
+  });
+});
+
 describe("formatChange", () => {
   it("truncates both sides to 80 characters with an ellipsis", () => {
     const long = "x".repeat(200);

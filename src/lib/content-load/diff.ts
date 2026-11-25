@@ -8,6 +8,17 @@ export type FieldChange = {
   after: unknown;
 };
 
+// jsonb does not preserve key order, so compare with sorted keys.
+function canonical(value: unknown): string {
+  return JSON.stringify(value ?? null, (_key, v) =>
+    v && typeof v === "object" && !Array.isArray(v)
+      ? Object.fromEntries(
+          Object.entries(v).sort(([a], [b]) => a.localeCompare(b)),
+        )
+      : v,
+  );
+}
+
 export function diffFields(
   entity: string,
   key: string,
@@ -19,7 +30,7 @@ export function diffFields(
   for (const field of fields) {
     const before = current[field];
     const after = next[field];
-    if (JSON.stringify(before ?? null) !== JSON.stringify(after ?? null)) {
+    if (canonical(before) !== canonical(after)) {
       out.push({ entity, key, field, before, after });
     }
   }

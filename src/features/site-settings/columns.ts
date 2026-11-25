@@ -1,5 +1,5 @@
 // Pure mapper from a validated settings payload to table columns. Shared by the
-// admin Server Actions and the content loader (no server-only imports).
+// admin Server Actions and the content loader (pure, no framework imports).
 import type { z } from "zod";
 import type { settingsDraftSchema } from "./validation";
 

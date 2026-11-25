@@ -198,7 +198,7 @@ export function validateProjectContent(content: ProjectContent): {
   return { issues };
 }
 
-function stringsIn(value: unknown): string[] {
+export function stringsIn(value: unknown): string[] {
   if (typeof value === "string") return [value];
   if (Array.isArray(value)) return value.flatMap(stringsIn);
   if (typeof value === "object" && value !== null) {
@@ -207,7 +207,7 @@ function stringsIn(value: unknown): string[] {
   return [];
 }
 
-function digitTokens(texts: string[]): Map<string, number> {
+export function digitTokens(texts: string[]): Map<string, number> {
   const counts = new Map<string, number>();
   for (const t of texts) {
     for (const token of t.match(/\d+/g) ?? []) {
@@ -217,7 +217,10 @@ function digitTokens(texts: string[]): Map<string, number> {
   return counts;
 }
 
-function surplus(a: Map<string, number>, b: Map<string, number>): string[] {
+export function surplus(
+  a: Map<string, number>,
+  b: Map<string, number>,
+): string[] {
   const out: string[] = [];
   for (const [token, count] of a) {
     for (let i = b.get(token) ?? 0; i < count; i++) out.push(token);

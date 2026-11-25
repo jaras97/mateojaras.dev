@@ -11,11 +11,16 @@ import { eq } from "drizzle-orm";
 import { createDb } from "@/db/client";
 import { SITE_SETTINGS_ID, siteSettings } from "@/db/schema";
 import { settingsColumns } from "@/features/site-settings/columns";
-import { readAbout, readHeadline } from "@/features/site-settings/copy-doc";
+import {
+  readAbout,
+  readHeadline,
+  readNow,
+} from "@/features/site-settings/copy-doc";
 import {
   settingsFormValues,
   settingsPublishSchema,
 } from "@/features/site-settings/validation";
+import { type LintIssue, lintPair, lintStrings } from "@/lib/content-lint";
 import {
   diffFields,
   type FieldChange,
@@ -24,6 +29,7 @@ import {
 import { assertTargetMatches, parseLoadArgs } from "@/lib/content-load/target";
 import { describeDbTarget } from "@/lib/db-target";
 import { requireEnv } from "@/lib/env";
+import { textParagraphsToDoc } from "@/lib/rich-text-doc";
 import { assertNotProduction } from "@/lib/seed-guard";
 import { loadLocalEnv } from "./lib/env";
 
@@ -32,7 +38,16 @@ export const SETTINGS_LOAD_FIELDS = [
   "headlineEs",
   "bioEn",
   "bioEs",
+  "nowEn",
+  "nowEs",
 ] as const;
+
+function reportLint(issues: LintIssue[]) {
+  if (issues.length === 0) return;
+  for (const i of issues)
+    console.error(`lint: ${i.path} ${i.kind} ${i.detail}`);
+  throw new Error(`lint: ${issues.length} issues, nothing written`);
+}
 
 async function main() {
   loadLocalEnv();
@@ -60,12 +75,33 @@ async function main() {
       throw new Error("site_settings: la fila no existe. Corre pnpm seed.");
     const headline = readHeadline(copy);
     const about = readAbout(copy);
+    const now = readNow(copy);
+    const texts = {
+      headline: [headline.en, headline.es],
+      bio: [about.en, about.es],
+    } as const;
+    const issues: LintIssue[] = [];
+    for (const [name, [en, es]] of Object.entries(texts)) {
+      issues.push(
+        ...lintStrings(en, `${name}_en`),
+        ...lintStrings(es, `${name}_es`),
+        ...lintPair(en, es, name),
+      );
+    }
+    issues.push(
+      ...lintStrings(now.en, "now_en", { scope: "now" }),
+      ...lintStrings(now.es, "now_es", { scope: "now" }),
+      ...lintPair(now.en, now.es, "now"),
+    );
+    reportLint(issues);
     const next = settingsPublishSchema.parse({
       ...settingsFormValues(row),
       headlineEn: headline.en,
       headlineEs: headline.es,
       bioEn: about.en,
       bioEs: about.es,
+      nowEn: textParagraphsToDoc(now.en),
+      nowEs: textParagraphsToDoc(now.es),
     });
     const columns = settingsColumns(next);
     const found = diffFields(

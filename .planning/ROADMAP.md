@@ -275,7 +275,7 @@ Plans:
 **Scope (de 05-CONTEXT D-13):** titular, bio, Now, experiencia, los 4 casos de estudio, orden del stack, textos SEO y OG, CV en/es; decidir si el propio portafolio entra como caso de estudio; actualizar el texto "frontend" de PROJECT.md y CLAUDE.md con aprobación de Teo
 **Requirements**: POS-01, POS-02, POS-03, POS-04, POS-05, POS-06, POS-07, POS-08, POS-09, POS-10, POS-11
 **Depends on:** Phase 4
-**Plans:** 7/12 plans executed
+**Plans:** 8/12 plans executed
 
 Plans:
 **Wave 1**
@@ -296,7 +296,7 @@ Plans:
 **Wave 4** *(blocked on Wave 3 completion)*
 
 - [x] 04.1-07-PLAN.md — Texto aprobado a docs/copy.md, positioning.ts, semillas y mensajes
-- [ ] 04.1-08-PLAN.md — Registro de decisiones y redacción de PROJECT/CLAUDE (D-15) con aprobación explícita
+- [x] 04.1-08-PLAN.md — Registro de decisiones y redacción de PROJECT/CLAUDE (D-15) con aprobación explícita
 - [ ] 04.1-09-PLAN.md — Proyectos aprobados a docs/content (nuevos, renombre y reencuadres)
 
 **Wave 5** *(blocked on Wave 4 completion)*

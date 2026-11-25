@@ -275,19 +275,21 @@ Plans:
 **Scope (de 05-CONTEXT D-13):** titular, bio, Now, experiencia, los 4 casos de estudio, orden del stack, textos SEO y OG, CV en/es; decidir si el propio portafolio entra como caso de estudio; actualizar el texto "frontend" de PROJECT.md y CLAUDE.md con aprobación de Teo
 **Requirements**: TBD (se definen en /gsd-discuss-phase 4.1)
 **Depends on:** Phase 4
-**Plans:** 10 plans en 7 olas (compuertas humanas: base de main, revisión de contenido, carga en main, despliegue y CV)
+**Plans:** 12 plans en 7 olas (compuertas humanas: base de main, revisión de contenido, carga en main, despliegue y CV)
 
 Plans:
-- [ ] 04.1-01-PLAN.md — Núcleo del cargador con trazador de ajustes en dev, lint de contenido, doc Tiptap y mapeadores de columnas puros
-- [ ] 04.1-02-PLAN.md — Requisitos POS, base de Neon main (Teo) y borrador de bloques del sitio con preguntas en 04.1-REVIEW.md
-- [ ] 04.1-03-PLAN.md — Cargador completo (skills, proyectos, experiencia, educación, SEO, renombres, retiro) y compuerta check-phase-4-1
-- [ ] 04.1-04-PLAN.md — Borrador de proyectos: Prendo, bot, ManuJ, Finanzas, Metales y Brillantes, EcoExport, sitio de logística
-- [ ] 04.1-05-PLAN.md — Revisión bloqueante de Teo, respuestas y segunda ronda solo de bloques corregidos
-- [ ] 04.1-06-PLAN.md — Texto aprobado a docs/copy.md, positioning.ts, semillas y mensajes; decisiones y redacción de PROJECT/CLAUDE (D-15)
-- [ ] 04.1-07-PLAN.md — Proyectos aprobados a docs/content (nuevos, renombre y reencuadres)
-- [ ] 04.1-08-PLAN.md — Carga en dev, idempotencia, compuerta, e2e, capturas y auditoría
-- [ ] 04.1-09-PLAN.md — Carga en main: snapshot, dry-run, decisión de Teo, apply y compuerta
-- [ ] 04.1-10-PLAN.md — Despliegue de producción, CV en/es desde el admin y verificación final
+- [ ] 04.1-01-PLAN.md — Núcleo del cargador con trazador de ajustes en dev, lint de contenido (incluidas las reglas de afirmaciones D-03/D-05) y doc Tiptap
+- [ ] 04.1-02-PLAN.md — Mapeadores de columnas puros de proyectos, experiencia, educación y skills
+- [ ] 04.1-03-PLAN.md — Requisitos POS, base de Neon main (Teo) y borrador de bloques del sitio con preguntas en 04.1-REVIEW.md
+- [ ] 04.1-04-PLAN.md — Cargador completo (skills, proyectos, experiencia, educación, SEO, renombres, retiro) y compuerta check-phase-4-1
+- [ ] 04.1-05-PLAN.md — Borrador de proyectos: Prendo, bot, ManuJ, Finanzas, Metales y Brillantes, EcoExport, sitio de logística
+- [ ] 04.1-06-PLAN.md — Revisión bloqueante de Teo, respuestas (Q2 y Q8 solo explícitas) y segunda ronda
+- [ ] 04.1-07-PLAN.md — Texto aprobado a docs/copy.md, positioning.ts, semillas y mensajes
+- [ ] 04.1-08-PLAN.md — Registro de decisiones y redacción de PROJECT/CLAUDE (D-15) con aprobación explícita
+- [ ] 04.1-09-PLAN.md — Proyectos aprobados a docs/content (nuevos, renombre y reencuadres)
+- [ ] 04.1-10-PLAN.md — Carga en dev, idempotencia, compuerta, e2e, capturas y auditoría
+- [ ] 04.1-11-PLAN.md — Carga en main: snapshot, dry-run, decisión de Teo, apply y compuerta
+- [ ] 04.1-12-PLAN.md — Despliegue de producción, CV en/es desde el admin y verificación final
 
 ### Phase 5: Pulido y lanzamiento
 

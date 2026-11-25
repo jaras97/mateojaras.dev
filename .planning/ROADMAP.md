@@ -275,7 +275,7 @@ Plans:
 **Scope (de 05-CONTEXT D-13):** titular, bio, Now, experiencia, los 4 casos de estudio, orden del stack, textos SEO y OG, CV en/es; decidir si el propio portafolio entra como caso de estudio; actualizar el texto "frontend" de PROJECT.md y CLAUDE.md con aprobación de Teo
 **Requirements**: POS-01, POS-02, POS-03, POS-04, POS-05, POS-06, POS-07, POS-08, POS-09, POS-10, POS-11
 **Depends on:** Phase 4
-**Plans:** 3/12 plans executed en 7 olas (compuertas humanas: base de main, revisión de contenido, carga en main, despliegue y CV)
+**Plans:** 4/12 plans executed en 7 olas (compuertas humanas: base de main, revisión de contenido, carga en main, despliegue y CV)
 
 Plans:
 **Wave 1**
@@ -284,7 +284,7 @@ Plans:
 - [x] 04.1-03-PLAN.md — Requisitos POS, base de Neon main (Teo) y borrador de bloques del sitio con preguntas en 04.1-REVIEW.md
 
 **Wave 2** *(blocked on Wave 1 completion)*
-- [ ] 04.1-04-PLAN.md — Cargador completo (skills, proyectos, experiencia, educación, SEO, renombres, retiro) y compuerta check-phase-4-1
+- [x] 04.1-04-PLAN.md — Cargador completo (skills, proyectos, experiencia, educación, SEO, renombres, retiro) y compuerta check-phase-4-1
 - [ ] 04.1-05-PLAN.md — Borrador de proyectos: Prendo, bot, ManuJ, Finanzas, Metales y Brillantes, EcoExport, sitio de logística
 
 **Wave 3** *(blocked on Wave 2 completion)*

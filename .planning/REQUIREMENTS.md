@@ -122,12 +122,12 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **POS-02**: Bio y Now (en/es) reescritos con evidencia real; el Now dice que la función de AI de Prendo se está construyendo (D-03)
 - [x] **POS-03**: Experiencia: rol y bullets de Freelance reencuadrados como full stack + AI, con LUCG incluido si se aprueba; Sofka conserva el texto frontend (D-04)
 - [ ] **POS-04**: Proyectos nuevos: Prendo (insignia, "en desarrollo") y el bot de arbitraje (caso corto), solo con hechos verificados
-- [ ] **POS-05**: Proyectos reencuadrados: ManuJ, Finanzas personales, Metales y Brillantes, EcoExport y la web de LUCG si se aprueba; `order` sigue D-11 y `featured` elige los del CV
+- [x] **POS-05**: Proyectos reencuadrados: ManuJ, Finanzas personales, Metales y Brillantes, EcoExport y la web de LUCG si se aprueba; `order` sigue D-11 y `featured` elige los del CV
 - [x] **POS-06**: Educación: 5 filas de Udemy junto a la de UdeA (D-12)
 - [x] **POS-07**: Skills: lista de stack con años y orden en todas las categorías, cada una respaldada por un proyecto o experiencia y enlazada a proyectos (`project_skills`)
 - [x] **POS-08**: SEO/OG: `seo_title_*` (≤60) y `seo_description_*` (≤160) completos; las imágenes OG toman el nuevo titular
 - [ ] **POS-09**: CV en/es regenerado desde los datos cargados, ≤2 páginas, tildes correctas, y `/resume.json` y `/resume.es.json` lo reflejan
-- [ ] **POS-10**: Script de carga idempotente (`--target dev|main`, dry-run por defecto) que valida con los esquemas Zod del admin y escribe tras una instantánea `export:content` del destino; corre en dev, se verifica y luego corre en main; la caché pública se invalida y `e2e-stale-probe` no existe en main
+- [x] **POS-10**: Script de carga idempotente (`--target dev|main`, dry-run por defecto) que valida con los esquemas Zod del admin y escribe tras una instantánea `export:content` del destino; corre en dev, se verifica y luego corre en main; la caché pública se invalida y `e2e-stale-probe` no existe en main
 - [x] **POS-11**: `PROJECT.md` (raíz), `.planning/PROJECT.md`, `CLAUDE.md` y el bloque GSD de `.claude/CLAUDE.md` describen el nuevo posicionamiento, y `docs/copy.md` refleja los textos aprobados; Teo aprueba los diffs
 
 ## v2 Requirements
@@ -256,12 +256,12 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | POS-02 | Phase 04.1 | Complete |
 | POS-03 | Phase 04.1 | Complete |
 | POS-04 | Phase 04.1 | Pending |
-| POS-05 | Phase 04.1 | Pending |
+| POS-05 | Phase 04.1 | Complete |
 | POS-06 | Phase 04.1 | Complete |
 | POS-07 | Phase 04.1 | Complete |
 | POS-08 | Phase 04.1 | Complete |
 | POS-09 | Phase 04.1 | Pending |
-| POS-10 | Phase 04.1 | Pending |
+| POS-10 | Phase 04.1 | Complete |
 | POS-11 | Phase 04.1 | Complete |
 
 **Coverage:**

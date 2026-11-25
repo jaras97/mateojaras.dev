@@ -275,11 +275,11 @@ Plans:
 **Scope (de 05-CONTEXT D-13):** titular, bio, Now, experiencia, los 4 casos de estudio, orden del stack, textos SEO y OG, CV en/es; decidir si el propio portafolio entra como caso de estudio; actualizar el texto "frontend" de PROJECT.md y CLAUDE.md con aprobación de Teo
 **Requirements**: TBD (se definen en /gsd-discuss-phase 4.1)
 **Depends on:** Phase 4
-**Plans:** 12 plans en 7 olas (compuertas humanas: base de main, revisión de contenido, carga en main, despliegue y CV)
+**Plans:** 1/12 plans executed en 7 olas (compuertas humanas: base de main, revisión de contenido, carga en main, despliegue y CV)
 
 Plans:
 **Wave 1**
-- [ ] 04.1-01-PLAN.md — Núcleo del cargador con trazador de ajustes en dev, lint de contenido (incluidas las reglas de afirmaciones D-03/D-05) y doc Tiptap
+- [x] 04.1-01-PLAN.md — Núcleo del cargador con trazador de ajustes en dev, lint de contenido (incluidas las reglas de afirmaciones D-03/D-05) y doc Tiptap
 - [ ] 04.1-02-PLAN.md — Mapeadores de columnas puros de proyectos, experiencia, educación y skills
 - [ ] 04.1-03-PLAN.md — Requisitos POS, base de Neon main (Teo) y borrador de bloques del sitio con preguntas en 04.1-REVIEW.md
 

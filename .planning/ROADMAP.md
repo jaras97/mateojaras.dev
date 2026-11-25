@@ -275,7 +275,7 @@ Plans:
 **Scope (de 05-CONTEXT D-13):** titular, bio, Now, experiencia, los 4 casos de estudio, orden del stack, textos SEO y OG, CV en/es; decidir si el propio portafolio entra como caso de estudio; actualizar el texto "frontend" de PROJECT.md y CLAUDE.md con aprobación de Teo
 **Requirements**: POS-01, POS-02, POS-03, POS-04, POS-05, POS-06, POS-07, POS-08, POS-09, POS-10, POS-11
 **Depends on:** Phase 4
-**Plans:** 5/12 plans executed
+**Plans:** 6/12 plans executed
 
 Plans:
 **Wave 1**
@@ -291,7 +291,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 04.1-06-PLAN.md — Revisión bloqueante de Teo, respuestas (Q2 y Q8 solo explícitas) y segunda ronda
+- [x] 04.1-06-PLAN.md — Revisión bloqueante de Teo, respuestas (Q2 y Q8 solo explícitas) y segunda ronda
 
 **Wave 4** *(blocked on Wave 3 completion)*
 

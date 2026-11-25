@@ -1,17 +1,19 @@
 ---
-gsd_state_version: 1.0
+gsd_state_version: "1.0"
 milestone: v1.0
-milestone_name: milestone
+current_phase: "04.1"
+current_phase_name: Contenido y posicionamiento full stack + AI (INSERTED
 status: executing
-stopped_at: Completed 04.1-05-PLAN.md
-last_updated: "2026-11-25T16:46:50.265Z"
+stopped_at: Completed 04.1-06-PLAN.md
+last_updated: "2026-11-25T18:31:49.829Z"
 last_activity: 2026-11-25
+state_head: 83fde10496951dc313979cd1cc88b02eb3355761
 progress:
   total_phases: 6
   completed_phases: 4
   total_plans: 63
-  completed_plans: 56
-  percent: 67
+  completed_plans: 57
+milestone_name: milestone
 ---
 
 # Project State
@@ -26,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-11-22)
 ## Current Position
 
 Phase: 04.1 (Contenido y posicionamiento full stack + AI (INSERTED)) — EXECUTING
-Plan: 6 of 12
+Plan: 7 of 12
 Status: Ready to execute
 Last activity: 2026-11-25
 
@@ -131,6 +133,7 @@ Recent decisions affecting current work:
 - [Phase 03]: 03-11: CV blob path resume/<lang>/v<n>-<suffix>.pdf, A4; blank locale field falls back to English, pre-flight flags it
 - [Phase 03]: 03-12: CvData carries raw ISO dates and lastModified; absent site URL means url/canonical omitted
 - [Phase 04]: Pass t.raw('figure') to CaseGallery in page.tsx only (G-04-2) — Component expects raw template
+- [Phase 04.1]: 04.1-06: Q1 a deploy; Q2 a keep label (Claude recommended b); Q8 a approve wording; logistics site block descartado
 
 ### Pending Todos
 
@@ -160,6 +163,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-25T16:46:50.262Z
-Stopped at: Completed 04.1-05-PLAN.md
+Last session: 2026-11-25T18:31:49.587Z
+Stopped at: Completed 04.1-06-PLAN.md
 Resume file: None

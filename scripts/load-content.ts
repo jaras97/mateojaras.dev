@@ -7,7 +7,7 @@
 //   --allow-production     required together with --target=main
 // Dry-run by default. Main steps are run by Teo with DATABASE_URL inline.
 // Everything is planned and linted before the first write; each entity group is
-// then written in one db.batch (no db.transaction on neon-http). New rows get
+// then written in one db.batch (neon-http has no interactive transactions). New rows get
 // their ids up front so later groups can reference them in the same run.
 // Never prints the database URL and never touches auth tables. Never writes a
 // project's media or cover image, and never touches experiences that

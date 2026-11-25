@@ -65,7 +65,9 @@ describe("readNow", () => {
     expect(now.en.length).toBeGreaterThan(0);
     expect(now.es.length).toBeGreaterThan(0);
     expect(now.es).toHaveLength(2);
-    expect(now.es[0]).toMatch(/^Estoy construyendo una función de IA en Prendo/);
+    expect(now.es[0]).toMatch(
+      /^Estoy construyendo una función de IA en Prendo/,
+    );
     expect(now.en[0]).toMatch(/^I’m building an AI feature in Prendo/);
   });
 });

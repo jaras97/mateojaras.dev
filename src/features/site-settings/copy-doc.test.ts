@@ -1,7 +1,12 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { readAbout, readFreelanceBullets } from "./copy-doc";
+import {
+  readAbout,
+  readFreelanceBullets,
+  readHeadline,
+  readNow,
+} from "./copy-doc";
 
 const raw = readFileSync(
   fileURLToPath(new URL("../../../docs/copy.md", import.meta.url)),
@@ -38,5 +43,28 @@ describe("readFreelanceBullets", () => {
   it("does not pick up the Sofka placeholder bullet", () => {
     const all = readFreelanceBullets(raw);
     expect([...all.en, ...all.es].join(" ")).not.toMatch(/Pendiente/);
+  });
+});
+
+describe("readHeadline", () => {
+  it("returns both headlines without comments", () => {
+    const h = readHeadline(raw);
+    expect(h.en.startsWith("I build solid frontends")).toBe(true);
+    expect(h.es.startsWith("Construyo frontends")).toBe(true);
+    for (const t of [h.en, h.es]) expect(t).not.toContain("<!--");
+  });
+
+  it("throws naming docs/copy.md when absent", () => {
+    expect(() => readHeadline("## Hero\n")).toThrow(/docs\/copy\.md/);
+  });
+});
+
+describe("readNow", () => {
+  it("returns paragraph arrays for both languages", () => {
+    const now = readNow(raw);
+    expect(now.en.length).toBeGreaterThan(0);
+    expect(now.es.length).toBeGreaterThan(0);
+    expect(now.es[0]).toMatch(/^Este mes termino/);
+    expect(now.en[0]).toMatch(/^This month/);
   });
 });

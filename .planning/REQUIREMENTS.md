@@ -121,7 +121,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **POS-01**: La etiqueta "AI full stack developer" aparece en el titular del hero, el título SEO de la home, el OG de la home y la cabecera del CV (en/es), y D-01 queda registrada en `docs/decisions.md` como decisión de Teo con la recomendación de Claude
 - [x] **POS-02**: Bio y Now (en/es) reescritos con evidencia real; el Now dice que la función de AI de Prendo se está construyendo (D-03)
 - [x] **POS-03**: Experiencia: rol y bullets de Freelance reencuadrados como full stack + AI, con LUCG incluido si se aprueba; Sofka conserva el texto frontend (D-04)
-- [ ] **POS-04**: Proyectos nuevos: Prendo (insignia, "en desarrollo") y el bot de arbitraje (caso corto), solo con hechos verificados
+- [x] **POS-04**: Proyectos nuevos: Prendo (insignia, "en desarrollo") y el bot de arbitraje (caso corto), solo con hechos verificados
 - [x] **POS-05**: Proyectos reencuadrados: ManuJ, Finanzas personales, Metales y Brillantes, EcoExport y la web de LUCG si se aprueba; `order` sigue D-11 y `featured` elige los del CV
 - [x] **POS-06**: Educación: 5 filas de Udemy junto a la de UdeA (D-12)
 - [x] **POS-07**: Skills: lista de stack con años y orden en todas las categorías, cada una respaldada por un proyecto o experiencia y enlazada a proyectos (`project_skills`)
@@ -255,7 +255,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | POS-01 | Phase 04.1 | Complete |
 | POS-02 | Phase 04.1 | Complete |
 | POS-03 | Phase 04.1 | Complete |
-| POS-04 | Phase 04.1 | Pending |
+| POS-04 | Phase 04.1 | Complete |
 | POS-05 | Phase 04.1 | Complete |
 | POS-06 | Phase 04.1 | Complete |
 | POS-07 | Phase 04.1 | Complete |

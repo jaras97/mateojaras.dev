@@ -163,9 +163,6 @@ export const positioning: PositioningContent = {
       {
         slug: "finanzas-personales",
         featured: false,
-        // Its docs/content file is still a draft (tagline, problem, role empty);
-        // 04.1-09 fills it and flips this to true.
-        publish: false,
         skillNames: [
           "Next.js",
           "Tailwind CSS",
@@ -177,13 +174,17 @@ export const positioning: PositioningContent = {
       {
         slug: "metales-y-brillantes",
         featured: true,
+        // problem is empty under Teo's Q5 default (04.1-ANSWERS), so the
+        // publish schema would abort the loader. Stays draft, as in main.
+        publish: false,
         skillNames: ["Next.js", "Postgres"],
       },
       {
         slug: "ecoexport-costa-rica",
         featured: false,
-        // Its docs/content file still lacks tagline, problem and role; 04.1-09
-        // fills it and flips this to true before any load into main.
+        // problem is empty under Teo's Q5 default (04.1-ANSWERS), so the
+        // publish schema would abort the loader. Needs Teo's answer before any
+        // load into main: EcoExport is published there today.
         publish: false,
         skillNames: ["Next.js", "Tailwind CSS"],
       },
@@ -200,8 +201,8 @@ export const positioning: PositioningContent = {
     publish: project.publish ?? true,
   })),
   // D-04: no Sofka entry. Bullets come from docs/copy.md. projectSlugs lists
-  // only projects that already have a docs/content file; 04.1-09 adds prendo
-  // and metales-y-brillantes once those files exist.
+  // projects that have a docs/content file (the approved Freelance bullets
+  // link all four).
   experiences: [
     {
       company: "Freelance",
@@ -213,7 +214,12 @@ export const positioning: PositioningContent = {
       endDate: null,
       bullets: "copy:freelance",
       order: 0,
-      projectSlugs: ["centro-estetico-manuj", "ecoexport-costa-rica"],
+      projectSlugs: [
+        "prendo",
+        "metales-y-brillantes",
+        "centro-estetico-manuj",
+        "ecoexport-costa-rica",
+      ],
       skillNames: [
         "React",
         "Next.js",

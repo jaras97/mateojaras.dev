@@ -41,7 +41,7 @@ techDecisionsEs:
       body: "Claude devuelve JSON y Pydantic lo valida; si no cumple el esquema, no entra al resto del embudo."
     - title: "Tareas periódicas desde Supabase Cron"
       body: "Con un servidor que se apaga, un planificador interno no sirve; los endpoints de FastAPI reciben las llamadas y no hay procesos en segundo plano."
-  tradeoffs: "Un embudo con pasos fijos es más rígido que dejar que el modelo lo decida todo, a cambio de un costo por anuncio mucho menor y de resultados que se pueden probar."
+  tradeoffs: "Un embudo con pasos fijos es más rígido que dejar que el modelo decida cada paso, a cambio de un costo por anuncio mucho menor y de resultados que se pueden probar."
   validation: "Suite de pruebas con pytest, con pruebas unitarias de los pasos puros y pruebas de integración por fase."
 techDecisionsEn:
   decisions:
@@ -51,7 +51,7 @@ techDecisionsEn:
       body: "Claude returns JSON and Pydantic validates it; if it does not meet the schema, it does not enter the rest of the funnel."
     - title: "Periodic tasks from Supabase Cron"
       body: "With a server that shuts down, an in-process scheduler does not work; FastAPI endpoints receive the calls and there are no background processes."
-  tradeoffs: "A funnel with fixed steps is more rigid than letting the model decide everything, in exchange for a much lower cost per listing and results that can be tested."
+  tradeoffs: "A funnel with fixed steps is more rigid than letting the model decide every step, in exchange for a much lower cost per listing and results that can be tested."
   validation: "A pytest suite, with unit tests for the pure steps and integration tests per phase."
 ---
 
@@ -73,7 +73,7 @@ I designed and built it on my own, end to end, for my own use.
 
 ## solutionEs
 
-- Ingesta de anuncios con Apify y deduplicación; todo anuncio visto se guarda para el histórico de precios.
+- Ingesta de anuncios con Apify y deduplicación; cada anuncio visto se guarda para el histórico de precios.
 - Un embudo con los pasos baratos y deterministas primero: filtros geográficos, reglas de riesgo y descartes por texto. La IA solo procesa lo que sobrevive.
 - Claude convierte el texto del anuncio en un producto estructurado, y su respuesta se valida con Pydantic antes de usarse.
 - Estimación de valor, de costo de traer el producto y de margen.

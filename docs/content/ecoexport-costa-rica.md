@@ -1,18 +1,12 @@
 ---
 slug: ecoexport-costa-rica
 enStatus: draft-translation
-source: interview-2026-10-30
+source: interview-2026-11-25
 pendingFields:
-  - taglineEs
-  - taglineEn
   - problemEs
   - problemEn
-  - roleEs
-  - roleEn
   - resultsEs
   - resultsEn
-  - techDecisionsEs
-  - techDecisionsEn
   - startedAt
   - finishedAt
   - coverImage
@@ -21,6 +15,8 @@ clientPermission: true
 sampleData: false
 titleEs: "EcoExport Costa Rica"
 titleEn: "EcoExport Costa Rica"
+taglineEs: "Sitio bilingüe para un exportador de Costa Rica: catálogo de productos con fichas en PDF y SEO técnico."
+taglineEn: "Bilingual site for a Costa Rican exporter: product catalog with PDF spec sheets and technical SEO."
 liveUrl: "https://ecoexportcostarica.com/es"
 repoUrl: "https://github.com/jaras97/ecoExport"
 stack:
@@ -31,6 +27,18 @@ stack:
   - next-sitemap
   - Google Analytics
 metrics: []
+techDecisionsEs:
+  decisions:
+    - title: "Sitio bilingüe con next-intl"
+      body: "El sitio existe en español y en inglés, con el idioma en la dirección."
+    - title: "Una ficha en PDF por producto"
+      body: "Cada tarjeta del catálogo tiene un botón para descargar el PDF del producto."
+techDecisionsEn:
+  decisions:
+    - title: "Bilingual site with next-intl"
+      body: "The site exists in Spanish and in English, with the language in the address."
+    - title: "One PDF spec sheet per product"
+      body: "Each catalog card has a button to download the product PDF."
 altStatus: draft
 coverImage: material/ecoexport-costa-rica/01-inicio.webp
 media:
@@ -52,14 +60,22 @@ media:
     type: image
 ---
 
+## roleEs
+
+Construí el sitio bilingüe con Next.js y next-intl.
+
+## roleEn
+
+I built the bilingual site with Next.js and next-intl.
+
 ## solutionEs
 
-- Sitio multilingüe
-- Catálogo
-- SEO
+- Sitio multilingüe en español e inglés
+- Catálogo de productos con ficha en PDF por producto
+- SEO técnico
 
 ## solutionEn
 
-- Multilingual website
-- Catalog
-- SEO
+- Multilingual site in Spanish and English
+- Product catalog with a PDF spec sheet per product
+- Technical SEO

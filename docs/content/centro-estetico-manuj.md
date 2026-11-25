@@ -73,11 +73,11 @@ The salon had no system to bring order, records and information to its business,
 
 ## roleEs
 
-Lo construí solo, de principio a fin, apoyándome en herramientas de IA.
+Lo construí solo, de principio a fin, con Claude Code. Organicé el trabajo alrededor de la documentación: un agente por tarea, la documentación actualizada después de cada tarea y un agente nuevo para la siguiente.
 
 ## roleEn
 
-I built it on my own, end to end, with the help of AI tools.
+I built it on my own, end to end, with Claude Code. I organized the work around the documentation: one agent per task, the documentation updated after each task and a fresh agent for the next one.
 
 ## solutionEs
 
@@ -100,3 +100,31 @@ I built it on my own, end to end, with the help of AI tools.
 - Money recorded when each appointment is closed
 - Technical SEO
 - WhatsApp
+
+## caseStudyEs
+
+### El resultado
+
+Un sitio público con catálogo de servicios, galería filtrable y reserva de citas, y un panel de gestión con agenda de clientas, cupones y el registro del dinero al cerrar cada cita.
+
+### Cómo lo construí
+
+Trabajé con Claude Code y con la documentación como contexto. Cada tarea la hacía un agente distinto. Al terminarla se actualizaba la documentación del proyecto, y la tarea siguiente la tomaba un agente nuevo que partía de esa documentación y no de la conversación anterior.
+
+### Qué decidí aparte del código
+
+Elegí Supabase en parte porque su servidor MCP facilitaba trabajar con el agente durante el desarrollo.
+
+## caseStudyEn
+
+### The result
+
+A public site with a service catalog, a filterable gallery and appointment booking, and a management panel with a client calendar, coupons and the money recorded when each appointment is closed.
+
+### How I built it
+
+I worked with Claude Code and with the documentation as context. Each task was done by a different agent. When it finished, the project documentation was updated, and the next task was picked up by a fresh agent that started from that documentation and not from the previous conversation.
+
+### What I decided besides the code
+
+I chose Supabase partly because its MCP server made it easier to work with the agent during development.

@@ -368,6 +368,9 @@ async function main() {
         ...contentFields
       } = base;
       const payload = {
+        // New rows start without a case study (the admin editor writes it).
+        caseStudyEn: null,
+        caseStudyEs: null,
         ...(row ? projectFormValues(row, currentSkills.get(row.id) ?? []) : {}),
         ...contentFields,
         skillIds: ids,

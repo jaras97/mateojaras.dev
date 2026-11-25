@@ -174,18 +174,15 @@ export const positioning: PositioningContent = {
       {
         slug: "metales-y-brillantes",
         featured: true,
-        // problem is empty under Teo's Q5 default (04.1-ANSWERS), so the
-        // publish schema would abort the loader. Stays draft, as in main.
-        publish: false,
+        // problem text given by Teo on 2026-11-25 (after the 04.1-06 review).
+        publish: true,
         skillNames: ["Next.js", "Postgres"],
       },
       {
         slug: "ecoexport-costa-rica",
         featured: false,
-        // problem is empty under Teo's Q5 default (04.1-ANSWERS), so the
-        // publish schema would abort the loader. Needs Teo's answer before any
-        // load into main: EcoExport is published there today.
-        publish: false,
+        // problem text given by Teo on 2026-11-25 (after the 04.1-06 review).
+        publish: true,
         skillNames: ["Next.js", "Tailwind CSS"],
       },
     ] as {

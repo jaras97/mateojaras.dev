@@ -3,8 +3,6 @@ slug: ecoexport-costa-rica
 enStatus: draft-translation
 source: interview-2026-11-25
 pendingFields:
-  - problemEs
-  - problemEn
   - resultsEs
   - resultsEn
   - startedAt
@@ -59,6 +57,14 @@ media:
     altEn: "EcoExport home page in English: the same hero with the About Us, Products and Contact menu and the headline Exporting quality and trust."
     type: image
 ---
+
+## problemEs
+
+EcoExport era una exportadora que estaba empezando. Necesitaba una página informativa para mostrar a sus clientes, de forma profesional, qué productos exporta y qué servicios ofrece.
+
+## problemEn
+
+EcoExport was a new export company. It needed an informational site to show its clients, in a professional way, which products it exports and which services it offers.
 
 ## roleEs
 

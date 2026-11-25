@@ -3,8 +3,6 @@ slug: metales-y-brillantes
 enStatus: draft-translation
 source: interview-2026-11-25
 pendingFields:
-  - problemEs
-  - problemEn
   - techDecisionsEs
   - techDecisionsEn
   - startedAt
@@ -28,6 +26,14 @@ resultsEs:
 resultsEn:
   - "It has been in use at the jewelry store for more than 18 months."
 ---
+
+## problemEs
+
+La joyería llevaba el inventario a mano, en cuadernos. Manejaba muchas piedras, metales y piezas distintas, y quería códigos para diferenciarlas, con letras que indicaran el proceso y el tipo de producto, porque ese detalle es lo que le da valor al inventario. También necesitaba llevar las cuentas de las ventas.
+
+## problemEn
+
+The jewelry store kept its inventory by hand, in notebooks. It handled many different stones, metals and pieces, and wanted codes to tell them apart, with letters for the process and the product type, since that detail is what gives the inventory its value. It also needed to keep track of its sales.
 
 ## roleEs
 

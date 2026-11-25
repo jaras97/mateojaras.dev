@@ -116,6 +116,20 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [ ] **QUAL-08**: 3 personas revisan el sitio y los hallazgos se registran y resuelven
 - [ ] **QUAL-09**: El sitio está en producción en mateojaras.dev
 
+### Posicionamiento (POS)
+
+- [ ] **POS-01**: La etiqueta "AI full stack developer" aparece en el titular del hero, el título SEO de la home, el OG de la home y la cabecera del CV (en/es), y D-01 queda registrada en `docs/decisions.md` como decisión de Teo con la recomendación de Claude
+- [ ] **POS-02**: Bio y Now (en/es) reescritos con evidencia real; el Now dice que la función de AI de Prendo se está construyendo (D-03)
+- [ ] **POS-03**: Experiencia: rol y bullets de Freelance reencuadrados como full stack + AI, con LUCG incluido si se aprueba; Sofka conserva el texto frontend (D-04)
+- [ ] **POS-04**: Proyectos nuevos: Prendo (insignia, "en desarrollo") y el bot de arbitraje (caso corto), solo con hechos verificados
+- [ ] **POS-05**: Proyectos reencuadrados: ManuJ, Finanzas personales, Metales y Brillantes, EcoExport y la web de LUCG si se aprueba; `order` sigue D-11 y `featured` elige los del CV
+- [ ] **POS-06**: Educación: 5 filas de Udemy junto a la de UdeA (D-12)
+- [ ] **POS-07**: Skills: lista de stack con años y orden en todas las categorías, cada una respaldada por un proyecto o experiencia y enlazada a proyectos (`project_skills`)
+- [ ] **POS-08**: SEO/OG: `seo_title_*` (≤60) y `seo_description_*` (≤160) completos; las imágenes OG toman el nuevo titular
+- [ ] **POS-09**: CV en/es regenerado desde los datos cargados, ≤2 páginas, tildes correctas, y `/resume.json` y `/resume.es.json` lo reflejan
+- [ ] **POS-10**: Script de carga idempotente (`--target dev|main`, dry-run por defecto) que valida con los esquemas Zod del admin y escribe tras una instantánea `export:content` del destino; corre en dev, se verifica y luego corre en main; la caché pública se invalida y `e2e-stale-probe` no existe en main
+- [ ] **POS-11**: `PROJECT.md` (raíz), `.planning/PROJECT.md`, `CLAUDE.md` y el bloque GSD de `.claude/CLAUDE.md` describen el nuevo posicionamiento, y `docs/copy.md` refleja los textos aprobados; Teo aprueba los diffs
+
 ## v2 Requirements
 
 Diferidos. Se registran pero no entran al roadmap actual.
@@ -238,13 +252,24 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | QUAL-07 | Phase 5 | Pending |
 | QUAL-08 | Phase 5 | Pending |
 | QUAL-09 | Phase 5 | Pending |
+| POS-01 | Phase 04.1 | Pending |
+| POS-02 | Phase 04.1 | Pending |
+| POS-03 | Phase 04.1 | Pending |
+| POS-04 | Phase 04.1 | Pending |
+| POS-05 | Phase 04.1 | Pending |
+| POS-06 | Phase 04.1 | Pending |
+| POS-07 | Phase 04.1 | Pending |
+| POS-08 | Phase 04.1 | Pending |
+| POS-09 | Phase 04.1 | Pending |
+| POS-10 | Phase 04.1 | Pending |
+| POS-11 | Phase 04.1 | Pending |
 
 **Coverage:**
 
-- v1 requirements: 76 total
-- Mapped to phases: 76 (fase 1: 7, fase 2: 15, fase 3: 18, fase 4: 29, fase 5: 7)
+- v1 requirements: 87 total
+- Mapped to phases: 87 (fase 1: 7, fase 2: 15, fase 3: 18, fase 4: 29, fase 4.1: 11, fase 5: 7)
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-10-29*
-*Last updated: 2026-11-23 after phase 4 gap closure (04-13, 04-14)*
+*Last updated: 2026-11-25 after registering POS-01..POS-11 (phase 4.1)*

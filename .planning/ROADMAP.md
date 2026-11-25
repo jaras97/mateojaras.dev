@@ -273,7 +273,7 @@ Plans:
 
 **Goal:** Todo el contenido del sitio y del CV refleja el posicionamiento "full stack + AI" de Teo con hechos reales (integración de LLMs en un producto, desarrollo con agentes de código, automatizaciones con AI), cargado en Neon `main` y listo para el lanzamiento de la fase 5. Nada inventado.
 **Scope (de 05-CONTEXT D-13):** titular, bio, Now, experiencia, los 4 casos de estudio, orden del stack, textos SEO y OG, CV en/es; decidir si el propio portafolio entra como caso de estudio; actualizar el texto "frontend" de PROJECT.md y CLAUDE.md con aprobación de Teo
-**Requirements**: TBD (se definen en /gsd-discuss-phase 4.1)
+**Requirements**: POS-01, POS-02, POS-03, POS-04, POS-05, POS-06, POS-07, POS-08, POS-09, POS-10, POS-11
 **Depends on:** Phase 4
 **Plans:** 2/12 plans executed en 7 olas (compuertas humanas: base de main, revisión de contenido, carga en main, despliegue y CV)
 
@@ -327,7 +327,7 @@ Plans:
 
 ## Coverage
 
-76 de 76 requisitos v1 mapeados, cada uno a una sola fase.
+87 de 87 requisitos v1 mapeados, cada uno a una sola fase.
 
 | Phase | Requirements | Count |
 |-------|--------------|-------|
@@ -335,6 +335,7 @@ Plans:
 | 2. Base técnica | BASE-01 a BASE-11, AUTH-01 a AUTH-04 | 15 |
 | 3. Panel admin + CV | ADMN-01 a ADMN-13, CV-01 a CV-05, IDEN-05 a IDEN-07 | 21 |
 | 4. Sitio público | CASE-01 a CASE-07, SITE-01 a SITE-07, CONT-01 a CONT-05, SEO-01 a SEO-03, MOTN-01 a MOTN-04, QUAL-01, QUAL-02, QUAL-04 | 29 |
+| 4.1 Contenido y posicionamiento | POS-01 a POS-11 | 11 |
 | 5. Pulido y lanzamiento | SITE-08, QUAL-03, QUAL-05, QUAL-06, QUAL-07, QUAL-08, QUAL-09 | 7 |
 
 Ubicaciones que se apartan de la agrupación por categoría:

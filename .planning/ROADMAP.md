@@ -278,17 +278,30 @@ Plans:
 **Plans:** 12 plans en 7 olas (compuertas humanas: base de main, revisión de contenido, carga en main, despliegue y CV)
 
 Plans:
+**Wave 1**
 - [ ] 04.1-01-PLAN.md — Núcleo del cargador con trazador de ajustes en dev, lint de contenido (incluidas las reglas de afirmaciones D-03/D-05) y doc Tiptap
 - [ ] 04.1-02-PLAN.md — Mapeadores de columnas puros de proyectos, experiencia, educación y skills
 - [ ] 04.1-03-PLAN.md — Requisitos POS, base de Neon main (Teo) y borrador de bloques del sitio con preguntas en 04.1-REVIEW.md
+
+**Wave 2** *(blocked on Wave 1 completion)*
 - [ ] 04.1-04-PLAN.md — Cargador completo (skills, proyectos, experiencia, educación, SEO, renombres, retiro) y compuerta check-phase-4-1
 - [ ] 04.1-05-PLAN.md — Borrador de proyectos: Prendo, bot, ManuJ, Finanzas, Metales y Brillantes, EcoExport, sitio de logística
+
+**Wave 3** *(blocked on Wave 2 completion)*
 - [ ] 04.1-06-PLAN.md — Revisión bloqueante de Teo, respuestas (Q2 y Q8 solo explícitas) y segunda ronda
+
+**Wave 4** *(blocked on Wave 3 completion)*
 - [ ] 04.1-07-PLAN.md — Texto aprobado a docs/copy.md, positioning.ts, semillas y mensajes
 - [ ] 04.1-08-PLAN.md — Registro de decisiones y redacción de PROJECT/CLAUDE (D-15) con aprobación explícita
 - [ ] 04.1-09-PLAN.md — Proyectos aprobados a docs/content (nuevos, renombre y reencuadres)
+
+**Wave 5** *(blocked on Wave 4 completion)*
 - [ ] 04.1-10-PLAN.md — Carga en dev, idempotencia, compuerta, e2e, capturas y auditoría
+
+**Wave 6** *(blocked on Wave 5 completion)*
 - [ ] 04.1-11-PLAN.md — Carga en main: snapshot, dry-run, decisión de Teo, apply y compuerta
+
+**Wave 7** *(blocked on Wave 6 completion)*
 - [ ] 04.1-12-PLAN.md — Despliegue de producción, CV en/es desde el admin y verificación final
 
 ### Phase 5: Pulido y lanzamiento

@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { naturalKey } from "./plan";
+import {
+  diffEntity,
+  isManagedExperience,
+  naturalKey,
+  PROJECT_PROTECTED_FIELDS,
+  planRenames,
+  planRetire,
+  projectUpdateSet,
+} from "./plan";
 
 describe("naturalKey", () => {
   it("joins institution and programEn for education", () => {
@@ -39,9 +47,9 @@ describe("projectUpdateSet", () => {
 
 describe("planRetire", () => {
   it("returns only slugs that exist", () => {
-    expect(planRetire(["e2e-stale-probe", "gone"], ["e2e-stale-probe", "x"])).toEqual([
-      "e2e-stale-probe",
-    ]);
+    expect(
+      planRetire(["e2e-stale-probe", "gone"], ["e2e-stale-probe", "x"]),
+    ).toEqual(["e2e-stale-probe"]);
   });
 
   it("returns nothing for an empty list", () => {
@@ -51,9 +59,9 @@ describe("planRetire", () => {
 
 describe("planRenames", () => {
   it("renames when from exists and to does not", () => {
-    expect(
-      planRenames([{ from: "old", to: "new" }], ["old", "other"]),
-    ).toEqual([{ from: "old", to: "new" }]);
+    expect(planRenames([{ from: "old", to: "new" }], ["old", "other"])).toEqual(
+      [{ from: "old", to: "new" }],
+    );
   });
 
   it("skips a rename already done", () => {
@@ -79,7 +87,11 @@ describe("diffEntity", () => {
   it("reports changed fields under the natural key", () => {
     const out = diffEntity("projects", row, { ...row, order: 2 }, ["order"]);
     expect(out).toHaveLength(1);
-    expect(out[0]).toMatchObject({ entity: "projects", key: "a", field: "order" });
+    expect(out[0]).toMatchObject({
+      entity: "projects",
+      key: "a",
+      field: "order",
+    });
   });
 });
 

@@ -17,6 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Base técnica** - Esqueleto andante desplegado: login admin, Preview en verde, seed real y decisión del plan B (días 3–4) (completed 2026-11-16)
 - [x] **Phase 3: Panel admin + CV** - Teo publica todo el contenido desde `/admin` y genera el CV en PDF en/es (días 5–7) (completed 2026-11-22)
 - [x] **Phase 4: Sitio público** - Casos de estudio, home, about y contacto en en/es, con SEO y movimiento; entrega el valor central (días 8–10) (completed 2026-11-24)
+- [ ] **Phase 04.1: Contenido y posicionamiento full stack + AI** (INSERTED) - Contenido y CV reescritos con el posicionamiento full stack + AI, con hechos reales, antes del lanzamiento
 - [ ] **Phase 5: Pulido y lanzamiento** - Accesibilidad, 404, CSP en bloqueo, analytics, revisión por 3 personas y producción (días 11–14)
 
 ## Phase Details
@@ -268,10 +269,21 @@ Plans:
 **Research flag**: no en general (patrones documentados); solo comprobar GSAP dentro de `<Activity>` y SplitText después de cargar las fuentes
 **Notes**: Después de cada vista: capturas con Playwright en 390, 768 y 1440 px en claro y oscuro, `/impeccable:audit` y `/impeccable:critique`, con hallazgos reportados antes de seguir. La hora en vivo es una hoja de cliente; el shell prerenderizado solo usa datos guardados. Los casos de estudio van primero: si el tiempo aprieta, el resto queda sobrio.
 
+### Phase 04.1: Contenido y posicionamiento full stack + AI (INSERTED)
+
+**Goal:** Todo el contenido del sitio y del CV refleja el posicionamiento "full stack + AI" de Teo con hechos reales (integración de LLMs en un producto, desarrollo con agentes de código, automatizaciones con AI), cargado en Neon `main` y listo para el lanzamiento de la fase 5. Nada inventado.
+**Scope (de 05-CONTEXT D-13):** titular, bio, Now, experiencia, los 4 casos de estudio, orden del stack, textos SEO y OG, CV en/es; decidir si el propio portafolio entra como caso de estudio; actualizar el texto "frontend" de PROJECT.md y CLAUDE.md con aprobación de Teo
+**Requirements**: TBD (se definen en /gsd-discuss-phase 4.1)
+**Depends on:** Phase 4
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 04.1 to break down)
+
 ### Phase 5: Pulido y lanzamiento
 
 **Goal**: El sitio es accesible, está medido, lo revisaron tres personas reales y está en producción en mateojaras.dev
-**Depends on**: Phase 4
+**Depends on**: Phase 4; el lanzamiento (producción, Search Console, revisiones) depende además de Phase 04.1. El pulido (a11y, 404, CSP, analytics, e2e en CI) no depende de 04.1
 **Requirements**: SITE-08, QUAL-03, QUAL-05, QUAL-06, QUAL-07, QUAL-08, QUAL-09
 **Success Criteria** (what must be TRUE):
 

@@ -10,6 +10,7 @@ import type { ActionResult } from "@/lib/action-result";
 import { tags } from "@/lib/cache-tags";
 import { exportContent } from "@/lib/content-export";
 import { requireActionSession } from "@/lib/dal";
+import { educationColumns } from "./columns";
 import {
   createEducationSchema,
   educationDraftSchema,
@@ -22,22 +23,8 @@ import {
 const idSchema = z.uuid();
 const idsSchema = z.array(z.uuid()).min(1);
 
-type Parsed = z.output<typeof educationDraftSchema>;
 type BatchItem = Parameters<typeof db.batch>[0][number];
 type Failure = Extract<ActionResult, { ok: false }>;
-
-const blank = (value: string | null) =>
-  value === null || value.trim() === "" ? null : value;
-
-function toColumns(input: Parsed) {
-  return {
-    ...input,
-    startDate: blank(input.startDate),
-    endDate: blank(input.endDate),
-    statusEn: blank(input.statusEn),
-    statusEs: blank(input.statusEs),
-  };
-}
 
 function validationError(error: z.ZodError): Failure {
   const flat = error.flatten((issue) => issue.message);
@@ -104,7 +91,7 @@ export async function saveEducationDraft(
   try {
     const row = await loadRow(id);
     if (!row) return { ok: false, error: "not_found" };
-    const columns = toColumns(parsed.data);
+    const columns = educationColumns(parsed.data);
     await db
       .update(education)
       .set(row.status === "published" ? { draft: columns } : columns)
@@ -130,7 +117,11 @@ export async function publishEducation(
     if (!row) return { ok: false, error: "not_found" };
     await db
       .update(education)
-      .set({ ...toColumns(parsed.data), status: "published", draft: null })
+      .set({
+        ...educationColumns(parsed.data),
+        status: "published",
+        draft: null,
+      })
       .where(eq(education.id, id));
   } catch (error) {
     console.error("publishEducation failed", error);

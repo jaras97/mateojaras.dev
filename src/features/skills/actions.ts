@@ -10,6 +10,7 @@ import type { ActionResult } from "@/lib/action-result";
 import { tags } from "@/lib/cache-tags";
 import { exportContent } from "@/lib/content-export";
 import { requireActionSession } from "@/lib/dal";
+import { skillColumns } from "./columns";
 import {
   categorySchema,
   createSkillSchema,
@@ -25,18 +26,10 @@ import {
 const idSchema = z.uuid();
 const idsSchema = z.array(z.uuid()).min(1);
 
-type Parsed = z.output<typeof skillDraftSchema>;
 type BatchItem = Parameters<typeof db.batch>[0][number];
 type Failure = Extract<ActionResult, { ok: false }>;
 
 const TABLES = ["skills", "project_skills", "experience_skills"];
-
-const blank = (value: string | null) =>
-  value === null || value.trim() === "" ? null : value.trim();
-
-function toColumns(input: Parsed) {
-  return { ...input, icon: blank(input.icon) };
-}
 
 function invalidate() {
   updateTag(tags.skills);
@@ -136,7 +129,7 @@ export async function saveSkillDraft(
     const row = await loadRow(id);
     if (!row) return { ok: false, error: "not_found" };
     if (await nameTaken(parsed.data.name, id)) return taken();
-    const columns = toColumns(parsed.data);
+    const columns = skillColumns(parsed.data);
     if (row.status === "published") {
       await db.update(skills).set({ draft: columns }).where(eq(skills.id, id));
     } else {
@@ -165,7 +158,7 @@ export async function publishSkill(
     if (await nameTaken(parsed.data.name, id)) return taken();
     await db
       .update(skills)
-      .set({ ...toColumns(parsed.data), status: "published", draft: null })
+      .set({ ...skillColumns(parsed.data), status: "published", draft: null })
       .where(eq(skills.id, id));
   } catch (error) {
     if (isUniqueViolation(error)) return taken();

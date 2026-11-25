@@ -38,7 +38,7 @@ metrics:
     sourceEn: "Prendo repository, counted on 2026-11-25: 461 pytest, 205 Vitest and 101 Playwright specs. A development fact."
   - labelEs: "Fases completas de la hoja de ruta"
     labelEn: "Roadmap phases complete"
-    value: "9 de 16"
+    value: "9/16"
     sourceEs: "Repositorio de Prendo, STATE.md del 2026-11-25. Hecho de desarrollo."
     sourceEn: "Prendo repository, STATE.md of 2026-11-25. A development fact."
 resultsEs:

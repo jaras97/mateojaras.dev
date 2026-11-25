@@ -193,7 +193,9 @@ describe("CaseHeader period", () => {
       );
       expect(html).toContain("Internal tool, sample data");
       expect(html).toContain('href="/contact"');
-      expect(html).toContain("React · Next.js");
+      // Each skill is its own segment so a long stack can wrap.
+      expect(html).toMatch(/>React<span[^>]*>·<\/span><\/span>/);
+      expect(html).toContain(">Next.js<");
     }
   });
 });

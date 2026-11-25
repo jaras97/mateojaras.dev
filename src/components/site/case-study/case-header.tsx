@@ -60,8 +60,9 @@ export function CaseHeader({
       content: `${formatMonthYear(startedAt, locale)} – ${end}`,
     });
   }
-  if (stack.length > 0) {
-    segments.push({ key: "stack", content: stack.join(" · ") });
+  // One segment per skill so a long stack can wrap between skills.
+  for (const skill of stack) {
+    segments.push({ key: `stack-${skill}`, content: skill });
   }
   if (hasLive && liveUrl) {
     segments.push({

@@ -40,9 +40,8 @@ export function EntryList({
         ).trim();
         const stack = stacks[row.id] ?? [];
         const segments = [
-          ...(stack.length > 0
-            ? [{ key: "stack", content: stack.join(" · ") }]
-            : []),
+          // One segment per skill so a long stack can wrap between skills.
+          ...stack.map((skill) => ({ key: `stack-${skill}`, content: skill })),
           ...(row.liveUrl === null
             ? [{ key: "internal", content: labels.internalTool }]
             : []),

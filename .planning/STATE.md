@@ -1,16 +1,16 @@
 ---
 gsd_state_version: "1.0"
 milestone: v1.0
-current_phase: 5
-current_phase_name: Pulido y lanzamiento
-status: planning
-stopped_at: Phase 5 context gathered
-last_updated: "2026-11-25T14:45:44.186Z"
+current_phase: "04.1"
+current_phase_name: Contenido y posicionamiento full stack + AI
+status: Ready to discuss
+stopped_at: Phase 4.1 context gathered
+last_updated: "2026-11-25T15:30:09.374Z"
 last_activity: 2026-11-24
 last_activity_desc: Phase 04 complete, transitioned to Phase 5
-state_head: ccb612c10ae2c441ae2a325020bea2e372ca0ea7
+state_head: e79ea72201ecdcedb353645a00eefb12d002c531
 progress:
-  total_phases: 5
+  total_phases: 6
   completed_phases: 4
   total_plans: 51
   completed_plans: 51
@@ -28,9 +28,9 @@ See: .planning/PROJECT.md (updated 2026-11-22)
 
 ## Current Position
 
-Phase: 5 — Pulido y lanzamiento
+Phase: 04.1 — Contenido y posicionamiento full stack + AI (INSERTED)
 Plan: Not started
-Status: Ready to plan
+Status: Ready to discuss
 Last activity: 2026-11-24 — Phase 04 complete, transitioned to Phase 5
 
 Progress: [████████░░] 80%
@@ -149,6 +149,10 @@ None yet.
 - IDEN-06: inventory and finance captures need Teo's G5 (permission, local sample-data apps, URLs, views); ask at G7 or before
 - 01-13 cannot run as written: G7 option reads pendiente and Teo deferred content, captures and translations to the admin; IDEN-05/06/07 need a replan or gap closure (see 01-12-SUMMARY 'Ajustes que necesita 01-13')
 
+### Roadmap Evolution
+
+- Phase 04.1 inserted after Phase 4: Contenido y posicionamiento full stack + AI (antes del lanzamiento de la fase 5; ver 05-CONTEXT D-13) (URGENT)
+
 ## Deferred Items
 
 Items acknowledged and deferred at milestone close, most recent first:
@@ -159,6 +163,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-25T14:45:43.767Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-pulido-y-lanzamiento/05-CONTEXT.md
+Last session: 2026-11-25T15:30:08.922Z
+Stopped at: Phase 4.1 context gathered
+Resume file: .planning/phases/04.1-contenido-y-posicionamiento-full-stack-ai/04.1-CONTEXT.md

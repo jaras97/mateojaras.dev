@@ -31,12 +31,12 @@ describe("readAbout", () => {
 });
 
 describe("readFreelanceBullets", () => {
-  it("returns three paired bullets in order without labels", () => {
+  it("returns four paired bullets in order without labels", () => {
     const { en, es } = readFreelanceBullets(raw);
-    expect(en).toHaveLength(3);
-    expect(es).toHaveLength(3);
-    expect(en[0]).toMatch(/^I built the website for Centro Estético ManuJ/);
-    expect(es[0]).toMatch(/^Construí el sitio de Centro Estético ManuJ/);
+    expect(en).toHaveLength(4);
+    expect(es).toHaveLength(4);
+    expect(en[0]).toMatch(/^I’m building Prendo/);
+    expect(es[0]).toMatch(/^Estoy construyendo Prendo/);
     for (const b of [...en, ...es]) expect(b).not.toMatch(/^(EN|ES):/);
   });
 
@@ -49,8 +49,8 @@ describe("readFreelanceBullets", () => {
 describe("readHeadline", () => {
   it("returns both headlines without comments", () => {
     const h = readHeadline(raw);
-    expect(h.en.startsWith("I build solid frontends")).toBe(true);
-    expect(h.es.startsWith("Construyo frontends")).toBe(true);
+    expect(h.en.startsWith("I’m an AI full stack developer")).toBe(true);
+    expect(h.es.startsWith("Soy AI full stack developer")).toBe(true);
     for (const t of [h.en, h.es]) expect(t).not.toContain("<!--");
   });
 
@@ -64,7 +64,8 @@ describe("readNow", () => {
     const now = readNow(raw);
     expect(now.en.length).toBeGreaterThan(0);
     expect(now.es.length).toBeGreaterThan(0);
-    expect(now.es[0]).toMatch(/^Este mes termino/);
-    expect(now.en[0]).toMatch(/^This month/);
+    expect(now.es).toHaveLength(2);
+    expect(now.es[0]).toMatch(/^Estoy construyendo una función de IA en Prendo/);
+    expect(now.en[0]).toMatch(/^I’m building an AI feature in Prendo/);
   });
 });

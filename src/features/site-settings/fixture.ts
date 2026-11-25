@@ -11,9 +11,9 @@ export const heroFixture = {
   id: "00000000-0000-0000-0000-000000000001",
   name: "",
   headlineEn:
-    "I build solid frontends with React and Next.js, from the first screen to the admin panel behind it.",
+    "I’m an AI full stack developer: I build complete products, from the database to the interface, with agents and tests.",
   headlineEs:
-    "Construyo frontends sólidos con React y Next.js, de la primera pantalla al panel de gestión.",
+    "Soy AI full stack developer: construyo productos completos, de la base de datos a la interfaz, con agentes y pruebas.",
   bioEn: "",
   bioEs: "",
   nowEn: null,
@@ -45,14 +45,14 @@ export type HeroFixturePendingField = "availabilityStatus" | "location";
 export const heroFixtureMeta: {
   headlineSource: string;
   headlineAuthorship: string;
-  headlineEsStatus: "draft" | "approved";
+  headlineEsStatus: "approved" | "approved";
   headlineEnStatus: "draft-translation" | "approved";
   pendingFields: HeroFixturePendingField[];
 } = {
-  headlineSource: "Teo, 2026-10-30",
+  headlineSource: "Teo, 2026-11-25 (04.1-ANSWERS)",
   headlineAuthorship:
-    "versión corta propuesta por Claude y elegida por Teo en G3, 2026-10-30, pendiente de aprobación en G7",
-  headlineEsStatus: "draft",
+    "propuesta de Claude Code, aprobada por Teo, 2026-11-25 (04.1-ANSWERS)",
+  headlineEsStatus: "approved",
   headlineEnStatus: "draft-translation",
   pendingFields: [],
 };

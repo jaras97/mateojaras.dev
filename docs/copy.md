@@ -4,44 +4,51 @@ Reglas: primera persona, concreto, con lugar y oficio. Sin em-dashes, sin superl
 
 ## Hero
 - Headline EN (una frase: qué construyes y para quién):
-  > I build solid frontends with React and Next.js, from the first screen to the admin panel behind it.
+  > I’m an AI full stack developer: I build complete products, from the database to the interface, with agents and tests.
 <!-- enStatus: draft-translation -->
 - Headline ES:
-  > Construyo frontends sólidos con React y Next.js, de la primera pantalla al panel de gestión.
-<!-- autoría: versión corta propuesta por Claude y elegida por Teo en G3 (2026-10-30); el inglés es la traducción de Claude que Teo eligió con ella. Las dos se aprueban en G7 (01-12). -->
+  > Soy AI full stack developer: construyo productos completos, de la base de datos a la interfaz, con agentes y pruebas.
+<!-- autoría: Claude Code (aprobado por Teo, 04.1-ANSWERS, 2026-11-25). -->
 - Status line (sale del admin; aquí solo el formato): `Available from Nov 2026 · Medellín, UTC-5 · overlaps with Toronto and Madrid`
 - CTA EN: `Let’s talk` → /contact · CTA ES: `Hablemos` → /es/contacto
 
 ## About (120–180 palabras)
-<!-- autoría: propuesta de Claude, aceptada por Teo en G6 (2026-11-01, "1 ok"); el inglés es traducción de Claude. Se aprueba en G7 (01-12). -->
+<!-- autoría: Claude Code (aprobado por Teo, 04.1-ANSWERS, 2026-11-25). -->
 EN:
-> I’m Mateo Jaramillo, a frontend developer in Medellín, Colombia. I’ve spent more than five years building interfaces with React, Next.js and TypeScript. From 2021 to 2025 I worked at Sofka Technologies, in agile teams. Since September 2025 I’ve worked as an independent contractor, building complete applications, from the first screen to the panel the client uses to manage their content. I like frontend because that’s where a technical decision is felt in the hands of the person using the product. I use AI as a tool: it helps me make progress, but nothing ships without tests and without my review. I’m looking for projects with a clear problem and someone on the other side who makes the decisions. I work in English and Spanish, in UTC-5.
+> I’m Mateo Jaramillo, an AI full stack developer in Medellín, Colombia. I’ve spent more than five years building with React, Next.js and TypeScript. From 2021 to 2025 I worked at Sofka Technologies as a frontend developer, in agile teams. Since September 2025 I’ve worked as an independent contractor, building complete products: React and Next.js on the front, Python with FastAPI and Postgres on the back. One of them, Metales y Brillantes, an admin app for a jewelry store, has been in use for more than 18 months. I’m now building Prendo, a multi-tenant SaaS for compraventas, in development. I work with coding agents under rules: specs, decision records, tests and review gates, and nothing ships without my review. I’m looking for projects with a clear problem and someone on the other side who makes the decisions. I work in English and Spanish, in UTC-5.
 <!-- enStatus: draft-translation -->
 
 ES:
-> Soy Mateo Jaramillo, desarrollador frontend en Medellín, Colombia. Llevo más de cinco años construyendo interfaces con React, Next.js y TypeScript. De 2021 a 2025 trabajé en Sofka Technologies, en células ágiles. Desde septiembre de 2025 trabajo como contratista independiente y hago aplicaciones completas, de la primera pantalla al panel con el que el cliente administra su contenido. Me gusta el frontend porque ahí una decisión técnica se nota en las manos de quien usa el producto. Uso la IA como herramienta: me ayuda a avanzar, pero nada se entrega sin tests y sin mi revisión. Busco proyectos con un problema claro y alguien que decida del otro lado. Trabajo en español y en inglés, en UTC-5.
+> Soy Mateo Jaramillo, AI full stack developer en Medellín, Colombia. Llevo más de cinco años construyendo con React, Next.js y TypeScript. De 2021 a 2025 trabajé en Sofka Technologies como desarrollador frontend, en células ágiles. Desde septiembre de 2025 trabajo como contratista independiente y construyo productos completos: React y Next.js en el front, Python con FastAPI y Postgres en el back. Uno de ellos, Metales y Brillantes, una aplicación de gestión para una joyería, lleva más de 18 meses en uso. Ahora construyo Prendo, un SaaS multiempresa para compraventas, en desarrollo. Trabajo con agentes de código bajo reglas: especificaciones, registros de decisiones, tests y puertas de revisión, y nada se entrega sin mi revisión. Busco proyectos con un problema claro y alguien que decida del otro lado. Trabajo en español y en inglés, en UTC-5.
 
 ## Now (se edita desde el admin; primera versión aquí)
-<!-- autoría: propuesta de Claude, aceptada por Teo en G6 (2026-11-01, "2 ok"); el inglés es traducción de Claude. Se aprueba en G7 (01-12). -->
+<!-- autoría: Claude Code (aprobado por Teo, 04.1-ANSWERS, 2026-11-25). -->
 EN:
-> This month I’m finishing mateojaras.dev, this portfolio, with its own admin panel. I’m learning Next.js 16 Cache Components in depth. I’m looking for freelance frontend projects with teams in Canada and Europe.
+> I’m building an AI feature in Prendo, my multi-tenant SaaS for compraventas, which is still in development.
+>
+> I just finished a course on Claude Code and coding agents.
 <!-- enStatus: draft-translation -->
 
 ES:
-> Este mes termino mateojaras.dev, este portafolio, con su propio panel de administración. Estoy aprendiendo a fondo Cache Components de Next.js 16. Busco proyectos freelance de frontend con equipos de Canadá y Europa.
+> Estoy construyendo una función de IA en Prendo, mi SaaS multiempresa para compraventas, que sigue en desarrollo.
+>
+> Acabo de terminar un curso de Claude Code y agentes de programación.
 
 ## Experiencia (bullets cuantificados donde se pueda)
-### Freelance · Frontend Developer · Sep 2025 – present · Remote
-<!-- autoría: propuesta de Claude, aceptada por Teo en G6 (2026-11-01, "3 freelance ok, el inventario sí fue freelance"); el inglés es traducción de Claude. Se aprueba en G7 (01-12). -->
-- EN: I built the website for Centro Estético ManuJ with Next.js and Supabase: service catalog, filterable gallery, three-step appointment booking and WhatsApp contact.
+### Freelance · AI Full Stack Developer · Sep 2025 – present · Remote
+<!-- autoría: Claude Code (aprobado por Teo, 04.1-ANSWERS, 2026-11-25). -->
+- EN: I’m building Prendo, a multi-tenant SaaS for compraventas, with FastAPI, Postgres and React: an insert-only cash ledger, stock derived from the kardex and review gates on every phase. It is in development.
 <!-- enStatus: draft-translation -->
-  ES: Construí el sitio de Centro Estético ManuJ con Next.js y Supabase: catálogo de servicios, galería filtrable, reserva de citas en tres pasos y contacto por WhatsApp.
-- EN: I built the bilingual website for EcoExport Costa Rica with Next.js and next-intl: product catalog with PDF spec sheets and technical SEO.
+  ES: Estoy construyendo Prendo, un SaaS multiempresa para compraventas, con FastAPI, Postgres y React: un libro de caja de solo inserción, inventario derivado del kardex y puertas de revisión en cada fase. Está en desarrollo.
+- EN: I built Metales y Brillantes, an admin app for a jewelry store, with Next.js and PostgreSQL: inventory, roles and reports. It has been in use for more than 18 months.
 <!-- enStatus: draft-translation -->
-  ES: Construí el sitio bilingüe de EcoExport Costa Rica con Next.js y next-intl: catálogo de productos con fichas en PDF y SEO técnico.
-- EN: I developed an inventory management system with roles and reports, in Next.js and PostgreSQL.
+  ES: Construí Metales y Brillantes, una aplicación de gestión para una joyería, con Next.js y PostgreSQL: inventario, roles y reportes. Lleva más de 18 meses en uso.
+- EN: I built the sites for Centro Estético ManuJ (Next.js, Supabase, built with Claude Code) and EcoExport Costa Rica (Next.js, next-intl, PDF spec sheets).
 <!-- enStatus: draft-translation -->
-  ES: Desarrollé un sistema de gestión de inventario con roles y reportes, en Next.js y PostgreSQL.
+  ES: Construí los sitios de Centro Estético ManuJ (Next.js, Supabase, hecho con Claude Code) y de EcoExport Costa Rica (Next.js, next-intl, fichas en PDF).
+- EN: For a last-mile logistics operator I analyzed how it records deliveries, built a prototype in Excel and built its public website.
+<!-- enStatus: draft-translation -->
+  ES: Para un operador de logística de última milla analicé cómo registra sus entregas, construí un prototipo en Excel y construí su sitio web público.
 
 ### Sofka Technologies · Mid-Senior Frontend Developer · Aug 2021 – Aug 2025 · Remote
 - Pendiente: Teo escribe estos bullets desde el admin. En G6 (2026-11-01) respondió "Sofka pendiente"; no hay texto propuesto ni inventado.

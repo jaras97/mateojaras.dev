@@ -44,10 +44,10 @@ export function experienceFacts(freelance: { en: string[]; es: string[] }) {
       order: 1,
     },
     {
-      // docs/copy.md "### Freelance · Frontend Developer · Sep 2025 – present · Remote"
+      // docs/copy.md "### Freelance · AI Full Stack Developer · Sep 2025 – present · Remote"
       company: "Freelance",
-      roleEn: "Frontend Developer",
-      roleEs: "Frontend Developer",
+      roleEn: "AI Full Stack Developer",
+      roleEs: "AI Full Stack Developer",
       type: "freelance" as const,
       location: "Remote",
       startDate: "2025-09-01",

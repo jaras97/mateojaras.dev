@@ -10,6 +10,7 @@ import type { ActionResult } from "@/lib/action-result";
 import { tags } from "@/lib/cache-tags";
 import { exportContent } from "@/lib/content-export";
 import { requireActionSession } from "@/lib/dal";
+import { experienceColumns } from "./columns";
 import {
   createExperienceSchema,
   experienceDraftSchema,
@@ -24,23 +25,10 @@ import {
 const idSchema = z.uuid();
 const idsSchema = z.array(z.uuid()).min(1);
 
-type Parsed = z.output<typeof experienceDraftSchema>;
 type BatchItem = Parameters<typeof db.batch>[0][number];
 type Failure = Extract<ActionResult, { ok: false }>;
 
 const TABLES = ["experiences", "experience_skills", "experience_projects"];
-
-const blank = (value: string | null) =>
-  value === null || value.trim() === "" ? null : value;
-
-function toColumns(input: Parsed) {
-  const { skillIds: _skills, projectIds: _projects, ...columns } = input;
-  return {
-    ...columns,
-    location: blank(input.location),
-    endDate: blank(input.endDate),
-  };
-}
 
 function replaceRelations(
   id: string,
@@ -136,7 +124,7 @@ export async function saveExperienceDraft(
   try {
     const row = await loadRow(id);
     if (!row) return { ok: false, error: "not_found" };
-    const columns = toColumns(parsed.data);
+    const columns = experienceColumns(parsed.data);
     if (row.status === "published") {
       await db
         .update(experiences)
@@ -176,7 +164,11 @@ export async function publishExperience(
     await runBatch([
       db
         .update(experiences)
-        .set({ ...toColumns(parsed.data), status: "published", draft: null })
+        .set({
+          ...experienceColumns(parsed.data),
+          status: "published",
+          draft: null,
+        })
         .where(eq(experiences.id, id)),
       ...replaceRelations(id, parsed.data.skillIds, parsed.data.projectIds),
     ]);

@@ -10,6 +10,7 @@ import type { ActionResult } from "@/lib/action-result";
 import { tags } from "@/lib/cache-tags";
 import { exportContent } from "@/lib/content-export";
 import { requireActionSession } from "@/lib/dal";
+import { projectColumns } from "./columns";
 import {
   createProjectSchema,
   projectDraftSchema,
@@ -21,32 +22,7 @@ import {
 // Draft/publish rules: docs/data-model.md "Reglas". Saving never touches a
 // public tag; only publishing does, and only tags.projects + tags.project(slug).
 
-type Parsed = z.output<typeof projectDraftSchema>;
 type BatchItem = Parameters<typeof db.batch>[0][number];
-
-const blank = (value: string | null) =>
-  value === null || value.trim() === "" ? null : value;
-
-// Form values -> column values: empty strings become null for nullable columns.
-function toColumns(input: Parsed) {
-  const { skillIds: _skillIds, ...columns } = input;
-  return {
-    ...columns,
-    taglineEn: blank(input.taglineEn),
-    taglineEs: blank(input.taglineEs),
-    problemEn: blank(input.problemEn),
-    problemEs: blank(input.problemEs),
-    roleEn: blank(input.roleEn),
-    roleEs: blank(input.roleEs),
-    solutionEn: blank(input.solutionEn),
-    solutionEs: blank(input.solutionEs),
-    liveUrl: blank(input.liveUrl),
-    repoUrl: blank(input.repoUrl),
-    coverImage: blank(input.coverImage),
-    startedAt: blank(input.startedAt),
-    finishedAt: blank(input.finishedAt),
-  };
-}
 
 function replaceSkills(id: string, skillIds: string[]): BatchItem[] {
   const items: BatchItem[] = [
@@ -131,7 +107,7 @@ export async function saveProjectDraft(
   if (!row) return { ok: false, error: "not_found" };
   const rejected = await checkSlug(row, parsed.data.slug);
   if (rejected) return rejected;
-  const columns = toColumns(parsed.data);
+  const columns = projectColumns(parsed.data);
   try {
     if (row.status === "published") {
       await db
@@ -164,7 +140,7 @@ export async function publishProject(
   if (!row) return { ok: false, error: "not_found" };
   const rejected = await checkSlug(row, parsed.data.slug);
   if (rejected) return rejected;
-  const columns = toColumns(parsed.data);
+  const columns = projectColumns(parsed.data);
   try {
     await runBatch([
       db

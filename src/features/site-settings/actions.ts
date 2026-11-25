@@ -10,6 +10,7 @@ import type { ActionResult } from "@/lib/action-result";
 import { tags } from "@/lib/cache-tags";
 import { exportContent } from "@/lib/content-export";
 import { requireActionSession } from "@/lib/dal";
+import { settingsColumns } from "./columns";
 import { SITE_SETTINGS_ID } from "./schema";
 import { settingsDraftSchema, settingsPublishSchema } from "./validation";
 
@@ -17,27 +18,7 @@ import { settingsDraftSchema, settingsPublishSchema } from "./validation";
 // Saving a draft or discarding never touches a public tag; publish is the only
 // action that calls updateTag(tags.settings).
 
-type Parsed = z.output<typeof settingsDraftSchema>;
 type Failure = Extract<ActionResult, { ok: false }>;
-
-const blank = (value: string | null) =>
-  value === null || value.trim() === "" ? null : value;
-
-function toColumns(input: Parsed) {
-  return {
-    ...input,
-    name: input.name.trim(),
-    email: input.email.trim(),
-    availableFrom: blank(input.availableFrom),
-    calendarUrl: blank(input.calendarUrl),
-    githubUrl: blank(input.githubUrl),
-    linkedinUrl: blank(input.linkedinUrl),
-    seoTitleEn: blank(input.seoTitleEn),
-    seoTitleEs: blank(input.seoTitleEs),
-    seoDescriptionEn: blank(input.seoDescriptionEn),
-    seoDescriptionEs: blank(input.seoDescriptionEs),
-  };
-}
 
 function validationError(error: z.ZodError): Failure {
   const flat = error.flatten((issue) => issue.message);
@@ -69,7 +50,7 @@ export async function saveSettingsDraft(input: unknown): Promise<ActionResult> {
   try {
     const row = await loadRow();
     if (!row) return { ok: false, error: "not_found" };
-    const columns = toColumns(parsed.data);
+    const columns = settingsColumns(parsed.data);
     await db
       .update(siteSettings)
       .set(row.status === "published" ? { draft: columns } : columns)
@@ -92,7 +73,11 @@ export async function publishSettings(input: unknown): Promise<ActionResult> {
     if (!row) return { ok: false, error: "not_found" };
     await db
       .update(siteSettings)
-      .set({ ...toColumns(parsed.data), status: "published", draft: null })
+      .set({
+        ...settingsColumns(parsed.data),
+        status: "published",
+        draft: null,
+      })
       .where(eq(siteSettings.id, SITE_SETTINGS_ID));
   } catch (error) {
     console.error("publishSettings failed", error);

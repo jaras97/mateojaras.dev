@@ -20,23 +20,67 @@ function section(raw: string, heading: RegExp, label: string): string {
   return out.join("\n");
 }
 
+/** Blockquote paragraphs (blank-line separated) after an "EN:" / "ES:" label. */
+function grabQuote(body: string, label: "EN" | "ES", where: string): string[] {
+  const lines = body.split("\n");
+  const at = lines.findIndex((l) => l.trim() === `${label}:`);
+  if (at === -1)
+    throw new Error(`docs/copy.md: "${label}:" not found in ${where}`);
+  const paragraphs: string[] = [];
+  let current: string[] = [];
+  let started = false;
+  for (const line of lines.slice(at + 1)) {
+    if (line.startsWith(">")) {
+      started = true;
+      const text = line.replace(/^>\s?/, "");
+      if (text.trim() === "") {
+        if (current.length > 0) paragraphs.push(current.join(" ").trim());
+        current = [];
+      } else {
+        current.push(text);
+      }
+    } else if (started || line.trim() !== "") {
+      break;
+    }
+  }
+  if (current.length > 0) paragraphs.push(current.join(" ").trim());
+  if (paragraphs.length === 0)
+    throw new Error(`docs/copy.md: "${label}:" in ${where} is empty`);
+  return paragraphs;
+}
+
 /** Text of the "EN:" / "ES:" blockquotes under "## About". */
 export function readAbout(raw: string): { en: string; es: string } {
   const body = section(raw, /^## About\b/, "## About");
+  return {
+    en: grabQuote(body, "EN", "## About").join(" "),
+    es: grabQuote(body, "ES", "## About").join(" "),
+  };
+}
+
+/** Paragraphs of the "EN:" / "ES:" blockquotes under "## Now". */
+export function readNow(raw: string): { en: string[]; es: string[] } {
+  const body = section(raw, /^## Now\b/, "## Now");
+  return {
+    en: grabQuote(body, "EN", "## Now"),
+    es: grabQuote(body, "ES", "## Now"),
+  };
+}
+
+/** The indented ">" line after "- Headline EN" / "- Headline ES" under "## Hero". */
+export function readHeadline(raw: string): { en: string; es: string } {
+  const lines = section(raw, /^## Hero\b/, "## Hero").split("\n");
   const grab = (label: "EN" | "ES") => {
-    const lines = body.split("\n");
-    const at = lines.findIndex((l) => l.trim() === `${label}:`);
+    const at = lines.findIndex((l) => l.startsWith(`- Headline ${label}`));
     if (at === -1)
-      throw new Error(`docs/copy.md: "${label}:" not found in ## About`);
-    const quote: string[] = [];
+      throw new Error(`docs/copy.md: "Headline ${label}" not found in ## Hero`);
     for (const line of lines.slice(at + 1)) {
-      if (line.startsWith(">")) quote.push(line.replace(/^>\s?/, ""));
-      else if (quote.length > 0 || line.trim() !== "") break;
+      if (/^\s+>/.test(line)) {
+        const text = line.replace(/^\s+>\s?/, "").trim();
+        if (text) return text;
+      } else if (line.trim() !== "") break;
     }
-    const text = quote.join(" ").trim();
-    if (!text)
-      throw new Error(`docs/copy.md: "${label}:" in ## About is empty`);
-    return text;
+    throw new Error(`docs/copy.md: "Headline ${label}" in ## Hero is empty`);
   };
   return { en: grab("EN"), es: grab("ES") };
 }

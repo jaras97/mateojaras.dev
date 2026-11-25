@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  assertTargetMatches,
-  LOAD_ENTITIES,
-  parseLoadArgs,
-} from "./target";
+import { assertTargetMatches, LOAD_ENTITIES, parseLoadArgs } from "./target";
 
 describe("parseLoadArgs", () => {
   it("defaults to dry-run on every entity", () => {
@@ -49,7 +45,10 @@ describe("assertTargetMatches", () => {
 
   it("rejects dev when the database is production", () => {
     expect(() =>
-      assertTargetMatches("dev", "ep-billowing-union-x (ep-billowing-union-x.neon.tech)"),
+      assertTargetMatches(
+        "dev",
+        "ep-billowing-union-x (ep-billowing-union-x.neon.tech)",
+      ),
     ).toThrow(/no coincide/);
   });
 

@@ -8,8 +8,13 @@
 // Never prints the database URL and never touches auth tables.
 import { readFileSync } from "node:fs";
 import { eq } from "drizzle-orm";
-import { createDb } from "@/db/client";
-import { SITE_SETTINGS_ID, siteSettings } from "@/db/schema";
+import { createDb, type Db } from "@/db/client";
+import { education, SITE_SETTINGS_ID, siteSettings } from "@/db/schema";
+import { educationColumns } from "@/features/education/columns";
+import {
+  educationFormValues,
+  educationPublishSchema,
+} from "@/features/education/validation";
 import { settingsColumns } from "@/features/site-settings/columns";
 import {
   readAbout,
@@ -26,12 +31,33 @@ import {
   type FieldChange,
   formatChange,
 } from "@/lib/content-load/diff";
+import { naturalKey } from "@/lib/content-load/plan";
 import { assertTargetMatches, parseLoadArgs } from "@/lib/content-load/target";
 import { describeDbTarget } from "@/lib/db-target";
 import { requireEnv } from "@/lib/env";
 import { textParagraphsToDoc } from "@/lib/rich-text-doc";
 import { assertNotProduction } from "@/lib/seed-guard";
+import { positioning } from "./content/positioning";
 import { loadLocalEnv } from "./lib/env";
+
+type BatchItem = Parameters<Db["batch"]>[0][number];
+
+async function runBatch(db: Db, items: BatchItem[]) {
+  if (items.length === 0) return;
+  await db.batch(items as [BatchItem, ...BatchItem[]]);
+}
+
+export const EDUCATION_LOAD_FIELDS = [
+  "institution",
+  "programEn",
+  "programEs",
+  "startDate",
+  "endDate",
+  "statusEn",
+  "statusEs",
+  "order",
+  "status",
+] as const;
 
 export const SETTINGS_LOAD_FIELDS = [
   "headlineEn",
@@ -125,6 +151,72 @@ async function main() {
           .where(eq(siteSettings.id, SITE_SETTINGS_ID)),
       ]);
     }
+  }
+
+  if (args.only.has("education")) {
+    const rows = await db.select().from(education);
+    const byKey = new Map(rows.map((r) => [naturalKey("education", r), r]));
+    const issues: LintIssue[] = [];
+    for (const { source: _source, ...entry } of positioning.education) {
+      const key = naturalKey("education", entry);
+      issues.push(
+        ...lintStrings(entry, `education[${key}]`),
+        ...lintPair(entry.programEn, entry.programEs, `education[${key}]`),
+      );
+    }
+    reportLint(issues);
+    const statements: BatchItem[] = [];
+    const found: FieldChange[] = [];
+    for (const { source: _source, order, ...entry } of positioning.education) {
+      const key = naturalKey("education", entry);
+      const row = byKey.get(key);
+      const parsed = educationPublishSchema.parse({
+        ...(row ? educationFormValues(row) : {}),
+        ...entry,
+      });
+      const columns = {
+        ...educationColumns(parsed),
+        order,
+        status: "published" as const,
+      };
+      if (row) {
+        const diff = diffFields(
+          "education",
+          key,
+          row,
+          columns,
+          EDUCATION_LOAD_FIELDS,
+        );
+        const pending = row.draft !== null;
+        if (pending)
+          console.log(
+            `! education[${key}] has a pending draft (will be cleared)`,
+          );
+        if (diff.length > 0 || pending) {
+          found.push(...diff);
+          statements.push(
+            db
+              .update(education)
+              .set({ ...columns, draft: null })
+              .where(eq(education.id, row.id)),
+          );
+        }
+      } else {
+        for (const field of EDUCATION_LOAD_FIELDS)
+          found.push({
+            entity: "education",
+            key,
+            field,
+            before: null,
+            after: columns[field],
+          });
+        statements.push(db.insert(education).values(columns));
+      }
+    }
+    for (const change of found) console.log(formatChange(change));
+    console.log(`education: ${found.length} changes`);
+    changes.push(...found);
+    if (args.apply) await runBatch(db, statements);
   }
 
   console.log(`total: ${changes.length} changes`);

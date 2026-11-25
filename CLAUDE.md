@@ -1,6 +1,6 @@
 # mateojaras.dev — reglas del proyecto
 
-Portafolio de Mateo Jaramillo (frontend, React/Next, Medellín, UTC-5). Sitio público en inglés (`/`) y español (`/es`) + panel admin propio en `/admin`. Lee `DESIGN.md` antes de tocar cualquier UI y `docs/data-model.md` antes de tocar datos. El alcance de la v1 está en `PROJECT.md`; lo que NO se hace está en `docs/backlog.md`.
+Portafolio de Mateo Jaramillo (AI full stack developer, React/Next y Python/FastAPI, Medellín, UTC-5). Sitio público en inglés (`/`) y español (`/es`) + panel admin propio en `/admin`. Lee `DESIGN.md` antes de tocar cualquier UI y `docs/data-model.md` antes de tocar datos. El alcance de la v1 está en `PROJECT.md`; lo que NO se hace está en `docs/backlog.md`.
 
 ## Antes de escribir código de Next.js
 Lee `AGENTS.md` (lo genera Next 16.4) y la guía relevante en `node_modules/next/dist/docs/`. Ante cualquier duda de API, consulta context7. No edites el bloque `nextjs-agent-rules` de AGENTS.md.

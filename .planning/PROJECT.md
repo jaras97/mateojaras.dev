@@ -4,7 +4,7 @@
 
 ## What This Is
 
-Portafolio bilingüe (inglés en `/`, español en `/es`) de Mateo Jaramillo (Teo), desarrollador frontend de Medellín (UTC-5) con 5+ años en React/Next.js: 4 años en Sofka (2021–2025) y freelance desde sep-2025. Está dirigido a clientes freelance y reclutadores, con foco en Canadá y Europa. Incluye un panel admin propio en `/admin` para editar todo el contenido sin redeploy, y genera el CV en PDF (en/es) desde los mismos datos.
+Portafolio bilingüe (inglés en `/`, español en `/es`) de Mateo Jaramillo (Teo), AI full stack developer de Medellín (UTC-5) con 5+ años en React/Next.js: 4 años como desarrollador frontend en Sofka (2021–2025) y freelance desde sep-2025 con productos full stack. Está dirigido a clientes freelance y reclutadores, con foco en Canadá y Europa. Incluye un panel admin propio en `/admin` para editar todo el contenido sin redeploy, y genera el CV en PDF (en/es) desde los mismos datos.
 
 ## Core Value
 

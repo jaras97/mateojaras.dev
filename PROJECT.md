@@ -1,7 +1,7 @@
 # Proyecto: Portafolio de Mateo Jaramillo Quiroga (mateojaras.dev)
 
 ## Quién soy y para quién es
-Soy Mateo Jaramillo, desarrollador frontend con 5+ años (React, Next.js, TypeScript), 4 años en Sofka Technologies (ago-2021 a ago-2025, Mid-Senior) y freelance desde sep-2025 construyendo apps fullstack con IA como herramienta. Vivo en Medellín, Colombia (UTC-5). Audiencia: clientes freelance y reclutadores, con foco en Canadá y Europa y apertura a trabajo local. Inglés por defecto en la raíz (/), español en /es. Dominio: mateojaras.dev. Contacto: mateojaras@gmail.com · github.com/jaras97 · linkedin.com/in/mateo-jaramilloquiroga.
+Soy Mateo Jaramillo, AI full stack developer con 5+ años (React, Next.js, TypeScript; Python y FastAPI en proyectos propios y freelance), 4 años como desarrollador frontend en Sofka Technologies (ago-2021 a ago-2025, Mid-Senior) y freelance desde sep-2025 construyendo productos completos con agentes de código bajo reglas. Vivo en Medellín, Colombia (UTC-5). Audiencia: clientes freelance y reclutadores, con foco en Canadá y Europa y apertura a trabajo local. Inglés por defecto en la raíz (/), español en /es. Dominio: mateojaras.dev. Contacto: mateojaras@gmail.com · github.com/jaras97 · linkedin.com/in/mateo-jaramilloquiroga.
 
 ## Objetivo de la v1 (2 semanas, tiempo completo)
 Un portafolio minimalista, con vida y claramente humano, con un panel administrativo propio en /admin desde el que edito el contenido sin redeploy. La v1 tiene exactamente:

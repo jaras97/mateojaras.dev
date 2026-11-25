@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { richTextDocSchema } from "./rich-text-schema";
 import { paragraphsToDoc, textParagraphsToDoc } from "./rich-text-doc";
+import { richTextDocSchema } from "./rich-text-schema";
 
 describe("paragraphsToDoc", () => {
   it("builds a doc that passes the allowlist", () => {
@@ -9,7 +9,9 @@ describe("paragraphsToDoc", () => {
   });
 
   it("rejects non-https links", () => {
-    expect(() => paragraphsToDoc([[{ text: "x", href: "http://x" }]])).toThrow();
+    expect(() =>
+      paragraphsToDoc([[{ text: "x", href: "http://x" }]]),
+    ).toThrow();
   });
 
   it("maps bold and link to marks", () => {

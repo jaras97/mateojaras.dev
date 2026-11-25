@@ -112,8 +112,12 @@ describe("claims in the default scope", () => {
 
 describe("Prendo v1 claims (D-05)", () => {
   it("rejects v1 running in production or with users", () => {
-    expect(kinds("Prendo v1 corrió en producción con usuarios reales.")).toContain("claim");
-    expect(kinds("The first version had users in production.")).toContain("claim");
+    expect(
+      kinds("Prendo v1 corrió en producción con usuarios reales."),
+    ).toContain("claim");
+    expect(kinds("The first version had users in production.")).toContain(
+      "claim",
+    );
   });
 
   it("allows saying v1 never reached production", () => {

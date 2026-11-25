@@ -585,3 +585,38 @@ Decisión: `ContactForm` captura el rechazo y muestra la alerta localizada "unav
 Quién: Claude Code. La copy de `Site.error` es una propuesta pendiente de Teo.
 Por qué: el formulario es la única vía de conversión y la página es un shell estático cacheado.
 Verificación: contact-form.test.tsx, error.test.tsx.
+
+## 2026-11-25 · Etiqueta profesional "AI full stack developer" (04.1)
+Contexto: D-01 y D-03 de 04.1-CONTEXT. Claude recomendó "Full stack developer · AI-assisted" porque la IA dentro de un producto descansa hoy en una sola pieza (el bot de arbitraje) y Teo se comprometió a una función de IA en Prendo.
+Decisión: la etiqueta es "AI full stack developer". La historia en Sofka sigue siendo frontend (D-04).
+Quién: Teo (eligió esta etiqueta frente a la recomendación de Claude).
+Por qué: es el posicionamiento que quiere proyectar hacia clientes y reclutadores de Canadá y Europa; Claude lo dejó registrado como riesgo de que la IA aún se apoye en una sola pieza.
+Verificación: 04.1-ANSWERS.md, 04.1-REVIEW.md bloque "Redacción PROJECT/CLAUDE".
+
+## 2026-11-25 · Contenido aprobado de la fase 4.1 y autoría por bloque (04.1-06)
+Contexto: D-13. Teo respondió "todo ok" al documento 04.1-REVIEW.md; antes se le dijo cómo se leería en Q2 y Q8.
+Decisión: se aprueban los bloques Hero, Bio, Now (sin el tercer párrafo, por Q7 (a)), SEO, Experiencia Freelance, Sofka, Educación, Skills, CV, Redacción PROJECT/CLAUDE y los proyectos Prendo, Centro Estético ManuJ, Bot de arbitraje, Finanzas personales, Metales y Brillantes y EcoExport. El bloque del sitio del cliente de logística queda descartado (sin nombre de cliente; solo existe como bullet de Freelance).
+Quién: Claude Code (aprobado por Teo) en todos los bloques aprobados. Ningún texto lo escribió Teo.
+Por qué: Claude redactó a partir de hechos verificados en los repositorios; Teo aprobó sin cambios.
+Verificación: 04.1-ANSWERS.md, Estado por bloque en 04.1-REVIEW.md.
+
+## 2026-11-25 · Invalidación, Production y lecturas de Q1, Q2 y Q8 (04.1)
+Contexto: D-14 y las preguntas Q1, Q2 y Q8 de 04.1-REVIEW.
+Decisión: la invalidación de caché se hace desplegando Production al final de 4.1 (Q1 (a), por defecto; lo ejecuta 04.1-12); el fallback no-op publica. Q2 (a): la etiqueta de proyectos sin URL pública no cambia ("Internal tool, sample data" / "Herramienta interna, datos de ejemplo"). Q8 (a): se aplica el diff exacto de "Redacción PROJECT/CLAUDE". Q2 y Q8 no tenían valor por defecto; se leyeron como la respuesta literal de Teo.
+Quién: Q1 por defecto (Claude Code); Q2 y Q8 Teo. Q2 (a) fue elección de Teo contra la recomendación de Claude (b), que la veía falsa para el bot (datos reales) y a medias para Prendo. El bloque del bot mantiene sampleData false.
+Por qué: Teo prefirió no tocar `messages/*.json` ni `docs/copy.md` en esta fase.
+Verificación: 04.1-ANSWERS.md líneas Q1, Q2 y Q8.
+
+## 2026-11-25 · Cierre de archivos de depuración (04.1)
+Contexto: .planning/debug/case-study-500-after-updatetag.md ya está resuelto y case-study-figure-intl-format-error.md quedó diagnosticado antes de la fase 4.1.
+Decisión: no se reabren ni se modifican; el trabajo de la fase 4.1 no depende de ellos.
+Quién: Claude Code (autónomo).
+Por qué: son anteriores y ajenos al contenido de 4.1.
+Verificación: estado en el frontmatter de cada archivo.
+
+## 2026-11-25 · Redacción de posicionamiento en PROJECT.md y CLAUDE.md (04.1-08)
+Contexto: D-15 y Q8 (a). `generate-claude-md --auto` omite el bloque de proyecto de .claude/CLAUDE.md por estar marcado como editado a mano.
+Decisión: se aplica el diff aprobado a PROJECT.md, .planning/PROJECT.md y CLAUDE.md (línea 3). El bloque de proyecto de .claude/CLAUDE.md queda sin regenerar y no se edita a mano.
+Quién: Teo (aprobó), Claude Code (aplicó).
+Por qué: la herramienta no lo regenera y editarlo a mano contradice el plan; queda pendiente para Teo.
+Verificación: git diff de los tres archivos.

@@ -12,14 +12,14 @@ const rows = files.map(({ content }, i) => ({
 }));
 
 describe("projectRowFromContent on docs/content", () => {
-  it("publishes only projects with clientPermission true", () => {
+  it("publishes only projects with clientPermission true (4 files)", () => {
     expect(rows.length).toBeGreaterThanOrEqual(4);
     for (const { fm, row } of rows) {
       expect(row.status).toBe(
         fm.clientPermission === true ? "published" : "draft",
       );
     }
-    expect(rows.filter((r) => r.row.status === "published")).toHaveLength(2);
+    expect(rows.filter((r) => r.row.status === "published")).toHaveLength(4);
   });
 
   it("maps every pending field to null", () => {

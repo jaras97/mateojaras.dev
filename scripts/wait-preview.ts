@@ -1,4 +1,4 @@
-// Waits until the Vercel Preview of git HEAD is Ready. Read-only. Usage: pnpm tsx scripts/wait-preview.ts [--timeout=600]
+// Waits until the Vercel Preview of git HEAD is Ready. Read-only (git + vercel ls). Usage: pnpm tsx scripts/wait-preview.ts [--timeout=600]
 import { execFileSync } from "node:child_process";
 
 const timeoutArg = process.argv.find((a) => a.startsWith("--timeout="));
@@ -10,13 +10,7 @@ function run(cmd: string, args: string[]): string {
   return execFileSync(cmd, args, { encoding: "utf8" }).trim();
 }
 
-type Deployment = {
-  id: number;
-  environment: string;
-  created_at: string;
-  statuses_url: string;
-};
-type Status = { state: string };
+type Deployment = { url: string; state: string; createdAt: number };
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -36,31 +30,35 @@ async function main() {
   let last = "no deployment yet";
   while (Date.now() < deadline) {
     try {
-      const deployments = JSON.parse(
-        run("gh", [
-          "api",
-          `repos/{owner}/{repo}/deployments?sha=${sha}&per_page=20`,
+      // The Vercel GitHub integration does not publish GitHub deployments for
+      // this repo, so the read-only Vercel CLI is the source of truth.
+      const { deployments } = JSON.parse(
+        run("vercel", [
+          "ls",
+          "--environment",
+          "preview",
+          "-m",
+          `githubCommitSha=${sha}`,
+          "--format",
+          "json",
         ]),
-      ) as Deployment[];
-      const preview = deployments
-        .filter((d) => /preview/i.test(d.environment))
-        .sort((a, b) => b.created_at.localeCompare(a.created_at))[0];
-      if (preview) {
-        const statuses = JSON.parse(
-          run("gh", ["api", `${preview.statuses_url}?per_page=1`]),
-        ) as Status[];
-        last = statuses[0]?.state ?? "pending";
-        if (last === "success") {
+      ) as { deployments: Deployment[] };
+      const newest = [...deployments].sort(
+        (a, b) => b.createdAt - a.createdAt,
+      )[0];
+      if (newest) {
+        last = newest.state;
+        if (last === "READY") {
           console.log(`READY ${sha}`);
           process.exit(0);
         }
-        if (last === "failure" || last === "error") {
+        if (last === "ERROR" || last === "CANCELED") {
           console.log(`Preview deployment ${last} for ${sha}`);
           process.exit(1);
         }
       }
     } catch (error) {
-      last = `gh error: ${(error as Error).message.split("\n")[0]}`;
+      last = `vercel error: ${(error as Error).message.split("\n")[0]}`;
     }
     await sleep(15_000);
   }

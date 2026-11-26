@@ -694,3 +694,11 @@ Decisión: el import `@/lib/zod-jitless` (que ya usaba el login) se añade a los
 Quién: Claude Code.
 Por qué: sin esto la política en bloqueo registra una violación en cada formulario del admin y el de contacto, aunque Zod la capture.
 Verificación: e2e/csp-sweep.spec.ts y admin-images.spec.ts sin violaciones.
+
+## 2026-11-26 · Favicon MJ (05-05)
+
+Contexto: D-20. El favicon por defecto de Next se sustituye por el monograma MJ.
+Decisión: variante a (MJ terracota en cuadrado de papel a sangre, variante oscura sobre #0d1014), instalada como `src/app/icon.svg` (solo paths y bloque de estilo), `src/app/apple-icon.png` (180×180) y `src/app/favicon.ico` (PNG dentro de ICO, 32 y 48). Sin `icon.tsx` para que las URLs con punto no pasen por el proxy.
+Quién: Teo eligió la variante ("favicon:a", 2026-11-26, 05-APPROVALS.md); Claude Code la dibujó desde los tokens y generó los rasters con Playwright, sin dependencias nuevas.
+Por qué: coherente con DESIGN.md (sin tile redondeado, sin degradado).
+Verificación: e2e/favicon.spec.ts (enlaces en `/` y `/admin/login`, firmas ICO y PNG, content-type del SVG).

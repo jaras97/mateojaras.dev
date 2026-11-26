@@ -193,11 +193,20 @@ const notfound: Group = async ({ origin }) => {
 const analytics: Group = async ({ origin }) => {
   const g = "analytics";
   const { chromium } = await import("@playwright/test");
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({
+    args: ["--disable-blink-features=AutomationControlled"],
+  });
   const seen: { url: string; status: number }[] = [];
   try {
+    // The analytics script ignores automated browsers (navigator.webdriver or
+    // a Headless user agent), so the check presents as a regular Chrome.
     const context = await browser.newContext({
       extraHTTPHeaders: headers(),
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    });
+    await context.addInitScript(() => {
+      Object.defineProperty(navigator, "webdriver", { get: () => false });
     });
     const page = await context.newPage();
     page.on("response", (r) => {

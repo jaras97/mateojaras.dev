@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { fontVariables } from "@/app/fonts";
 import { DraftBanner } from "@/components/site/draft-banner";
+import { SiteAnalytics } from "@/components/site/site-analytics";
 import { SiteErrorProvider } from "@/components/site/site-error-provider";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
@@ -69,6 +70,7 @@ export default async function RootLayout({
             </SiteErrorProvider>
           </main>
           <SiteFooter locale={param} />
+          <SiteAnalytics />
         </NextIntlClientProvider>
       </body>
     </html>

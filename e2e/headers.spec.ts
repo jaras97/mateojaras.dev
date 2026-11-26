@@ -1,40 +1,45 @@
-import { expect, type Page, test } from "@playwright/test";
+import { collectCsp, expect, expectNoCspViolations, test } from "./csp";
+import { firstPublishedProject } from "./db";
 
 const email = process.env.ADMIN_EMAIL;
 const password = process.env.ADMIN_PASSWORD;
-const slug = "centro-estetico-manuj";
-
-function watchCsp(page: Page) {
-  const violations: string[] = [];
-  page.on("console", (msg) => {
-    const text = msg.text();
-    if (/Content[ -]Security[ -]Policy/i.test(text)) violations.push(text);
-  });
-  return violations;
+async function paths() {
+  const project = await firstPublishedProject();
+  test.skip(!project, "no published project");
+  const slug = project?.slug ?? "";
+  return [
+    "/",
+    "/es",
+    `/projects/${slug}`,
+    `/es/proyectos/${slug}`,
+    "/about",
+    "/contact",
+    "/es/sobre-mi",
+    "/es/contacto",
+    "/foo",
+    "/es/foo",
+    "/admin/login",
+  ];
 }
 
-for (const path of [
-  "/",
-  "/es",
-  `/projects/${slug}`,
-  "/about",
-  "/contact",
-  "/es/sobre-mi",
-  "/es/contacto",
-  "/admin/login",
-]) {
-  test(`${path} carries the security headers and no CSP violation`, async ({
-    page,
-  }) => {
-    const violations = watchCsp(page);
+test("every route carries the enforced security headers and no CSP violation", async ({
+  page,
+}) => {
+  test.setTimeout(120_000);
+  const read = await collectCsp(page);
+  for (const path of await paths()) {
     const response = await page.goto(path);
     const headers = response?.headers() ?? {};
-    expect(headers["content-security-policy-report-only"]).toContain(
-      "default-src 'self'",
+    const policy = headers["content-security-policy"];
+    expect(policy, path).toContain("default-src 'self'");
+    expect(policy, path).toContain(
+      "connect-src 'self' https://vercel.com/api/blob/",
     );
-    expect(headers["content-security-policy-report-only"]).not.toContain(
-      "nonce",
-    );
+    expect(policy, path).not.toContain("nonce");
+    expect(
+      headers["content-security-policy-report-only"],
+      path,
+    ).toBeUndefined();
     expect(headers["x-content-type-options"]).toBe("nosniff");
     expect(headers["referrer-policy"]).toBe("strict-origin-when-cross-origin");
     expect(headers["x-frame-options"]).toBe("DENY");
@@ -48,9 +53,9 @@ for (const path of [
       expect(headers["x-robots-tag"]).toBe("noindex, nofollow");
     }
     await page.waitForLoadState("networkidle");
-    expect(violations).toEqual([]);
-  });
-}
+  }
+  expectNoCspViolations(await read());
+});
 
 test.describe("signed-in admin", () => {
   test.setTimeout(60_000);
@@ -59,7 +64,7 @@ test.describe("signed-in admin", () => {
   test("/admin carries the headers and logs no CSP violation", async ({
     page,
   }) => {
-    const violations = watchCsp(page);
+    const read = await collectCsp(page);
     // Wait out the sign-in rate-limit window used by the auth specs.
     await page.waitForTimeout(11_000);
     await page.goto("/admin/login");
@@ -69,12 +74,11 @@ test.describe("signed-in admin", () => {
     await expect(page).toHaveURL(/\/admin$/);
     const response = await page.reload();
     const headers = response?.headers() ?? {};
-    expect(headers["content-security-policy-report-only"]).toContain(
-      "default-src 'self'",
-    );
+    expect(headers["content-security-policy"]).toContain("default-src 'self'");
+    expect(headers["content-security-policy-report-only"]).toBeUndefined();
     expect(headers["x-robots-tag"]).toBe("noindex, nofollow");
     await page.waitForLoadState("networkidle");
-    expect(violations).toEqual([]);
+    expectNoCspViolations(await read());
     await page.waitForTimeout(11_000);
   });
 });

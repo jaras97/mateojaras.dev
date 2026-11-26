@@ -1,4 +1,5 @@
 // Usage: tsx scripts/check-cv-pdf.ts <url> [<url>…] [--chars=áéíóúñ]
+//        [--expect-text=<s>]… [--reject-text=<s>]…
 // Downloads each CV and checks magic bytes, Content-Length, pages and the
 // Spanish characters in the text layer. Prints one PASS/FAIL line per URL.
 import { extractText, getDocumentProxy } from "unpdf";
@@ -8,6 +9,13 @@ const charsArg = process.argv.find((a) => a.startsWith("--chars="));
 const REQUIRED = charsArg
   ? [...charsArg.slice("--chars=".length).normalize("NFC")]
   : ["á", "é", "í", "ó", "ú", "ñ"];
+// Repeatable: --expect-text=<s> must appear, --reject-text=<s> must not.
+const flagValues = (flag: string) =>
+  process.argv
+    .filter((a) => a.startsWith(flag))
+    .map((a) => a.slice(flag.length).normalize("NFC"));
+const EXPECT_TEXT = flagValues("--expect-text=");
+const REJECT_TEXT = flagValues("--reject-text=");
 
 async function check(url: string): Promise<string[]> {
   const problems: string[] = [];
@@ -27,6 +35,12 @@ async function check(url: string): Promise<string[]> {
   const normalized = text.normalize("NFC");
   const missing = REQUIRED.filter((ch) => !normalized.includes(ch));
   if (missing.length > 0) problems.push(`missing ${missing.join(" ")}`);
+  for (const s of EXPECT_TEXT) {
+    if (!normalized.includes(s)) problems.push(`missing text "${s}"`);
+  }
+  for (const s of REJECT_TEXT) {
+    if (normalized.includes(s)) problems.push(`found text "${s}"`);
+  }
   return problems;
 }
 

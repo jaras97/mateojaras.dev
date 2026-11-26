@@ -1,5 +1,6 @@
 "use client";
 
+import "@/lib/zod-jitless";
 import { type ColumnDef, tableFeatures, useTable } from "@tanstack/react-table";
 import { EllipsisIcon } from "lucide-react";
 import { useRouter } from "next/navigation";

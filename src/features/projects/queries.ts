@@ -9,6 +9,7 @@ import type { Db } from "@/db/client";
 import { projectSkills, projects, skills } from "@/db/schema";
 import { tags } from "@/lib/cache-tags";
 import { applyDraft, stripDraft } from "@/lib/draft";
+import { publishedSlugsQuery } from "./slug-index";
 
 type Opts = { includeDrafts: boolean };
 
@@ -34,12 +35,7 @@ export async function getProjectsCore(opts: Opts) {
 }
 
 export async function getPublishedSlugsCore() {
-  const rows = await db
-    .select({ slug: projects.slug })
-    .from(projects)
-    .where(and(eq(projects.status, "published"), eq(projects.visible, true)))
-    .orderBy(asc(projects.order));
-  return rows.map((r) => r.slug);
+  return (await publishedSlugsQuery(db)).map((r) => r.slug);
 }
 
 // Rows the sitemap lists: same published+visible filter and order as the

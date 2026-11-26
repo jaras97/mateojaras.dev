@@ -1,5 +1,6 @@
 "use client";
 
+import "@/lib/zod-jitless";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

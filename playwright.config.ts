@@ -20,6 +20,17 @@ export default defineConfig({
   use: {
     baseURL: remote ?? `http://localhost:${PORT}`,
     reducedMotion: "reduce",
+    // A protected Preview needs the automation bypass; local runs are unchanged.
+    ...(remote && process.env.VERCEL_AUTOMATION_BYPASS_SECRET
+      ? {
+          extraHTTPHeaders: {
+            "x-vercel-protection-bypass":
+              process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
+            "x-vercel-set-bypass-cookie": "true",
+            "x-vercel-skip-toolbar": "1",
+          },
+        }
+      : {}),
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: remote

@@ -60,7 +60,7 @@ Severity is the auditor's assessment; the plans did not declare one. Evidence pe
 | T-03-23 | Elevation of privilege | POST /api/blob/upload | high | mitigate | `requireSessionForRequest` first; e2e asserts 401 | closed |
 | T-03-24 | Tampering | upload type / size | medium | mitigate | 4 image types, 8 MB cap in `onBeforeGenerateToken` | closed |
 | T-03-25 | Tampering | path traversal / overwrite | medium | mitigate | `isAllowedUploadPath` regex + `addRandomSuffix` | closed |
-| T-03-26 | Information disclosure | CSP widened for Blob | low | accept | see Accepted Risks | closed |
+| T-03-26 | Information disclosure | CSP widened for Blob | low | accept | see Accepted Risks; closed 2026-11-26 in 05-04 (connect-src approved and enforced) | closed |
 | T-03-27 | Denial of service | orphaned blobs | low | accept | see Accepted Risks | closed |
 | T-03-28 | Elevation of privilege | settings / education | high | mitigate | session-first actions and pages | closed |
 | T-03-29 | Tampering | settings URLs / Now | medium | mitigate | `HTTPS_URL` regex, strictObject, rich-text allowlist | closed |
@@ -96,7 +96,7 @@ Severity is the auditor's assessment; the plans did not declare one. Evidence pe
 |---------|------------|-----------|-------------|------|
 | AR-03-01 | T-03-15 | D-14: hard delete is Teo's choice; recovery comes from the content export backups | Teo (plan decision D-14) | 2026-11-22 |
 | AR-03-02 | T-03-22 | POST /api/draft only disables preview; no impact beyond the admin's own view, and `safeReturnPath` bounds the redirect | Plan 03-06 | 2026-11-22 |
-| AR-03-03 | T-03-26 | Blob host added to `img-src` only; CSP is still Report-Only. `connect-src` for Blob and the vercel.com upload endpoint is NOT added yet: Teo must approve it before the CSP is enforced in phase 5, or client uploads will break | Plan 03-07; pending Teo for phase 5 | 2026-11-22 |
+| AR-03-03 | T-03-26 | Blob host added to `img-src` only; CSP is still Report-Only. `connect-src` for Blob and the vercel.com upload endpoint is NOT added yet: Teo must approve it before the CSP is enforced in phase 5, or client uploads will break. CLOSED 2026-11-26 (05-04): Teo approved the hosts (D-16); `connect-src` now has `https://vercel.com/api/blob/` and `https://*.public.blob.vercel-storage.com`, the CSP is enforced, and an image upload on the Preview passes with zero violations (05-PREVIEW-VERIFY.md) | Plan 03-07; closed in 05-04 | 2026-11-22 |
 | AR-03-04 | T-03-27 | Low volume, single admin; e2e deletes its own uploads | Plan 03-07 | 2026-11-22 |
 | AR-03-05 | T-03-41 | Single admin; each click creates one version pair; Blob paths are never overwritten | Plan 03-11 | 2026-11-22 |
 

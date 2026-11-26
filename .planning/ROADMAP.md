@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Base técnica** - Esqueleto andante desplegado: login admin, Preview en verde, seed real y decisión del plan B (días 3–4) (completed 2026-11-16)
 - [x] **Phase 3: Panel admin + CV** - Teo publica todo el contenido desde `/admin` y genera el CV en PDF en/es (días 5–7) (completed 2026-11-22)
 - [x] **Phase 4: Sitio público** - Casos de estudio, home, about y contacto en en/es, con SEO y movimiento; entrega el valor central (días 8–10) (completed 2026-11-24)
-- [ ] **Phase 04.1: Contenido y posicionamiento full stack + AI** (INSERTED) - Contenido y CV reescritos con el posicionamiento full stack + AI, con hechos reales, antes del lanzamiento
+- [x] **Phase 04.1: Contenido y posicionamiento full stack + AI** (INSERTED) - Contenido y CV reescritos con el posicionamiento full stack + AI, con hechos reales, antes del lanzamiento (completed 2026-11-25)
 - [ ] **Phase 5: Pulido y lanzamiento** - Accesibilidad, 404, CSP en bloqueo, analytics, revisión por 3 personas y producción (días 11–14)
 
 ## Phase Details
@@ -275,7 +275,7 @@ Plans:
 **Scope (de 05-CONTEXT D-13):** titular, bio, Now, experiencia, los 4 casos de estudio, orden del stack, textos SEO y OG, CV en/es; decidir si el propio portafolio entra como caso de estudio; actualizar el texto "frontend" de PROJECT.md y CLAUDE.md con aprobación de Teo
 **Requirements**: POS-01, POS-02, POS-03, POS-04, POS-05, POS-06, POS-07, POS-08, POS-09, POS-10, POS-11
 **Depends on:** Phase 4
-**Plans:** 11/12 plans executed
+**Plans:** 12/12 plans complete
 
 Plans:
 **Wave 1**
@@ -309,7 +309,7 @@ Plans:
 
 **Wave 7** *(blocked on Wave 6 completion)*
 
-- [ ] 04.1-12-PLAN.md — Despliegue de producción, CV en/es desde el admin y verificación final
+- [x] 04.1-12-PLAN.md — Despliegue de producción, CV en/es desde el admin y verificación final
 
 ### Phase 5: Pulido y lanzamiento
 
@@ -324,7 +324,35 @@ Plans:
   4. Tres personas revisaron el sitio, y sus hallazgos están registrados y resueltos
   5. mateojaras.dev sirve el sitio de producción en ambos idiomas contra la rama `main` de Neon
 
-**Plans**: TBD
+**Plans**: 6/9 plans executed en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
+
+Plans:
+**Wave 1**
+- [x] 05-01-PLAN.md — Dominio mateojaras.dev, Resend, Upstash, Analytics, TXT de Search Console y secrets de GitHub en una sesión de Teo; verificador `scripts/check-live.ts`
+
+**Wave 2** *(blocked on Wave 1 completion)*
+- [x] 05-02-PLAN.md — 404 real: `[locale]/[...rest]` (D-21) y guardia de slugs en `proxy.ts` con memo solo positivo (D-06), verificado primero en Preview
+
+**Wave 3** *(blocked on Wave 2 completion)*
+- [x] 05-03-PLAN.md — Rediseño del 404 (D-04/D-05), variantes del favicon MJ (D-20) y aprobación agrupada de Teo
+
+**Wave 4** *(blocked on Wave 3 completion)*
+- [x] 05-04-PLAN.md — Vercel Web Analytics solo en el sitio público (D-01..D-03, D-23) y CSP en bloqueo con Blob en connect-src (D-16, D-17), pasada sin violaciones en Preview
+
+**Wave 5** *(blocked on Wave 4 completion)*
+- [x] 05-05-PLAN.md — Favicon aprobado en ambos layouts raíz y barrido de accesibilidad (es, 404, 390 px, oscuro, reduced motion)
+
+**Wave 6** *(blocked on Wave 5 completion)*
+- [x] 05-06-PLAN.md — Job e2e en CI (login, CRUD de proyecto, contacto fail-closed, 404, cabeceras) contra Neon dev
+
+**Wave 7** *(blocked on Wave 6 completion)*
+- [ ] 05-07-PLAN.md — PR, go de Teo, merge a main y todas las compuertas en mateojaras.dev, incluido el contacto en vivo (D-22)
+
+**Wave 8** *(blocked on Wave 7 completion)*
+- [ ] 05-08-PLAN.md — Guía de revisión en/es y 3 revisiones por agentes con perfiles distintos (re-alcance D-07..D-10)
+
+**Wave 9** *(blocked on Wave 8 completion)*
+- [ ] 05-09-PLAN.md — Resolución de hallazgos (D-09, D-18), sitemap e indexación en Search Console (D-12) y compuerta de la fase
 **Window**: días 11–12 pulido; días 13–14 margen y lanzamiento
 **Gate**: revisión por 3 personas hecha + sitio en producción
 **Approvals**: `@vercel/analytics` (y opcionalmente `@vercel/speed-insights`) y el servicio de analytics
@@ -363,4 +391,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
 | 3. Panel admin + CV | 14/14 | Complete    | 2026-11-22 |
 | 4. Sitio público | 15/15 | Complete    | 2026-11-24 |
-| 5. Pulido y lanzamiento | 0/TBD | Not started | - |
+| 5. Pulido y lanzamiento | 6/9 | In Progress | - |

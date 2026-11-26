@@ -1,18 +1,19 @@
 ---
 gsd_state_version: "1.0"
 milestone: v1.0
-current_phase: "04.1"
-current_phase_name: Contenido y posicionamiento full stack + AI (INSERTED
+current_phase: 05
+current_phase_name: Pulido y lanzamiento
 status: executing
-stopped_at: Completed 04.1-11-PLAN.md
-last_updated: "2026-11-25T20:37:05.043Z"
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-11-26T18:46:38.819Z"
 last_activity: 2026-11-25
-state_head: 13a7af08d766f753a7626060ad37b404bbfe099c
+last_activity_desc: Phase 05 execution started
+state_head: 09b3023e04d8cd6f48d2d4d50b4ae71ce49688e5
 progress:
   total_phases: 6
   completed_phases: 4
-  total_plans: 63
-  completed_plans: 62
+  total_plans: 72
+  completed_plans: 69
 milestone_name: milestone
 ---
 
@@ -23,22 +24,22 @@ milestone_name: milestone
 See: .planning/PROJECT.md (updated 2026-11-22)
 
 **Core value:** Los casos de estudio (`/projects/[slug]`) convencen a un cliente o reclutador de que Teo sabe decidir y entregar.
-**Current focus:** Phase 04.1 — Contenido y posicionamiento full stack + AI (INSERTED)
+**Current focus:** Phase 05 — Pulido y lanzamiento
 
 ## Current Position
 
-Phase: 04.1 (Contenido y posicionamiento full stack + AI (INSERTED)) — EXECUTING
-Plan: 12 of 12
+Phase: 05 (Pulido y lanzamiento) — EXECUTING
+Plan: 7 of 9
 Status: Ready to execute
-Last activity: 2026-11-25
+Last activity: 2026-11-25 — Phase 05 execution started
 
-Progress: [████████░░] 80%
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 51
+- Total plans completed: 63
 - Average duration: -
 - Total execution time: 0.0 hours
 
@@ -50,6 +51,7 @@ Progress: [████████░░] 80%
 | 2 | 9 | - | - |
 | 03 | 14 | - | - |
 | 04 | 15 | - | - |
+| 04.1 | 12 | - | - |
 
 **Recent Trend:**
 
@@ -86,6 +88,7 @@ Progress: [████████░░] 80%
 | Phase 03 P12 | ~20m | 1 tasks | 8 files |
 | Phase 04 P01 | 20 min | 2 tasks | 18 files |
 | Phase 04 P14 | 10 min | 3 tasks | 12 files |
+| Phase 05 P02 | 1h | 5 tasks | 21 files |
 
 ## Accumulated Context
 
@@ -134,6 +137,7 @@ Recent decisions affecting current work:
 - [Phase 03]: 03-12: CvData carries raw ISO dates and lastModified; absent site URL means url/canonical omitted
 - [Phase 04]: Pass t.raw('figure') to CaseGallery in page.tsx only (G-04-2) — Component expects raw template
 - [Phase 04.1]: 04.1-06: Q1 a deploy; Q2 a keep label (Claude recommended b); Q8 a approve wording; logistics site block descartado
+- [Phase 05]: 05-02: 404 real desde el proxy con memo solo positivo y carga bloqueante acotada a 1,5 s
 
 ### Pending Todos
 
@@ -164,6 +168,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-25T20:37:04.677Z
-Stopped at: Completed 04.1-11-PLAN.md
-Resume file: None
+Last session: 2026-11-26T16:52:57.396Z
+Stopped at: Completed 05-02-PLAN.md
+Resume file: .planning/phases/05-pulido-y-lanzamiento/05-CONTEXT.md

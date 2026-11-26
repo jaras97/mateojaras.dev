@@ -51,9 +51,13 @@
       "write": "O escríbeme a {email}."
     },
     "notFound": {
-      "title": "Página no encontrada",
-      "body": "Esta página no existe.",
-      "home": "Volver al inicio"
+      "eyebrow": "404",
+      "title": "No hay ninguna entrada en esta dirección.",
+      "body": "La página que buscabas no está en la bitácora. Estas son las entradas que sí están.",
+      "pathLabel": "Dirección",
+      "listTitle": "Entradas",
+      "home": "Volver al inicio",
+      "contact": "Escríbeme"
     },
     "header": {
       "skip": "Saltar al contenido",

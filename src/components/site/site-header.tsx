@@ -34,13 +34,13 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
       <div className="mx-auto flex h-16 max-w-page items-center justify-between gap-4 px-6 md:px-12">
         <a
           href={getPathname({ locale, href: "/" })}
-          aria-label={t("home")}
           className="inline-flex h-8 items-center text-sm font-semibold text-foreground"
         >
           <span className="hidden sm:inline">{name}</span>
           <span aria-hidden="true" className="sm:hidden">
             {initials(name)}
           </span>
+          <span className="sr-only sm:hidden">{name}</span>
         </a>
         <div className="flex items-center gap-4">
           <nav aria-label={t("nav")}>

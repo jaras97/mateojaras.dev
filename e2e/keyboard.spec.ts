@@ -62,6 +62,38 @@ function hasRing(f: Focused) {
   return outline || shadow;
 }
 
+async function allRoutes() {
+  const project = await firstPublishedProject();
+  test.skip(!project, "no published project");
+  const slug = project?.slug ?? "";
+  return [
+    "/",
+    `/projects/${slug}`,
+    "/about",
+    "/contact",
+    "/es",
+    `/es/proyectos/${slug}`,
+    "/es/sobre-mi",
+    "/es/contacto",
+    "/foo",
+    "/es/foo",
+  ];
+}
+
+async function walk(page: Page, path: string, width: number) {
+  await page.goto(path);
+  await page.locator("h1").first().waitFor();
+  const seen = await tabThrough(page);
+  expect(seen.length, `${path} @${width}`).toBeGreaterThan(3);
+  for (const f of seen) {
+    expect(
+      hasRing(f),
+      `${path} @${width}: no accent ring on <${f.tag}> "${f.text}" ${JSON.stringify(f)}`,
+    ).toBe(true);
+    expect(f.name, `${path}: honeypot focused`).not.toBe("website");
+  }
+}
+
 for (const theme of ["light", "dark"] as const) {
   test.describe(`${theme} theme`, () => {
     test.use({ colorScheme: theme });
@@ -80,25 +112,52 @@ for (const theme of ["light", "dark"] as const) {
     test("every focused element shows the accent ring; honeypot is skipped", async ({
       page,
     }) => {
-      const project = await firstPublishedProject();
-      test.skip(!project, "no published project");
-      for (const path of [
-        "/",
-        `/projects/${project?.slug}`,
-        "/about",
-        "/contact",
-      ]) {
+      for (const path of await allRoutes()) await walk(page, path, 1440);
+    });
+
+    test("focus order: skip link, then the header", async ({ page }) => {
+      for (const path of await allRoutes()) {
         await page.goto(path);
-        const seen = await tabThrough(page);
-        expect(seen.length, path).toBeGreaterThan(3);
-        for (const f of seen) {
-          expect(
-            hasRing(f),
-            `${path}: no accent ring on <${f.tag}> "${f.text}" ${JSON.stringify(f)}`,
-          ).toBe(true);
-          expect(f.name, `${path}: honeypot focused`).not.toBe("website");
-        }
+        await page.locator("h1").first().waitFor();
+        await page.keyboard.press("Tab");
+        expect(
+          await page.evaluate(() =>
+            (document.activeElement as HTMLAnchorElement).getAttribute("href"),
+          ),
+          `${path}: first stop`,
+        ).toBe("#main");
+        await page.keyboard.press("Tab");
+        expect(
+          await page.evaluate(
+            () => !!document.activeElement?.closest("header"),
+          ),
+          `${path}: second stop inside header`,
+        ).toBe(true);
       }
+    });
+
+    test.describe("390 px", () => {
+      test.use({ viewport: { width: 390, height: 844 } });
+
+      test("rings on every tabbable, header neighbours included", async ({
+        page,
+      }) => {
+        for (const path of await allRoutes()) {
+          await walk(page, path, 390);
+          // Adjacent header controls each keep their own detectable ring.
+          await page.goto(path);
+          const stops = await tabThrough(page, 12);
+          const headerCount = await page
+            .locator("header a, header button")
+            .count();
+          const inHeader = stops.slice(1, 1 + headerCount);
+          for (const f of inHeader) {
+            expect(hasRing(f), `${path} header <${f.tag}> "${f.text}"`).toBe(
+              true,
+            );
+          }
+        }
+      });
     });
   });
 }

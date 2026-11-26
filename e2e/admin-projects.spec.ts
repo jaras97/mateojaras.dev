@@ -1,7 +1,12 @@
 import { expect, test } from "@playwright/test";
 import { RATE_WINDOW_MS, signIn } from "./admin-session";
 import { expectNoBlockingViolations } from "./axe";
-import { deleteTempProjects, sql, TEMP_TITLE } from "./db";
+import {
+  deleteTempProjects,
+  firstPublishedProject,
+  sql,
+  TEMP_TITLE,
+} from "./db";
 
 test.skip(
   !process.env.ADMIN_EMAIL ||
@@ -45,6 +50,10 @@ test("a draft stays off the site and a publish shows without redeploy", async ({
   page,
 }) => {
   test.setTimeout(120_000);
+  // Warm the guard memo with a seeded slug first, so the fixture below is a
+  // warm miss that must re-read the DB (D-06: negatives are never memoized).
+  const seeded = await firstPublishedProject();
+  if (seeded) await page.request.get(`/es/proyectos/${seeded.slug}`);
   const id = await createFixture();
   const publicUrl = `/es/proyectos/${FIXTURE_SLUG}`;
   const heading = (name: string) =>
@@ -56,12 +65,24 @@ test("a draft stays off the site and a publish shows without redeploy", async ({
   await expect(page.getByLabel("Título ES")).toHaveValue(FIXTURE_TITLE);
   await expectNoBlockingViolations(page);
 
+  // Just published: the very first request answers 200.
+  expect((await page.request.get(publicUrl)).status()).toBe(200);
+
   // Prime the public cache with the published title.
   await page.goto(publicUrl);
   await expect(heading(FIXTURE_TITLE)).toBeVisible();
 
   await page.goto(`/admin/proyectos/${id}`);
-  await page.getByLabel("Título ES").fill(`${FIXTURE_TITLE} editado`);
+  // The form is server-rendered: typing before hydration appends to the
+  // default value instead of replacing it. Wait, then confirm what was typed.
+  await page.waitForLoadState("networkidle");
+  const titleEs = page.getByLabel("Título ES");
+  await expect(async () => {
+    await titleEs.fill(`${FIXTURE_TITLE} editado`);
+    await expect(titleEs).toHaveValue(`${FIXTURE_TITLE} editado`, {
+      timeout: 1_000,
+    });
+  }).toPass({ timeout: 15_000 });
   await page.getByRole("button", { name: "Guardar borrador" }).click();
   await expect(page.getByText(/^Guardado/)).toBeVisible();
 

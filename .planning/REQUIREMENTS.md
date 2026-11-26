@@ -81,7 +81,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **SITE-05**: El visitante cambia de idioma y permanece en la página equivalente
 - [x] **SITE-06**: El visitante cambia entre tema claro y oscuro con View Transitions, sin destello al cargar, y la preferencia persiste
 - [x] **SITE-07**: El footer enlaza GitHub, LinkedIn, el CV en PDF y el código fuente del sitio
-- [ ] **SITE-08**: Existe una página 404 en ambos idiomas
+- [x] **SITE-08**: Existe una página 404 en ambos idiomas
 
 ### Contacto (CONT)
 
@@ -108,13 +108,13 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 
 - [x] **QUAL-01**: Lighthouse móvil ≥ 95 en `/`, `/projects/[slug]`, `/about` y `/contact` en ambos idiomas, medido en el Preview de Vercel
 - [x] **QUAL-02**: LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en esas rutas
-- [ ] **QUAL-03**: WCAG AA, foco visible, navegación por teclado y axe sin `serious`/`critical`
+- [x] **QUAL-03**: WCAG AA, foco visible, navegación por teclado y axe sin `serious`/`critical`
 - [x] **QUAL-04**: `/impeccable:audit` sin hallazgos críticos en cada vista pública
-- [ ] **QUAL-05**: Tests e2e de Playwright para login, CRUD de proyecto y contacto
-- [ ] **QUAL-06**: CSP en modo de bloqueo sin violaciones en las rutas públicas
-- [ ] **QUAL-07**: Analytics instalado (con la CSP ajustada)
+- [x] **QUAL-05**: Tests e2e de Playwright para login, CRUD de proyecto y contacto
+- [x] **QUAL-06**: CSP en modo de bloqueo sin violaciones en las rutas públicas
+- [x] **QUAL-07**: Analytics instalado (con la CSP ajustada)
 - [ ] **QUAL-08**: 3 personas revisan el sitio y los hallazgos se registran y resuelven
-- [ ] **QUAL-09**: El sitio está en producción en mateojaras.dev
+- [x] **QUAL-09**: El sitio está en producción en mateojaras.dev
 
 ### Posicionamiento (POS)
 
@@ -126,7 +126,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **POS-06**: Educación: 5 filas de Udemy junto a la de UdeA (D-12)
 - [x] **POS-07**: Skills: lista de stack con años y orden en todas las categorías, cada una respaldada por un proyecto o experiencia y enlazada a proyectos (`project_skills`)
 - [x] **POS-08**: SEO/OG: `seo_title_*` (≤60) y `seo_description_*` (≤160) completos; las imágenes OG toman el nuevo titular
-- [ ] **POS-09**: CV en/es regenerado desde los datos cargados, ≤2 páginas, tildes correctas, y `/resume.json` y `/resume.es.json` lo reflejan
+- [x] **POS-09**: CV en/es regenerado desde los datos cargados, ≤2 páginas, tildes correctas, y `/resume.json` y `/resume.es.json` lo reflejan
 - [x] **POS-10**: Script de carga idempotente (`--target dev|main`, dry-run por defecto) que valida con los esquemas Zod del admin y escribe tras una instantánea `export:content` del destino; corre en dev, se verifica y luego corre en main; la caché pública se invalida y `e2e-stale-probe` no existe en main
 - [x] **POS-11**: `PROJECT.md` (raíz), `.planning/PROJECT.md`, `CLAUDE.md` y el bloque GSD de `.claude/CLAUDE.md` describen el nuevo posicionamiento, y `docs/copy.md` refleja los textos aprobados; Teo aprueba los diffs
 
@@ -230,7 +230,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | SITE-05 | Phase 4 | Complete |
 | SITE-06 | Phase 4 | Complete |
 | SITE-07 | Phase 4 | Complete |
-| SITE-08 | Phase 5 | Pending |
+| SITE-08 | Phase 5 | Complete |
 | CONT-01 | Phase 4 | Complete |
 | CONT-02 | Phase 4 | Complete |
 | CONT-03 | Phase 4 | Complete |
@@ -245,13 +245,13 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | MOTN-04 | Phase 4 | Complete |
 | QUAL-01 | Phase 4 | Complete |
 | QUAL-02 | Phase 4 | Complete |
-| QUAL-03 | Phase 5 | Pending |
+| QUAL-03 | Phase 5 | Complete |
 | QUAL-04 | Phase 4 | Complete |
-| QUAL-05 | Phase 5 | Pending |
-| QUAL-06 | Phase 5 | Pending |
-| QUAL-07 | Phase 5 | Pending |
+| QUAL-05 | Phase 5 | Complete |
+| QUAL-06 | Phase 5 | Complete |
+| QUAL-07 | Phase 5 | Complete |
 | QUAL-08 | Phase 5 | Pending |
-| QUAL-09 | Phase 5 | Pending |
+| QUAL-09 | Phase 5 | Complete |
 | POS-01 | Phase 04.1 | Complete |
 | POS-02 | Phase 04.1 | Complete |
 | POS-03 | Phase 04.1 | Complete |
@@ -260,7 +260,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | POS-06 | Phase 04.1 | Complete |
 | POS-07 | Phase 04.1 | Complete |
 | POS-08 | Phase 04.1 | Complete |
-| POS-09 | Phase 04.1 | Pending |
+| POS-09 | Phase 04.1 | Complete |
 | POS-10 | Phase 04.1 | Complete |
 | POS-11 | Phase 04.1 | Complete |
 

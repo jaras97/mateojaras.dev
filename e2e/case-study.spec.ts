@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import en from "../messages/en.json";
 import { expectNoBlockingViolations } from "./axe";
 import { firstPublishedProject, sql } from "./db";
 
@@ -92,10 +93,14 @@ test("a project published after the build opens without redeploy", async ({
   }
 });
 
-test("an unknown slug shows the not-found page", async ({ page }) => {
-  // The slug resolves inside Suspense, so the 404 UI streams after a 200.
-  await page.goto("/projects/does-not-exist-e2e");
-  await expect(page.getByText("Page not found")).toBeVisible();
+test("an unknown slug answers 404 with the not-found page", async ({
+  page,
+}) => {
+  // The proxy decides the status (D-06); the page still resolves the slug
+  // inside Suspense, so the UI is the not-found one either way.
+  const res = await page.goto("/projects/does-not-exist-e2e");
+  expect(res?.status()).toBe(404);
+  await expect(page.getByText(en.Site.notFound.title)).toBeVisible();
   await expect(page.locator("article")).toHaveCount(0);
 });
 

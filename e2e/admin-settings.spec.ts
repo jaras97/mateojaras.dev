@@ -1,4 +1,6 @@
 import { expect, test } from "@playwright/test";
+import en from "../messages/en.json";
+import es from "../messages/es.json";
 import { RATE_WINDOW_MS, signIn } from "./admin-session";
 import { expectNoBlockingViolations } from "./axe";
 import { sql } from "./db";
@@ -192,10 +194,10 @@ test("case studies still render after a settings publish", async ({
     }
   }
   for (const [path, heading] of [
-    ["/projects/e2e-no-existe", "Page not found"],
-    ["/es/proyectos/e2e-no-existe", "Página no encontrada"],
+    ["/projects/e2e-no-existe", en.Site.notFound.title],
+    ["/es/proyectos/e2e-no-existe", es.Site.notFound.title],
   ] as const) {
-    expect([200, 404]).toContain((await request.get(path)).status());
+    expect((await request.get(path)).status()).toBe(404);
     await page.goto(path);
     await expect(page.locator("h1")).toHaveText(heading);
   }

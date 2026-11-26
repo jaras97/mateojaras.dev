@@ -239,7 +239,38 @@ const analytics: Group = async ({ origin }) => {
   ];
 };
 
-const groups: Record<string, Group> = { domain, notfound, analytics };
+// The CSP is enforced (not Report-Only) and allows the Blob client upload API.
+const headersGroup: Group = async ({ origin }) => {
+  const g = "headers";
+  const out: string[] = [];
+  for (const path of ["/", "/es"]) {
+    const res = await get(`${origin}${path}`);
+    const csp = res.headers.get("content-security-policy");
+    const reportOnly = res.headers.get("content-security-policy-report-only");
+    out.push(
+      csp?.includes("connect-src 'self' https://vercel.com/api/blob/")
+        ? pass(g, `${path} sends an enforced CSP with the Blob connect-src`)
+        : fail(
+            g,
+            `${path} sends an enforced CSP with the Blob connect-src`,
+            csp ?? "no header",
+          ),
+    );
+    out.push(
+      reportOnly === null
+        ? pass(g, `${path} has no Report-Only header`)
+        : fail(g, `${path} has no Report-Only header`, "present"),
+    );
+  }
+  return out;
+};
+
+const groups: Record<string, Group> = {
+  domain,
+  notfound,
+  analytics,
+  headers: headersGroup,
+};
 
 async function main() {
   const args = process.argv.slice(2);

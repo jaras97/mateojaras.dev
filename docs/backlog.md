@@ -4,8 +4,8 @@ Nada de esta lista se construye antes de que mateojaras.dev esté en producción
 
 ## Contenido (nuevas entidades en el admin)
 - [ ] Courses / certificaciones (name, issuer, date, credential_url, skills)
-- [ ] Services ("How I work": qué entrego, para quién, proceso; sin precios)
-- [ ] Testimonials (author, role, company, quote, video_url, project, can_publish)
+- [ ] Services ("How I work": qué entrego, para quién, proceso; sin precios). Revisión K-09: el cliente freelance echó en falta proceso, forma de cobro y soporte posterior; los precios no entran
+- [ ] Testimonials (author, role, company, quote, video_url, project, can_publish). Revisión K-08: ninguna página tiene citas de clientes; hace falta una cita real y el permiso de la persona
 - [ ] Posts (blog corto: MDX o Tiptap, tags, reading_time)
 - [ ] Pages genéricas con bloques (uses, talks)
 - [ ] Caso de estudio del propio portafolio, usando docs/decisions.md
@@ -20,6 +20,9 @@ Nada de esta lista se construye antes de que mateojaras.dev esté en producción
 - [ ] Botón "traducir con IA" en el admin (Claude API) como borrador
 
 ## Técnica
+- [ ] Slugs de proyecto localizados (`/projects/bot-arbitraje` en el sitio en inglés): requiere cambiar el modelo de datos y la guardia de slugs publicados (revisión K-25)
+- [ ] JSON-LD (Person y WebSite) en la home y título propio por idioma si se mantiene (revisión K-30)
+- [ ] Miniaturas en la lista de proyectos de la home y algún proyecto visible sobre el pliegue a 1440 x 900: cambia el diseño (revisión K-23)
 - [ ] Lenis (scroll suave), evaluando choque con scroll-snap y rutas
 - [ ] ViewTransition entre rutas si el flag de React se estabiliza
 - [ ] Typst como alternativa de PDF si react-pdf se queda corto

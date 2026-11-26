@@ -324,7 +324,18 @@ Plans:
   4. Tres personas revisaron el sitio, y sus hallazgos están registrados y resueltos
   5. mateojaras.dev sirve el sitio de producción en ambos idiomas contra la rama `main` de Neon
 
-**Plans**: TBD
+**Plans**: 9 plans en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
+
+Plans:
+- [ ] 05-01-PLAN.md — Dominio mateojaras.dev, Resend, Upstash, Analytics, TXT de Search Console y secrets de GitHub en una sesión de Teo; verificador `scripts/check-live.ts`
+- [ ] 05-02-PLAN.md — 404 real: `[locale]/[...rest]` (D-21) y guardia de slugs en `proxy.ts` con memo solo positivo (D-06), verificado primero en Preview
+- [ ] 05-03-PLAN.md — Rediseño del 404 (D-04/D-05), variantes del favicon MJ (D-20) y aprobación agrupada de Teo
+- [ ] 05-04-PLAN.md — Vercel Web Analytics solo en el sitio público (D-01..D-03, D-23) y CSP en bloqueo con Blob en connect-src (D-16, D-17), pasada sin violaciones en Preview
+- [ ] 05-05-PLAN.md — Favicon aprobado en ambos layouts raíz y barrido de accesibilidad (es, 404, 390 px, oscuro, reduced motion)
+- [ ] 05-06-PLAN.md — Job e2e en CI (login, CRUD de proyecto, contacto fail-closed, 404, cabeceras) contra Neon dev
+- [ ] 05-07-PLAN.md — PR, go de Teo, merge a main y todas las compuertas en mateojaras.dev, incluido el contacto en vivo (D-22)
+- [ ] 05-08-PLAN.md — Guía de revisión en/es y 3 revisiones por agentes con perfiles distintos (re-alcance D-07..D-10)
+- [ ] 05-09-PLAN.md — Resolución de hallazgos (D-09, D-18), sitemap e indexación en Search Console (D-12) y compuerta de la fase
 **Window**: días 11–12 pulido; días 13–14 margen y lanzamiento
 **Gate**: revisión por 3 personas hecha + sitio en producción
 **Approvals**: `@vercel/analytics` (y opcionalmente `@vercel/speed-insights`) y el servicio de analytics

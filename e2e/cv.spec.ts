@@ -1,7 +1,7 @@
-import { expect, test } from "@playwright/test";
 import { del } from "@vercel/blob";
 import { signIn } from "./admin-session";
 import { expectNoBlockingViolations } from "./axe";
+import { expect, test } from "./csp";
 import { sql } from "./db";
 
 test.skip(

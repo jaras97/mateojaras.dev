@@ -17,7 +17,9 @@ export async function collectCsp(page: Page) {
   await page.addInitScript(() => {
     window.__csp = [];
     document.addEventListener("securitypolicyviolation", (e) => {
-      window.__csp?.push(`${e.violatedDirective} ${e.blockedURI}`);
+      window.__csp?.push(
+        `${e.violatedDirective} ${e.blockedURI} ${e.sourceFile}:${e.lineNumber}:${e.columnNumber} ${e.sample}`,
+      );
     });
   });
   return async (): Promise<string[]> => {

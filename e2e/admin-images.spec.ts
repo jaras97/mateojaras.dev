@@ -1,7 +1,8 @@
-import { expect, type Page, test } from "@playwright/test";
+import type { Page } from "@playwright/test";
 import { del } from "@vercel/blob";
 import { RATE_WINDOW_MS, signIn } from "./admin-session";
 import { expectNoBlockingViolations } from "./axe";
+import { expect, test } from "./csp";
 import { deleteTempProjects, insertTempProject, sql } from "./db";
 
 test.skip(

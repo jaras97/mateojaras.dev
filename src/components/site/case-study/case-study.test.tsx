@@ -119,6 +119,18 @@ describe("CaseSections", () => {
   });
 });
 
+describe("PlainText inline code (K-13)", () => {
+  it("renders backtick spans as <code> without literal backticks", () => {
+    const html = renderToStaticMarkup(
+      <PlainText text={"Security on `company_id` here.\n\n- item `a_b`"} />,
+    );
+    expect(html).toContain("<code");
+    expect(html).toContain(">company_id</code>");
+    expect(html).toContain(">a_b</code>");
+    expect(html).not.toContain("`");
+  });
+});
+
 describe("PlainText", () => {
   it("renders paragraphs and lists", () => {
     const html = renderToStaticMarkup(

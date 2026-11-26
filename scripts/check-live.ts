@@ -189,7 +189,48 @@ const notfound: Group = async ({ origin }) => {
   return out;
 };
 
-const groups: Record<string, Group> = { domain, notfound };
+// Web Analytics: the script loads same-origin and its view beacon answers 2xx.
+const analytics: Group = async ({ origin }) => {
+  const g = "analytics";
+  const { chromium } = await import("@playwright/test");
+  const browser = await chromium.launch();
+  const seen: { url: string; status: number }[] = [];
+  try {
+    const context = await browser.newContext({
+      extraHTTPHeaders: headers(),
+    });
+    const page = await context.newPage();
+    page.on("response", (r) => {
+      const u = new URL(r.url());
+      if (u.origin === new URL(origin).origin)
+        seen.push({ url: u.pathname, status: r.status() });
+    });
+    await page.goto(`${origin}/`, { waitUntil: "networkidle" });
+    await page.waitForTimeout(1500);
+  } finally {
+    await browser.close();
+  }
+  const script =
+    seen.find(
+      (s) => s.url.endsWith("/script.js") && s.url.includes("insights"),
+    ) ??
+    seen.find((s) => s.url.endsWith("/script.js") && !s.url.includes("_next"));
+  const view = seen.find((s) => s.url.endsWith("/view"));
+  const dump = seen
+    .filter((s) => /script\.js|\/view|insights/.test(s.url))
+    .map((s) => `${s.status} ${s.url}`)
+    .join("; ");
+  return [
+    script?.status === 200
+      ? pass(g, `analytics script answers 200 (${script.url})`)
+      : fail(g, "analytics script answers 200", dump || "not requested"),
+    view && view.status >= 200 && view.status < 300
+      ? pass(g, `view beacon answers ${view.status} (${view.url})`)
+      : fail(g, "view beacon answers 2xx", dump || "not requested"),
+  ];
+};
+
+const groups: Record<string, Group> = { domain, notfound, analytics };
 
 async function main() {
   const args = process.argv.slice(2);

@@ -4,7 +4,8 @@ import { type Segment, SegmentLine } from "./segment-line";
 // Configuration, not content.
 export const SOURCE_URL = "https://github.com/jaras97/mateojaras.dev";
 
-const linkClass = "hover:text-foreground hover:underline";
+// py-[3px] makes the 18px line a 24px target (WCAG 2.5.8, K-29).
+const linkClass = "inline-block py-[3px] hover:text-foreground hover:underline";
 
 export type FooterLabels = {
   cv: string;

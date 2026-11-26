@@ -75,10 +75,12 @@ Esperado hasta regenerar el CV (el "missing á ó ú ñ" del PDF en inglés vien
 
 ## Pendientes
 
-1. Vercel Production y Preview: crear `RESEND_API_KEY` (no existe en ninguno de los dos).
-2. Vercel Production y Preview: conectar Upstash (`KV_REST_API_URL` y `KV_REST_API_TOKEN`; no existen). Una sola base compartida, decisión de Teo.
-3. Tras 1 y 2: redeploy de Production y `contact-live` (pendiente Resend/Upstash; el estado de verificación del dominio en Resend tampoco está confirmado).
-4. Confirmar en Neon que Production usa `main` y Preview usa `dev` (el boolean no es verificable por CLI).
-5. Admin login en apex: pendiente de confirmar por Teo (lote 05-03).
-6. CV: regenerar en/es en https://mateojaras.dev/admin/cv (hoy contienen vercel.app), para el lote 05-03.
-7. Search Console (Domain property verificada por TXT) y Web Analytics activado: confirmar por Teo.
+Actualizado 2026-11-26 tras la respuesta de Teo (ver 05-APPROVALS.md).
+
+1. RESUELTO: `RESEND_API_KEY` creada en Production y Preview.
+2. RESUELTO: Upstash `UPSTASH_REDIS_REST_URL/TOKEN` creadas solo en Production (decisión de Teo; el contacto en Preview falla cerrado por diseño).
+3. RESUELTO: Production redeployed 2026-11-26. contact-live: verificado a mano por Teo en producción (formulario enviado, pantalla de gracias, email recibido, mensaje en /admin/messages). No se ejecutó el spec automático porque `DATABASE_URL` de Production es Sensitive y no se puede descargar con `vercel env pull`.
+4. RESUELTO por decisión de Teo: la comprobación prod-db != preview-db se omite ("no importa"). Vercel muestra entradas `DATABASE_URL` separadas por entorno.
+5. RESUELTO: login del admin en el apex confirmado (Teo accedió a /admin/messages en https://mateojaras.dev).
+6. RESUELTO: CV regenerado. `check-cv-pdf https://mateojaras.dev/cv/es.pdf --reject-text=vercel.app` PASS; `en.pdf --chars=í --reject-text=vercel.app --expect-text=mateojaras.dev` PASS.
+7. RESUELTO: Search Console verificado y Web Analytics activado (confirmado por Teo).

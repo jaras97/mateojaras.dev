@@ -52,12 +52,14 @@ export function CaseHeader({
   const hasLive = Boolean(liveUrl?.trim());
   const segments: Segment[] = [];
   if (startedAt) {
+    const start = formatMonthYear(startedAt, locale);
     const end = finishedAt
       ? formatMonthYear(finishedAt, locale)
       : labels.present;
     segments.push({
       key: "period",
-      content: `${formatMonthYear(startedAt, locale)} – ${end}`,
+      // A single month is shown once, not as "ago 2026 – ago 2026" (K-28).
+      content: start === end ? start : `${start} – ${end}`,
     });
   }
   // One segment per skill so a long stack can wrap between skills.

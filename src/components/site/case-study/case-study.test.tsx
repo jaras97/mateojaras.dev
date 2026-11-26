@@ -169,6 +169,13 @@ describe("CaseHeader period", () => {
     );
     expect(html).toContain("Sep 2025 – Nov 2025");
   });
+  it("prints a single month once when start and end fall in the same month (K-28)", () => {
+    const html = renderToStaticMarkup(
+      <CaseHeader {...props} startedAt="2026-08-01" finishedAt="2026-08-20" />,
+    );
+    expect(html).toContain("Aug 2026");
+    expect(html).not.toContain("Aug 2026 – Aug 2026");
+  });
   it("prints present without an end date", () => {
     const html = renderToStaticMarkup(
       <CaseHeader {...props} startedAt="2025-09-01" finishedAt={null} />,

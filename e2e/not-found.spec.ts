@@ -9,6 +9,7 @@ import {
 } from "./db";
 import { isProductionTarget } from "./target";
 
+const copy = { en: en.Site.notFound, es: es.Site.notFound } as const;
 const titles = {
   en: en.Site.notFound.title,
   es: es.Site.notFound.title,
@@ -31,6 +32,19 @@ test.describe("unmatched paths", () => {
         "content",
         /noindex/,
       );
+      await expect(page.locator("code", { hasText: path })).toBeVisible();
+      await expect(
+        page.getByRole("link", { name: copy[lang].home }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole("link", { name: copy[lang].contact }),
+      ).toBeVisible();
+      if (process.env.DATABASE_URL) {
+        const project = await firstPublishedProject();
+        await expect(
+          page.locator(`main a[href$="/${project.slug}"]`).first(),
+        ).toBeVisible();
+      }
       await expectNoBlockingViolations(page);
     });
   }

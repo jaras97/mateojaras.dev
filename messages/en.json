@@ -51,9 +51,13 @@
       "write": "Or write to me at {email}."
     },
     "notFound": {
-      "title": "Page not found",
-      "body": "This page does not exist.",
-      "home": "Back to home"
+      "eyebrow": "404",
+      "title": "There is no entry at this address.",
+      "body": "The page you asked for is not in the logbook. These are the entries that are.",
+      "pathLabel": "Requested",
+      "listTitle": "Entries",
+      "home": "Back to home",
+      "contact": "Write to me"
     },
     "header": {
       "skip": "Skip to content",

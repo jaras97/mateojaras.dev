@@ -654,3 +654,43 @@ Decisión: `scripts/wait-preview.ts` lee `vercel ls --environment preview -m git
 Quién: Claude Code.
 Por qué: es la fuente de verdad disponible; la alias estable de la rama queda en `.planning/phases/05-pulido-y-lanzamiento/.preview-url`.
 Verificación: `pnpm tsx scripts/wait-preview.ts` imprime `READY <sha>` tras cada push.
+
+## 2026-11-26 · Blob en connect-src y CSP en bloqueo (05-04)
+
+Contexto: la entrada de 03-07 dejó pendiente añadir los hosts de Blob a `connect-src` antes de hacer cumplir la CSP (T-03-26, AR-03-03).
+Decisión: `connect-src` pasa a `'self' https://vercel.com/api/blob/ https://*.public.blob.vercel-storage.com`, una sola política para todo el sitio, y la cabecera cambia de `Content-Security-Policy-Report-Only` a `Content-Security-Policy`. Los permisos de `vercel.live` siguen solo en Preview.
+Quién: Teo aprobó los hosts (D-16); Claude Code lo implementó.
+Por qué: la subida de imágenes del admin usa el cliente de `@vercel/blob`, que habla con esa API; sin ella la CSP estricta la rompería.
+Verificación: subida de imagen y generación de CV en la Preview con la CSP en bloqueo y cero violaciones, ver 05-PREVIEW-VERIFY.md.
+
+## 2026-11-26 · 'unsafe-inline' en script-src aceptado (05-04)
+
+Contexto: T-04-06. Una CSP con nonce fuerza render dinámico y rompe el shell estático; los hashes de los scripts inline (tema, reloj) exigen mantenerlos a mano.
+Decisión: `script-src` conserva `'unsafe-inline'`, sin hash ni nonce. Hashes o SRI quedan en `docs/backlog.md`.
+Quién: Teo (D-17).
+Por qué: no se renderiza HTML de usuario sin sanear (Tiptap sale por el renderer estático) y mantiene el rendimiento del shell estático.
+Verificación: T-04-06 y AR-04-02 marcados como aceptados en 04-SECURITY.md.
+
+## 2026-11-26 · Analytics también en Preview (05-04)
+
+Contexto: D-23.
+Decisión: `SiteAnalytics` renderiza `<Analytics />` cuando `VERCEL_ENV` es `production` o `preview`; en local y CI no renderiza nada.
+Quién: Teo (D-23).
+Por qué: la pasada de la CSP en Preview se ejecuta con analytics activo. Las cifras de Preview se mezclan con las de producción en el panel; si molesta, se pasa a solo producción.
+Verificación: `scripts/check-live.ts --only=analytics` contra la Preview: script y beacon `view` responden 200 en la misma origen.
+
+## 2026-11-26 · Vercel Web Analytics (05-04)
+
+Contexto: D-01, D-02, D-03.
+Decisión: `@vercel/analytics` 2.0.1 montado solo en el layout `[locale]` mediante `SiteAnalytics`; nunca en `/admin`, sin cookies, sin eventos propios ni banner de consentimiento. Se quita `NEXT_PUBLIC_UMAMI_WEBSITE_ID` de `.env.example`.
+Quién: Teo eligió la herramienta y aprobó la dependencia (D-01); Claude Code la integró.
+Por qué: solo visitas y referrers, sin datos personales.
+Verificación: grep de `@vercel/analytics` solo en `site-analytics.tsx`. El script de Vercel ignora navegadores automatizados (webdriver/Headless), así que el check lanza Chromium sin esa señal.
+
+## 2026-11-26 · Zod sin JIT en todos los formularios cliente (05-04)
+
+Contexto: con la CSP en bloqueo, abrir el editor de proyectos reportó `script-src eval` por la sonda `new Function("")` de Zod 4.
+Decisión: el import `@/lib/zod-jitless` (que ya usaba el login) se añade a los demás componentes cliente que cargan Zod.
+Quién: Claude Code.
+Por qué: sin esto la política en bloqueo registra una violación en cada formulario del admin y el de contacto, aunque Zod la capture.
+Verificación: e2e/csp-sweep.spec.ts y admin-images.spec.ts sin violaciones.

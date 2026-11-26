@@ -24,5 +24,8 @@ Nada de esta lista se construye antes de que mateojaras.dev esté en producción
 - [ ] ViewTransition entre rutas si el flag de React se estabiliza
 - [ ] Typst como alternativa de PDF si react-pdf se queda corto
 - [ ] Open-source del repo con README en inglés y guía de contribución
+- [ ] CSP con hashes o SRI en script-src (quitar 'unsafe-inline') (D-17)
+- [ ] Eventos propios de analytics (CV, contacto, Cal.com): requieren Umami o Vercel Pro
+- [ ] Speed Insights
 - [ ] Monitoreo (Sentry) y alertas de uptime
 - [ ] Arreglar los hallazgos de 04.1-CODE-REVIEW.md antes de volver a usar scripts/load-content.ts (D-19). CR-01 (el grupo settings descarta un borrador del admin sin avisar) y WR-06 (limpiar borradores de proyecto destruye ediciones de casos sin publicar) descartan borradores sin avisar. WR-01 (el loader no invalida tags ni corre exportContent), WR-02 (apply es atómico por grupo, no por ejecución), WR-03 (`--target=dev` es una comprobación negativa), WR-04 (el dry-run contra main exige `--allow-production`), WR-05 (las claves naturales incluyen campos editables), WR-07 (`readHeadline` trunca un titular de más de una línea `>`)

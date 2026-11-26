@@ -42,7 +42,7 @@ Severity is not declared in the plans; the register was authored at plan time an
 | T-04-03 | Information disclosure | 04-02-ANSWERS.md, chat | high | mitigate | No Resend/Upstash key shapes in tracked files; keys in `.env.local` + Vercel | closed |
 | T-04-04 | Tampering | theme-script.tsx | low | mitigate | Static string; only literal `"dark"` trusted (`src/components/site/theme-script.tsx:3`) | closed |
 | T-04-05 | Tampering | lang-switch.tsx | low | mitigate | href from `getPathname` / `alternate-href.ts` fixed pathnames | closed |
-| T-04-06 | Elevation of privilege | future strict CSP | low | accept | Report-Only CSP today; phase 5 hashes inline scripts | closed |
+| T-04-06 | Elevation of privilege | future strict CSP | low | accept | Accepted 2026-11-26 in 05-04 (D-17): enforced CSP keeps `'unsafe-inline'` in script-src, no hashes and no nonce; hashes/SRI are in docs/backlog.md | closed |
 | T-04-07 | Information disclosure | case page, prev/next | medium | mitigate | Public cores `getProject`/`getProjects` (published+visible, stripDraft) | closed |
 | T-04-08 | Tampering (stored XSS) | case_study rich text | high | mitigate | `src/lib/rich-text-schema.ts` allowlist (https/mailto hrefs) | closed |
 | T-04-09 | Tampering | media caption fields | low | mitigate | `z.strictObject`, `max(120)` (`src/features/projects/validation.ts:43`) | closed |
@@ -94,7 +94,7 @@ Severity is not declared in the plans; the register was authored at plan time an
 | Risk ID | Threat Ref | Rationale | Accepted By | Date |
 |---------|------------|-----------|-------------|------|
 | AR-04-01 | T-04-SC | No packages installed in phase 4 | plan 04-01 | 2026-11-24 |
-| AR-04-02 | T-04-06, T-04-29 | Inline theme/clock scripts allowed by Report-Only CSP; phase 5 adds hashes before enforcing | plans 04-03, 04-11 | 2026-11-24 |
+| AR-04-02 | T-04-06, T-04-29 | Inline theme/clock scripts allowed by `'unsafe-inline'` in the enforced CSP; 05-04 (D-17, Teo) accepts it instead of adding hashes, which move to the backlog | plans 04-03, 04-11 | 2026-11-24 |
 | AR-04-03 | T-04-20 | Rate-limit burst e2e only with `E2E_RATE_LIMIT=1` | plan 04-07 | 2026-11-24 |
 | AR-04-04 | T-04-27 | Matcher exclusion only skips the optimistic cookie redirect; real gate is `requireSession()` | plan 04-10 | 2026-11-24 |
 | AR-04-05 | T-04-02, T-04-34 | Values come from the server / authenticated admin, not visitor input | plans 04-12, 04-13 | 2026-11-24 |

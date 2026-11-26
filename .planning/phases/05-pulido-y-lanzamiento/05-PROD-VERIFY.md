@@ -21,7 +21,7 @@ Date: 2026-11-26. Branch: phase-05-polish at 7d1b0c2.
 
 2026-11-26. Teo answered "merge" at the checkpoint (relayed by the orchestrator) and merged PR #2 himself from GitHub (jaras97, 2026-11-26T19:52:11Z, merge commit 9a4aad4, verified with `gh pr view 2`).
 
-## Producción (parcial, bloqueada en e2e y contact-live)
+## Producción
 
 Production deployment: https://mateojaras-6863yn21o-mateos-projects-85710491.vercel.app (Ready, merge 9a4aad4).
 
@@ -41,4 +41,10 @@ Production deployment: https://mateojaras-6863yn21o-mateos-projects-85710491.ver
 | /es/sobre-mi | 97 | 2.19 | 0 |
 | /es/contacto | 97 | 2.17 | 0 |
 
-- Pendiente: e2e not-found, csp-sweep, headers on production and contact-live. Blocker: `DATABASE_URL` of Production is Sensitive; `vercel env pull` returns a placeholder, so the specs' DB access fails (neon: not a valid URL). Nothing was written to production.
+- Merge commit: 9a4aad4 (PR #2, merged by Teo on GitHub).
+
+### Desviación aceptada por Teo
+
+Los barridos e2e de producción (not-found, csp-sweep, headers) y contact-live no se ejecutaron: `DATABASE_URL` de Production es Sensitive y `vercel env pull` devuelve un valor vacío, así que los specs no pueden leer la base. Teo eligió "manual" el 2026-11-26 (respuesta escrita en la sesión del orquestador, relayada por el orquestador). Se apoya en la verificación manual del formulario de contacto en producción, registrada en 05-DOMAIN-VERIFY.md (sección "Contacto en vivo (D-22)"), más los grupos notfound y headers de check-live, que cubren los 404 y la cabecera CSP enforced en el apex. D-22 queda satisfecho por la verificación manual de Teo, por su decisión, no por contact-live. No se escribió nada en producción.
+
+RESULT: all PASS (e2e sweeps + contact-live waived by Teo: manual)

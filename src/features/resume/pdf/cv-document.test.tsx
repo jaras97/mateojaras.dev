@@ -1,3 +1,4 @@
+import { inflateSync } from "node:zlib";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { extractText, getDocumentProxy } from "unpdf";
 import { describe, expect, it } from "vitest";
@@ -12,6 +13,25 @@ async function extract(buffer: Uint8Array) {
     totalPages,
     text: text.normalize("NFC").replace(/\s+/g, " "),
   };
+}
+
+// ToUnicode CMaps of the embedded fonts. A ligature glyph (fi, ff) is written
+// there as a multi-codepoint entry like <0066 0069>, which strict extractors
+// (ATS parsers, pdftotext) drop. One glyph per character avoids it.
+function toUnicodeMaps(buffer: Uint8Array): string[] {
+  const bytes = Buffer.from(buffer);
+  const raw = bytes.toString("latin1");
+  const maps: string[] = [];
+  for (const ref of raw.matchAll(/\/ToUnicode (\d+) 0 R/g)) {
+    const obj = new RegExp(`\\n${ref[1]} 0 obj[\\s\\S]*?stream\\r?\\n`).exec(
+      raw,
+    );
+    if (!obj) continue;
+    const start = obj.index + obj[0].length;
+    const end = raw.indexOf("endstream", start);
+    maps.push(inflateSync(bytes.subarray(start, end)).toString("latin1"));
+  }
+  return maps;
 }
 
 const ACCENTED = ["á", "é", "í", "ó", "ú", "ñ"];
@@ -60,5 +80,37 @@ describe("CvDocument", () => {
     );
     const { text } = await extract(await renderToBuffer(doc));
     expect(text.split(probe).length - 1).toBe(4);
+  });
+
+  it("keeps fi, ff, fl and ffi intact in the text layer (K-06)", async () => {
+    registerCvFonts();
+    const { Document, Page, Text } = await import("@react-pdf/renderer");
+    const probe = "five years offers finances first fluent office";
+    const families = [
+      { fontFamily: "Funnel Display", fontWeight: 700 },
+      { fontFamily: "Hanken Grotesk", fontWeight: 400 },
+      { fontFamily: "Hanken Grotesk", fontWeight: 700 },
+    ] as const;
+    const doc = (
+      <Document>
+        <Page size="A4">
+          {families.map((style) => (
+            <Text key={`${style.fontFamily}-${style.fontWeight}`} style={style}>
+              {probe}
+            </Text>
+          ))}
+        </Page>
+      </Document>
+    );
+    const { text } = await extract(await renderToBuffer(doc));
+    expect(text.split(probe).length - 1).toBe(3);
+  });
+
+  it("embeds no multi-codepoint ligature entries in the CV fonts (K-06)", async () => {
+    registerCvFonts();
+    const buffer = await renderToBuffer(<CvDocument data={cvFixture("en")} />);
+    const maps = toUnicodeMaps(buffer);
+    expect(maps.length).toBeGreaterThan(0);
+    for (const map of maps) expect(map).not.toMatch(/<[0-9a-f]{4} [0-9a-f]{4}/);
   });
 });

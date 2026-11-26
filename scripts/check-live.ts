@@ -173,7 +173,12 @@ const domain: Group = async ({ origin, expectHost }) => {
 const notfound: Group = async ({ origin }) => {
   const g = "notfound";
   const out: string[] = [];
-  for (const path of ["/foo", "/es/foo"]) {
+  for (const path of [
+    "/foo",
+    "/es/foo",
+    "/projects/no-existe-check-live",
+    "/es/proyectos/no-existe-check-live",
+  ]) {
     const res = await get(`${origin}${path}`);
     out.push(
       res.status === 404

@@ -1,4 +1,5 @@
 import { neon } from "@neondatabase/serverless";
+import { isProductionTarget } from "./target";
 
 // Specs run their own queries inline with this client. It points at whatever
 // DATABASE_URL names (the Neon dev branch for e2e); specs skip without it.
@@ -42,6 +43,11 @@ export const TEMP_TITLE = "Proyecto temporal e2e";
 
 // Test data only: a draft that never shows on the public site.
 export async function insertTempProject() {
+  if (isProductionTarget()) {
+    throw new Error(
+      "Refusing to write test data to production (e2e/target.ts)",
+    );
+  }
   const slug = `e2e-temp-${Date.now()}`;
   const rows = (await sql`
     insert into projects (slug, status, visible, "order", title_en, title_es)
@@ -52,5 +58,10 @@ export async function insertTempProject() {
 }
 
 export async function deleteTempProjects() {
+  if (isProductionTarget()) {
+    throw new Error(
+      "Refusing to write test data to production (e2e/target.ts)",
+    );
+  }
   await sql`delete from projects where slug like 'e2e-temp-%'`;
 }

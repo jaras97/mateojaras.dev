@@ -1,4 +1,5 @@
 import { expect, type Page, test } from "@playwright/test";
+import es from "../messages/es.json";
 import { RATE_WINDOW_MS, signIn } from "./admin-session";
 import { expectNoBlockingViolations } from "./axe";
 import {
@@ -164,7 +165,7 @@ test("the Visible switch hides a project from the site and back", async ({
   await visible.click();
   await expect(page.getByText("Oculto del sitio.")).toBeVisible();
 
-  await expectPublicHeading(page, publicUrl, "Página no encontrada");
+  await expectPublicHeading(page, publicUrl, es.Site.notFound.title);
 
   await page.goto("/admin/proyectos");
   await page

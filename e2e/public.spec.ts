@@ -1,4 +1,6 @@
 import { expect, test } from "@playwright/test";
+import en from "../messages/en.json";
+import es from "../messages/es.json";
 import { loadContentDir } from "../src/features/projects/content-file";
 import { expectNoBlockingViolations } from "./axe";
 import { sql } from "./db";
@@ -148,20 +150,18 @@ for (const p of published) {
   });
 }
 
-// With Cache Components the shell is sent before the request-time notFound()
-// runs: the status is 200 on a cold server and 404 once the cache is warm
-// (Next docs: loading.md "Status codes"). Accepted by decision (decisions.md),
-// so these specs assert the UI, noindex and absent draft content, not the status.
+// The proxy answers a real 404 for unknown and draft slugs on the first
+// request (D-06), so these specs assert status, UI, noindex and absent drafts.
 for (const slug of [...drafts.map((d) => d.slug), "no-existe"]) {
   test(`${slug} renders the not-found page in both locales`, async ({
     page,
   }) => {
     for (const [path, heading] of [
-      [`/projects/${slug}`, "Page not found"],
-      [`/es/proyectos/${slug}`, "Página no encontrada"],
+      [`/projects/${slug}`, en.Site.notFound.title],
+      [`/es/proyectos/${slug}`, es.Site.notFound.title],
     ] as const) {
       const res = await page.goto(path);
-      expect([200, 404]).toContain(res?.status());
+      expect(res?.status()).toBe(404);
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(heading);
       // notFound() runs inside the case study's Suspense boundary, so the
       // streamed noindex can sit next to the head one: every tag must say noindex.

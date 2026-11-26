@@ -77,7 +77,7 @@ Vercel Web Analytics on the public site and an enforced CSP with the Blob hosts,
 
 - The Preview upload e2e fails because `playwright.config.ts` sends the Vercel bypass headers cross-origin and vercel.com rejects them in CORS preflight. The CSP does not block the call (no violation event; the local run with a Blob token passes the upload under the enforced policy). Three harness workarounds failed and were reverted.
 - The Vercel Toolbar console check was not run (the bypass hides the toolbar).
-- Both items need one manual image upload on the Preview from a normal logged-in browser. QUAL-06 stays open until Teo confirms it.
+- Both items needed one manual image upload on the Preview from a normal logged-in browser. RESOLVED 2026-11-26: Teo uploaded an image (shown as "Portada"), the console had no CSP errors, he deleted it and replied "verificado". Checkpoint resolved, QUAL-06 complete. Known harness limitation (backlog): the Preview upload e2e cannot pass because of the Blob CORS preflight with bypass headers; it passes locally. See 05-PREVIEW-VERIFY.md.
 
 ## Self-Check: PASSED
 

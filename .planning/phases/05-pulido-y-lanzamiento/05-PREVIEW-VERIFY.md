@@ -47,3 +47,13 @@ Every score is at or above 95, LCP at or under 2.5 s, CLS 0.
 ## Violation found and fixed during the pass
 
 Opening the project editor under the enforced policy reported `script-src eval` from Zod 4's `new Function("")` probe. Fixed by importing the existing `@/lib/zod-jitless` in every client form that loads Zod (commit `dcd6556`).
+
+## Manual Preview upload check (2026-11-26)
+
+On 2026-11-26 Teo uploaded one image in the project editor on the `phase-05-polish` Preview, from a normal browser with the Vercel toolbar session. The image uploaded and showed "Portada". The devtools console showed no Content Security Policy errors. He then deleted the image. His reply, verbatim: "verificado".
+
+This closes both open items above (upload under the enforced CSP and the Vercel Toolbar console check). QUAL-06 is complete.
+
+### Known harness limitation
+
+The automated `admin-images.spec.ts` fails on Preview because the bypass headers sent by `playwright.config.ts` are rejected by the vercel.com Blob CORS preflight. It passes locally under the enforced CSP. This is a harness issue, not a CSP issue. Backlog: run the upload e2e only locally (with a Blob token) or on a deployment without the bypass headers.

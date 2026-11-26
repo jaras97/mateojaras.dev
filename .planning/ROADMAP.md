@@ -324,7 +324,7 @@ Plans:
   4. Tres personas revisaron el sitio, y sus hallazgos están registrados y resueltos
   5. mateojaras.dev sirve el sitio de producción en ambos idiomas contra la rama `main` de Neon
 
-**Plans**: 5/9 plans executed en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
+**Plans**: 6/9 plans executed en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
 
 Plans:
 **Wave 1**
@@ -343,7 +343,7 @@ Plans:
 - [x] 05-05-PLAN.md — Favicon aprobado en ambos layouts raíz y barrido de accesibilidad (es, 404, 390 px, oscuro, reduced motion)
 
 **Wave 6** *(blocked on Wave 5 completion)*
-- [ ] 05-06-PLAN.md — Job e2e en CI (login, CRUD de proyecto, contacto fail-closed, 404, cabeceras) contra Neon dev
+- [x] 05-06-PLAN.md — Job e2e en CI (login, CRUD de proyecto, contacto fail-closed, 404, cabeceras) contra Neon dev
 
 **Wave 7** *(blocked on Wave 6 completion)*
 - [ ] 05-07-PLAN.md — PR, go de Teo, merge a main y todas las compuertas en mateojaras.dev, incluido el contacto en vivo (D-22)
@@ -391,4 +391,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
 | 3. Panel admin + CV | 14/14 | Complete    | 2026-11-22 |
 | 4. Sitio público | 15/15 | Complete    | 2026-11-24 |
-| 5. Pulido y lanzamiento | 5/9 | In Progress | - |
+| 5. Pulido y lanzamiento | 6/9 | In Progress | - |

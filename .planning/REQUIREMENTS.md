@@ -110,7 +110,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **QUAL-02**: LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en esas rutas
 - [x] **QUAL-03**: WCAG AA, foco visible, navegación por teclado y axe sin `serious`/`critical`
 - [x] **QUAL-04**: `/impeccable:audit` sin hallazgos críticos en cada vista pública
-- [ ] **QUAL-05**: Tests e2e de Playwright para login, CRUD de proyecto y contacto
+- [x] **QUAL-05**: Tests e2e de Playwright para login, CRUD de proyecto y contacto
 - [x] **QUAL-06**: CSP en modo de bloqueo sin violaciones en las rutas públicas
 - [x] **QUAL-07**: Analytics instalado (con la CSP ajustada)
 - [ ] **QUAL-08**: 3 personas revisan el sitio y los hallazgos se registran y resuelven
@@ -247,7 +247,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | QUAL-02 | Phase 4 | Complete |
 | QUAL-03 | Phase 5 | Complete |
 | QUAL-04 | Phase 4 | Complete |
-| QUAL-05 | Phase 5 | Pending |
+| QUAL-05 | Phase 5 | Complete |
 | QUAL-06 | Phase 5 | Complete |
 | QUAL-07 | Phase 5 | Complete |
 | QUAL-08 | Phase 5 | Pending |

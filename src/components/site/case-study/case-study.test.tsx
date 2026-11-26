@@ -35,6 +35,24 @@ const baseProject = {
   techDecisionsEs: null,
 };
 
+describe("CaseMetrics alignment (R1-10)", () => {
+  it("packs each figure at the top so values share one line", () => {
+    const html = renderToStaticMarkup(
+      <CaseMetrics
+        metrics={[
+          { label: "Short", value: "1" },
+          {
+            label: "A much longer label that wraps onto two lines",
+            value: "2",
+          },
+        ]}
+        label="Key figures"
+      />,
+    );
+    expect(html.match(/flex-col-reverse justify-end/g)).toHaveLength(2);
+  });
+});
+
 describe("CaseMetrics", () => {
   it("renders nothing for no metrics", () => {
     expect(

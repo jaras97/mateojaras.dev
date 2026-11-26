@@ -1,5 +1,7 @@
 // Up to three key figures (D-04). dt comes before dd in the DOM so the label
 // reads first for assistive tech; flex-col-reverse shows the value above.
+// justify-end packs the pair at the top of the row (the main axis is
+// reversed), so values share one baseline whatever the label length (R1-10).
 // No box, no shadow, no animation.
 export function CaseMetrics({
   metrics,
@@ -21,7 +23,7 @@ export function CaseMetrics({
       {shown.map((metric, i) => (
         <div
           key={`${metric.label}-${metric.value}`}
-          className={`flex flex-col-reverse gap-2 border-t border-border py-4 md:border-t-0 md:px-6 ${
+          className={`flex flex-col-reverse justify-end gap-2 border-t border-border py-4 md:border-t-0 md:px-6 ${
             i === 0
               ? "border-t-0 md:ps-0 md:border-l-0"
               : "md:border-l md:border-border"

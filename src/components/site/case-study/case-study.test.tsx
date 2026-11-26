@@ -1,5 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+import { CaseCta } from "@/components/site/case-study/case-cta";
 import { CaseGallery } from "@/components/site/case-study/case-gallery";
 import { CaseHeader } from "@/components/site/case-study/case-header";
 import { CaseMetrics } from "@/components/site/case-study/case-metrics";
@@ -312,5 +313,15 @@ describe("CaseGallery with the real catalog figure template", () => {
       />,
     );
     expect(html).toBe("");
+  });
+});
+
+describe("CaseCta", () => {
+  it("renders a plain link, not announced as a button (K-24)", () => {
+    const html = renderToStaticMarkup(
+      <CaseCta closing="Closing" label="Talk" href="/contact" />,
+    );
+    expect(html).not.toContain('role="button"');
+    expect(html).toMatch(/<a [^>]*href="\/contact"[^>]*>Talk<\/a>/);
   });
 });

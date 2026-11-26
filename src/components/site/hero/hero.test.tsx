@@ -51,6 +51,12 @@ describe.each(VARIANTS)("%s", (_name, Hero) => {
     expect(ctaHref(render(Hero, heroFixture, "es"))).toBe("/es/contacto");
   });
 
+  it("renders the CTA as a plain link, not announced as a button (K-24)", () => {
+    const html = render(Hero, heroFixture, "en");
+    expect(html).not.toContain('role="button"');
+    expect(html).toMatch(/<a [^>]*href="\/contact"/);
+  });
+
   it("ships the clock script and the static shell without a clock time", () => {
     const html = render(Hero, heroFixture, "en");
     expect(html).toContain("data-status-time");

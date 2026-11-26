@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import type { HeroSettings, Locale } from "@/features/site-settings/types";
 
 // Shared by the three hero variants (D-01): same props, container, headline
@@ -30,14 +30,9 @@ export function HeroCta({
 }) {
   return (
     <div className={className}>
-      <Button
-        size="lg"
-        nativeButton={false}
-        // biome-ignore lint/a11y/useAnchorContent: Base UI renders cta.label (the Button children) inside this anchor
-        render={<a href={cta.href} />}
-      >
+      <a href={cta.href} className={buttonVariants({ size: "lg" })}>
         {cta.label}
-      </Button>
+      </a>
     </div>
   );
 }

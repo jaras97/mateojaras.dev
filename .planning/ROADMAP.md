@@ -324,7 +324,7 @@ Plans:
   4. Tres revisiones con perfiles distintos (agentes, re-alcance D-07) revisaron el sitio, y sus hallazgos están registrados y resueltos
   5. mateojaras.dev sirve el sitio de producción en ambos idiomas contra la rama `main` de Neon
 
-**Plans**: 7/9 plans executed en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
+**Plans**: 8/9 plans executed en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
 
 Plans:
 **Wave 1**
@@ -349,7 +349,7 @@ Plans:
 - [x] 05-07-PLAN.md — PR, go de Teo, merge a main y todas las compuertas en mateojaras.dev, incluido el contacto en vivo (D-22)
 
 **Wave 8** *(blocked on Wave 7 completion)*
-- [ ] 05-08-PLAN.md — Guía de revisión en/es y 3 revisiones por agentes con perfiles distintos (re-alcance D-07..D-10)
+- [x] 05-08-PLAN.md — Guía de revisión en/es y 3 revisiones por agentes con perfiles distintos (re-alcance D-07..D-10)
 
 **Wave 9** *(blocked on Wave 8 completion)*
 - [ ] 05-09-PLAN.md — Resolución de hallazgos (D-09, D-18), sitemap e indexación en Search Console (D-12) y compuerta de la fase
@@ -391,4 +391,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
 | 3. Panel admin + CV | 14/14 | Complete    | 2026-11-22 |
 | 4. Sitio público | 15/15 | Complete    | 2026-11-24 |
-| 5. Pulido y lanzamiento | 7/9 | In Progress | - |
+| 5. Pulido y lanzamiento | 8/9 | In Progress | - |

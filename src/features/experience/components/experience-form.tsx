@@ -1,5 +1,6 @@
 "use client";
 
+import "@/lib/zod-jitless";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";

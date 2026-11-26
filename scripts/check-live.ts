@@ -168,7 +168,23 @@ const domain: Group = async ({ origin, expectHost }) => {
   return out;
 };
 
-const groups: Record<string, Group> = { domain };
+// Unmatched URLs answer a real 404 (D-21). The localized lang lives in the
+// client-rendered error shell, so the e2e checks it; here only the status.
+const notfound: Group = async ({ origin }) => {
+  const g = "notfound";
+  const out: string[] = [];
+  for (const path of ["/foo", "/es/foo"]) {
+    const res = await get(`${origin}${path}`);
+    out.push(
+      res.status === 404
+        ? pass(g, `GET ${path} answers 404`)
+        : fail(g, `GET ${path} answers 404`, String(res.status)),
+    );
+  }
+  return out;
+};
+
+const groups: Record<string, Group> = { domain, notfound };
 
 async function main() {
   const args = process.argv.slice(2);

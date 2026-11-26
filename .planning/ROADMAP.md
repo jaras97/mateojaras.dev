@@ -324,7 +324,7 @@ Plans:
   4. Tres personas revisaron el sitio, y sus hallazgos están registrados y resueltos
   5. mateojaras.dev sirve el sitio de producción en ambos idiomas contra la rama `main` de Neon
 
-**Plans**: 2/9 plans executed en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
+**Plans**: 3/9 plans executed en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
 
 Plans:
 **Wave 1**
@@ -334,7 +334,7 @@ Plans:
 - [x] 05-02-PLAN.md — 404 real: `[locale]/[...rest]` (D-21) y guardia de slugs en `proxy.ts` con memo solo positivo (D-06), verificado primero en Preview
 
 **Wave 3** *(blocked on Wave 2 completion)*
-- [ ] 05-03-PLAN.md — Rediseño del 404 (D-04/D-05), variantes del favicon MJ (D-20) y aprobación agrupada de Teo
+- [x] 05-03-PLAN.md — Rediseño del 404 (D-04/D-05), variantes del favicon MJ (D-20) y aprobación agrupada de Teo
 
 **Wave 4** *(blocked on Wave 3 completion)*
 - [ ] 05-04-PLAN.md — Vercel Web Analytics solo en el sitio público (D-01..D-03, D-23) y CSP en bloqueo con Blob en connect-src (D-16, D-17), pasada sin violaciones en Preview
@@ -391,4 +391,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
 | 3. Panel admin + CV | 14/14 | Complete    | 2026-11-22 |
 | 4. Sitio público | 15/15 | Complete    | 2026-11-24 |
-| 5. Pulido y lanzamiento | 2/9 | In Progress | - |
+| 5. Pulido y lanzamiento | 3/9 | In Progress | - |

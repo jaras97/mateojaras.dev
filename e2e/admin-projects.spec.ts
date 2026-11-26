@@ -73,7 +73,16 @@ test("a draft stays off the site and a publish shows without redeploy", async ({
   await expect(heading(FIXTURE_TITLE)).toBeVisible();
 
   await page.goto(`/admin/proyectos/${id}`);
-  await page.getByLabel("Título ES").fill(`${FIXTURE_TITLE} editado`);
+  // The form is server-rendered: typing before hydration appends to the
+  // default value instead of replacing it. Wait, then confirm what was typed.
+  await page.waitForLoadState("networkidle");
+  const titleEs = page.getByLabel("Título ES");
+  await expect(async () => {
+    await titleEs.fill(`${FIXTURE_TITLE} editado`);
+    await expect(titleEs).toHaveValue(`${FIXTURE_TITLE} editado`, {
+      timeout: 1_000,
+    });
+  }).toPass({ timeout: 15_000 });
   await page.getByRole("button", { name: "Guardar borrador" }).click();
   await expect(page.getByText(/^Guardado/)).toBeVisible();
 

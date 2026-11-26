@@ -42,7 +42,7 @@ test("the upload endpoint refuses a bad pathname with a session", async ({
 
 test("the CSP allows the Blob host for images", async ({ request }) => {
   const response = await request.get("/");
-  const csp = response.headers()["content-security-policy-report-only"];
+  const csp = response.headers()["content-security-policy"];
   expect(csp).toContain("public.blob.vercel-storage.com");
 });
 

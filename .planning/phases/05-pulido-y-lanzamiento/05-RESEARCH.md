@@ -472,18 +472,23 @@ Only the root `app/not-found` and `global-not-found` support `metadata` (not-fou
 | A7 | PNG-in-ICO is accepted by current browsers; GitHub action majors for cache/upload-artifact | Don't Hand-Roll, CI | Minor. Fallback is an `icon.png` link |
 | A8 | Apex A value `216.198.79.1` (old `76.76.21.21` still valid) | State of the Art | None if Teo copies the dashboard values |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Route file approval for `[locale]/[...rest]/page.tsx`**
+All three were answered by Teo on 2026-11-25 (05-CONTEXT.md D-21, D-22, D-23).
+
+1. **Route file approval for `[locale]/[...rest]/page.tsx`** (RESOLVED: D-21)
    - What we know: without it, unmatched URLs and proxy-rewritten slugs answer 404 with Next's default English page. `global-not-found` cannot read the locale and bypasses the layouts. The file serves no content; every URL it matches answers 404. next-intl documents it as the standard recipe.
    - What's unclear: CLAUDE.md says "ask before adding routes", and D-06 says "no new route".
    - Recommendation: ask Teo at the start of the 404 plan (checkpoint). If he refuses, the fallback is `global-not-found` with a bilingual page whose language an inline script picks from `location.pathname`. Worse on every axis, so flag it as such.
+   - **RESOLVED (D-21):** Teo approved the route file. It only calls `notFound()`; no other new route. Implemented in 05-02 Task 1.
 
-2. **Contact delivery for launch (Resend + Upstash never created)**
+2. **Contact delivery for launch (Resend + Upstash never created)** (RESOLVED: D-22)
    - What we know: production fails closed with mailto. The reviewer task "How would you contact him?" exercises it. The phase does not list CONT requirements.
    - Recommendation: ask Teo in the domain plan whether to create Resend (DNS on Porkbun, which can be done in the same DNS session as the apex records) and Upstash now, so `contact-live.spec.ts` can finally run. Otherwise launch with mailto and log it as Teo's decision.
+   - **RESOLVED (D-22):** Resend and Upstash are set up in this phase, in the same Porkbun DNS session as the domain (05-01). Production contact must pass `e2e/contact-live.spec.ts` before the reviews (05-07). CI keeps the fail-closed path.
 
-3. **Analytics on Preview** — Recommendation: load it on `production` and `preview` (Pattern 3), so the enforce pass on Preview has analytics active. Whether the dashboard separates Preview traffic is not verified [ASSUMED]. If Teo wants clean numbers, switch to production-only after the Preview pass.
+3. **Analytics on Preview** (RESOLVED: D-23). Recommendation: load it on `production` and `preview` (Pattern 3), so the enforce pass on Preview has analytics active. Whether the dashboard separates Preview traffic is not verified [ASSUMED]. If Teo wants clean numbers, switch to production-only after the Preview pass.
+   - **RESOLVED (D-23):** analytics loads on Preview and Production, never locally or in CI (05-04 `SiteAnalytics`).
 
 ## Environment Availability
 
@@ -498,7 +503,7 @@ Only the root `app/not-found` and `global-not-found` support `metadata` (not-fou
 | Custom domain on Vercel / Porkbun records | QUAL-09 | ✗ (parking) | — | Teo dashboard steps |
 | GitHub secrets ADMIN_EMAIL / ADMIN_PASSWORD | QUAL-05 CI | ✗ | — | Teo adds them |
 | BLOB_READ_WRITE_TOKEN in CI | upload e2e | ✗ (by design) | — | Upload checked on Preview/local |
-| Resend / Upstash | live contact | ✗ | — | Fail-closed + mailto (Open Question 2) |
+| Resend / Upstash | live contact | ✗ | — | Created in 05-01 (D-22, resolves Open Question 2) |
 
 ## Security Domain
 

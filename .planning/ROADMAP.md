@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Panel admin + CV** - Teo publica todo el contenido desde `/admin` y genera el CV en PDF en/es (días 5–7) (completed 2026-11-22)
 - [x] **Phase 4: Sitio público** - Casos de estudio, home, about y contacto en en/es, con SEO y movimiento; entrega el valor central (días 8–10) (completed 2026-11-24)
 - [x] **Phase 04.1: Contenido y posicionamiento full stack + AI** (INSERTED) - Contenido y CV reescritos con el posicionamiento full stack + AI, con hechos reales, antes del lanzamiento (completed 2026-11-25)
-- [ ] **Phase 5: Pulido y lanzamiento** - Accesibilidad, 404, CSP en bloqueo, analytics, revisión por 3 personas y producción (días 11–14)
+- [ ] **Phase 5: Pulido y lanzamiento** - Accesibilidad, 404, CSP en bloqueo, analytics, revisión por 3 perfiles (agentes, re-alcance D-07) y producción (días 11–14)
 
 ## Phase Details
 
@@ -313,7 +313,7 @@ Plans:
 
 ### Phase 5: Pulido y lanzamiento
 
-**Goal**: El sitio es accesible, está medido, lo revisaron tres personas reales y está en producción en mateojaras.dev
+**Goal**: El sitio es accesible, está medido, lo revisaron tres perfiles distintos (agentes, re-alcance D-07; una revisión humana queda pendiente, D-10) y está en producción en mateojaras.dev
 **Depends on**: Phase 4; el lanzamiento (producción, Search Console, revisiones) depende además de Phase 04.1. El pulido (a11y, 404, CSP, analytics, e2e en CI) no depende de 04.1
 **Requirements**: SITE-08, QUAL-03, QUAL-05, QUAL-06, QUAL-07, QUAL-08, QUAL-09
 **Success Criteria** (what must be TRUE):
@@ -321,7 +321,7 @@ Plans:
   1. Solo con teclado, y con `prefers-reduced-motion` activo, un visitante recorre todas las rutas públicas en ambos idiomas con foco visible, axe no reporta problemas `serious` ni `critical` (WCAG AA), y una URL inexistente muestra la página 404 en el idioma del visitante
   2. Los tests e2e de Playwright de login, CRUD de proyecto y contacto pasan en CI
   3. La CSP está en modo de bloqueo sin violaciones en las rutas públicas y analytics registra visitas con esa CSP activa, sin que los resultados de Lighthouse de la fase 4 bajen de 95
-  4. Tres personas revisaron el sitio, y sus hallazgos están registrados y resueltos
+  4. Tres revisiones con perfiles distintos (agentes, re-alcance D-07) revisaron el sitio, y sus hallazgos están registrados y resueltos
   5. mateojaras.dev sirve el sitio de producción en ambos idiomas contra la rama `main` de Neon
 
 **Plans**: 7/9 plans executed en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
@@ -354,7 +354,7 @@ Plans:
 **Wave 9** *(blocked on Wave 8 completion)*
 - [ ] 05-09-PLAN.md — Resolución de hallazgos (D-09, D-18), sitemap e indexación en Search Console (D-12) y compuerta de la fase
 **Window**: días 11–12 pulido; días 13–14 margen y lanzamiento
-**Gate**: revisión por 3 personas hecha + sitio en producción
+**Gate**: revisión por 3 perfiles (agentes, re-alcance D-07) hecha + sitio en producción
 **Approvals**: `@vercel/analytics` (y opcionalmente `@vercel/speed-insights`) y el servicio de analytics
 **Accounts**: analytics; Google Search Console en el lanzamiento; DNS de mateojaras.dev en Porkbun apuntando a Vercel
 **Research flag**: no (auditorías)

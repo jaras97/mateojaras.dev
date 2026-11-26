@@ -710,3 +710,11 @@ Decisión: job `e2e` (needs: check) que construye y arranca la app local y corre
 Quién: Claude Code (discreción de CONTEXT); Teo añadió los secrets ADMIN_EMAIL y ADMIN_PASSWORD (05-01).
 Por qué: dos ejecuciones simultáneas no escriben a la vez en la rama dev; el informe de Playwright se sube solo si falla.
 Verificación: ejecución verde de CI en phase-05-polish.
+
+## 2026-11-26 · QUAL-08 re-alcanzado: 3 revisiones por agentes (05-08)
+
+Contexto: QUAL-08 pedía que 3 personas reales revisaran el sitio antes del lanzamiento. Teo no tiene a quién pedírselo ahora ("no tengo a nadie, podrías revisarlo tú").
+Decisión: tres revisiones independientes por agentes con perfiles distintos (reclutador full stack/AI en Canadá o Europa, cliente freelance, desarrollador), cada una en un contexto separado que solo ve la guía, su perfil y el sitio público en producción. Los hallazgos se registran en `docs/reviews.md` y se resuelven en 05-09. La revisión humana queda pendiente (D-10) y reutilizará `docs/review-guide.md`.
+Quién: Teo decidió el re-alcance (D-07); Claude Code redactó la guía y los prompts, y no escribe ninguna revisión (cada informe es la salida literal de un agente lanzado por separado).
+Por qué: una revisión de agentes con sesgo declarado es mejor que ninguna, pero no sustituye a una persona; por eso REQUIREMENTS y ROADMAP dicen "agentes, re-alcance D-07" y nunca "personas reales".
+Verificación: cada REPORT.md lleva la cabecera `Spawned by:`; los prompts prohíben enviar el formulario, abrir /admin y medir con Lighthouse o carga.

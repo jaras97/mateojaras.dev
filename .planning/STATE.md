@@ -4,16 +4,16 @@ milestone: v1.0
 current_phase: 05
 current_phase_name: Pulido y lanzamiento
 status: executing
-stopped_at: Phase 05 context updated after 4.1
-last_updated: "2026-11-26T16:32:01.943Z"
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-11-26T16:52:57.879Z"
 last_activity: 2026-11-25
 last_activity_desc: Phase 05 execution started
-state_head: 8d2d10dfd04ee187dd436dca0fcc443e0800e8e5
+state_head: c100d10d4e4577eb45f48d9e9db1256aa1e7469b
 progress:
   total_phases: 6
   completed_phases: 4
   total_plans: 72
-  completed_plans: 64
+  completed_plans: 65
 milestone_name: milestone
 ---
 
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-11-22)
 ## Current Position
 
 Phase: 05 (Pulido y lanzamiento) — EXECUTING
-Plan: 2 of 9
+Plan: 3 of 9
 Status: Ready to execute
 Last activity: 2026-11-25 — Phase 05 execution started
 
@@ -88,6 +88,7 @@ Progress: [███████░░░] 67%
 | Phase 03 P12 | ~20m | 1 tasks | 8 files |
 | Phase 04 P01 | 20 min | 2 tasks | 18 files |
 | Phase 04 P14 | 10 min | 3 tasks | 12 files |
+| Phase 05 P02 | 1h | 5 tasks | 21 files |
 
 ## Accumulated Context
 
@@ -136,6 +137,7 @@ Recent decisions affecting current work:
 - [Phase 03]: 03-12: CvData carries raw ISO dates and lastModified; absent site URL means url/canonical omitted
 - [Phase 04]: Pass t.raw('figure') to CaseGallery in page.tsx only (G-04-2) — Component expects raw template
 - [Phase 04.1]: 04.1-06: Q1 a deploy; Q2 a keep label (Claude recommended b); Q8 a approve wording; logistics site block descartado
+- [Phase 05]: 05-02: 404 real desde el proxy con memo solo positivo y carga bloqueante acotada a 1,5 s
 
 ### Pending Todos
 
@@ -166,6 +168,6 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 ## Session Continuity
 
-Last session: 2026-11-26T00:47:42.601Z
-Stopped at: Phase 05 context updated after 4.1
+Last session: 2026-11-26T16:52:57.396Z
+Stopped at: Completed 05-02-PLAN.md
 Resume file: .planning/phases/05-pulido-y-lanzamiento/05-CONTEXT.md

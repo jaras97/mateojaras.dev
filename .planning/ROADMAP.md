@@ -327,14 +327,31 @@ Plans:
 **Plans**: 9 plans en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
 
 Plans:
+**Wave 1**
 - [ ] 05-01-PLAN.md — Dominio mateojaras.dev, Resend, Upstash, Analytics, TXT de Search Console y secrets de GitHub en una sesión de Teo; verificador `scripts/check-live.ts`
+
+**Wave 2** *(blocked on Wave 1 completion)*
 - [ ] 05-02-PLAN.md — 404 real: `[locale]/[...rest]` (D-21) y guardia de slugs en `proxy.ts` con memo solo positivo (D-06), verificado primero en Preview
+
+**Wave 3** *(blocked on Wave 2 completion)*
 - [ ] 05-03-PLAN.md — Rediseño del 404 (D-04/D-05), variantes del favicon MJ (D-20) y aprobación agrupada de Teo
+
+**Wave 4** *(blocked on Wave 3 completion)*
 - [ ] 05-04-PLAN.md — Vercel Web Analytics solo en el sitio público (D-01..D-03, D-23) y CSP en bloqueo con Blob en connect-src (D-16, D-17), pasada sin violaciones en Preview
+
+**Wave 5** *(blocked on Wave 4 completion)*
 - [ ] 05-05-PLAN.md — Favicon aprobado en ambos layouts raíz y barrido de accesibilidad (es, 404, 390 px, oscuro, reduced motion)
+
+**Wave 6** *(blocked on Wave 5 completion)*
 - [ ] 05-06-PLAN.md — Job e2e en CI (login, CRUD de proyecto, contacto fail-closed, 404, cabeceras) contra Neon dev
+
+**Wave 7** *(blocked on Wave 6 completion)*
 - [ ] 05-07-PLAN.md — PR, go de Teo, merge a main y todas las compuertas en mateojaras.dev, incluido el contacto en vivo (D-22)
+
+**Wave 8** *(blocked on Wave 7 completion)*
 - [ ] 05-08-PLAN.md — Guía de revisión en/es y 3 revisiones por agentes con perfiles distintos (re-alcance D-07..D-10)
+
+**Wave 9** *(blocked on Wave 8 completion)*
 - [ ] 05-09-PLAN.md — Resolución de hallazgos (D-09, D-18), sitemap e indexación en Search Console (D-12) y compuerta de la fase
 **Window**: días 11–12 pulido; días 13–14 margen y lanzamiento
 **Gate**: revisión por 3 personas hecha + sitio en producción

@@ -620,3 +620,11 @@ Decisión: se aplica el diff aprobado a PROJECT.md, .planning/PROJECT.md y CLAUD
 Quién: Teo (aprobó), Claude Code (aplicó).
 Por qué: la herramienta no lo regenera y editarlo a mano contradice el plan; queda pendiente para Teo.
 Verificación: git diff de los tres archivos.
+
+## 2026-11-26 · Una sola base Upstash para Production y Preview (05-01)
+
+Contexto: D-22. Upstash solo guarda los contadores de rate limit del formulario de contacto, con clave por IP hasheada.
+Decisión: una única base Upstash Redis compartida por Production y Preview, sin base separada para dev.
+Quién: Teo (decidió), Claude Code (registró).
+Por qué: compartirla es inocuo, porque los contadores no contienen datos de usuario ni contenido del sitio.
+Verificación: al crear las variables KV_REST_API_URL y KV_REST_API_TOKEN, ambas se asignan a Production y Preview.

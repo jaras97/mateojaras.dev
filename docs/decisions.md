@@ -702,3 +702,11 @@ Decisión: variante a (MJ terracota en cuadrado de papel a sangre, variante oscu
 Quién: Teo eligió la variante ("favicon:a", 2026-11-26, 05-APPROVALS.md); Claude Code la dibujó desde los tokens y generó los rasters con Playwright, sin dependencias nuevas.
 Por qué: coherente con DESIGN.md (sin tile redondeado, sin degradado).
 Verificación: e2e/favicon.spec.ts (enlaces en `/` y `/admin/login`, firmas ICO y PNG, content-type del SVG).
+
+## 2026-11-26 · e2e en CI contra Neon dev (05-06)
+
+Contexto: QUAL-05. Cada push debe ejecutar login, CRUD de proyectos y contacto.
+Decisión: job `e2e` (needs: check) que construye y arranca la app local y corre `auth`, `admin-projects`, `contact`, `not-found` y `headers` contra Neon dev. Grupo de concurrencia global `e2e-neon-dev` sin cancelar. Contacto en modo fail-closed: CI no tiene variables de Resend ni Upstash y `contact-live` queda fuera, así que nunca se envía un correo real.
+Quién: Claude Code (discreción de CONTEXT); Teo añadió los secrets ADMIN_EMAIL y ADMIN_PASSWORD (05-01).
+Por qué: dos ejecuciones simultáneas no escriben a la vez en la rama dev; el informe de Playwright se sube solo si falla.
+Verificación: ejecución verde de CI en phase-05-polish.

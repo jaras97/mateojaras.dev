@@ -54,7 +54,7 @@ jobs:
           path: ~/.cache/ms-playwright
           key: pw-${{ runner.os }}-${{ steps.pw.outputs.v }}
       - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm exec playwright test e2e/auth.spec.ts
+      - run: pnpm exec playwright test e2e/auth.spec.ts e2e/admin-projects.spec.ts e2e/contact.spec.ts e2e/not-found.spec.ts e2e/headers.spec.ts
       - uses: actions/upload-artifact@v7
         if: failure()
         with:

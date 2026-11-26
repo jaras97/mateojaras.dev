@@ -114,7 +114,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [ ] **QUAL-06**: CSP en modo de bloqueo sin violaciones en las rutas públicas
 - [ ] **QUAL-07**: Analytics instalado (con la CSP ajustada)
 - [ ] **QUAL-08**: 3 personas revisan el sitio y los hallazgos se registran y resuelven
-- [ ] **QUAL-09**: El sitio está en producción en mateojaras.dev
+- [x] **QUAL-09**: El sitio está en producción en mateojaras.dev
 
 ### Posicionamiento (POS)
 
@@ -251,7 +251,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | QUAL-06 | Phase 5 | Pending |
 | QUAL-07 | Phase 5 | Pending |
 | QUAL-08 | Phase 5 | Pending |
-| QUAL-09 | Phase 5 | Pending |
+| QUAL-09 | Phase 5 | Complete |
 | POS-01 | Phase 04.1 | Complete |
 | POS-02 | Phase 04.1 | Complete |
 | POS-03 | Phase 04.1 | Complete |

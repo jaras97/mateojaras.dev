@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Base técnica** - Esqueleto andante desplegado: login admin, Preview en verde, seed real y decisión del plan B (días 3–4) (completed 2026-11-16)
 - [x] **Phase 3: Panel admin + CV** - Teo publica todo el contenido desde `/admin` y genera el CV en PDF en/es (días 5–7) (completed 2026-11-22)
 - [x] **Phase 4: Sitio público** - Casos de estudio, home, about y contacto en en/es, con SEO y movimiento; entrega el valor central (días 8–10) (completed 2026-11-24)
-- [ ] **Phase 04.1: Contenido y posicionamiento full stack + AI** (INSERTED) - Contenido y CV reescritos con el posicionamiento full stack + AI, con hechos reales, antes del lanzamiento
+- [x] **Phase 04.1: Contenido y posicionamiento full stack + AI** (INSERTED) - Contenido y CV reescritos con el posicionamiento full stack + AI, con hechos reales, antes del lanzamiento (completed 2026-11-25)
 - [ ] **Phase 5: Pulido y lanzamiento** - Accesibilidad, 404, CSP en bloqueo, analytics, revisión por 3 personas y producción (días 11–14)
 
 ## Phase Details
@@ -275,7 +275,7 @@ Plans:
 **Scope (de 05-CONTEXT D-13):** titular, bio, Now, experiencia, los 4 casos de estudio, orden del stack, textos SEO y OG, CV en/es; decidir si el propio portafolio entra como caso de estudio; actualizar el texto "frontend" de PROJECT.md y CLAUDE.md con aprobación de Teo
 **Requirements**: POS-01, POS-02, POS-03, POS-04, POS-05, POS-06, POS-07, POS-08, POS-09, POS-10, POS-11
 **Depends on:** Phase 4
-**Plans:** 12/12 plans executed
+**Plans:** 12/12 plans complete
 
 Plans:
 **Wave 1**

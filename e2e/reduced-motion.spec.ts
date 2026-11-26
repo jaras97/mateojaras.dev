@@ -19,6 +19,8 @@ async function routes() {
     "/es/sobre-mi",
     "/contact",
     "/es/contacto",
+    "/foo",
+    "/es/foo",
   ];
 }
 

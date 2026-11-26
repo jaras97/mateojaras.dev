@@ -95,8 +95,28 @@ Domain: mateojaras.dev, www redirige ✓ (vs www canónico). Search Console: Sí
 
 ---
 
+## Update after Phase 4.1 (2026-11-25)
+
+Trigger: 4.1 complete; production live on mateojaras-dev.vercel.app; domain still parked at Porkbun. Areas: all four proposed, plus a favicon (Teo: "agreguemos un icono para el fabincon del navegador o algo por el estilo").
+
+| Question | Options | Selected |
+|----------|---------|----------|
+| When to connect mateojaras.dev | Ya, al inicio / Al final, tras el pulido | Ya, al inicio |
+| How polish ships | Rama + Preview, luego main / Directo a main por tarea | Rama + Preview |
+| Blob hosts in connect-src | Sí, apruebo / Solo en /admin | Sí, apruebo |
+| script-src strictness | Mantener 'unsafe-inline' / Intentar hashes | Mantener 'unsafe-inline' |
+| When the 3 reviews run | Después del pulido / Ahora, en paralelo | Después del pulido |
+| Content fixes from reviews | Desde el admin / Loader sobre main | Desde el admin |
+| 4.1 code-review leftovers | Backlog / Incluir en fase 05 | Backlog |
+| Favicon mark | Monograma "MJ" / "T" / Marca de bitácora | Monograma "MJ" |
+
+**User's choice:** all recommended options.
+
+---
+
 ## Claude's Discretion
 
+- Favicon technique (icon.svg + dark variant, PNG/apple-icon, manifest)
 - CI e2e against Neon dev, contact without real email or live Upstash
 - CSP switch to enforce after a zero-violation pass, Lighthouse no regression
 - 404 for unmatched URLs (global-not-found vs [locale]/not-found)

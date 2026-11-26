@@ -205,6 +205,7 @@ Contexto: chequeo del día 3 del ROADMAP (BASE-09) sobre `pnpm build && pnpm sta
 Decisión: GO. Se mantiene `cacheComponents: true`; no se aplica el plan B. Plan B no aplicado.
 Quién: Teo (eligió la opción a tras el informe de Claude Code, que operaba bajo la pre-aprobación del plan B).
 Por qué: señal 1 PASS (rutas prerenderizadas, 5 rutas de proyecto, sin errores de build); señal 2 PASS (lang en/es, títulos de Neon, Accept-Language ignorado); señal 3 PASS (/es/proyectos/<slug> 200, /projects/<slug> 200, /es/projects/<slug> redirige); señal 4 PASS con el criterio reajustado: UI de not-found + noindex + sin contenido de borradores, sin exigir el status HTTP; señal 5 PASS (AuthGate en Suspense, login, recarga y logout); señal 6 PASS (sin cadenas cruzadas tras 5 peticiones calientes); señal 7 omitida (verificado en la fase 3). El criterio original de la señal 4 (404 real) no es alcanzable con Cache Components: el shell se envía antes del `notFound()` de tiempo de petición (Next 16.4, loading.md "Status codes" y not-found.md), así que un slug desconocido o borrador responde 200 en servidor frío y 404 cuando la caché ya está caliente. Un intento con una consulta cacheada de slugs publicados y `notFound()` al inicio de la página no cambió el resultado. Coste aceptado: posibles reportes de soft 404 en Search Console para URLs con noindex que nadie enlaza. Si Search Console se queja, se puede revisar un 404 desde `proxy.ts` (con comprobación de slug), que la documentación señala como la vía para un status garantizado.
+Nota 2026-11-26: Revertido en 05-02 (D-06): el proxy devuelve 404 real.
 Verificación: salida de `bash scripts/go-no-go.sh` (señales 1 a 6 PASS, veredicto GO); e2e de public.spec.ts agnóstico al status (200 o 404), válido en servidor frío y caliente.
 
 ## 2026-11-16 · La rama Neon `dev` no existía
@@ -522,6 +523,7 @@ Decisión: se acepta la limitación en v1. Se probó `notFound()` antes del Susp
 Quién: Claude Code.
 Por qué: un 404 real exige cambiar la arquitectura (quitar el App Shell de la ruta o pasar al Plan B de caché), fuera del alcance de SEO.
 Verificación: e2e/seo.spec.ts (noindex y ausencia en el sitemap).
+Nota 2026-11-26: Revertido en 05-02 (D-06): el proxy devuelve 404 real.
 
 ## 2026-11-22 · Imágenes OG sin alt localizado (04-10)
 Contexto: `generateImageMetadata` recibe `params` vacío en rutas `[locale]` durante la recolección de datos del build.
@@ -628,3 +630,27 @@ Decisión: una única base Upstash Redis compartida por Production y Preview, si
 Quién: Teo (decidió), Claude Code (registró).
 Por qué: compartirla es inocuo, porque los contadores no contienen datos de usuario ni contenido del sitio.
 Verificación: al crear las variables KV_REST_API_URL y KV_REST_API_TOKEN, ambas se asignan a Production y Preview.
+
+## 2026-11-26 · 404 real desde el proxy con memo solo positivo (05-02)
+
+Contexto: D-06. Con Cache Components el shell prerenderizado confirma un 200 antes de que `notFound()` corra dentro de la página, así que solo el proxy puede decidir el status de un slug desconocido o borrador.
+Decisión: `src/proxy.ts` consulta `isPublishedSlug` tras `handleI18n` y reescribe a `/{locale}/__missing` (la ruta catch-all) cuando el slug no está publicado y visible. El memo guarda solo positivos (TTL 60 s). Con el memo frío o cuando el slug no está en el memo, hace una carga bloqueante acotada a 1,5 s, compartida entre peticiones concurrentes; abre (deja pasar) solo ante error de base de datos o timeout; con el memo viejo refresca en segundo plano con `waitUntil`. Las peticiones con la cookie `__prerender_bypass` (Draft Mode) se saltan la guarda. Ventana aceptada al despublicar: hasta TTL más un refresco; la página sigue mostrando el not-found con noindex. Lighthouse en Preview (3 corridas, móvil): /projects/centro-estetico-manuj rendimiento 96, LCP 2,23 s, CLS 0; /es/proyectos/centro-estetico-manuj rendimiento 96, LCP 2,24 s, CLS 0.
+Quién: Teo decidió revertir el costo (D-06); Claude Code eligió el mecanismo. Se desvía de RESEARCH Pattern 1, que abría en frío con carga en segundo plano: eso devolvía 200 al primer slug desconocido de cada instancia.
+Por qué: un 404 real y determinista desde la primera petición, sin poder dar 404 a un proyecto recién publicado (los negativos nunca se memorizan).
+Verificación: src/lib/published-slug-guard.test.ts, e2e/not-found.spec.ts local y en la Preview de la rama, `check-live --only=notfound`.
+
+## 2026-11-26 · Ruta [locale]/[...rest] (05-02)
+
+Contexto: D-21. Las URLs sin ruta bajo un locale mostraban el not-found por defecto sin el idioma ni el layout del sitio.
+Decisión: `src/app/[locale]/[...rest]/page.tsx` solo llama a `notFound()`, de modo que `[locale]/not-found.tsx` se renderiza con HTTP 404 y `lang` correcto (receta de next-intl).
+Quién: Teo (aprobó la ruta nueva), Claude Code (implementó).
+Por qué: 404 localizado en `/foo` y `/es/foo` sin lógica propia.
+Verificación: e2e/not-found.spec.ts en local y en la Preview.
+
+## 2026-11-26 · Verificación de Preview por Vercel CLI (05-02)
+
+Contexto: la integración de Vercel con GitHub no publica deployments de GitHub para este repo, así que `gh api .../deployments` está vacío.
+Decisión: `scripts/wait-preview.ts` lee `vercel ls --environment preview -m githubCommitSha=<HEAD>` (solo lectura) y espera `READY`.
+Quién: Claude Code.
+Por qué: es la fuente de verdad disponible; la alias estable de la rama queda en `.planning/phases/05-pulido-y-lanzamiento/.preview-url`.
+Verificación: `pnpm tsx scripts/wait-preview.ts` imprime `READY <sha>` tras cada push.

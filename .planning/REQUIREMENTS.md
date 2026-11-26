@@ -112,7 +112,7 @@ Convenciones: "Teo" es el único admin; "visitante" es cualquier cliente o reclu
 - [x] **QUAL-04**: `/impeccable:audit` sin hallazgos críticos en cada vista pública
 - [ ] **QUAL-05**: Tests e2e de Playwright para login, CRUD de proyecto y contacto
 - [ ] **QUAL-06**: CSP en modo de bloqueo sin violaciones en las rutas públicas
-- [ ] **QUAL-07**: Analytics instalado (con la CSP ajustada)
+- [x] **QUAL-07**: Analytics instalado (con la CSP ajustada)
 - [ ] **QUAL-08**: 3 personas revisan el sitio y los hallazgos se registran y resuelven
 - [x] **QUAL-09**: El sitio está en producción en mateojaras.dev
 
@@ -249,7 +249,7 @@ Cada requisito v1 está en exactamente una fase de `.planning/ROADMAP.md`.
 | QUAL-04 | Phase 4 | Complete |
 | QUAL-05 | Phase 5 | Pending |
 | QUAL-06 | Phase 5 | Pending |
-| QUAL-07 | Phase 5 | Pending |
+| QUAL-07 | Phase 5 | Complete |
 | QUAL-08 | Phase 5 | Pending |
 | QUAL-09 | Phase 5 | Complete |
 | POS-01 | Phase 04.1 | Complete |

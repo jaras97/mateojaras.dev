@@ -127,4 +127,15 @@ Q7 (K-21, K-07): ajustes de GitHub que haces tú: descripción, homepage `https:
 
 ## Respuestas de Teo
 
-(pendiente)
+Fecha: 2026-11-26. Fuente: Teo se lo escribió al orquestador, que me lo retransmitió. Palabras literales: "ya hice el merge, el resto de cosas segun lo recomiendes". Verifiqué el merge yo mismo con `gh pr view 3`: MERGED por jaras97 el 2026-11-27T03:16:45Z, commit de merge 2860c16.
+
+Mapeo acordado con el orquestador:
+
+| Ítem | Respuesta | Efecto |
+|---|---|---|
+| 1 | "según lo recomiendes": OK a los descartes | K-31, "Ask for a demo" (K-29), resto de K-22 y cursos de Udemy (K-17) pasan a `dismissed` con ese OK |
+| 2 | OK a C-1 a C-4 tal como se propusieron | Teo todavía tiene que entrarlos en el admin de producción (D-18); filas en `pendiente de Teo: entrar en el admin` |
+| 3 | "según lo recomiendes" | Q4 (K-05) dismissed: "es verdad, 1 año". Q1, Q2, Q3, Q5, Q6 y Q7 pasan a backlog, cada una con su pregunta en docs/backlog.md; no se inventó nada |
+| 4 | Merge hecho por Teo en GitHub (2860c16) | "(pendiente de merge)" sustituido por "(merge 2860c16)"; los shas de los commits se conservan |
+| 5 | Sin responder | Search Console sigue pendiente |
+| 6 | Sin responder | Analytics sigue pendiente |

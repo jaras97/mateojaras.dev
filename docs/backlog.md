@@ -32,3 +32,11 @@ Nada de esta lista se construye antes de que mateojaras.dev esté en producción
 - [ ] Speed Insights
 - [ ] Monitoreo (Sentry) y alertas de uptime
 - [ ] Arreglar los hallazgos de 04.1-CODE-REVIEW.md antes de volver a usar scripts/load-content.ts (D-19). CR-01 (el grupo settings descarta un borrador del admin sin avisar) y WR-06 (limpiar borradores de proyecto destruye ediciones de casos sin publicar) descartan borradores sin avisar. WR-01 (el loader no invalida tags ni corre exportContent), WR-02 (apply es atómico por grupo, no por ejecución), WR-03 (`--target=dev` es una comprobación negativa), WR-04 (el dry-run contra main exige `--allow-production`), WR-05 (las claves naturales incluyen campos editables), WR-07 (`readHeadline` trunca un titular de más de una línea `>`)
+
+## Revisión de la fase 5 (preguntas abiertas, sin inventar nada)
+- [ ] Q1 (K-01, K-27, K-30): titular y público objetivo. ¿Para quién trabaja Teo? El único hecho en docs/copy.md es "Busco proyectos con un problema claro y alguien que decida del otro lado". En `/es`: ¿se traducen "AI full stack developer" y los cargos en inglés? Toca docs/copy.md y el título SEO de /es
+- [ ] Q2 (K-02): cronología de Metales y Brillantes. ¿Cuándo empezó a usarse y en qué rol lo construyó (estaba en Sofka)? Falta el hecho; `startedAt` está pendiente en docs/content
+- [ ] Q3 (K-03, K-04, K-14, K-18, K-19, K-20): material y hechos de los casos. Metales: rol, decisiones, capturas con permiso. Prendo, bot y Metales: capturas o diagramas, y el texto "Te muestro una demo". Bot: cifras reales o confirmar que queda cualitativo. ManuJ: capturas del panel, motivo de Supabase para el cliente, cifras con fuente (D-10)
+- [ ] Q5 (K-10, K-23): estilo de la etiqueta "Internal tool, sample data" (toca DESIGN.md), si `sampleData` de Metales es correcto, fechas y orden de los proyectos sin fecha
+- [ ] Q6 (K-15, K-16): enlace para agendar (Cal.com, cuenta nueva), buzón en mateojaras.dev, guía en el formulario (presupuesto, plazo), señal de ofertas de empleo y disponibilidad (tiempo completo o contrato, reubicación, employer-of-record). Toca docs/copy.md
+- [ ] Q7 (K-21): ajustes de GitHub de Teo: descripción, homepage `https://mateojaras.dev`, licencia, y si `.planning/`, `.agents/` y `.claude/` siguen públicos

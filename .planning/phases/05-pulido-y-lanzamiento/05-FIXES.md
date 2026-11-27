@@ -139,3 +139,15 @@ Mapeo acordado con el orquestador:
 | 4 | Merge hecho por Teo en GitHub (2860c16) | "(pendiente de merge)" sustituido por "(merge 2860c16)"; los shas de los commits se conservan |
 | 5 | Sin responder | Search Console sigue pendiente |
 | 6 | Sin responder | Analytics sigue pendiente |
+
+## Contenido entrado en producción (2026-11-27)
+
+Teo autorizó que Claude Code entrara los textos aprobados ("Hazlo", 2026-11-27; excepción a D-18 en docs/decisions.md). Se hizo desde la interfaz de https://mateojaras.dev/admin con Playwright y la sesión normal del admin, sin acceso directo a la base. Las credenciales salieron de `.env.local` y no se mostraron.
+
+| Texto | Estado | Comprobación pública |
+|---|---|---|
+| C-1 | Ya estaba publicado antes de empezar ("Subagents and skills", "CSS"); no se tocó | /, /about, /es/sobre-mi |
+| C-2 | Publicado: las tres etiquetas en en y es, sin "STATE.md" ni notas defensivas | /projects/prendo, /es/proyectos/prendo |
+| C-3 | Publicado: "Completed · 16.5 h" / "Completado · 16.5 h" | /about, /es/sobre-mi |
+| C-4 | Publicado: "Stock derived from the kardex (the log of inventory movements)"; el español sigue "Stock derivado del kardex" | /projects/prendo, /es/proyectos/prendo |
+| K-06 | "Generar CV" → v6 en inglés y en español | `check-cv-pdf.ts` PASS en en (`--chars=é`, espera "Subagents and skills" y "Completed · 16.5 h") y en es (espera "Completado · 16.5 h"); los dos con `--reject-text=vercel.app` |

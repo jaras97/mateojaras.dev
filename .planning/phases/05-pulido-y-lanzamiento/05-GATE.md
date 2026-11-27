@@ -1,4 +1,4 @@
-# 05-GATE: cierre de la fase 5 (parcial, 2026-11-26)
+# 05-GATE: cierre de la fase 5 (parcial, actualizado 2026-11-27)
 
 Estado: NO cerrada. Hay pasos de Teo pendientes (abajo).
 
@@ -32,15 +32,18 @@ RESULT: all PASS
 - fixed: K-06, K-07, K-13, K-24, K-28 (y partes de K-12, K-22, K-29)
 - dismissed: K-05, K-31 (y partes de K-17, K-22, K-29)
 - backlog: K-01, K-02, K-03, K-04, K-08, K-09, K-10, K-14, K-15, K-16, K-18, K-19, K-20, K-21, K-23, K-25, K-27, K-30
-- pendiente de Teo (entrar texto aprobado en el admin): K-11, K-12 (texto), K-17 (texto), K-26
+- fixed en el admin el 2026-11-27: K-11, K-12 (texto), K-17 (texto), K-26 (ver 05-FIXES.md `## Contenido entrado en producción`)
+
+## Hecho el 2026-11-27
+
+1. C-1 ya estaba publicado. C-2, C-3 y C-4 los entró Claude Code en el admin con la autorización de Teo (excepción a D-18 en docs/decisions.md). Verificado en las páginas públicas en y es.
+2. "Generar CV" → v6. `check-cv-pdf.ts` PASS en /cv/en.pdf y /cv/es.pdf con los textos nuevos y sin `vercel.app` (K-06 cerrado en producción).
 
 ## Pendiente de Teo
 
-1. Entrar en https://mateojaras.dev/admin los textos aprobados C-1, C-2, C-3 y C-4 (ver 05-FIXES.md `## Contenido propuesto`). Después Claude los verifica en la página pública en en y es.
-2. Pulsar "Generar CV" en el admin, en inglés y en español, para que el PDF de producción salga sin las letras perdidas (K-06). Después Claude lo comprueba con `scripts/check-cv-pdf.ts`.
 3. Search Console: enviar `https://mateojaras.dev/sitemap.xml` y pedir indexación de `https://mateojaras.dev/` y `https://mateojaras.dev/es` (D-12).
 4. Vercel Analytics: confirmar si el panel muestra visitas de mateojaras.dev (QUAL-07).
 
 ## No cumplido todavía
 
-La línea del gate "Revisión por 3 perfiles hecha y resuelta + sitio en producción" no se marca hasta cerrar los puntos 1 a 4. REQUIREMENTS.md no se ha modificado: QUAL-07 espera la respuesta de analytics y QUAL-08 espera las filas `pendiente de Teo`.
+La línea del gate "Revisión por 3 perfiles hecha y resuelta + sitio en producción" no se marca hasta cerrar los puntos 3 y 4. REQUIREMENTS.md no se ha modificado: QUAL-07 espera la respuesta de analytics.

@@ -718,3 +718,11 @@ Decisión: tres revisiones independientes por agentes con perfiles distintos (re
 Quién: Teo decidió el re-alcance (D-07); Claude Code redactó la guía y los prompts, y no escribe ninguna revisión (cada informe es la salida literal de un agente lanzado por separado).
 Por qué: una revisión de agentes con sesgo declarado es mejor que ninguna, pero no sustituye a una persona; por eso REQUIREMENTS y ROADMAP dicen "agentes, re-alcance D-07" y nunca "personas reales".
 Verificación: cada REPORT.md lleva la cabecera `Spawned by:`; los prompts prohíben enviar el formulario, abrir /admin y medir con Lighthouse o carga.
+
+## 2026-11-27 · Excepción a D-18: Claude Code entra el contenido C-2..C-4 desde el admin (05-09)
+
+Contexto: D-18 dice que Teo entra el contenido de producción desde el admin y que ninguna automatización escribe en producción. Los textos C-1..C-4 de 05-FIXES.md ya estaban aprobados por Teo.
+Decisión: por esta vez, Claude Code entra C-2 (etiquetas de las cifras de Prendo), C-3 (estado del curso AI Coder) y C-4 (título EN de la decisión del kardex) y pulsa "Generar CV". Lo hace desde la interfaz de https://mateojaras.dev/admin con Playwright, con la sesión normal del admin; las credenciales se leen de `.env.local` sin mostrarse. No hay acceso directo a la base ni se ejecuta `scripts/load-content.ts`. C-1 ya estaba publicado cuando se revisó, así que no se tocó.
+Quién: Teo lo autorizó ("Hazlo", 2026-11-27) y aceptó la definición del kardex de C-4 ("the log of inventory movements"); Claude Code ejecutó los cambios.
+Por qué: los textos ya estaban aprobados y Teo prefirió no copiarlos a mano. D-18 sigue vigente para cualquier otro cambio.
+Verificación: páginas públicas en/es y `scripts/check-cv-pdf.ts` tras generar el CV.

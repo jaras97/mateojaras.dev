@@ -36,4 +36,21 @@ describe("FooterLine", () => {
     expect(html).toContain('href="/cv/en.pdf"');
     expect(html).toContain("https://github.com/jaras97/mateojaras.dev");
   });
+
+  it("gives every footer link a 24px minimum target height (K-29)", () => {
+    const html = renderToStaticMarkup(
+      <FooterLine
+        settings={{
+          ...base,
+          githubUrl: "https://github.com/x",
+          linkedinUrl: "https://linkedin.com/in/x",
+        }}
+        locale="en"
+        labels={labels}
+      />,
+    );
+    const links = html.match(/<a [^>]*>/g) ?? [];
+    expect(links).toHaveLength(4);
+    for (const link of links) expect(link).toContain("py-[3px]");
+  });
 });

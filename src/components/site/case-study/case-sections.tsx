@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { PlainText } from "@/components/site/case-study/plain-text";
+import { InlineText, PlainText } from "@/components/site/case-study/plain-text";
 import { SectionMarginNumber } from "@/components/site/case-study/section-margin-number";
 import { PageSection } from "@/components/site/page-section";
 import type { Locale } from "@/features/site-settings/types";
@@ -114,7 +114,9 @@ export function CaseSections({
         >
           <ul className="flex list-disc flex-col gap-2 ps-4">
             {results.map((result) => (
-              <li key={result}>{result}</li>
+              <li key={result}>
+                <InlineText text={result} />
+              </li>
             ))}
           </ul>
         </PageSection>

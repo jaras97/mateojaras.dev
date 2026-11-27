@@ -1,5 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
+import { CaseCta } from "@/components/site/case-study/case-cta";
 import { CaseGallery } from "@/components/site/case-study/case-gallery";
 import { CaseHeader } from "@/components/site/case-study/case-header";
 import { CaseMetrics } from "@/components/site/case-study/case-metrics";
@@ -33,6 +34,24 @@ const baseProject = {
   },
   techDecisionsEs: null,
 };
+
+describe("CaseMetrics alignment (R1-10)", () => {
+  it("packs each figure at the top so values share one line", () => {
+    const html = renderToStaticMarkup(
+      <CaseMetrics
+        metrics={[
+          { label: "Short", value: "1" },
+          {
+            label: "A much longer label that wraps onto two lines",
+            value: "2",
+          },
+        ]}
+        label="Key figures"
+      />,
+    );
+    expect(html.match(/flex-col-reverse justify-end/g)).toHaveLength(2);
+  });
+});
 
 describe("CaseMetrics", () => {
   it("renders nothing for no metrics", () => {
@@ -118,6 +137,18 @@ describe("CaseSections", () => {
   });
 });
 
+describe("PlainText inline code (K-13)", () => {
+  it("renders backtick spans as <code> without literal backticks", () => {
+    const html = renderToStaticMarkup(
+      <PlainText text={"Security on `company_id` here.\n\n- item `a_b`"} />,
+    );
+    expect(html).toContain("<code");
+    expect(html).toContain(">company_id</code>");
+    expect(html).toContain(">a_b</code>");
+    expect(html).not.toContain("`");
+  });
+});
+
 describe("PlainText", () => {
   it("renders paragraphs and lists", () => {
     const html = renderToStaticMarkup(
@@ -155,6 +186,13 @@ describe("CaseHeader period", () => {
       <CaseHeader {...props} startedAt="2025-09-01" finishedAt="2025-11-01" />,
     );
     expect(html).toContain("Sep 2025 – Nov 2025");
+  });
+  it("prints a single month once when start and end fall in the same month (K-28)", () => {
+    const html = renderToStaticMarkup(
+      <CaseHeader {...props} startedAt="2026-08-01" finishedAt="2026-08-20" />,
+    );
+    expect(html).toContain("Aug 2026");
+    expect(html).not.toContain("Aug 2026 – Aug 2026");
   });
   it("prints present without an end date", () => {
     const html = renderToStaticMarkup(
@@ -312,5 +350,15 @@ describe("CaseGallery with the real catalog figure template", () => {
       />,
     );
     expect(html).toBe("");
+  });
+});
+
+describe("CaseCta", () => {
+  it("renders a plain link, not announced as a button (K-24)", () => {
+    const html = renderToStaticMarkup(
+      <CaseCta closing="Closing" label="Talk" href="/contact" />,
+    );
+    expect(html).not.toContain('role="button"');
+    expect(html).toMatch(/<a [^>]*href="\/contact"[^>]*>Talk<\/a>/);
   });
 });

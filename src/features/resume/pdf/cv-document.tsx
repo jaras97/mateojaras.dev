@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
     fontSize: 9.5,
     lineHeight: 1.4,
     color: INK,
+    // No fi/ff ligature glyphs: their ToUnicode entries are multi-codepoint and
+    // strict text extractors (ATS) drop letters ("fve years"). K-06.
+    fontFeatureSettings: { liga: false, clig: false },
   },
   name: {
     fontFamily: "Funnel Display",

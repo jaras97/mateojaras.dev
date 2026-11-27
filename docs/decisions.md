@@ -726,3 +726,11 @@ Decisión: por esta vez, Claude Code entra C-2 (etiquetas de las cifras de Prend
 Quién: Teo lo autorizó ("Hazlo", 2026-11-27) y aceptó la definición del kardex de C-4 ("the log of inventory movements"); Claude Code ejecutó los cambios.
 Por qué: los textos ya estaban aprobados y Teo prefirió no copiarlos a mano. D-18 sigue vigente para cualquier otro cambio.
 Verificación: páginas públicas en/es y `scripts/check-cv-pdf.ts` tras generar el CV.
+
+## 2026-11-27 · Cierre de la fase 5 (05-09)
+
+Contexto: compuerta de la fase 5: revisión por 3 perfiles hecha y resuelta, y sitio en producción.
+Decisión: la fase se cierra. Las 31 filas del Consolidado de `docs/reviews.md` terminan como fixed, dismissed o backlog. El contenido C-1..C-4 está publicado (C-2..C-4 con la excepción a D-18 de arriba) y el CV v6 está generado. Teo envió el sitemap a Search Console y pidió la indexación de `/` y `/es`. La confirmación del panel de Vercel Analytics la hará Teo por su cuenta y no bloquea el cierre.
+Quién: Teo decidió cerrar sin la confirmación de Analytics ("dejemos el tema de analitycs como algo mio y dala por terminada", 2026-11-27); Claude Code verificó la producción y registró la evidencia.
+Por qué: el script y el beacon de Analytics ya responden 200 en producción (check-live), así que lo que falta es solo mirar el panel.
+Verificación: 05-GATE.md (RESULT: all PASS), 05-PROD-VERIFY.md, CI en main.

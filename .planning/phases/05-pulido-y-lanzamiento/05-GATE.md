@@ -1,6 +1,6 @@
-# 05-GATE: cierre de la fase 5 (parcial, actualizado 2026-11-27)
+# 05-GATE: cierre de la fase 5 (cerrada, 2026-11-27)
 
-Estado: NO cerrada. Hay pasos de Teo pendientes (abajo).
+Estado: cerrada. Analytics queda como tarea de Teo (abajo).
 
 ## Evidencia ya obtenida
 
@@ -39,11 +39,17 @@ RESULT: all PASS
 1. C-1 ya estaba publicado. C-2, C-3 y C-4 los entró Claude Code en el admin con la autorización de Teo (excepción a D-18 en docs/decisions.md). Verificado en las páginas públicas en y es.
 2. "Generar CV" → v6. `check-cv-pdf.ts` PASS en /cv/en.pdf y /cv/es.pdf con los textos nuevos y sin `vercel.app` (K-06 cerrado en producción).
 
-## Pendiente de Teo
+3. Search Console: Teo verificó la propiedad de dominio, envió `https://mateojaras.dev/sitemap.xml` y pidió indexación de `/` y `/es` ("listo, hecho", 2026-11-27). El sitemap responde 200 `application/xml` con 9 `<loc>`, y robots.txt lo enlaza.
 
-3. Search Console: enviar `https://mateojaras.dev/sitemap.xml` y pedir indexación de `https://mateojaras.dev/` y `https://mateojaras.dev/es` (D-12).
-4. Vercel Analytics: confirmar si el panel muestra visitas de mateojaras.dev (QUAL-07).
+## Analytics (QUAL-07): tarea de Teo
 
-## No cumplido todavía
+4. Teo decidió no confirmar el panel de Vercel Analytics antes del cierre y lo deja como tarea suya ("dejemos el tema de analitycs como algo mio y dala por terminada", 2026-11-27). Lo que sí está probado es que el script y el beacon responden 200 en producción (check-live, arriba). QUAL-07 ("Analytics instalado") ya estaba cumplido; la verificación del panel queda en manos de Teo y no bloquea el cierre.
 
-La línea del gate "Revisión por 3 perfiles hecha y resuelta + sitio en producción" no se marca hasta cerrar los puntos 3 y 4. REQUIREMENTS.md no se ha modificado: QUAL-07 espera la respuesta de analytics.
+## Compuerta
+
+- 3 revisiones por perfiles (agentes, re-alcance D-07) hechas, 31 de 31 filas del Consolidado con disposición (fixed, dismissed o backlog). La revisión humana queda pendiente (D-10).
+- Sitio en producción en mateojaras.dev, check-live all PASS, CI en main verde, `pnpm check` en verde.
+- Contenido C-1..C-4 publicado y verificado en en y es; CV v6 con check-cv-pdf PASS.
+- Search Console: sitemap enviado e indexación pedida de `/` y `/es`.
+
+RESULT: all PASS (QUAL-07 dashboard check deferred to Teo by his decision, 2026-11-27)

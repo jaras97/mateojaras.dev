@@ -40,3 +40,7 @@ Nada de esta lista se construye antes de que mateojaras.dev esté en producción
 - [ ] Q5 (K-10, K-23): estilo de la etiqueta "Internal tool, sample data" (toca DESIGN.md), si `sampleData` de Metales es correcto, fechas y orden de los proyectos sin fecha
 - [ ] Q6 (K-15, K-16): enlace para agendar (Cal.com, cuenta nueva), buzón en mateojaras.dev, guía en el formulario (presupuesto, plazo), señal de ofertas de empleo y disponibilidad (tiempo completo o contrato, reubicación, employer-of-record). Toca docs/copy.md
 - [ ] Q7 (K-21): ajustes de GitHub de Teo: descripción, homepage `https://mateojaras.dev`, licencia, y si `.planning/`, `.agents/` y `.claude/` siguen públicos
+
+## Code review de la fase 5 (2026-11-27)
+
+- [ ] Resolver los hallazgos de `.planning/phases/05-pulido-y-lanzamiento/05-REVIEW.md` (CR-01, WR-01..08, IN-01..08). Prioridad: CR-01 y WR-06..08 antes de volver a usar `scripts/load-content.ts --apply`; WR-02 y WR-03 a continuación. Disposición en 05-REVIEW-DISPOSITION.md

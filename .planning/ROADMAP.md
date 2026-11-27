@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Panel admin + CV** - Teo publica todo el contenido desde `/admin` y genera el CV en PDF en/es (días 5–7) (completed 2026-11-22)
 - [x] **Phase 4: Sitio público** - Casos de estudio, home, about y contacto en en/es, con SEO y movimiento; entrega el valor central (días 8–10) (completed 2026-11-24)
 - [x] **Phase 04.1: Contenido y posicionamiento full stack + AI** (INSERTED) - Contenido y CV reescritos con el posicionamiento full stack + AI, con hechos reales, antes del lanzamiento (completed 2026-11-25)
-- [ ] **Phase 5: Pulido y lanzamiento** - Accesibilidad, 404, CSP en bloqueo, analytics, revisión por 3 perfiles (agentes, re-alcance D-07) y producción (días 11–14)
+- [x] **Phase 5: Pulido y lanzamiento** - Accesibilidad, 404, CSP en bloqueo, analytics, revisión por 3 perfiles (agentes, re-alcance D-07) y producción (días 11–14) (completed 2026-11-27)
 
 ## Phase Details
 
@@ -324,7 +324,7 @@ Plans:
   4. Tres revisiones con perfiles distintos (agentes, re-alcance D-07) revisaron el sitio, y sus hallazgos están registrados y resueltos
   5. mateojaras.dev sirve el sitio de producción en ambos idiomas contra la rama `main` de Neon
 
-**Plans**: 9/9 plans executed en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
+**Plans**: 9/9 plans complete en 9 olas (secuenciales: una rama de pulido, un `.next` y un Preview compartidos; 4 interrupciones a Teo agrupadas)
 
 Plans:
 **Wave 1**
@@ -391,4 +391,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Base técnica | 9/9 | Complete    | 2026-11-16 |
 | 3. Panel admin + CV | 14/14 | Complete    | 2026-11-22 |
 | 4. Sitio público | 15/15 | Complete    | 2026-11-24 |
-| 5. Pulido y lanzamiento | 9/9 | In Progress | - |
+| 5. Pulido y lanzamiento | 9/9 | Complete    | 2026-11-27 |

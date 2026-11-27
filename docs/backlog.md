@@ -44,3 +44,4 @@ Nada de esta lista se construye antes de que mateojaras.dev esté en producción
 ## Code review de la fase 5 (2026-11-27)
 
 - [ ] Resolver los hallazgos de `.planning/phases/05-pulido-y-lanzamiento/05-REVIEW.md` (CR-01, WR-01..08, IN-01..08). Prioridad: CR-01 y WR-06..08 antes de volver a usar `scripts/load-content.ts --apply`; WR-02 y WR-03 a continuación. Disposición en 05-REVIEW-DISPOSITION.md
+- [ ] El HTML del servidor del 404 (`/foo`, `/es/foo`) es el shell de error de Next sin `lang`; el idioma llega tras hidratar (verificación de la fase 5, relacionado con WR-04)

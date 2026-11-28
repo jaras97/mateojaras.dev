@@ -1,39 +1,36 @@
 ---
 gsd_state_version: "1.0"
 milestone: v1.0
-current_phase: 05
-status: completed
+status: Awaiting next milestone
 stopped_at: Phase 05 complete — all phases complete
-last_updated: "2026-11-27T16:00:03.855Z"
-last_activity: 2026-11-27
-last_activity_desc: Phase 05 complete
-state_head: 7f2a6f8e6683ecd8e610a278b10917b7a939b9e6
+last_updated: "2026-11-28T05:36:47.188Z"
+last_activity: 2026-11-28
+last_activity_desc: Milestone v1.0 completed and archived
+state_head: 89fe4d530e172a298f6346cf70a371bd7de28285
 progress:
   total_phases: 6
   completed_phases: 5
   total_plans: 72
   completed_plans: 72
-  percent: 83
 milestone_name: milestone
+current_phase: 05
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-11-22)
+See: .planning/PROJECT.md (updated 2026-11-28)
 
 **Core value:** Los casos de estudio (`/projects/[slug]`) convencen a un cliente o reclutador de que Teo sabe decidir y entregar.
-**Current focus:** Phase 05 — Pulido y lanzamiento
+**Current focus:** Planning next milestone (v1.0 Lanzamiento shipped 2026-11-28)
 
 ## Current Position
 
-Phase: 05
-Plan: Not started
-Status: All phases complete
-Last activity: 2026-11-27 — Phase 05 complete
-
-Progress: [████████░░] 83%
+Phase: Milestone v1.0 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-11-28 — Milestone v1.0 completed and archived
 
 ## Performance Metrics
 
@@ -165,10 +162,19 @@ Items acknowledged and deferred at milestone close, most recent first:
 
 | Category | Item | Status | Deferred At | Milestone |
 |----------|------|--------|-------------|-----------|
-| *(none)* | | | | |
+| debug_sessions | case-study-figure-intl-format-error | diagnosed (fixed: t.raw in page.tsx) | 2026-11-28 | v1.0 |
+| deferred_items | 04/deferred-items.md: header language link label mismatch | acknowledged (fixed in 04-11) | 2026-11-28 | v1.0 |
+| deferred_items | 04/deferred-items.md: header nav full page load | acknowledged (fixed in 04-11) | 2026-11-28 | v1.0 |
+| deferred_items | 04/deferred-items.md: language label fix assigned to 04-11 | acknowledged (fixed in 04-11) | 2026-11-28 | v1.0 |
+| deferred_items | 04/deferred-items.md: soft 404 and og:image:alt | acknowledged (404 real in prod; og:image:alt open, accepted) | 2026-11-28 | v1.0 |
+| deferred_items | 04/deferred-items.md: 04-11 resolution note | acknowledged | 2026-11-28 | v1.0 |
 
 ## Session Continuity
 
 Last session: 2026-11-26T16:52:57.396Z
 Stopped at: Phase 05 complete — all phases complete
 Resume file: .planning/phases/05-pulido-y-lanzamiento/05-CONTEXT.md
+
+## Operator Next Steps
+
+- Start the next milestone with /gsd-new-milestone

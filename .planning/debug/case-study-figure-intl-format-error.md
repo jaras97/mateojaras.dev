@@ -3,6 +3,10 @@ status: diagnosed
 trigger: "case-study-figure-intl-format-error: opening a populated project (e.g. /es/proyectos/centro-estetico-manuj) throws FORMATTING_ERROR for {n} / {total}"
 created: 2026-11-24T00:00:00Z
 updated: 2026-11-24T00:00:00Z
+audit_acknowledged:
+  milestone: v1.0
+  at: 2026-11-28
+  status: diagnosed
 ---
 
 ## Current Focus

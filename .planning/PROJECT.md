@@ -23,13 +23,21 @@ Los casos de estudio (`/projects/[slug]`) tienen que convencer a un cliente o re
 - ✓ Formulario de contacto con Resend, rate limit de Upstash y honeypot; enlace a Cal.com — Phase 4 (UAT 2026-11-24)
 - ✓ SEO por idioma: hreflang, OG, metadatos desde SiteSettings — Phase 4 (UAT 2026-11-24)
 - ✓ Movimiento dentro del presupuesto (reveal, SplitHeading, 1–2 escenas GSAP, tema con View Transitions) y respeto de `prefers-reduced-motion` — Phase 4 (UAT 2026-11-24)
+- ✓ Identidad cerrada: DESIGN.md aprobado, tokens CSS y tema shadcn propios, variante A del hero — v1.0 (Phase 1, G7)
+- ✓ Base técnica: esquema Drizzle + migraciones, Better Auth con un solo admin, next-intl con `next/root-params`, seed, CI y Preview en Vercel — v1.0 (Phase 2)
+- ✓ Contenido real: entra por el admin en lugar de `docs/content/` (re-alcance de Teo en G4/G7, D-10); posicionamiento full stack + AI — v1.0 (Phases 3, 4.1, 5)
+- ✓ Pulido: WCAG AA, 404 real, CSP en bloqueo, Vercel Analytics, revisión por 3 perfiles hecha por agentes (D-07; la humana sigue pendiente, D-10) — v1.0 (Phase 5)
+- ✓ Lanzamiento en mateojaras.dev con el sitemap en Search Console — v1.0 (Phase 5, 2026-11-27)
 
 ### Active
 
-- [ ] Identidad cerrada: DESIGN.md aprobado (concepto en palabras de Teo), tokens CSS y tema shadcn propios, variante del hero elegida entre 3 en código
-- [ ] Contenido real en el repo: capturas, URLs, métricas y textos en/es de los 4 proyectos en `docs/content/` y `material/`, y `docs/copy.md` sin marcadores
-- [ ] Base técnica: esquema Drizzle + migración, Better Auth con un solo admin, next-intl con locale desde `next/root-params`, seed con contenido real, CI y preview en Vercel
-- [ ] Pulido: a11y WCAG AA, 404, analytics, revisión por 3 personas
+(Ninguno: la v1 está entregada. Los requisitos del próximo milestone salen de `/gsd-new-milestone`.)
+
+Candidatos conocidos para el próximo milestone (no comprometidos):
+- Revisión humana del sitio (QUAL-08, D-10) y confirmación de visitas en Vercel Analytics (QUAL-07)
+- Arreglos del code review de la fase 5 (CR-01, WR-01..08) en `docs/backlog.md`
+- `/gsd-secure-phase 05`
+- Lo que Teo promueva de `docs/backlog.md`
 
 ### Out of Scope
 
@@ -41,13 +49,14 @@ Los casos de estudio (`/projects/[slug]`) tienen que convencer a un cliente o re
 
 ## Context
 
-- Repo casi vacío: solo el scaffold y los archivos de contexto (`CLAUDE.md`, `DESIGN.md`, `docs/`). El código empieza de cero.
-- `PROJECT.md` raíz afirma que `docs/content/` ya tiene el material de los 4 proyectos, pero al 2026-10-29 la carpeta solo tiene `.gitkeep`, `material/` está vacía y `docs/copy.md` sigue con marcadores `[Teo escribe]`. Cargarlo es trabajo de la fase 1 y bloquea la fase 3.
-- Proyectos a mostrar: Centro Estético ManuJ (centroesteticomanuj.com), EcoExport Costa Rica (ecoexportcostarica.com/es), Sistema de Gestión de Inventario (sin URL pública), App de Finanzas Personales (Next.js + FastAPI + PostgreSQL).
-- Dirección de arte: "la bitácora de un taller". Secciones numeradas, entradas con fecha, Funnel Display + Hanken Grotesk + Geist Mono, un solo acento terracota en OKLCH, tema claro por defecto. Detalle en `DESIGN.md` (estado: PROPUESTA hasta que Teo lo apruebe).
+- **Estado al cierre de la v1.0 (2026-11-28):** en producción en https://mateojaras.dev. Unas 29.000 líneas de TypeScript en `src/`, 82 archivos de tests unitarios y 43 specs e2e, con el CI en verde en `main`. El stack fijado se mantuvo sin cambios de versión mayor, y Cache Components siguió activo: el plan B no hizo falta.
+- El contenido vive en Neon y lo publica Teo desde `/admin`. `docs/content/` quedó como contrato y material de apoyo, y el CV v6 se generó desde el admin.
+- Proyectos publicados: Prendo, Centro Estético ManuJ, Metales y Brillantes, EcoExport Costa Rica, App de Finanzas Personales y un bot de arbitraje (según lo publicado en el admin).
+- Lo que más pidieron los revisores (cliente, reclutador y developer) fue demos o capturas de los paneles, testimonios, más claridad sobre para quién trabaja, y proceso o precios. Precios y testimonios siguen fuera de alcance por decisión de Teo y por el backlog.
+- Deuda conocida: CR-01 y WR-01..08 del code review de la fase 5, `og:image:alt` sin localizar y la fase 5 sin SECURITY.md (ver `.planning/MILESTONES.md`, Known Gaps).
+- Dirección de arte: "la bitácora de un taller", aprobada (detalle en `DESIGN.md`).
 - El copy lo escribe Teo en primera persona; Claude solo corrige gramática y naturalidad.
-- `docs/decisions.md` registra quién decidió qué; alimenta un futuro caso de estudio del propio portafolio.
-- Referencias de estructura: eduardbodak.com, finethought.com.au, antfu.me.
+- `docs/decisions.md` registra quién decidió qué y alimenta un futuro caso de estudio del propio portafolio.
 
 ## Constraints
 
@@ -64,12 +73,15 @@ Los casos de estudio (`/projects/[slug]`) tienen que convencer a un cliente o re
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Next.js fullstack + admin propio, v1 de 5 entidades y 4 rutas | Un solo deploy, SEO nativo, el admin demuestra capacidad fullstack; el recorte protege la fecha | — Pending |
-| Dirección "bitácora de un taller" | Identidad propia frente a la estética genérica de IA | — Pending (aprobación de Teo en fase 1) |
-| Casos de estudio como prioridad máxima | Es lo que convence a clientes y reclutadores | — Pending |
-| Respetar las 5 fases definidas por Teo en el roadmap | Ya tienen compuertas claras y días asignados | — Pending |
-| Contenido y copy como compuerta de la fase 1 | `docs/content/` está vacío; sin contenido real no se puede probar el admin ni los casos de estudio | — Pending |
-| `PROJECT.md` raíz manda sobre `.planning/PROJECT.md` | Evita dos fuentes de verdad divergentes | — Pending |
+| Next.js fullstack + admin propio, v1 de 5 entidades y 4 rutas | Un solo deploy, SEO nativo, el admin demuestra capacidad fullstack; el recorte protege la fecha | ✓ Good: entregado; Teo edita sin redeploy |
+| Dirección "bitácora de un taller" | Identidad propia frente a la estética genérica de IA | ✓ Good: aprobada en G7; los revisores la vieron seria y sobria |
+| Casos de estudio como prioridad máxima | Es lo que convence a clientes y reclutadores | ⚠️ Revisit: Prendo y ManuJ convencen, pero Metales y Brillantes es pobre y faltan demos o capturas de los paneles (revisión de la fase 5) |
+| Respetar las 5 fases definidas por Teo en el roadmap | Ya tienen compuertas claras y días asignados | ✓ Good: se añadió la 4.1 (posicionamiento); fueron unos 30 días en lugar de 14, por la regla de calidad sobre fecha |
+| Contenido y copy como compuerta de la fase 1 | `docs/content/` está vacío; sin contenido real no se puede probar el admin ni los casos de estudio | ⚠️ Revisit: Teo movió el contenido al admin (G4/G7); la compuerta pasó a las fases 3, 4.1 y 5 |
+| `PROJECT.md` raíz manda sobre `.planning/PROJECT.md` | Evita dos fuentes de verdad divergentes | ✓ Good |
+| Cache Components + next-intl con `next/root-params` (sin el plan B) | Shell estático por idioma con invalidación por tag | ✓ Good: aguantó; el 404 real necesitó trabajo extra en la fase 5 |
+| Re-alcance de QUAL-08 a revisiones hechas por agentes (D-07) | No había 3 revisores humanos a tiempo | ⚠️ Revisit: la revisión humana sigue pendiente (D-10) |
+| Excepción a D-18: Claude entró C-2..C-4 en el admin de producción | Teo lo autorizó ("Hazlo", 2026-11-27) | — Una sola vez; registrada en docs/decisions.md |
 
 ## Evolution
 
@@ -89,4 +101,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-11-24 after Phase 4*
+*Last updated: 2026-11-28 after v1.0 milestone*
